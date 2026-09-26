@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mica v0.1 4B 在真实 Minecraft 中拿到铁镐，且未生成任何 token</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Mica v0.1 4B 在真实 Minecraft 中拿到铁镐，且未生成任何 token</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：小模型决策式 agent 在游戏环境中的实验，方法有趣<br/>原标题：Mica v0.1 4B got an iron pickaxe in real Minecraft without generating a single token</small></p>
+<p><strong>要点</strong></p><ul><li>Mica v0.1 4B 在真实 Minecraft 1.20.4 服务器中从空背包造出铁镐</li><li>全程不生成任何 token，只读取答案标签 token 的概率来选指令</li><li>共 23 次决策，每次约 90 到 150 毫秒，用 llama.cpp Q5_K_M 跑在 RTX 3090 上</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqahbz/mica_v01_4b_got_an_iron_pickaxe_in_real_minecraft/"> <img alt="Mica v0.1 4B got an iron pickaxe in real Minecraft without generating a single token" src="https://external-preview.redd.it/Z3A3ZWozMnF4cXJoMRk8Ziu-aulg3JwF3l5R0pnVZ3TteZT-qRyvc-fsiXx0.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=2ba729e7d8cc58a277ce316f861fd8a1d9bc0572" title="Mica v0.1 4B got an iron pickaxe in real Minecraft without generating a single token"> </a> </div>
+<p>Mica v0.1 4B 正在真实的 Minecraft 1.20.4 服务器上游戏。附视频。</p>
+<p>工作原理</p>
+<p>- 每一步，机器人的实时游戏状态（物品栏、附近的方块、实体、上一次结果）都会被写成文本。</p>
+<p>- Mica 对候选命令打分并选出下一个。它从不生成文本。它读取答案标签 token 的概率，因此输出 token 为 0。</p>
+<p>- 选中的命令通过 Mindcraft 的技能库（Mineflayer 机器人）在游戏中执行。</p>
+<p>运行</p>
+<p>- 从空物品栏到铁镐共 23 次决策：原木、木板、工作台、木镐、石头、石镐、熔炉、铁矿石、冶炼、铁镐</p>
+<p>- 每次决策约 90 到 150 毫秒</p>
+<p>- llama.cpp、Q5_K_M、RTX 3090</p>
+<p>关于视频</p>
+<p>- 右侧面板实时显示每一次决策：候选命令、Mica 的概率、最终选择以及结果。每一步也都会列在历史记录中。</p>
+<p>- 长时间动作（行走、挖矿、冶炼）已加速，屏幕上会显示加速倍率。连续重试在剪辑中已缩短。</p>
+<p>- HUD 以及合成/熔炉界面是根据机器人记录的物品栏绘制的。</p>
+<p>权重：<a href="https://huggingface.co/sky7350/Mica-v0.1-4B">https://huggingface.co/sky7350/Mica-v0.1-4B</a></p>
+<p>代码与服务器：<a href="https://github.com/akivet/Mica-v0.1-4B">https://github.com/akivet/Mica-v0.1-4B</a></p>
+<p>由   <a href="https://www.reddit.com/user/Top-Evidence174"> /u/Top-Evidence174 </a> 提交</p>
+<br>
+<p><span><a href="https://v.redd.it/ba75tm1qxqrh1">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqahbz/mica_v01_4b_got_an_iron_pickaxe_in_real_minecraft/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqahbz/mica_v01_4b_got_an_iron_pickaxe_in_real_minecraft/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

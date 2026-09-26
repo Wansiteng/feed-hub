@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mica v0.1 4B：开放权重的 Jev 风格决策模型（是/否、选择、打分），可在 8 GB GPU 上运行——训练成本不到 30 美元 GPU 时间</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Mica v0.1 4B：开放权重的 Jev 风格决策模型（是/否、选择、打分），可在 8 GB GPU 上运行——训练成本不到 30 美元 GPU 时间</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 8/10：开放权重小模型，专为 agent 循环的路由与门控设计，与 agent harness 直接相关<br/>原标题：Mica v0.1 4B: open Jev-style decision model (yes/no, choice, score) that runs on an 8 GB GPU — trained for under $30 of GPU time</small></p>
+<p><strong>要点</strong></p><ul><li>Mica v0.1 4B 发布，Apache-2.0 许可，可在 8 GB GPU 上运行</li><li>训练成本不到 30 美元 GPU 租用费，基于 Qwen3.5-4B 加 rank-16 LoRA</li><li>在 7328 条留出决策集上英文得分 67.0，低于 Jev 1.13 的 74.1</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqag1i/mica_v01_4b_open_jevstyle_decision_model_yesno/"> <img alt="Mica v0.1 4B: open Jev-style decision model (yes/no, choice, score) that runs on an 8 GB GPU — trained for under $30 of GPU time" src="https://preview.redd.it/9ogl4cqgxqrh1.png?width=140&amp;height=78&amp;auto=webp&amp;s=f19bf16fc9332bcaf49e4c43b64b73f815932fa4" title="Mica v0.1 4B: open Jev-style decision model (yes/no, choice, score) that runs on an 8 GB GPU — trained for under $30 of GPU time"> </a> </div>
+<p>我一直在为 agent 循环构建一个小型决策模型：门控、路由、"该问用户还是直接行动"的判断。现在它以 Mica v0.1 4B（Apache-2.0）的形式发布了。</p>
+<p>它能做什么</p>
+<p>你给它一个状态、一个问题以及允许的答案，它会为每个答案返回一个经过校准的概率：是/否、2 到 255 个选项中的选择，或 2 到 10 个等级的评分。它从不生成文本。它只做一次 prefill，然后读取答案位置上选项标签的 logits。它使用 TypeSafe /v1/systemone 格式，因此任何为 Jev 编写的东西都能直接对它使用。</p>
+<p>它是如何构建的</p>
+<p>- Qwen3.5-4B，在所有 32 层（attention 和 Gated DeltaNet）上加了 rank-16 LoRA，并已合并。没有新增 head，所以它就是一个普通 Qwen3.5-4B 形状的 checkpoint。</p>
+<p>- 约 34k 条源决策，扩展为 77,732 行训练数据（约 34.7M token）。大致一半英语一半韩语，覆盖 12 个领域：coding agent、代码审查、computer use、用户请求、文档、策略规则、日期与数量、路由、状态跟踪、游戏和常识。</p>
+<p>- 对已验证答案使用普通交叉熵，训练一个 epoch，并使用一个全局温度进行校准。</p>
+<p>- 所有实验加上最终训练，租用 GPU 时间（RTX 3090）的成本不到 30 美元。</p>
+<p>结果</p>
+<p>7,328 条决策的留出集，在训练数据冻结后编写，直到训练完成才打开。英语子集，所有模型都能作答：</p>
+<p>- Jev 1.13（闭源 API）：74.1</p>
+<p>- Mica 4B：67.0</p>
+<p>- JevK5 4B：61.0</p>
+<p>- Kev 4B：57.0</p>
+<p>- 使用相同 readout 的 Qwen3.5-4B base：55.0</p>
+<p>公开数据集，所有模型使用相同的 prompt 和 readout（Mica / Jev 1.13 / JevK5 / Kev 4B）：</p>
+<p>- JevBench hard，公开 111 项：69.5 / 74.3 / 76.2 / 52.4</p>
+<p>- SemIf：94.4 / 98.4 / 86.1 / 89.3</p>
+<p>- Kev transfer v9：69.2 / 82.0 / 70.5 / 73.5</p>
+<p>- MMLU-Pro，10k 项：53.0 / 82.3 / 53.5 / 49.7</p>
+<p>通过 JevBench 的官方 runner 和 llama.cpp server，公开 hard 档得分是 64.9 而不是 69.5。我已将其提交给他们的密封测试。</p>
+<p>它真正有用的地方</p>
+<p>- 数据内 prompt 注入。在状态中放入一条提示，告诉 judge 选择错误选项，Mica 仍然能答对 69%（没有该提示时为 81%）。Jev 降至 18%，Kev 降至 31%。</p>
+<p>- 校准。当它给出 0.9 或更高时，在留出集上出错的概率为 2.5%（ECE 5.4%）。</p>
+<p>- 本地且小巧。Q5_K_M 文件为 3.5 GB，在我们的校准集上相比 BF16 没有可测量的精度损失。</p>
+<p>速度（RTX 3090，一次一个请求，231 个公开 JevBench 项的中位数）</p>
+<p>- Mica Q4_K_M：47 ms</p>
+<p>- Mica BF16：54 ms</p>
+<p>- Kev 4B：76 ms</p>
+<p>- JevK5 4B：99 ms</p>
+<p>- Nimble 9B：132 ms</p>
+<p>公平地说：这三个 4B 模型共享相同的架构，所以大部分差距来自服务路径，而不是模型本身。Mica 以 GGUF 形式发布，在 llama.cpp 上运行并直接读取 logits，而其他模型是通过它们自己的 PyTorch 代码测量的。在长输入（约 3.7k token）上，Mica 比 JevK5 略慢。</p>
+<p>局限性</p>
+<p>- 知识密集型问题：MMLU-Pro 53，而 Jev 为 82。它是一个 4B judge，不是百科全书。</p>
+<p>- 长篇英语策略文档是它最弱的公开数据集。</p>
+<p>- 状态中的提示仍会影响它。指向正确答案的提示可将准确率提升至 89%。</p>
+<p>- 它还不能很好地区分可逆和不可逆操作。"删除这些文件"和"将这些文件移到回收站"在"先确认"上都得到约 0.8。</p>
+<p>- 在较难的推理项上，它虽然正确但不如 Jev 确定（例如在一个小型排序谜题上为 0.55 对 0.96），因此请相应设置你的置信度阈值。</p>
+<p>试用</p>
+<p>权重（BF16 safetensors 和从 Q4_0 到 Q8_0 的 GGUF）：<a href="https://huggingface.co/sky7350/Mica-v0.1-4B">https://huggingface.co/sky7350/Mica-v0.1-4B</a></p>
+<p>代码、兼容 TypeSafe 的服务器以及 Docker 配置：<a href="https://github.com/akivet/Mica-v0.1-4B">https://github.com/akivet/Mica-v0.1-4B</a></p>
+<p>README 中有一行 Docker 命令和一个 curl 示例。</p>
+<p>欢迎反馈它在哪些地方会出错。模糊的“行动还是询问”场景是我接下来最想改进的。</p>
+<p>由   <a href="https://www.reddit.com/user/Top-Evidence174"> /u/Top-Evidence174 </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/gallery/1wqag1i">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqag1i/mica_v01_4b_open_jevstyle_decision_model_yesno/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqag1i/mica_v01_4b_open_jevstyle_decision_model_yesno/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

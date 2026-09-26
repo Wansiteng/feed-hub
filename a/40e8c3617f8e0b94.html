@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ling Tiny 3.0 是未来的一瞥</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Ling Tiny 3.0 是未来的一瞥</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 7/10：8B MoE 开放模型可在老笔记本跑 llama.cpp，本地推理相关<br/>原标题：Ling Tiny 3.0 is a glimpse of the future</small></p>
+<p><strong>要点</strong></p><ul><li>Ling 3.0 Tiny 是 80 亿参数 MoE 模型，激活参数仅 10 亿</li><li>在 2017 年 i5 笔记本上以 10 tokens/秒运行 llama.cpp</li><li>模型自主完成写代码、运行、反馈、迭代的完整流程</li></ul>
+<hr/>
+<p>我一直在折腾 Ling 3.0 Tiny，这是一个 80 亿参数的模型（MoE，激活参数 1B）。结果我产生了许多深刻的感触。纯粹为了好玩，我在一台旧笔记本上用 llama.cpp 把它跑了起来。这是一台 2017 年的笔记本，第 7 代 i5 加 8G 内存，连现代任务都几乎跑不动。没有显存，没有 GPU。总之，我在上面跑起了 Pi，让它写一个脚本，扫描本地网络，找出 llama.cpp 服务器上所有可用的模型。它开始以大约每秒 10 tokens 的速度吭哧吭哧地跑。20 分钟后，它完成了。</p>
+<p>它来回进行了好几轮：写代码、运行、获取反馈、再迭代。</p>
+<p>是的，这是个简单的任务。但在 2020 年，这个任务得花我一两个小时。</p>
+<p>如此土豆般的硬件竟然能在合理的时间内完成有用的工作，这简直不可思议。10 亿激活参数小到让一块老 CPU 几乎不用任何优化就能跑到每秒 10 tokens。也就是说，我只是编译了 llama.cpp，然后跑了我找到的第一个 Q6 量化版本。</p>
+<p>我想说的是，你还记得一两年前那种感觉吗？低头看着自己昂贵的 GPU 主机，心想：哇，现在电脑自己会写代码了。它真的让人感觉有点什么，好像它 somehow 有智能似的。</p>
+<p>而现在，从 2015 年以来生产的每一台土豆级普通计算设备，都开始有这种体验了。</p>
+<p>显然，更贵的主机在能效、成本效率和生成 tokens 的速度上永远会好得多。所以实际使用老旧土豆硬件可能永远都不实用。</p>
+<p>但也许它会变得有意义。一个稍微有点智能的电脑可以在后台做各种各样的事情。所以这可能是边缘智能的一个新开端。不需要新的算力。只是所有已经存在的东西突然就能开始执行智能任务了。不太确定。</p>
+<p>我想我只是想说，我很惊讶，看着我的 GPU 时那种奇怪的感觉——觉得里面不只是一堆比特——如今在一颗老 CPU 上也能体会到。（不，我不认为它有意识。不是在说那个。）</p>
+<p>由   <a href="https://www.reddit.com/user/netherreddit"> /u/netherreddit </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

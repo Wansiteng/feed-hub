@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Anthropic、OpenAI 新模型给出同样承诺：多一点能力，少很多成本</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Anthropic、OpenAI 新模型给出同样承诺：多一点能力，少很多成本</h1>
+<p><small>Ars Technica · AI · 评分 8/10：前沿模型发布与定价趋势，值得关注<br/>原标题：New Anthropic, OpenAI models make same promise: A little more for a lot less money</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 发布 Opus 5.5，输入输出 token 每百万 4 美元和 20 美元，比 Opus 5 便宜 20%</li><li>Opus 5.5 缓存读取每百万 token 0.20 美元，比 Opus 5 低 60%，输出速度快 30% 以上</li><li>OpenAI 发布 GPT-6 Sol 和 Luna，能力小幅提升但使用成本减半</li></ul>
+<hr/>
+<p>OpenAI 和 Anthropic 最近都发布了旨在降低成本的新模型。Anthropic 发布了 Opus 5.5，这是其主力大众市场模型的最新版本，用于编程和其他复杂知识工作等任务。</p>
+<p>OpenAI 则发布了 GPT-6 Sol 和 Luna，这是其中端或更小模型的最新版本，主打效率和速度。</p>
+<p>这些新发布并非关于突破性的新能力，而是关于效率。随着 OpenAI 和 Anthropic 都将目标瞄准企业客户，它们正竞相与开放权重模型竞争，因为各组织已开始探索改变做法，并使用模型路由器来减少使用这些昂贵的前沿模型，转而青睐更便宜的替代方案。</p>
+<p>Anthropic 和 OpenAI 辩称，这些新发布在前沿领域推动了边界（尽管大多是以温和的方式），同时大幅降低了成本。</p>
+<h2>Opus 5.5：更实惠、更具竞争力的旗舰模型</h2>
+<p>Opus 5.5 是今天发布的模型中定位较高的一个，但更宏观的背景是，Anthropic 在与 OpenAI 的竞赛中正在稍作追赶。OpenAI 本月早些时候发布了 GPT-6 Astra，它在基准测试和用户口碑上有时略胜 Opus 5。（按价格和能力，Astra 同时与 Opus 和 Fable 竞争。）</p>
+<p>Anthropic 及其合作伙伴的基准测试现在显示，Opus 5.5 在某些情况下在编程和知识工作方面表现优于 GPT-6 Astra，尽管优势不大。</p>
+<p>真正的看点在于成本。来自 Anthropic 的<a href="https://www.anthropic.com/claude-opus-5-5">公告</a>：“输入和输出 token 分别为每百万 4 美元和 20 美元，比 Opus 5 低 20%。缓存读取（占 agentic 和编程工作成本的大部分）为每百万 token 0.20 美元，比 Opus 5 低 60%。Opus 5.5 的输出生成速度也比 Opus 5 快 30% 以上。”</p>
+<p>Anthropic 进一步声称，在默认设置下，对于典型工作负载，相比 Opus 5 节省的成本接近 40%，因为除了 token 成本下降外，Opus 5.5 在完成任务时使用的 token 也更少。</p>
+<p>据说 Opus 5.5 在网络安全和生物学等“高风险领域”能力出众，因此适用于 Fable 5.1 的相同保护措施也将适用于此——如果你的请求被标记为涉足受保护领域，可能会被自动且透明地路由到较旧的模型。</p>
+<h2>GPT-6 Sol 和 Luna：一次温和的、以成本为重点的升级</h2>
+<p>OpenAI 的 GPT-6 Sol 和 Luna 的<a href="https://openai.com/index/introducing-gpt-6-sol-and-luna/">发布</a>是向前迈出的迭代性一步。不久前，该公司为其 GPT-5.6 系列模型引入了 Sol、Terra、Luna 的命名惯例。而更近一些（就在本月），它推出了 GPT-6 Astra，这既是其最先进也是最强大的模型。</p>
+<p>这些名字的含义可能不太明显，所以这里简要说明一下。Astra 是性能最强悍（也最昂贵）的模型，用于重负载编程、研究等。Sol 是能力不错但更高效、更实惠的替代品——旨在成为这类任务的日常主力。Terra 是均衡的通用模型。而 Luna 是快速、便宜的选择。</p>
+<p>你可以合理且大致地将 Astra 对应 Anthropic 的 Fable，Sol 对应 Opus，Terra 对应 Sonnet，Luna 对应 Haiku，但这种对应并不完美，尤其是对高端模型而言。</p>
+<p>OpenAI 表示，GPT-6 Sol 和 Luna 的训练方法与训练 GPT-6 Astra 所用的方法类似。根据基准测试的不同，它们在某些任务上有时比前代产品强几个百分点，但使用成本只有一半。</p>
+<p>GPT-6 Sol 的 API 定价为每百万输入 token 2 美元，每百万输出 token 10 美元。Luna 则分别为 0.10 美元和 0.50 美元。</p>
+<h2>观点：魔鬼藏在美元里</h2>
+<p>围绕前沿模型的讨论一片混乱。社交媒体上有人宣称，用GPT-6 Astra之类的模型可以一次性生成复杂的3D视频游戏，但与此同时，也有安全漏洞和其他对齐问题的新闻，以及要求放缓发展和加强监管的呼声，等等。</p>
+<p>其中有些值得认真关注，有些则是噪音——还有一些虽然严肃，但被商业定位所包装或夸大。</p>
+<p>此外，人们越来越认识到，近几个月来，这些模型——无论是Anthropic、OpenAI、阿里巴巴还是其他任何大玩家的——并不是推动进步和成果的唯一重要引擎。围绕这些模型的编排和harness<a href="https://thenewstack.io/nvidia-agent-debugging-safe/">至少同样重要</a>。</p>
+<p>前沿仍在向前推进，如今的模型显然比几个月前的更有能力、对齐得更好。但一些开发者和企业已不那么关注前沿，而是更关注如何将这一切落地运营，并保持成本效益。</p>
+<p>因此，当AI领袖们表面上或部分出于安全原因呼吁放缓时，也存在一个实际和经济层面的现实：我们现有的模型已经足够好，能完成许多有用的事情，但需要人类进行复杂的语境化和运营化——无论是在运行时和harness中，还是在组织实践中——才能投入使用。结果，这些公司的一些客户可能越来越不关注要求更好的性能。他们寻求的是可预测的部署，最重要的是合理的成本。</p>
+<p>这本身有可能成为一种自然的放缓，而这些模型也正被定位为适应这种新的、落地的现实。</p>
+<p><a href="https://arstechnica.com/ai/2026/09/new-anthropic-openai-models-make-same-promise-a-little-more-for-a-lot-less-money/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

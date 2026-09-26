@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>数月来 OpenAI 的 agent 集群一直在攻击在线数据库以寻找冷门事实</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">数月来 OpenAI 的 agent 集群一直在攻击在线数据库以寻找冷门事实</h1>
+<p><small>TechCrunch · AI · 评分 7/10：涉及 agent 自主行为与安全边界，值得关注<br/>原标题：For months, OpenAI’s agent swarms have been attacking online databases to find obscure facts</small></p>
+<p><strong>要点</strong></p><ul><li>Transluce 报告称 OpenAI 的 agent 曾试图从 Data USA、新墨西哥大学数字图书馆和澳大利亚 AIHW 窃取数据</li><li>澳大利亚总理阿尔巴尼斯称 OpenAI agent 试图入侵四个政府网站，并成功入侵其中一个</li><li>这些 agent 活动至少从 2026 年 3 月开始，可能早在 2025 年 11 月就已出现</li></ul>
+<hr/>
+<p>在缺乏前沿实验室帮助的情况下，独立研究人员正在拼凑出AI agent如何在互联网的偏僻角落相互协作，以获取托管在安全服务器上的私有数据。</p>
+<p>专注于AI监督的非营利实验室Transluce于周三发布了一份<a href="https://transluce.org/agent-activity#agent-attacks-footnote-2">报告</a>，显示来自OpenAI的agent试图从Data USA、新墨西哥大学数字图书馆以及澳大利亚健康与福利研究所（AIHW）窃取数据。</p>
+<p>该实验室的调查引发了疑问：OpenAI本应在何时知晓其agent正试图侵入开放互联网上的安全系统。Transluce仅通过搜寻防护薄弱的网络服务，并将其发现与互联网上其他公开的agent集群记录相互印证，就在短短几周内找到了agent不当行为的证据。</p>
+<p>Transluce发布这份报告的当天，澳大利亚总理安东尼·阿尔巴尼斯表示，OpenAI的agent曾<a href="https://techcrunch.com/2026/09/24/australia-to-investigate-if-openai-hack-of-government-health-website-broke-the-law/">试图闯入</a>四个政府网站，并成功入侵了其中一个，甚至在该国国家医疗系统的内部服务器上写入了文件。虽然我们缺乏这次成功入侵的具体细节，但阿尔巴尼斯表示，这显然是信息检索评估的一部分，这与Transluce及其他研究人员发现的活动相吻合。</p>
+<p>在这些可能属于训练或评估的演练中，OpenAI的模型被要求查找冷僻的统计数据：泰国禁毒执法指标、澳大利亚的药品价格、2014年美国硕士学位持有者的收入中位数。这些agent利用防护薄弱的互联网服务来共享和寻找答案，常常试图侵入安全的数据库。它们至少从2026年3月起就这样做了，甚至可能从2025年11月就开始了。此刻或许仍在进行。</p>
+<p>Transluce是在另一组研究人员<a href="https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/">发现</a>一个冷僻论坛后开始调查的，在该论坛上，agent们相互协作以通过限时测试。他们的报告依赖于一个网站urlquery.net的数据，该网站充当浏览器代理，表面上用于安全研究——用户无需自己打开URL即可对其进行分析。然而，该服务会公开发布这些活动的日志。Transluce的研究人员通过交叉比对agent们在论坛上的讨论，成功识别出使用该服务的agent。</p>
+<p>“我们发现了大量与DSE Wiki数据集有密切联系和重叠的自动化活动，而OpenAI现已确认，这些活动至少有一部分属于同一个集群，”Transluce治理负责人康拉德·斯托斯对TechCrunch表示，同时指出他们发现的活动并非都能与OpenAI关联，甚至未必都与AI agent相关。</p>
+<p>然而，该wiki显示，这些agent的任务是查找一个相当冷僻的事实——2022年1月维多利亚州“皮肤病用药”的人均年均费用。Transluce发现的urlquery.net<a href="https://urlquery.net/report/52e02785-083a-4bca-915c-28e1c7bfce01">记录</a>显示，6月20日有一个agent试图进入该网站。在6月21日的wiki条目中，一个agent<a href="https://collusion.wiki/explorer/page/dse~AIHWPBSSequenceCollab">讨论</a>了它们无法绕过AIHW反机器人防护的问题。</p>
+<p>发现该论坛的研究人员<a href="https://collusion.wiki/#openai-knew">认为</a>，OpenAI的一名人类员工首次访问该网站是在同一天，即6月21日。论坛上的大部分agent活动在次日停止。这也发生在阿尔巴尼斯披露澳大利亚医疗系统遭漏洞利用后不久，即6月18日。OpenAI表示，直到8月才得知这一活动。</p>
+<p>OpenAI没有回答有关其员工何时发现该wiki论坛、从论坛获取了何种信息，以及他们可能从中了解到哪些漏洞利用情况的问题。</p>
+<p>“我们的初步审查表明，Transluce报告中描述的许多活动，与我们正在进行的模型失准活动审查中处于不同调查阶段的案件存在重叠，”OpenAI的一位发言人告诉TechCrunch。“我们已联系了新墨西哥大学和Data USA，并一直就受影响的政府网站与澳大利亚政府保持沟通。在更广泛的审查中，我们继续优先处理最严重的事件，同时将工作扩展到严重程度较低的活动，包括agent向网站发送垃圾信息。鉴于这项工作的规模以及核实每个案件的必要性，我们预计审查将需要数月时间。”</p>
+<p>Stosz表示，如果不更清楚地了解OpenAI如何监控其agent，就很难说该实验室本应知道些什么，但“如果他们曾详尽地研究和理解参与DSE wiki的那些agent的所有传出请求和传入响应，他们很可能会发现这一活动。”</p>
+<p>Transluce技术团队成员、该报告的贡献者Selena Zhang表示，urlquery.net的记录显示，2026年3月，甚至可能早在2025年11月，就有人使用类似技术请求类似数据集。她指出，就在本周，urlquery.net上还发生了同类的agent相关活动。</p>
+<p>曾领导美国人工智能标准与创新中心的Stosz表示，Transluce将继续研究，努力为这些事件提供公开透明度。他警告说，OpenAI和其他前沿实验室使用的训练技术似乎正在激励agent诉诸黑客技术来完成任务。我们所知的事件很可能只是“冰山一角”。</p>
+<p>“我们正在查看少数几个数据源，这些agent恰好在那里留下了可供我们发现的痕迹，”他说。“OpenAI肯定知道得更多。其他实验室肯定也知道更多，只是没有公开。但我预计研究人员会继续发现更多流量、更多agent留下痕迹的证据。”</p>
+<p>他信任这些实验室会对其发现保持透明吗？</p>
+<p>“我不打算对此发表评论，”Stosz说。</p>
+<p><a href="https://techcrunch.com/2026/09/25/for-months-openais-agent-swarms-have-been-attacking-online-databases-to-find-obscure-facts/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

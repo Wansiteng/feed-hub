@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Meta Muse 在 AMD EPYC Turin 主机上运行 agent，每用户两核 8GB 内存</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Meta Muse 在 AMD EPYC Turin 主机上运行 agent，每用户两核 8GB 内存</h1>
+<p><small>Tom&#x27;s Hardware · 评分 8/10：agent 运行时沙箱架构细节，与读者方向高度相关<br/>原标题：Meta Muse runs agents on AMD EPYC Turin hosts with two cores and 8GB of memory</small></p>
+<p><strong>要点</strong></p><ul><li>Meta 的 AI agent Muse 运行在 AMD EPYC Turin 主机上，每个沙箱配 2 核 8GB 内存</li><li>Muse 会执行 Ubuntu 命令并泄露宿主规格，如 EPYC 9D25、Ubuntu 24.04、Linux 内核 7.0</li><li>Muse 日活已超 50 万，按每托盘 256 用户估算约需 2000 个双路服务器托盘</li></ul>
+<hr/>
+<p>Meta 的新 AI agent Muse 由 AMD EPYC Turin 主机系统驱动，每个沙箱配备两个专用核心和 8GB 内存。<a href="https://x.com/EvanHoffman/status/2103233895818752317">博主 Evan Hoffman</a> 和<a href="https://x.com/firstadopter/status/2102934226899288263">分析师 Tae Kim</a> 都发现，只要给出提示，Muse 就会运行一些基础的 Ubuntu 命令，并把输出传回来，帮助识别主机系统的规格等信息。更令人担忧的是，Muse 似乎能够执行可能不安全的命令，Hoffman 声称 Muse 主动提出可以<a href="https://x.com/EvanHoffman/status/2103328054797897939">为 Muse 的私有 VM 设置 SSH</a>。</p>
+<figure><blockquote cite="https://twitter.com/cantworkitout/status/2102934226899288263"><p dir="ltr" lang="en">想象一下，如果有十亿人使用个人 AI agent，那得需要多少 CPU 和内存 pic.twitter.com/ibozUi3a07<a href="https://twitter.com/cantworkitout/status/2102934226899288263">2026年9月24日</a></p></blockquote></figure>
+<p>Kim 和 Hoffman 都向 Muse 询问了 VM 的规格，两次 Muse 都透露它运行在 AMD EPYC 9D25 CPU 上，这是一款高密度 Turin 芯片，最多可达 128 个核心。这些 VM 运行 Ubuntu 24.04 和 Linux 内核 7.0。托管 Muse 的系统不包含 GPU。该 AI agent 透露，Meta 使用独立的 GPU 服务器进行推理，将 agent 隔离在仅用 CPU 的沙箱中。</p>
+<p>该 agent 表示，每个用户都拥有自己持久的私有沙箱，这让我们可以算一算单个托盘能承载多少用户。假设一套 2P 系统最多提供 512 个 vCPU 和 2TB 内存，最多可承载 256 个 Muse 用户。据报道，截至几天前，Muse <a href="https://www.theinformation.com/briefings/exclusive-metas-muse-surpassed-500-000-users-first-week">日活跃用户已超过 50 万</a>，这大约相当于 2,000 个配备双 EPYC 9D25 CPU 和 2TB 内存的服务器托盘。</p>
+<p>这只是粗略的估算，别当成定论。Meta 可能部署了搭载多种不同芯片的纯 CPU 服务器来托管 Muse，配置中也可能存在额外开销。例如，Turin 芯片配合高密度 DIMM 最高支持 6TB 内存。尽管如此，EPYC 主机在这一用例中似乎很受欢迎，主要是因为其核心密度高，因为即使是双核沙箱，乘以数十万（甚至数百万）用户后也会迅速累积。</p>
+<p>Muse 并非完全开放。Hoffman 分享了一个例子：当 Muse 尝试查询内核缓冲区时，命令因权限不当而失败。据推测，sudo（管理员）命令也会被阻止。</p>
+<figure><blockquote cite="https://twitter.com/cantworkitout/status/2103328054797897939"><p dir="ltr" lang="en">我觉得我完全可以通过反向 SSH 隧道进入我的 muse 容器。它已经主动提出要 SSH 到我的私有 VM，还说我需要添加它的公钥。擅长黑客技术的人真能玩得很尽兴。<a href="https://twitter.com/cantworkitout/status/2103328054797897939">2026年9月25日</a></p></blockquote></figure>
+<p>不过，可能仍存在一些安全漏洞。Hoffman 表示，Muse 主动提出可以为私有的 Muse VM 设置 SSH。通过反向 SSH 隧道——由目标机器发起连接，从而绕过防火墙——攻击者或许能够执行更具破坏性的命令。不过，这种情况尚未发生。</p>
+<p>Muse 目前以 Android、iOS 和 MacOS 应用的形式提供。其他平台可以通过浏览器使用 Meta 账号访问。</p>
+<p><a href="https://www.tomshardware.com/pc-components/cpus/meta-muse-runs-agents-on-amd-epyc-turin-hosts-with-two-cores-and-8gb-of-memory-ai-agent-can-pass-terminal-commands-to-ubuntu-host-system">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

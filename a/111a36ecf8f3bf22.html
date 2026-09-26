@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>出现比以往更快破解 RSA 的新方法</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">出现比以往更快破解 RSA 的新方法</h1>
+<p><small>Ars Technica · 评分 6/10：密码学重要进展，与安全技术沾边<br/>原标题：There&#x27;s a new way to break RSA that&#x27;s faster than anything we&#x27;ve seen before</small></p>
+<p><strong>要点</strong></p><ul><li>新研究提出无需分解大整数即可伪造RSA签名的方法，将1024位密钥安全强度降至265次操作</li><li>该攻击仅针对盲签名RSA，主流PKCS/PSS填充实现不受影响</li><li>攻击1024位RSA在学术CPU集群上耗时数月，远低于传统分解所需资源</li></ul>
+<hr/>
+<p>几十年来，世人皆知<a href="https://en.wikipedia.org/wiki/RSA_cryptosystem">RSA 密码系统</a>的好日子屈指可数。一旦量子计算走向实用（相关估计从 3 年到 20 年以上不等），它所提供的基础安全性将土崩瓦解。新研究揭示了一种利用经典计算的新方法，可将当前 RSA 的安全强度降至不可接受的低水平。</p>
+<p>实际风险有限，但仍不容忽视。将这种攻击应用于已弃用的 1024 位密钥，在学术 CPU 集群上只需几个月，远低于目前对 1024 位因式分解的估计——那需要只有拥有庞大资源的国家或企业才能获得的算力。广泛使用的 RSA 实现也仍然安全。</p>
+<p>尽管如此，这项研究仍令密码学家感到意外，因为它引入了签名伪造——一种无需因式分解即可破解 RSA 密钥的新途径。同样重要的是，这种新方法将所需计算资源降低了几个数量级。</p>
+<h2>不再遥不可及</h2>
+<p>“如果这一结果能通过同行评审，那确实将是一个概念上的突破，”密码学专家、Allurity 创新主管 Karsten Nohl 在接受采访时表示。“RSA 的破解难度等同于大整数分解的难度，至少我们一直这么认为。这位研究者提出，你可以在不破解密钥的情况下实际攻破 RSA。”</p>
+<p>加州大学圣迭戈分校教授、论文合著者 Nadia Heninger 进一步解释道：</p>
+<blockquote><p>密码学家曾认为，计算有效 RSA 数字签名的唯一方法是先通过因式分解算出私钥，再用私钥计算签名。对于 1024 位 RSA，这被认为代价极其高昂，尽管如果你拥有大型科技公司或 NSA 那样的计算资源，或许还是可行的——单个密钥的计算时间成本在数千万美元量级。而对于 2048 位 RSA，这被认为完全遥不可及。</p></blockquote>
+<p>Heninger 和其他研究者设计的<a href="https://eprint.iacr.org/2026/2131.pdf">密钥伪造攻击</a>目前对 1024 位 RSA 已完全实用。即便对于 2048 位和 4096 位密钥，该方法也将 RSA 的安全性降至不可接受的水平。美国国家安全局、<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf">美国国家标准与技术研究院</a>以及<a href="https://web.archive.org/web/20151017094652/https://www.enisa.europa.eu/activities/identity-and-trust/library/deliverables/algorithms-key-size-and-parameters-report-2014/at_download/fullReport">欧盟网络与信息安全局</a>要求，任何密码系统提供的安全强度不得低于 128 位或更高，即所需运算量必须超过 2<sup>128</sup>。</p>
+<p>这种伪造攻击将 1024 位、2048 位和 4096 位密钥的安全强度分别降至 2<sup>65</sup>、2<sup>90</sup> 和 2<sup>119</sup>。这些水平还可能进一步下降，因为 Heninger 团队的所有编码都是手工完成的，在实施伪造时没有使用任何 AI 或 GPU。这位研究者表示，这些工具“几乎肯定会”进一步拉低安全强度。</p>
+<p>该攻击仅针对 RSA 的<a href="https://www.ietf.org/archive/id/draft-irtf-cfrg-rsa-blind-signatures-02.html">盲签名</a>实现有效。如今使用的绝大多数 RSA 都采用 PKCS 或 PSS 填充，这种格式会在加密前向明文添加数据。它可以防止密文具有确定性，并使其更不易受到侧信道及类似攻击的影响。尽管如此，一些现实世界中的系统仍在使用盲签名 RSA，也称为教科书式 RSA。Heninger 表示，最著名的例子是 <a href="https://www.privacyguides.org/articles/2025/04/21/privacy-pass/#card-computers">Privacy Pass</a>，这是一种允许用户在不暴露身份的情况下进行身份验证的协议。Apple 和 Cloudflare 等众多机构都在使用 Privacy Pass。</p>
+<p>对 Privacy Pass 发起攻击，需要攻击者向 Cloudflare、Apple 或其他组织请求 2<sup>43</sup> 个 token。</p>
+<p>对 Privacy Pass 发起攻击，需要攻击者向 Cloudflare、Apple 或其他组织请求 token 2^43 次。</p>
+<p>Heninger 表示，这一要求“听起来[像]很多，但与 Cloudflare 公开表示其大约一天内处理的网络流量处于同一数量级。”大多数 Privacy Pass 实现都会定期轮换密钥，这一措施大大降低了攻击者成功的几率，但并不能自动消除这种可能。</p>
+<p>该技术实现了一种数域筛算法的变体，该算法于 2007 年<a href="https://eprint.iacr.org/2007/424">被发明</a>。这种“‘特殊’数域筛”与“oracle”配合使用，oracle 是某些密码学协议的一种特性，可对查询的输入给出答案。通过执行海量运算，攻击者可以收集到足够的信息来破译密文。（该技术似乎不会对采用 PKCS 或 PSS 填充的 RSA 构成实际威胁，因为它们提供的是不同类型的 oracle。）虽然分解一个 1024 位密钥估计需要 2<sup>80</sup> 次运算和 50 万到 100 万个 CPU 核心年，但使用该筛法伪造一个签名仅需（如前所述）2<sup>65</sup> 次运算和 1,380 个核心年。</p>
+<p>该论文的作者和其他研究人员强调，这种新攻击在现实世界中构成的威胁很小，至少目前如此。然而，它确实大幅降低了 RSA 的估计安全性，而且是以一种此前无人知晓的方式做到的。</p>
+<p>近年来，密码学家们一直在全力设计不易受量子计算攻击的替代密码系统。这种新攻击将进一步增加彻底摆脱该密码系统的紧迫性。论文作者在<a href="https://github.com/ucsd-hacc/NSNFSSSFSFN">此处</a>提供了一份更易于理解的说明。</p>
+<p><em>帖子已更新，以更正第一作者的身份。第一作者是同样来自加州大学圣地亚哥分校的 Laura Shea。</em></p>
+<p><a href="https://arstechnica.com/security/2026/09/theres-a-new-way-to-break-rsa-thats-faster-than-anything-weve-seen-before/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

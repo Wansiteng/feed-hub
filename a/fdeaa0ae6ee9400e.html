@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Qwen-3.8-27B 好到让我不再用 API</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Qwen-3.8-27B 好到让我不再用 API</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 8/10：本地跑中等规模模型替代 API 的实测体验，与本地推理兴趣高度相关<br/>原标题：Qwen-3.8-27B is good enough that I stopped using API</small></p>
+<p><strong>要点</strong></p><ul><li>用户称 Qwen-3.8-27B 足够好用，已停止使用 API</li><li>本地推理成本约每百万 token 输入 2.4 美分、输出 70 美分</li><li>使用 Q4_K_S 量化、Q8_0 量化上下文，在树莓派上跑 Pi agent</li></ul>
+<hr/>
+<p>关于 Qwen-3.8 的赞美已经有很多，但这是我的。</p>
+<p>Qwen-3.8 和我的开局并不顺利，因为它想得太多。看着它工作很痛苦，所以你得停下别看了。你得让它在无人监督下工作。这没关系，因为它确实能独自完成复杂的重构，一路做出不错的决策。不算完美，但话说回来，API 也不完美。</p>
+<p>模型量化是 Q4_K_S，上下文量化为 Q8_0，从质量上看似乎还行。我用的是官方 Qwen。简单试过 Swift-Qwen，确实更快，但我发现它会陷入循环，而这在原版 Qwen 中非常罕见。</p>
+<p>我在 Pi agent 中使用 Qwen-3.8，不用 MCP，工具也保持在最少数量。有 Bash 就够了，但我保留了 read、write 和 edit 工具。Pi 里的 edit 工具是最薄弱的一环，模型经常得重试编辑，因为它把缩进弄乱了。我在等有人为 Pi 做出更容错的 edit。也许哪天我得自己做一个。</p>
+<p>我用 docker 作为沙箱。我的 Pi agent 跑在 Raspberry Pi 上，这似乎挺合适。</p>
+<p>在我的硬件上、在我住的地方，1M token 花费 2.4 美分（输入）和 70 美分（输出），这与 nano-gpt.com 上最便宜的供应商相当。</p>
+<p>由   <a href="https://www.reddit.com/user/Training-Respect8066"> /u/Training-Respect8066 </a>提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp0z3i/qwen3827b_is_good_enough_that_i_stopped_using_api/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp0z3i/qwen3827b_is_good_enough_that_i_stopped_using_api/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp0z3i/qwen3827b_is_good_enough_that_i_stopped_using_api/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

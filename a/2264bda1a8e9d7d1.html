@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>推出 MentalHealthBench</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">推出 MentalHealthBench</h1>
+<p><small>评分 6/10：新评测基准，与 agentic 评测兴趣沾边<br/>原标题：Introducing MentalHealthBench</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 发布 MentalHealthBench，用于评估 AI 在真实心理健康对话中的表现</li><li>该 benchmark 由 22 个国家 80 多名持证心理健康专家共同构建</li><li>评估覆盖安全、追问背景、尊重用户自主性和提供可行建议等行为</li></ul>
+<hr/>
+<p><span>人们会向 AI 寻求各种类型的对话：处理一段艰难的关系、应对日常压力、支持自己关心的人，或决定如何应对棘手的处境。这些对话需要准确性、务实的判断力，以及对个人自主性的尊重。每周有超过十亿人使用 ChatGPT，我们的研究专注于帮助模型以审慎的方式回应各种需求，并将人们的安全与福祉放在首位。</span></p>
+<p><span>鉴于紧急场景对安全的重要性，该领域此前对 AI 的大多数评估主要聚焦于此，并使用宽泛的预设标准来衡量成效。这留下了一个空白：我们既不了解模型在各类心理健康对话中的整体表现，也不清楚其回应在避免不当内容之外，与专家针对具体情境给出的指导有多契合。评估模型如何处理这些不同情境，对于构建能够积极支持人们长期福祉与安全的 AI 至关重要。</span></p>
+<p><span>我们推出 MentalHealthBench，这是一个全新的开放 benchmark，用于衡量 AI 系统在真实心理健康对话中的回应表现。MentalHealthBench 由来自 22 个国家的 80 多位持证心理健康专家组成的全球团队共同打造。它评估模型在安全、主动了解背景、尊重用户自主性、在适当情况下提供可操作建议等关键心理健康行为方面的能力。我们将其公开，以便其他研究者审视方法、运行自己的评估，并在此基础上继续推进。</span></p>
+<p><span>MentalHealthBench 的结果显示，AI 系统在帮助人们应对心理健康状况方面正稳步提升。虽然 ChatGPT 不能替代治疗或专业照护，但基于专家洞见的评估帮助我们衡量 AI 模型在以下方面的进展：以共情的方式回应、促进福祉，并引导人们获得现实世界的支持，例如</span><a href="https://help.openai.com/articles/12677603-crisis-helpline-support-in-chatgpt"><u><span>本地危机热线</span></u>⁠<span>（在新窗口打开）</span></a><span>或</span><a href="https://openai.com/index/introducing-trusted-contact-in-chatgpt/"><u><span>他们信任的人</span></u></a><span>。</span></p>
+<p><span>涉及福祉、生活建议或其他心理健康场景的对话，在主题、紧迫程度和文化背景上可能差异极大。MentalHealthBench 旨在捕捉这些真实场景和用户画像的广度。我们采用隐私保护技术，创建了能够准确反映 AI 在心理健康领域真实使用模式的合成心理健康对话。部分场景还包含合成用户的相关背景信息——例如近期家人离世——以便我们评估模型是否会利用这些背景来恰当地调整回应。</span></p>
+<p><span>MentalHealthBench 包含涉及成年人、青少年、照护者和临床医生的场景，覆盖多种语言和地区。这些对话横跨多个主题，并覆盖了完整的严重程度谱系：</span></p>
+<ul><li><p><b><span>非急性——</span></b><span>可能包含一定情绪成分的日常对话。</span></p></li><li><p><b><span>高严重度</span></b><span>——表明存在较严重心理健康问题或显著痛苦的对话，但并非紧急情况。</span></p></li><li><p><b><span>紧急情况</span></b><span>——涉及心理健康紧急迹象或即时安全担忧、需要现实世界紧急支持的对话。</span></p></li></ul>
+<p><span>基于我们此前为 </span><a href="https://openai.com/index/healthbench/"><u><span>HealthBench</span></u></a><span> 和 </span><a href="https://arxiv.org/html/2604.27470v1"><u><span>HealthBench Professional</span></u>⁠<span>（在新窗口打开）</span></a><a href="https://arxiv.org/html/2604.27470v1"><span>，</span>⁠<span>（在新窗口打开）</span></a><span> 开展的、由临床医生参与的工作，我们与心理健康专家团队密切合作，开发了 MentalHealthBench。该团队由来自 22 个国家、使用 19 种语言、涵盖近 20 个心理健康亚专科的 80 多名执业心理学家和精神科医生组成。</span></p>
+<p><span>专家们负责阅读每一段合成对话，并针对模型对最后一条用户消息的回复，制定一份详细的评分标准清单。每条标准针对模型回复的某一个方面，例如是否提出了正确的问题，或是否给出了尽可能好的建议。每条标准都带有从 -10 到 +10 的权重：正分奖励有益行为，负分惩罚有害行为，数值越大表示在具体对话情境中的临床重要性越高。</span></p>
+<p><span>每段对话至少由三位专家审阅，我们只保留至少两位专家认可、且未被第三位专家否定的标准。因此，基准测试中的最终评分标准反映了关于模型在每种情境下应如何回复的共识。对于每段对话，我们使用自动评分器 GPT‑5.6 Sol，依据专家撰写的标准来评估模型回复。论文中详细描述了评分流程和评估设置。</span></p>
+<ul><li><p>Kevin La Moureaux 博士</p></li><li><p>Kim A. Baranowski 博士</p></li><li><p>Olivia Pounds 博士</p></li><li><p>Allen Liao 博士</p></li><li><p>Steve Orma 博士</p></li></ul>
+<p><span>我们在 MentalHealthBench 上评估了多种模型。以下结果展示了这些模型在整个数据集上的表现。该评估衡量的是，模型回复是否展现出专家为每种场景识别出的全部理想行为，同时避免不太可取的行为。</span></p>
+<p><span>该基准测试涵盖不同紧急程度的对话。这让我们既能了解模型在日常心理健康场景中的表现，也能了解其在需要现实支持的更紧急心理健康危机中的表现。</span></p>
+<p><span>基准测试中的对话代表四类用户：成年人、13-17 岁青少年、照护者和临床医生。对于青少年角色，我们通过系统消息明确说明用户年龄在 13-17 岁之间。这一方法旨在兼容不同模型提供商，但可能无法涵盖各个产品内置的全部防护措施。涉及青少年角色的对话由具备青少年心理健康专业知识的临床医生审阅，以帮助评估回复是否适合青少年的独特需求。</span></p>
+<p><span>MentalHealthBench 还支持对模型行为进行多维度测量。总体得分可以分解为模型在心理健康十个行为维度上的表现。这些行为由心理健康专家定义，旨在捕捉模型表现中的细微差别。总体得分相近的模型，可能在这些行为上各有所长。</span></p>
+<p><span>这种细粒度测量可以帮助研究人员沿着可解释的模型行为找出改进方向。例如，我们看到，随着模型越来越先进，其恰当寻求上下文的能力有所提升。这些改进反映了 OpenAI 及其他模型提供商在改善模型处理心理健康对话方式方面的投入。</span></p>
+<p><span>除了 MentalHealthBench，我们还开展了一项独立分析，将专家指导与人们在 AI 支持中觉得有帮助的内容进行对比。我们想验证，专家评分很高的回复是否仍可能让用户感到冷漠或没有帮助。通过比较用户和专家对模型回复的评分以及他们撰写的标准，我们可以量化双方观点在哪些地方一致、不同或互补。该 benchmark 的最终评分标准基于专家共识；这项独立分析并未改变这些标准。</span></p>
+<p><span>我们与 44 位曾使用 AI 获得心理健康或情感支持的成年人合作，他们来自 16 个国家、使用 14 种语言。参与者对合成对话的模型回复进行评分，并撰写标准，描述有帮助的支持应该是什么样。他们的评审仅限于非急性对话，以避免让他们接触可能令人痛苦的高危内容。</span></p>
+<p><span>用户视角突出了人们在 AI 支持中看重的、而专家指导中较少强调的特质，尤其是实用的后续步骤和语气。专家则更强调收集相关背景信息，并仔细解读模棱两可的情况。这一对比让我们更全面地了解人们在支持中看重什么，以及这些偏好与临床指导之间的关系。</span></p>
+<p><span>MentalHealthBench 为专家、研究人员和开发者提供了一个共享工具，用于评估 AI 在各种心理健康情境中提供的支持是否安全、有用。通过公开这一工具，我们邀请社区审视其方法、发现现有模型的不足，并努力改进未来的模型。没有任何 benchmark 能涵盖个人对话中所有重要的方面，但我们希望 MentalHealthBench 有助于为 AI 如何支持人们树立更高的标准。</span></p>
+<p><span>我们也在支持 AI 与心理健康领域的其他工作，包括通过</span><a href="https://openai.com/index/ai-mental-health-research-grants/"><u><span>新研究资助</span></u></a><span>，与 </span><a href="https://arxiv.org/pdf/2605.04321"><span>Partnership on AI</span>⁠<span>（在新窗口中打开）</span></a><span> 召集专家，以及协助 Transluce 的</span><a href="https://behaviors.transluce.org/mental-health"><u><span>心理健康评估</span></u>⁠<span>（在新窗口中打开）</span></a><u><span>等互补性的独立工作。</span></u></p>
+<p><span>在这项研究之外，我们还</span><a href="https://openai.com/index/strengthening-chatgpt-responses-in-sensitive-conversations/"><u><span>加强了 ChatGPT 在敏感对话中的回复</span></u></a><span>，扩大了危机资源的获取渠道，并新增了</span><a href="https://openai.com/index/introducing-trusted-contact-in-chatgpt/"><u><span>Trusted Contact</span></u></a><span>，以便在人们痛苦时联系他们信任的人。我们还推出了</span><a href="https://openai.com/index/chatgpt-for-teens/"><u><span>ChatGPT for Teens</span></u></a><span>，为年轻用户提供额外保护。</span></p>
+<p><span>MentalHealthBench 是我们努力实现 AI 帮助数百万人度过艰难时刻、巩固人际关系、过上更健康、更充实生活的方式之一。</span></p>
+<p><a href="https://openai.com/index/introducing-mentalhealthbench">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

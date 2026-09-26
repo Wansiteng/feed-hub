@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Improved token efficiency for longer agent runs</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Improved token efficiency for longer agent runs</h1>
+<p><small>评分 7/10：长任务上下文与 token 效率优化，直接相关 agent harness</small></p>
+<p><strong>要点</strong></p><ul><li>Cursor 通过精简系统提示词、动态加载工具和优化缓存，将用户 token 成本降低 7%</li><li>系统提示词被削减约 66%，内置工具定义移出静态上下文后描述 token 减少 60%</li><li>MCP 工具改为动态加载后，调用 MCP 的会话总 token 减少 46.9%</li></ul>
+<hr/>
+<p>随着 agent 日益成熟并学会处理更具挑战性的任务，token 消耗结构也发生了变化。如今 agent 工作时间更长，并在每一步之间携带更多上下文，这使得我们组织和管控这些上下文的方式变得愈发重要。</p>
+<figure><div><div><div><div><h3>Where agent inference spend goes</h3><p>生产流量 · 宽度 = 占总消耗的比例 · 深浅 = 计费类型</p><div><div><div><ul><li><span>输出</span></li><li><span>未缓存输入</span></li><li><span>缓存输入</span></li></ul></div></div></div></div></div></div><div><div><div><div><h3>Where agent inference spend goes</h3><p>生产流量 · 宽度 = 占总消耗的比例 · 深浅 = 计费类型</p><div><div><div><ul><li><span>输出</span></li><li><span>未缓存输入</span></li><li><span>缓存输入</span></li></ul></div></div></div></div></div></div></div><div><div><div><h3>Where agent inference spend goes</h3><p>生产流量 · 宽度 = 占总消耗的比例 · 深浅 = 计费类型</p><div><div><div><ul><li><span>输出</span></li><li><span>未缓存输入</span></li><li><span>缓存输入</span></li></ul></div></div></div></div></div></div></div></figure>
+<p>说明：系统与工具定义包含压缩摘要。用户文本包含手动附加的 skills。Skills 与 plugins 包含 skill 描述、MCP 工具描述，以及放入静态上下文的规则。</p>
+<p>过去几个月里，我们针对这一变化提升了 Cursor agent harness 的效率。harness 让我们可以直接控制每个请求如何组装、上下文如何复用，以及何时将工作拆分到多个 agent 上。这些层面的改动使用户的 token 成本降低了 7%，同时没有降低 agent 质量。</p>
+<h2><a href="https://cursor.com/blog/improved-token-efficiency#trimming-the-system-prompt"><span>#</span></a>精简系统提示词</h2>
+<p>agent 的每一轮交互都包含 Cursor 在模型开始工作前提供的上下文，其中包括系统提示词以及 agent 可用工具的定义。由于这些上下文会贯穿整个对话，它已成为我们完全可控的最大消耗来源之一。</p>
+<p>在模型能力较弱时，我们必须详细说明工具使用、任务管理和代码修改流程的指令。我们还必须防范一些奇怪行为，比如超长哈希转储、二进制输出和 emoji。</p>
+<p>随着模型能力提升，其中大部分指导已不再必要。与其罗列一长串“不要这样做”“你必须”“重要”之类的指令，我们只需定义工具的行为方式，模型通常就会遵循。这一点在各模型系列中都成立，使我们得以精简约 66% 的系统提示词。</p>
+<p>随着时间推移，我们会持续增删指令，因为新模型需要新的指导，而这些指导又会流入未来模型的训练中。依托庞大用户群进行 A/B 测试，对于针对真实流量有效优化 harness 至关重要。虽然 eval 可以是快速且有用的代理指标，但它们往往代表的是“难题”，并不能真实反映用户请求的实际分布。</p>
+<p>系统提示词只是 Cursor 每轮提供的上下文的一部分。另一部分是工具定义，随着我们为 Cursor agent 添加更多强大能力（包括后台 shell 监控、云端 subagent，以及更可靠的网页内容访问），工具定义在过去一年里急剧膨胀。这些工具大多很重要，但每一个都只在不到 20% 的对话中需要用到。</p>
+<p>这带来一个提升效率的机会：让工具保持可用，但不必在每个请求中都包含它们的完整定义。今年早些时候我们解决过类似问题，当时将 MCP 工具移入动态上下文，仅在需要时加载。这使调用过 MCP 工具的会话总 token 数减少了 46.9%。</p>
+<p>现在我们将同样的技术应用到了自家的内置工具上。</p>
+<p>为了决定哪些工具保留在静态上下文中，我们根据每个工具的使用频率以及模型是否需要从一开始就看到它，对多种配置进行了 A/B 测试。我们追踪了 token 用量、成本、延迟、工具调用错误和整体 agent 使用情况，以确保节省不会导致质量下降。</p>
+<figure><div><div><div><div><h3>Most commonly invoked tools</h3><p>至少调用一次各工具的 agent 对话占比</p></div></div></div></div></figure>
+<p>最终，我们保留了用于读取、搜索、编辑以及在静态上下文中使用 shell 的高频工具。我们还保留了 <code>ask_question</code>，因为一些模型倾向于幻觉式地调用它，以及那些对特定产品流程至关重要的工具，例如 Plan Mode 中的 <code>create_plan</code>。其余工具现在会在 agent 需要时加载。</p>
+<figure><div><div><div><div><h3>Offloading built-in tools cut static-context description tokens by 60%</h3><div><ul><li><span>保留在静态上下文中</span></li><li><span>卸载到动态上下文</span></li></ul></div></div></div></div></div></figure>
+<h2><a href="https://cursor.com/blog/improved-token-efficiency#improving-cache-reuse"><span>#</span></a>改进缓存复用</h2>
+<p>在减少每次请求中的静态上下文数量后，我们改进了重复上下文在多个轮次之间被缓存的有效性。</p>
+<p>每个 agent 轮次都会重新发送一个很长的请求，其中包含工具、系统指令、设置以及到目前为止的对话。开头的大部分内容从一个轮次到下一个轮次保持不变，而末尾的对话则持续增长。</p>
+<p>Prompt 缓存允许模型提供商复用那部分未更改的前缀。然而，缓存的可配置性因提供商而异。在 GPT-5.6 之前，缓存边界是根据最新请求自动确定的。尽管工具和系统指令很少变化，但它们本身并未被清晰地标记为可复用。</p>
+<p>自 GPT-5.6 起，OpenAI API 允许客户端在其默认的隐式缓存之外标记显式缓存断点。我们现在将断点放在请求的稳定层之后、不断增长的对话之前，使后续轮次能够复用更多未更改的前缀。</p>
+<p>断点只有在缀本身保持稳定时才有用，因此我们还收紧了每个请求开头的内容。我们通过将工具和系统指令保留给很少变化的内容，并将更多易变的设置移到缓存边界之后、放入我们的“幻影用户消息”中来实现这一点。该消息保存用户和请求特定的上下文，例如 skills、subagents 和环境信息。</p>
+<p>这些更改将冷缓存未命中率降低了 20%。</p>
+<h2><a href="https://cursor.com/blog/improved-token-efficiency#compressing-file-reads"><span>#</span></a>压缩文件读取</h2>
+<p>另一个 token 消耗的大来源是 agent 在工作过程中添加的上下文，其中大部分来自读取文件。</p>
+<p>Cursor 的 agent 通过 <code>Read</code> 工具读取文件，该工具传统上会为每一行编号，因为模型不擅长自己数行，并且需要为用户引用特定部分。</p>
+<p>单个行号仅使用大约三到五个 token，但当 agent 在一次会话中读取数万行时，为每一行编号会增加相当多的上下文。</p>
+<p>我们通过仅每十行包含一次行号来减少这一开销。这仍然足够频繁，使模型能够正确引用代码，并且该更改将缓存读取 token 减少了 1.6%，而质量没有下降。</p>
+<h2><a href="https://cursor.com/blog/improved-token-efficiency#using-subagents-strategically"><span>#</span></a>策略性地使用 subagents</h2>
+<p>更长的 agent 运行会创造更多将工作委派给 subagents 的机会。这可以减少 token 消耗，因为每个 subagent 通常从全新的上下文窗口开始，而不是携带父 agent 的完整对话。一旦它报告结果，父 agent 就可以继续，而无需携带 subagent 的完整工作上下文。</p>
+<p>不过，这种 agent 与 subagent 之间的上下文隔离确实会带来协调成本，因为不共享上下文的 agent 可能会重复工作或执行不再必要的任务。</p>
+<p>我们做了两处改动，以在不引入不必要协调的前提下获得效率收益。首先，我们移除了强烈鼓励 agent 使用 subagent 进行代码库探索的指令。随着 subagent 在训练数据中越来越普遍，研究人员也将其纳入后训练，模型已原生学会这一模式。移除额外的 prompt 后，subagent 的使用变得更加均衡。</p>
+<p>我们还收紧了 subagent 选择模型的方式。Cursor 可以使用我们提供的任意模型来生成 subagent，从而弥补不同模型之间的盲点，或将昂贵的规划模型与更便宜的模型搭配用于实现。我们更新了工具参数，使 agent 仅在用户或 harness 指示时才选择不同的模型。</p>
+<h2><a href="https://cursor.com/blog/improved-token-efficiency#continuing-to-improve-harness-efficiency"><span>#</span></a>持续提升 harness 效率</h2>
+<p>我们将继续衡量上下文在更长运行中如何累积，并测试 harness 在哪些环节可以减少重复处理而不影响 agent 质量。随着时间推移，我们预计这将使 token 用量的增长速度远低于 agent 可完成工作量的增长速度。我们也将这些经验带到了 Grok Bot，正在努力优化其独特的 harness，让用户能以最低成本完成最多工作。</p>
+<p><a href="https://cursor.com/blog/improved-token-efficiency">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

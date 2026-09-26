@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>SDK v0.0.86</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">SDK v0.0.86</h1>
+<p><small>Cline Releases · 评分 6/10：本地 OpenAI 兼容服务器输出截断的压缩重试，涉及上下文管理</small></p>
+<p><strong>要点</strong></p><ul><li>SDK v0.0.86 为输出截断的纯文本回合增加一次压缩重试</li><li>本地 OpenAI 兼容服务器按剩余上下文限制生成，长会话易中断</li><li>Hub 启动失败现在会附带具体原因，等待时间从 8 秒增至 15 秒</li></ul>
+<hr/>
+<ul>
+<li>纯文本轮次在输出 token 上限被截断后，现在每次运行会先尝试一次压缩并重试，之后才走现有的提醒并重试恢复流程。本地 OpenAI 兼容服务器（llama.cpp、Ollama、LM Studio）无论请求的输出预算多大，都会按剩余上下文来限制生成，因此即使设置了合理的上限，长会话也会在回答中途中断。运行时现在将这种结束情况走与 <code>prepareTurn</code> 处理上下文窗口溢出相同的强制压缩路径；如果压缩没有可移除的内容，或重试再次被截断，循环的提醒并重试机制就会接管，原始的 max-tokens 错误仍会浮现，同时部分回答会被持久化。产生了工具调用或由 provider 执行的工具活动的轮次永远不会被重放。新增的 <code>task.max_tokens_recovery</code> 生命周期事件（<code>started</code>、<code>retried</code>、<code>failed</code>）用于衡量它起作用的频率</li>
+<li>Hub 启动失败现在会说明原因。<code>ensureCompatibleLocalHubUrl</code> 吞掉了来自 <code>ensureDetachedHubServer</code> 的错误，因此每次失败都显示为“No compatible hub runtime is available”；现在原因会追加到该消息中并作为 <code>cause</code> 附加，守护进程也会在刷新遥测之前报告自身的启动失败（<code>hub.daemon.startup</code>）。对所有客户端而言，等待新生成的 hub 的时间也从 8 秒延长到 15 秒，因为在 Windows 上安装或更新后的首次启动通常需要 8 到 13 秒来扫描新二进制文件</li>
+<li>通过 hub 进行的会话重命名现在会持久化。<code>HubRuntimeHost.updateSession</code> 将新标题合并进 <code>metadata.title</code>，但持久化层只把显式的 <code>title</code> 视为重命名，因此名称在重新启动后会还原，而且整体替换 metadata 会丢失其他键，例如 pinned 状态。<code>session.update</code> 现在将 <code>prompt</code> 和 <code>title</code> 作为独立字段携带，并且不再改动未触及的 metadata</li>
+<li>会话中显示的错误现在能在导航和恢复后保留。终端失败（包括重试耗尽后记录的那些）会作为仅用于显示的历史条目持久化，宿主在重新打开会话时渲染它们，而这些条目会被排除在压缩之外，也不会被模型看到</li>
+<li>插件斜杠命令现在是一个共享的核心服务。<code>@cline/core</code> 中的 <code>createPluginCommandService</code> 负责插件命令的发现、加载、名称与结果规范化以及执行，CLI 和桌面 sidecar 都使用它。加载失败的插件（无效的 manifest、沙箱启动超时）不再导致服务被拒绝：失败会被记录，空命令集会针对当前插件集被缓存，并在 30 秒后重试加载，而不是在每次 prompt 时都生成一个沙箱。处理程序异常仍会向上传播</li>
+<li>端点自有 provider 的模型列表现在会报告失败，而不是返回空列表。对于私有目录 provider（LiteLLM、Baseten、Hicap、Poolside）以及由 <code>modelsSourceUrl</code> 支持的 provider（Ollama、LM Studio），当调用方要求返回错误时，主机不可达、TLS 拒绝或密钥错误现在会从 <code>getLocalProviderModels</code> 向上传播，因此宿主可以显示原因，而不是“no models”。hub 会保护其初始模型加载，因此默认 provider 失败不再中止对等端设置</li>
+<li>中止请求现在会在空响应退避期间生效。重试中间件在退避期间休眠时没有监听 <code>AbortSignal</code>，然后用已经中止的信号重新拨号，因此取消最多会晚一个退避周期才浮现。<code>createGatewayApiHandlerAsync</code> 也忽略了 <code>setAbortSignal()</code>，因为它在构造时捕获了信号；现在它会像同步处理程序一样读取实时信号</li>
+<li>yolo 模式的系统 prompt 将含糊的“始终展示你的规划过程”规则替换为具体的输出指引：计划保持在一段简短文字内，下一步明确后立即行动，将代码和编辑内容放在工具参数中而不是在文本里起草，常规工具调用跳过开场白，遇到反复出现的不确定性时用一次有针对性的检查来解决，而不是继续猜测</li>
+<li>新增内置 provider <code>aiand</code>（ai&amp;），这是一个 OpenAI 兼容端点，提供来自日本的开源权重模型。它读取 <code>AIAND_API_KEY</code>，默认使用 <code>zai-org/glm-5.3</code></li>
+<li><code>@cline/llms</code> 中的流式转录现在覆盖原生 OpenAI（<code>gpt-realtime-whisper</code>，配合绑定转录的 client secret）、Vercel AI Gateway 和 ElevenLabs，并通过新增的 <code>getBuiltinStreamingTranscriptionModels</code> 暴露。Gateway 和 OpenAI 兼容的批量转录使用 AI SDK 转录，支持重试、取消和 <code>providerOptions</code>，从字节中检测音频格式，并在文本之外返回 <code>segments</code> 和 <code>warnings</code>。语音模型发现会验证音频转文本能力，并将仅支持实时的模型单独区分</li>
+<li><code>@cline/core</code> 新增了 <code>./cloud</code> 子路径导出，包含共享的云会话运行时（API 客户端、控制器、快照、状态），此前各宿主各自实现。cron spec 监听器在监听前还会用 <code>realpathSync.native</code> 解析其目录，避免在 Windows 上当路径包含类似 <code>RUNNER~1</code> 的短名称段时触发 libuv 致命断言</li>
+<li><code>@cline/shared</code> 导出了 <code>toPosixSeparators</code>，替换了 core 和 VS Code 扩展中四份相同的辅助函数副本。行为无变化</li>
+<li>刷新了模型目录：仍是 209 个 provider，模型从 6,237 个增至 6,386 个。内置的 Cline 目录移除了 <code>z-ai/glm-5.3-flash</code>、<code>cline-free/solar-pro4</code> 和 <code>poolside/laguna-s-2.1:free</code>，新增了 <code>cline-free/mimo-v2.6-flash</code>。对于 19 个未在 <code>builtins.ts</code> 中固定默认模型的 provider，解析出的默认模型发生变化：11 个落在 Claude Opus 5.5（Cortecs、CrossModel、DigitalOcean、Eden AI、GitHub Copilot、两个 LLM Gateway provider、Ofox、Requesty、Vertex、Vivgrid），两个 StepFun provider 迁移到 Step 5 Preview，Above 迁移到 MiMo V2.6 Flash，Fireworks 迁移到 Ember-1，Kenari 迁移到 DeepSeek V4.1 Flash，NanoGPT 迁移到 Aion 3.5，OpenCode Go 迁移到 Space Bunny Free，Pioneer 迁移到 GLiNER 2.5 Multi。如果你使用这些 provider 之一且未固定模型，默认模型将有所不同</li>
+</ul>
+<p><strong>完整变更日志</strong>：<a href="https://github.com/cline/cline/compare/sdk/sdk/v0.0.85...sdk/sdk/v0.0.86"><tt>sdk/sdk/v0.0.85...sdk/sdk/v0.0.86</tt></a></p>
+<p><a href="https://github.com/cline/cline/releases/tag/sdk%2Fsdk%2Fv0.0.86">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

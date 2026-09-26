@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NHTSA 就 5 起致死 3 人的事故调查 comma.ai 的 openpilot</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">NHTSA 就 5 起致死 3 人的事故调查 comma.ai 的 openpilot</h1>
+<p><small>Electrek · 评分 7/10：开源辅助驾驶遭监管调查，行业影响重大<br/>原标题：NHTSA investigates comma.ai’s openpilot over 5 crashes that killed 3</small></p>
+<p><strong>要点</strong></p><ul><li>NHTSA 对 comma.ai 的 openpilot 展开正式调查，涉及 5 起事故、3 人死亡</li><li>调查覆盖约 3 万台 comma three、comma 3X 和 comma four 设备</li><li>事故均为高速行驶时撞上本车道内停止或慢行的车辆</li></ul>
+<hr/>
+<figure>
+
+	<img src="https://electrek.co/wp-content/uploads/sites/3/2016/11/comma-one-teaser.png?w=1600" alt="">
+	</figure>
+<p>在发生五起事故后，NHTSA 对 comma.ai 的后装驾驶辅助设备展开了正式调查。这些事故中，运行 openpilot 的车辆撞上了本车道内停止或缓慢行驶的车辆。其中两起事故造成三人死亡。</p>
+<p>此次调查涉及约 30,000 台 comma three、comma 3X 和 comma four 设备。这是 George Hotz 的这家初创公司自 2016 年 NHTSA 迫使其<a href="https://electrek.co/2016/10/28/george-hotz-cancels-his-tesla-autopilot-like-comma-one-after-request-from-nhtsa/">取消首款产品</a>以来面临的最大监管问题。</p>
+<h2>NHTSA 对 comma 的指控</h2>
+<p>该机构下属的缺陷调查办公室（ODI）于 9 月 21 日启动了初步评估 PE26007。调查对象包括 comma 最近三代硬件以及运行在这些硬件上的开源软件 openpilot 本身。</p>
+<p>ODI 表示，它是通过根据《通用命令》提交的事故报告、一起消费者投诉以及向警方了解情况等途径得知这些事故的。它已确认 comma 系统在“多起事故”中处于开启或启用状态，并且其初步数据审查表明，openpilot“可能未能充分检测或应对本车道内的车辆”。</p>
+
+<p>除三人死亡外，五起事故中有四起还造成另外 11 人受伤，其中包括一些重伤。</p>
+<p>这份文件还大量引用了 comma 自己的营销宣传。NHTSA 援引了该公司的承诺：“让你现有的车实现双手脱离方向盘驾驶”、15 分钟自行安装，以及软件“[能]连续驾驶数小时而无需干预”。但 comma 自己的细则中却写明，驾驶员必须始终保持警觉并随时准备接管。</p>
+<h2>事故报告显示了什么</h2>
+<p>NHTSA 在调查中列出了五个事故报告 ID。我们查阅了该机构公开的《通用命令》数据，找到了其中四个。第五个（30351-1807）不在已发布的数据集中。</p>
+<p>公开数据中的致命事故发生在 2026 年 2 月，地点是路易斯安那州阿森松堂区。一辆配备了 comma 设备的 2022 款 Toyota RAV4 在高速公路上撞上了一辆停着的急救车辆。comma 在其报告中称，该设备“似乎运行的是第三方非 comma 软件”，也就是 openpilot 的一个分支版本。</p>
+<p>2025 年 9 月，一辆搭载 openpilot 且“确认已启用”的 2020 款 Honda Accord 在密苏里州高速公路上以 82 英里/小时的速度追尾了一辆停着的汽车，导致一人重伤送医。Honda 也就同一事故提交了自己的报告。根据 Honda 援引警方报告和一起诉讼的说法，驾驶员将定速巡航设为 80 英里/小时后睡着了。</p>
+<p>2026 年 7 月，一辆启用 openpilot 的 2021 款 Toyota Corolla 在犹他州莫纳附近的高速公路上以 56 英里/小时的速度撞上了一辆停着的乘用车。</p>
+<p>每次都是同样的模式。高速公路车速，前方本车道内停着一辆车。</p>
+<h2>comma 认为自己无需报告</h2>
+<p>最能说明问题的细节在 comma 自己提交的文件中。它的每一份事故报告开头都有同样的免责声明：comma 提供这些信息“并不表示同意 NHTSA 的解读，也不承认 comma 有义务回应《通用命令》”。</p>
+<p>对于车辆是否处于其运行设计域内，comma 也回答“未知”，并辩称它既不制造车辆，也不制造车辆原厂驾驶辅助系统。在 Accord 事故中，它还加了一条大写注释，称自适应巡航控制是“由 Honda 系统执行的”。</p>
+<p>所以，comma 卖的是一台接管转向和速度的设备，把它宣传为可双手脱离方向盘，但一旦出问题，却把制动的责任推回给汽车制造商。</p>
+<p>NHTSA 显然也预见到了分叉防御。该机构表示，如果 openpilot 的修改版本卷入碰撞事故，它将进行评估，并考虑 openpilot 与分叉版本之间共享的组件。像 sunnypilot 和 FrogPilot 这样流行的社区分叉都构建在相同的驾驶模型和代码库之上。</p>
+<h2>从 comma one 到 30,000 辆汽车</h2>
+<p>这并非 comma 首次与 NHTSA 交锋。2016 年，该机构就 comma one 向 Hotz 发出特别命令，他宁愿停产也不愿回应。随后 comma 将 openpilot 开源，并重新以“开发套件”的名义销售硬件。</p>
+<p>这一策略显然奏效了。comma 现在表示，超过 30,000 辆汽车使用其设备，累计行驶里程超过 4 亿英里，并声称在脱手驾驶里程上仅次于特斯拉。据 comma 网站称，comma four 于去年 11 月上市，售价 999 美元，支持超过 350 种车型。</p>
+<p>NHTSA 正在调查的碰撞类型应该听起来很熟悉。这与导致 <a href="https://electrek.co/2021/08/16/tesla-autopilot-investigated-nhtsa-over-11-crashes-first-responder-vehicles/">特斯拉 Autopilot 在 2021 年因撞上停放的急救车辆而受到调查</a>的故障模式相同，该调查最终以<a href="https://electrek.co/2023/12/13/tesla-alerts-autopilot-nhtsa-safety-recall/">召回约 200 万辆特斯拉以增加更多驾驶员警报</a>告终。</p>
+<h2>Electrek 的观点</h2>
+<p>我们长期以来一直对 comma 抱有好感。openpilot 配有面向驾驶员的监控摄像头，它不假装是“完全自动驾驶”，而且《消费者报告》在 2020 年将其评为测试过的最佳驾驶辅助系统。只需 999 美元，这技术令人印象深刻。</p>
+<p>它有点像 ADAS 领域的 Android，而特斯拉则是 Apple。</p>
+<p>但你不能一边以 15 分钟 DIY 安装来宣传“脱手驾驶”和“数小时无需干预”，一边又告诉联邦监管机构你不确定是否必须报告碰撞事故。这两种立场并不一致。</p>
+<p>车道内停放的车辆是基于摄像头系统的已知弱点。特斯拉多年来也面临同样的问题。</p>
+<p>长期来看，分叉问题更令人头疼。开源有利于创新，但当修改版本在路易斯安那州高速公路上致人死亡时，谁来负责？comma 迄今为止的答案是归咎于第三方软件。NHTSA 的答案可能不同。</p>
+<p>初步评估可能需要数月时间，可能悄然结束，也可能升级为工程分析并导致召回。路上有 30,000 台设备，三人死亡，对于任何人都能在 GitHub 上分叉的软件，召回究竟意味着什么？</p>
+<p><em>如果你开的是电动汽车，用家庭太阳能供电可以将燃料成本降至几乎为零。去年电价上涨近 10%，且预计还会继续攀升，改用太阳能是抵御成本上涨的最佳方式之一。通过租赁和购电协议选项，你可以零前期成本开始，并立即节省开支。如果你想找到最优惠的交易，请查看 <a href="https://www.energysage.com/p/electrek/">EnergySage</a>。这是一项免费服务，有数百家经过预先审查的安装商竞相为你服务，因此相比独自寻找，你可以节省 20% 到 30%。在你选择安装商之前，不会有销售电话。<a href="https://www.energysage.com/p/electrek/">在此获取免费报价</a>。</em></p>
+<p><em>FTC：我们使用可产生收入的自营联盟链接。</em> <a href="https://electrek.co/about/#affiliate">更多。</a></p>
+<a href="https://sovrn.co/hc43frn"><img src="https://electrek.co/wp-content/uploads/sites/3/2026/08/3W-sovrn-electrek-banner-1.jpg?quality=82&amp;strip=all" alt=""></a>
+<p><a href="https://electrek.co/2026/09/24/comma-ai-openpilot-nhtsa-investigation-crashes/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

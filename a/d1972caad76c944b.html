@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Qwengram-0.8B：我将 Qwen3.8 Flash-Next 的 n-gram 记忆迁移到 Qwen3.5-0.8B，验证困惑度降低 5.05%</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Qwengram-0.8B：我将 Qwen3.8 Flash-Next 的 n-gram 记忆迁移到 Qwen3.5-0.8B，验证困惑度降低 5.05%</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 7/10：本地小模型记忆迁移实验，对本地推理有参考价值<br/>原标题：Qwengram-0.8B: I transferred Qwen3.8 Flash-Next’s n-gram memory into Qwen3.5-0.8B — 5.05% lower validation perplexity</small></p>
+<p><strong>要点</strong></p><ul><li>Qwengram-0.8B 将 Qwen3.8-Flash-Next 的 PLE n-gram 记忆迁移到 Qwen3.5-0.8B，验证困惑度降低 5.05%</li><li>在冻结的完整验证集上，困惑度从 18.2759 降至 17.3534，NLL 从 2.905585 降至 2.853786</li><li>真实预训练 PLE 优于随机记忆和置换记忆对照组，15M token 训练的 reader 是平衡检查点</li></ul>
+<hr/>
+<p>我一直在试验 Qwen3.8-Flash-Next 预训练的 PLE n-gram 记忆能否提升一个小得多的 Qwen3.5-0.8B 模型。</p>
+<p>我在资源有限的条件下训练了这个 0.8B 配置，主要使用免费的 Kaggle notebook GPU。</p>
+<p>该配置将 <strong>Qwen3.5-0.8B backbone</strong> 和约 <strong>51B 参数的 PLE 记忆</strong>都保持冻结。在解码器第 3 层和第 9 层训练了一个小型 R=1 reader，并用一个依赖 token 的线性 gate 控制后续注入。</p>
+<p>没有对 <strong>backbone 进行微调</strong>。</p>
+<p>当前的平衡 checkpoint 使用了一个训练了 15M token 的 reader，以及一个单独校准的动态 gate。在冻结的完整验证集上：</p>
+<p><strong>Qwen3.5-0.8B 原版</strong></p>
+<ul> <li>NLL: 2.905585</li> <li>PPL: 18.2759</li> </ul>
+<p><strong>Qwengram-0.8B</strong></p>
+<ul> <li>NLL: 2.853786</li> <li>PPL: 17.3534</li> </ul>
+<p><strong>困惑度降低：5.05%</strong></p>
+<p>这是语言模型验证结果，并不代表 benchmark 准确率提升了 5%。</p>
+<p>有几项发现塑造了最终设计：</p>
+<ul> <li>真正预训练的 PLE 优于随机记忆和置换记忆对照组。</li> <li>Reader loss 在超过 5M 训练 token 后仍在持续改善。20M reader 进一步改善了总体 LM loss，但在数学上出现回退，因此 15M 仍是平衡 checkpoint。</li> <li>强固定式后层记忆注入损害了 LAMBADA。动态 token 级仲裁挽回了这一权衡中的大部分损失。</li> <li>该 gate 确实是动态的：其记忆强度在不同 token 间差异很大，而不是表现为一个学习到的常数。</li> <li>在完全相同的记忆预算下，学习到的 token 放置优于打乱放置。将记忆路由到高不确定性位置挽回了部分优势，但仍未达到学习到的 gate 的水平。</li> <li>热启动的 R=4 reader 带来了小幅总体 LM-loss 改善，但引入了代码和数学回退。因此我保留 R=1 作为平衡架构。</li> </ul>
+<p>我还在 llama.cpp 中实现了推理路径。</p>
+<p>公开的产物包括：</p>
+<p><strong>模型 / GGUF</strong><br> <a href="https://huggingface.co/Ninnix96/Qwengram-0.8B">https://huggingface.co/Ninnix96/Qwengram-0.8B</a></p>
+<p><strong>训练、对照与评估</strong><br> <a href="https://github.com/Ninnix/qwen-ple-transfer">https://github.com/Ninnix/qwen-ple-transfer</a></p>
+<p><strong>修改后的 llama.cpp 运行时</strong><br> <a href="https://github.com/Ninnix/llama.cpp">https://github.com/Ninnix/llama.cpp</a></p>
+<p>GGUF 包含 Qwen3.5 backbone 以及训练好的 reader 和仲裁张量。大型 PLE 仍作为<strong>外部量化 sidecar</strong>，而不是被打包进模型 GGUF。</p>
+<p>我还在一个单独的固定 WikiText-2 GGUF 运行时测试中测试了量化保留情况：</p>
+<ul> <li><strong>Q8_0 保留了 BF16 reader NLL 增益的 99.1%</strong></li> </ul>
+<p>这是一项单独的运行时测量，不是上面冻结的 Kaggle 验证 benchmark。</p>
+<p>欢迎尝试复现或改进 reader、PLE 缓存、路由或运行时。</p>
+<p>接下来我想尝试更大的 Qwen backbone，尤其是 <strong>35B-A3B MoE</strong>。这一规模的实验需要比免费 Kaggle notebook 所能提供的多得多的算力，但 0.8B 研究为 reader 扩展和动态记忆仲裁提供了更清晰的配方。</p>
+<blockquote> <p><strong>披露：</strong>我是 Qwengram 及所链接仓库的作者。英语不是我的母语，因此我使用 AI 帮助校对语法并改进本文措辞。实验本身也是在 coding agent（主要是 ChatGPT Sol）的协助下开发的，用于实现、调试、实验编排和分析支持。我设计了实验、做出了研究决策、审查了结果，并对最终结论负责。</p> </blockquote>
+<p>由 <a href="https://www.reddit.com/user/Nicolodeva"> /u/Nicolodeva </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpvep4/qwengram08b_i_transferred_qwen38_flashnexts_ngram/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpvep4/qwengram08b_i_transferred_qwen38_flashnexts_ngram/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpvep4/qwengram08b_i_transferred_qwen38_flashnexts_ngram/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

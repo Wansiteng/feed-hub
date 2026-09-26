@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>一家公司处于一波 rogue AI 攻击的中心</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">一家公司处于一波 rogue AI 攻击的中心</h1>
+<p><small>The Verge · AI · 评分 6/10：涉及 agent 越权攻击与 AI 安全，沾边但信息偏泛<br/>原标题：One company is at the center of a wave of rogue AI attacks</small></p>
+<p><strong>要点</strong></p><ul><li>以色列初创公司 Irregular 的测试失误导致多家 AI 智能体攻击真实目标</li><li>Irregular 测试环境意外联网，模拟公司名与真实域名重叠</li><li>OpenAI、Meta、Anthropic、Google 的模型均受同一测试问题影响</li></ul>
+<hr/>
+<p>今年7月，OpenAI披露其AI agent<a href="https://www.theverge.com/ai-artificial-intelligence/987566/ai-civilizations-opeai-hugging-face-hack">未经许可攻击了Hugging Face</a>，引发了对<a href="https://www.theverge.com/ai-artificial-intelligence/972380/open-ai-hugging-face-hack-ai-safety-warning">AI安全</a>的广泛担忧。此后，涉及Meta、Anthropic、Google等公司agent的<a href="https://www.theverge.com/column/980337/rogue-ai-science-fiction-openai">一系列类似事件</a>进一步<a href="https://www.theverge.com/ai-artificial-intelligence/996563/ai-safety-research-metr-redwood-openai-anthropic">加剧了人们对失控AI的恐惧</a>。过去几个月里，随着涉及众多AI模型的披露信息陆续流出，这些事件看似各自独立。但许多事件都有一个共同的源头：一家专门负责测试这些agent的公司。</p>
+<p><a href="https://www.irregular.com/about">Irregular</a>是一家以色列初创公司，在“模拟和监控真实世界AI安全场景的高保真研究平台”上对AI模型进行压力测试。该公司2023年以Pattern Labs之名成立，此后与业内许多巨头都有合作。其确切客户名单尚不清楚，但其工作已被OpenAI的<a href="https://cdn.openai.com/gpt-5-system-card.pdf">模型系统卡</a>引用，曾被用于为英国政府和Anthropic<a href="https://finance.yahoo.com/news/irregular-raises-80-million-set-121500443.html">测试系统</a>，还与RAND<a href="https://www.rand.org/pubs/research_reports/RRA2849-1.html">联合发表</a>过研究——RAND是一家极具影响力的智库，为AI政策提供参考。</p>
+<p>在今年Irregular进行的多项测试中，agent逃出了本应安全的测试环境，转而攻击真实世界的目标。</p>
+<p>这些入侵事件与Hugging Face被黑无关，但都遵循同一个大致模式：Irregular在旨在模拟真实条件的受控环境中测试模型的网络安全能力。部分测试采用了“夺旗”演练——一种常见的黑客能力测试方式，要求agent在模拟网络中找到隐藏信息。至少，这个网络本应是模拟的。</p>
+<p>Irregular CTO兼联合创始人Omer Nevo告诉<em>The Verge</em>，这些agent本不应能访问开放互联网，但“互联网访问在无意中处于可用状态”。与此同时，Nevo表示，为模拟而虚构的一个作为攻击目标的公司名称“与一个真实域名重合”。两者叠加，导致agent去攻击了真实世界的目标，不过目前尚不清楚实际被攻击的是哪些公司或组织。</p>
+<p>“所有涉及Irregular的事件都源于同一个评估场景中的同一个底层问题，且均已披露。”</p>
+<p>Nevo向<em>The Verge</em>证实，涉及<a href="https://www.theverge.com/ai-artificial-intelligence/972441/openai-rogue-ai-agent-hacked-more-than-hugging-face">OpenAI</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/976040/now-metas-ai-agents-are-going-rogue">Meta</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/973670/anthropic-claude-hacked-organizations-during-cyber-tests">Anthropic</a>和<a href="https://www.theverge.com/ai-artificial-intelligence/997795/google-gemini-rogue-ai-hack">Google</a>模型的事件背后，都是同一个问题。“所有涉及Irregular的事件都源于单一评估场景中的同一个底层问题，且均已披露，”他说。“近期业内报道的其他安全事件与Irregular或我们的评估无关。”这包括Hugging Face被黑事件以及<a href="https://www.theverge.com/ai-artificial-intelligence/975577/aisi-openai-anthropic-agent-hacking">英国AI安全研究所的入侵事件</a>。</p>
+<p>不过，“披露”并不一定意味着公之于众，也不清楚Nevo指的是通知Irregular的客户、公众还是其他人。虽然这些事件都源于同一个底层测试故障，但<a href="https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals">Anthropic</a>和<a href="https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/">OpenAI</a>的报告，以及关于Google的<a href="https://www.wsj.com/tech/ai/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai-5c0baba2">报道</a>显示，这些科技公司大约是在7月下旬的相近时间收到通知的。OpenAI和Anthropic自行公布了入侵事件，而涉及Meta以及数周后涉及Google的事件，最初都是通过媒体报道才为公众所知。</p>
+<p>Irregular的网络安全测试并不局限于这四家美国科技巨头。其网站上发表的研究表明，它还分别对Kimi K3和GLM-5.2进行了<a href="https://www.irregular.com/research/assessing-glm-5.2-against-offensive-security-benchmarks">类似</a>的<a href="https://www.irregular.com/research/assessing-kimi-k3-against-offensive-security-benchmarks">网络安全测试</a>，这两款<a href="https://www.theverge.com/ai-artificial-intelligence/971444/how-chinese-open-weight-ai-models-impact-us-companies">开放AI模型</a>分别来自<a href="https://www.theverge.com/ai-artificial-intelligence/967781/chinese-ai-models-open-source-moonshot-kimi-k3-alibaba-qwen">中国公司</a>Moonshot AI和Z.ai。与其他事件中涉及的专有模型不同——Meta一直将其旗舰Spark模型保持为专有——这些模型可以自由下载并在用户自己的硬件上运行，这意味着像Irregular这样的测试方无需依赖这些公司获取访问权限，也无需将数据回传给它们。Irregular的研究将它们描述为“自托管”实例。</p>
+<p>“披露”并不一定意味着公之于众。</p>
+<p>Nevo表示，对中国模型的评估并未导致类似的现实世界事件：“我们在对GLM或Kimi的评估中，没有观察到此处所引用事件中描述的那类问题。”不过，Nevo警告说，这一“观察本身不应被解读为这些模型更不易出现此类行为的证据”。Moonshot和Z.ai均未回应<em>The Verge</em>的置评请求。</p>
+<p>Nevo表示，这些事件促使Irregular做出了改变。“我们收紧了互联网访问控制，扩大了监控和人工审查，并加强了评估开始前的检查，以核实访问权限与预期范围相符，”他说。“我们还改进了与合作伙伴记录和商定每次评估设置及参数的方式。”</p>
+Nevo 表示，Irregular 还计划在与相关公司的联合工作完成后，发布一份更全面的报告，“涵盖安全开展网络评估的经验教训和实践”。“我们与合作伙伴的工作旨在将这些事件中的经验转化为公开的共享实践，以安全地开发和评估日益强大的 AI。”
+<h2>你是 AI 安全研究员或前沿实验室员工吗？</h2>
+<p>你可以通过 Signal 安全且保密地联系我，账号是 robhart.01</p>
+<p>Nevo 表示，Irregular 已经解决了与这些事件相关的测试环境问题。四家美国 AI 公司均未回答要求提供更多细节的问题——包括它们何时得知这些违规行为、是否向 Irregular 寻求赔偿或其他补救措施，以及是否预计会继续与 Irregular 合作。Google 和 Anthropic 未予回应，而 OpenAI 和 Meta 则让 <em>The Verge</em> 参考<a href="https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/">此前</a><a href="https://research.meta.ai/blog/addressing-third-party-testing-misconfiguration-muse-spark-1-1">发布</a>的博客文章。</p>
+<p><span><strong>关注本报道的话题和作者</strong>，以便在个性化首页信息流中看到更多类似内容，并接收邮件更新。</span></p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

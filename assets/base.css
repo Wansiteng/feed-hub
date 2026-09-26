@@ -1,0 +1,50 @@
+/* 全局基础样式：只引用 tokens.css 里的变量。 */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg-canvas);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-ui);
+  line-height: var(--lh-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--selection); }
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Lucide 图标：线性、圆角端点，线宽 1.5，颜色跟随文字 */
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-lg { width: 20px; height: 20px; }
+
+/* 主题切换：只在切换那一刻给颜色加 200ms 过渡（由 theme.js 加上 .theme-switching），
+   首屏加载时没有这个类，所以不会出现颜色渐变 */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition-property: color, background-color, border-color, outline-color, fill, stroke, box-shadow, text-decoration-color !important;
+  transition-duration: var(--dur-base) !important;
+  transition-timing-function: var(--ease-standard) !important;
+}

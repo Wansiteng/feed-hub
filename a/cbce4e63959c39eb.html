@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>7900 XTX — 两种“低思考”Qwen 3.8 27B 量化（Swift + ThinkingCap）对比常规量化</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">7900 XTX — 两种“低思考”Qwen 3.8 27B 量化（Swift + ThinkingCap）对比常规量化</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 7/10：量化与推理成本实测，对本地推理有参考价值<br/>原标题：7900 XTX — two &quot;low-thinking&quot; Qwen 3.8 27B quants (Swift + ThinkingCap) vs the regular quant</small></p>
+<p><strong>要点</strong></p><ul><li>Qwen 3.8 27B 低思考量化版确实减少 token：Swift 减 33%，ThinkingCap 减 26%</li><li>Swift 预填充最快（约 614 t/s），但解码降至约 32 t/s，整体耗时与基准持平</li><li>ThinkingCap 预填充极慢（约 100 t/s），但总运行时间比基准快约 23%</li></ul>
+<hr/>
+<p><strong>首先，它们真的产生更少的 token 吗？</strong></p>
+<p>是的。每次 benchmark 运行的总 token 数（4 个场景）：base quant 约 66k，ThinkingCap 约 49k（−26%），Swift 约 45k（−33%）。所以“思考更少”是真的——而且 Swift 削减得最多。</p>
+<p><strong>然后是代价：</strong></p>
+<p>而这就是有趣的地方。这两个 quant 的取舍方式并不相同：</p>
+<ul> <li>Decode：base 约 48 t/s。ThinkingCap 几乎没变（约 43）。Swift 大幅下降（约 32，−33%）。</li> <li>Prefill / TTFT——和我预期的相反：Swift 最快（约 614 t/s，TTFT 约 1s），base 居中（约 530 t/s，约 1.2s），ThinkingCap 最慢（约 100 t/s，TTFT 6–11s）。</li> <li>质量保持住了：在我的评测中约 84–87，与 base 同一区间。</li> </ul>
+<p><strong>完整运行数据：</strong></p>
+<p>ThinkingCap 比 base 快约 23% 完成。即使 prefill 很慢，节省的 token 仍然胜出。Swift 因为 decode 速度较慢而基本持平。</p>
+<ul><li><strong>Base (unsloth)</strong><br>Prefill：~530 t/s · Decode：~48 t/s · Quality：~85 · Runtime：~1407s</li><li><strong>ThinkingCap</strong><br>Prefill：~100 t/s · Decode：~43 t/s · Quality：~85 · Runtime：~1087s</li><li><strong>Swift</strong><br>Prefill：~614 t/s · Decode：~32 t/s · Quality：~86 · Runtime：~1400s</li></ul>
+<p>注意事项：每个 quant 只跑了 2 次，所以单次运行的波动会影响这些数据。ThinkingCap 的 prefill 速度低得反常。需要对此做更多测试。</p>
+<p>其中 3 次运行的并排对比（thinking xhigh，Q4_K_M，全部 7900 XTX）：</p>
+<p><a href="https://llm-bench.io/compare/runs?runs=cmufxkpkb00bj01o05h9vsu5o,cmufwold900ay01o0ae1frktu,cmufyiq3p00by01o0vwbpilew">https://llm-bench.io/compare/runs?runs=cmufxkpkb00bj01o05h9vsu5o,cmufwold900ay01o0ae1frktu,cmufyiq3p00by01o0vwbpilew</a></p>
+<p>由   <a href="https://www.reddit.com/user/DerTomsn"> /u/DerTomsn </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpg32w/7900_xtx_two_lowthinking_qwen_38_27b_quants_swift/">[link]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpg32w/7900_xtx_two_lowthinking_qwen_38_27b_quants_swift/">[comments]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpg32w/7900_xtx_two_lowthinking_qwen_38_27b_quants_swift/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

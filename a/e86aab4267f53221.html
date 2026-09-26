@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>R9V 更新：为 Qwen3.8 Flash Next 引入基于 Deepseek V4.1 Flash + HySparse2/MiMo-V3 的 KVA 投影</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">R9V 更新：为 Qwen3.8 Flash Next 引入基于 Deepseek V4.1 Flash + HySparse2/MiMo-V3 的 KVA 投影</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：KV 投影加速 prefill 的实测，技术有参考价值<br/>原标题：R9V Update: Created and adopted KVA projections based on Deepseek V4.1 Flash + HySparse2/MiMo-V3 for Qwen3.8 Flash Next. This is a game changer for models that don&#x27;t natively implement it. 1.45-1.85x speedup in prefill to 3k+ at a small deficit to perplexity. [2x R9700, 128GB DDR5]</small></p>
+<p><strong>要点</strong></p><ul><li>KVA 投影器在 QFN 模型第 12 层实现 1.85 倍 prefill 加速，困惑度增加 8%</li><li>第 24 层加速 1.45 倍，困惑度仅增加 2.6%</li><li>基于 HySparse2 的多层版本实现 1.55 倍加速，困惑度仅增 2%</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp2hqk/r9v_update_created_and_adopted_kva_projections/"> <img alt="R9V Update: Created and adopted KVA projections based on Deepseek V4.1 Flash + HySparse2/MiMo-V3 for Qwen3.8 Flash Next. This is a game changer for models that don't natively implement it. 1.45-1.85x speedup in prefill to 3k+ at a small deficit to perplexity. [2x R9700, 128GB DDR5]" src="https://external-preview.redd.it/0Ry8bLOzER2EB3_CjLS9pDWqS4W1Xy09M3phJSHprsQ.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=c9bfbb062e2c2de90adb8e915c0269c3be436c54" title="R9V Update: Created and adopted KVA projections based on Deepseek V4.1 Flash + HySparse2/MiMo-V3 for Qwen3.8 Flash Next. This is a game changer for models that don't natively implement it. 1.45-1.85x speedup in prefill to 3k+ at a small deficit to perplexity. [2x R9700, 128GB DDR5]"> </a> </div>
+<p>这是我在 QFN 上对 KVA 投影器的*首个*实现（目前仅限未审查模型）</p>
+<p>在不同层使用投影器的要点大致如下：</p>
+<p>从第 12 层开始，prompt 处理速度提升 1.85 倍 [1700 t/s -&gt; 3150 t/s]，代价是困惑度总共增加 +8%</p>
+<p>在第 16 层，prompt 处理速度提升 1.7 倍 [1700 t/s -&gt; 2900 t/s]，代价是困惑度总共增加 +5%</p>
+<p>在第 24 层，prompt 处理速度提升 1.45 倍 [1700 t/s -&gt; 2500 t/s]，代价是困惑度总共增加 +2.6%</p>
+<p>该方法与我见过的其他 KVA 投影器不同，原因如下：</p>
+<p>我的方法每层使用一张完整映射，采用 Tikhonov 正则化/岭回归，而其他方法则是每层加训练校正头，应用于 4 个流后再取平均。这意味着更高的准确度和更低的困惑度，代价是更多 VRAM。其他方法约使用 400mb，而我的方法约使用 1.5GB。其他方法直接预测后续层的 key、value 和输入，而我的方法严格只预测后续层的输入，并依赖模型的实际权重来计算 key/value。最后，我见过的其他方法无法选择从哪一层开始实现（据我所知通常锁定在 24 层），而我的方法可变，允许你自己决定风险承受度，以困惑度增加为代价换取 PP 速度提升。</p>
+<p>基于初步迹象，我非常有信心这个想法可以扩展并变得极其有用。用不那么技术性的话说，这有点像用于 pp 而非 tg 的 MTP，*只不过它不是无损的*。误差确实会被模型吸收。像 DSV4.1 以及很可能 MiMo v3 这样的模型，可能是在训练时就配合了这类实现，因此它们可能已经对困惑度上升更宽容。而未针对此训练的模型，如 QFN，在出现误差的地方仍会看到困惑度上升。</p>
+<p>以下是 BetterBench 结果的摘要。</p>
+<ul><li><strong>Prefill</strong><br>结果：3,600 t/s · 详情：@ 64k tok</li><li><strong>Decode</strong><br>结果：74.7 t/s · 详情：加权综合</li><li><strong>并发</strong><br>结果：70.3 t/s · 详情：@ 8 流（48/48 正常）</li><li><strong>TTFT (P50)</strong><br>结果：338 ms · 详情：单流</li><li><strong>Update (P99)</strong><br>结果：51.5 ms · 详情：流卡顿</li></ul>
+<p><strong>但是等等，还有更多！这是我的第 2 个实现。</strong></p>
+<p>基于 HySparse2 论文，他们似乎使用了类似方法，但是多层而非单层。基于此，我构建了该方法的早期初始版本。以下是初步结果：</p>
+<p>多层 - 仅增加 +2% 困惑度即可获得 1.55 倍加速</p>
+<p>利用这一点，我坚信可以实现总计 1.5 倍加速，同时困惑度增加 &lt;1%。如果有人想将此适配到其他引擎和模型，请注意我发现更多训练几乎毫无价值，在我看来，需要调整的纯粹是架构层面的杠杆。目前这还处于非常早期的测试阶段——R9V 正在更新以支持此能力，该投影器也正在上传到 HF，但尚未确认稳定。不过 KVA 投影器的 V1 迭代是稳定的。V2 投影器位于配置标志（--ced quality）之后，你可以自行选择是否使用。</p>
+<p>以下是完整 IQ4_XS QFN 模型 + MTP + KVA 投影器（V1）的 HF 仓库——这个现在可以直接在 R9V 中使用。</p>
+<p><a href="https://huggingface.co/Dyluhn/Qwen3.8-Flash-Next-Uncensored-R9V-IQ4_XS">https://huggingface.co/Dyluhn/Qwen3.8-Flash-Next-Uncensored-R9V-IQ4_XS</a></p>
+<p>以下是仅包含投影器的仓库，V1+V2，并附有简短说明，介绍如何在其他 VLLM 项目中开始实现此方法</p>
+<p><a href="https://huggingface.co/Dyluhn/Qwen3.8-Flash-Next-Uncensored-CED-Projector/tree/main">https://huggingface.co/Dyluhn/Qwen3.8-Flash-Next-Uncensored-CED-Projector/tree/main</a></p>
+<p>注意——R9V 专为 2x R9700 配置和拥有大容量主机 RAM 的环境打造。使用期间，用于专家存储的 RAM 占用大约在 50GB 上下浮动。你很可能需要一块 SSD 来以可用的速度处理 PLE/en-grams，或者干脆把它们放在 RAM 里。</p>
+<p>玩得开心！如果你有兴趣参与并利用 RDNA4 的一些最新最棒的实现（里面甚至有比这个更好的项目），欢迎加入 <a href="https://discord.gg/launch80">https://discord.gg/launch80</a></p>
+<p>另外，需要感谢 <a href="https://huggingface.co/kishida">https://huggingface.co/kishida</a>，据我所知，他是第一个发现这个特性可以从 DSV4.1 中单独借用、与模型架构分离的人。Bravo。</p>
+<p>由   <a href="https://www.reddit.com/user/Public_Umpire_1099"> /u/Public_Umpire_1099 </a> 提交</p>
+<br>
+<p><span><a href="https://github.com/Dyluhn/R9V">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp2hqk/r9v_update_created_and_adopted_kva_projections/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp2hqk/r9v_update_created_and_adopted_kva_projections/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

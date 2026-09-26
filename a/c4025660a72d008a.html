@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude 发现具有 CRISPR 样重复序列的新型酶系统</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Claude 发现具有 CRISPR 样重复序列的新型酶系统</h1>
+<p><small>评分 8/10：Claude 参与科学发现的实质进展，值得关注<br/>原标题：Claude discovers a novel enzyme system with CRISPR-like repeats</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 成立生命科学研究组和实验室，用 Claude 探索 DNA 数据</li><li>Claude 自主发现新型酶系统 ART，与 CRISPR 类似的重复序列相关</li><li>约 950 个 agent 用 2.1 亿 token 搜索 21 小时找到该模式</li></ul>
+<hr/>
+<p><em>我们正在 Anthropic 组建一个新的生命科学研究团队和实验室。我们的重点是利用 Claude 开展基础生物学研究：探索 DNA 数据集以识别未表征的蛋白质家族，大规模生成假设，并通过实验室实验加以验证。本文介绍这项工作背后的团队，并分享早期成果——在我们的科学家仅给出高层级方向的情况下，Claude 发现了一种具有类似 CRISPR 特性的新型酶系统。<br><br></em>许多彻底改变生物学和医学的发现，都始于科学家在自然界令人惊叹的分子机器多样性中注意到某种异常现象。限制性内切酶<em>，</em>即在特定短序列处切割 DNA 的蛋白质<em>，</em>是在细菌免疫系统中被发现的，它们在那里摧毁入侵病毒的 DNA。研究人员意识到，他们可以利用这些酶在选定的位置切割 DNA，并将基因从一个生物体剪接到另一个生物体中，由此开启了生物技术产业。Taq 聚合酶，一种能在高温下复制 DNA 的酶，是在黄石温泉的一种细菌中被发现的。它成为 PCR 的基础，而 PCR 这种 DNA 复制方法是现代许多诊断技术所采用的。CRISPR 最初是作为某些细菌 DNA 中一段不寻常的重复序列而被注意到的，如今已成为基于基因编辑的药物的基础。<br><br>2026 年春季，我们组建了一个研究团队，以探究通用 AI 模型能否系统化并<a href="https://darioamodei.com/essay/machines-of-loving-grace#1-biology-and-health">加速此类发现</a>。我们相信，这种加速将来自建立一种全新的生物学研究方式，即 agent 在流程的每一步都与人类协作。发展这种新的工作方式，要求我们建立自己的实验室，并组建一个统一的团队，负责从在生物学领域训练 Claude 到在实验室中运行实验的所有工作。</p>
+<p>今天，我们分享首批研究项目之一的早期成果：Claude 自主发现了一种与一系列 DNA 重复序列相关的新型酶系统，这一模式令人联想到 CRISPR。尽管我们尚不清楚其功能，但 Claude 发现的这个系统具有一组特征，这些特征此前只在少数其他系统中被同时发现，而这些系统全都是可编程的，并能执行切割、复制和粘贴 DNA 之类的操作。除了已经改变科学与医学的 CRISPR 之外，还有若干此类系统目前正作为前景广阔的工具处于开发之中。</p>
+<p>Claude 发现的这个系统基于一种逆转录酶（RT），即把 RNA 复制成 DNA 的酶。虽然这种存在于巨型噬菌体中的基础 RT 在此前的研究中已被识别，但 Claude 似乎是第一个注意到该系统决定性特征的一方——一段相关的非编码 DNA 序列阵列，以及一个功能未知的额外辅助蛋白。</p>
+<p>在审阅该预印本后，CRISPR 基因组编辑先驱之一、MIT 和 Broad Institute 教授张锋表示：</p>
+<blockquote><em>这是一个令人振奋的例证，展示了 AI agent 如何为生物学发现作出贡献。识别出与逆转录酶相关的 RNA 重复序列阵列确实引人入胜，值得进一步研究。我希望这项工作能鼓励更多科学家探索 AI 如何支持他们的研究。</em></blockquote>
+<p>我们给 Claude 一个 prompt，让它在一个庞大的 DNA 序列数据库中搜索有趣的新 RT 实例。我们的参与仅限于最初的 prompt 和实验室工作，而 Claude agents 则梳理数据库、研究不同的 RT 家族，并运用自己的判断来识别有趣的候选对象。在大约 950 个 agents 使用 2.1 亿个 token 对该数据进行了 21 小时的搜索后，其中一个 agent 发现了某种非凡的东西：一段重复的 DNA 序列模式，出现在一个外形奇特的 RT 基因旁边。经过进一步分析和在我们实验室的测试，我们认识到这一模式标记了一种此前未被表征的酶系统，存在于噬菌体（感染细菌的病毒）中，我们将其称为阵列相关逆转录酶（ART）。</p>
+<p>我们理解 ART 主要功能的工作仍在进行中。然而，我们认为尽早分享此类发现很重要，既能展示 Claude 的能力，也能让更广泛的群体了解我们正在研究的内容。我们发布了一篇预印本（<a href="https://www-cdn.anthropic.com/22573675ada52a8ca8a97a1a4b4326b2f208a071.pdf">见此处</a>），对此进行了更详细的讨论。</p>
+<h2><strong>关于我们的实验室</strong></h2>
+<p>我们是一支科学家团队，整个职业生涯都在探索不寻常的蛋白质，并擅长使用计算方法来系统地读取 DNA、解读其演化，并挑选出生物系统以供进一步表征。在加入 Anthropic 之前，我们的研究帮助人们更好地理解了 CRISPR 系统的<a href="https://www.science.org/doi/10.1126/science.aei0498">演化</a>和<a href="https://www.nature.com/articles/s41586-018-0557-5">调控</a>，发现了用于下一代<a href="https://www.nature.com/articles/s41586-024-07552-4">细胞与基因疗法</a>的新<a href="https://www.science.org/doi/10.1126/science.adz0276">酶</a>，并构建了用于加速识别 DNA 异常（例如人类致病性变异）的<a href="https://www.nature.com/articles/s41586-026-10176-5">工具</a>。我们隶属于 Anthropic 的生命科学组织，与从事药物发现以及训练 Claude 学习生物学和化学的团队并肩工作。</p>
+<p>我们的实验室位于湾区，看起来像一个典型的分子生物学实验室。我们开展的研究仅涉及较低级别的生物安全风险等级（BSL-1 和 BSL-2），我们不处理能够感染人类的病原体。所有实验室工作均由人类科学家完成。尽管我们曾尝试通过诸如 <a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Model Hardware Standard</a> 等计划利用 AI 加速实验室工作，但这种方法不太适合我们分子生物学研究中涉及的那种临时性工作流程。</p>
+<h2><strong>我们如何工作</strong></h2>
+<p>我们的许多工作流程都涉及让 Claude 在大量与功能未知的蛋白质相关的 DNA 序列集合中进行搜索。一种典型模式始于对某个给定蛋白质家族的调查。Claude 阅读相关文献，并从公共数据中复现已有结果以检查其方法。然后，它搜索不符合任何已描述系统的家族成员或基因组邻近序列，并为每个候选对象撰写一份简短、人类可读的报告，提出一种功能并描述支持其主张的证据。在后续分析中，Claude 会批判性地评估证据——通常大多数候选对象都会在这一阶段被淘汰。一次调查最终可能只剩一个值得测试的候选对象，也可能一个都不剩。</p>
+<p>当候选方案通过我们的评审后，我们会在实验室中对其进行测试，在标准实验室菌株中表达该蛋白质，并对其进行生化和结构表征，同时借助 Claude 帮助解读数据。我们的工作是在 <a href="https://claude.com/product/claude-science">Claude Science</a> 和 <a href="https://claude.com/product/claude-code">Claude Code</a> 中完成的，这些工具任何科学家都可以使用，有时我们还会使用自己搭建的 harness 来协调多个并行运行的 Claude 会话。</p>
+<p>由于 Claude 能产出如此大量的假设，这些假设本身已成为我们的研究对象。单次任务就能产生数百到数千份候选报告，我们一直在探究：那些我们认为值得测试的提案，与那些被我们搁置的提案，究竟有何区别。我们得到的经验会反馈到给 Claude 的指令中，教会它模仿我们自己的科学品味。</p>
+<h2><strong>Claude 发现 ART</strong></h2>
+<p>在过去几年里，研究人员发现了许多新的逆转录酶（RT），其中大多数存在于细菌中，作为免疫系统的一部分发挥作用。几乎所有 RT 家族都是通过基因组分析（即基因组挖掘）发现的，这需要研究人员在序列数据库中搜索无人表征过的基因，注意到那些不寻常的基因，并弄清楚它们的功能。</p>
+<p>Claude agent 收集了超过 200,000 个 RT，筛选出 3,500 个新的候选系统，并进一步缩小到 20 个最引人注目的候选对象，对其进行分析以生成人类可读的报告。对于一位专家级科学家来说，这类分析可能需要数周到数月的工作。</p>
+<p>在研究过程中，Claude 注意到一个不寻常的 RT 家族，并决定对其进行更详细的检查。在梳理 RT 附近的原始 DNA 序列时，该 agent 惊呼：“[RT 旁边的 DNA] 太壮观了：我肉眼就能看到一个串联重复阵列……那是一个类似 CRISPR 的……重复阵列？！”<br></p>
+<figure><img alt="A graphic of Claude identifying patterns in DNA" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F0f6064436a364b73ce0d2a80848ac56be7ae9ddd-1360x1160.gif&amp;w=3840&amp;q=75"><figcaption><em>Claude 在检测到无人注意到的重复模式时所读取的原始 DNA</em></figcaption></figure>
+<p><br>随后，它就像人类科学家面对潜在发现时那样行事。它统计了重复序列的数量并测量了它们的间距，将布局与已知的 RT 系统进行比较，并在文献中搜索该模式的任何先前报道。经过彻底分析后，它确信自己发现了一个新的生物系统，并提交了一份报告供人类审查。</p>
+<p>它发现的这个系统名为 ART，主要存在于噬菌体中，由三部分组成：RT、紧邻它的一个伙伴基因，以及一长串等间距的 DNA 重复序列。这种重复布局类似于 CRISPR 阵列，后者储存着一组不同的 RNA 序列，使 CRISPR-Cas 系统成为可编程的生物技术工具。我们的初步实验表明，ART 阵列也会表达为一组不同的短 RNA，这暗示该系统可能存在类似的机制。</p>
+<p>进一步的实验正在进行中，以确定 ART 的工作原理。我们分享这些早期发现，是为了向科学界展示 Claude 能够自主检测异常并推动分析，从而开启生物学发现。</p>
+<p>您可以在我们的技术报告（<a href="https://www-cdn.anthropic.com/22573675ada52a8ca8a97a1a4b4326b2f208a071.pdf">此处</a>）中找到更多细节。</p>
+<h2><strong>与我们合作</strong></h2>
+<p>我们希望这项工作能向更广泛的科学界展示 AI 驱动假设生成的价值，我们也希望与其他科学家合作，将这种方法扩展到基因组学及其他领域的广泛问题中。如果您有研究问题的提案，我们期待您的来信。</p>
+<p><a href="https://www.anthropic.com/news/claude-discovers-novel-enzyme-system">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

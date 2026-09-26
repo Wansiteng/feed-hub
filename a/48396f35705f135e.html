@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>v4.1.20</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">v4.1.20</h1>
+<p><small>Cline Releases · 评分 6/10：子 agent 并行工具调用与输出预算调整，涉及多 agent 编排</small></p>
+<p><strong>要点</strong></p><ul><li>同一 step 内生成的 Sub-agents 现在并行执行工具调用，而非依次执行</li><li>大输出上限模型默认输出预算改为上限的 30%，不低于 32,000 tokens</li><li>模型目录更新至 209 家提供商、6,237 个模型，新增 AI21 Labs 等 6 家</li></ul>
+<hr/>
+<h3>变更</h3>
+<ul>
+<li>同一步骤中生成的子 agent 现在会同时执行各自的工具调用，而不是依次执行。必须按顺序运行的工具仍会按顺序执行，父 agent 仍会等待所有结果返回后才进入下一轮。</li>
+<li>声明了较大输出上限的模型现在会获得更大的默认输出预算——取该上限的 30% 与固定 32,000 tokens 中的较大值。对于输出上限约在 107k tokens 以下的模型没有任何变化；更长的响应可能意味着更高的单轮成本和延迟。</li>
+<li>更新了模型目录：提供商从 203 个增至 209 个，模型从 6,079 个增至 6,237 个。Kimi For Coding 拆分为独立的 kimi.com 和 kimi.ai 提供商，AI21 Labs、ainetcafe、Inco、OCI Generative AI、Tempr 和 Vispark 为新增提供商。对于 36 个未固定默认模型的提供商，其解析后的默认模型发生变化——大多数落在 DeepSeek V4.1 Flash、GLM 5.3 Flash 或 MiMo V2.6 Flash 上。如果你使用这些提供商之一且未固定模型，默认模型将会不同。</li>
+</ul>
+<h3>修复</h3>
+<ul>
+<li>UserPromptSubmit 和 TaskStart hooks 可以再次注入上下文了。这些 hooks 作为 <code>contextModification</code> 返回的内容此前被丢弃——只有 <code>cancel</code> 得以保留——因此本意是为任务添加仓库信息或内部规则的 hook 会静默失效。现在上下文会作为 <code>&lt;hook_context&gt;</code> 块在运行的首次请求中传递，与回归前一致，且原始块不会在对话记录中渲染。hook 也不会再收到自己此前注入的文本作为下一轮的 prompt。</li>
+<li>输入框中未发送的文本在 Retry 后得以保留。Retry 不发送任何输入框内容，却仍执行与审批操作相同的清理，删除了请求进行期间输入内容的唯一副本。现在文本、引用上下文、图片和文件被作为一个草稿跟踪，只有提交类操作才会消耗它。</li>
+<li>后台命令的输出现在会在命令运行期间流式显示到命令行中，而不是只在命令完成时才出现。</li>
+<li>为提供商配置的 Azure API 版本现在会在任务中生效，并同步到 <code>providers.json</code>。</li>
+<li>规则的查找和显示现在保持一致。Rules 面板此前只列出 <code>.clinerules</code> 和 Documents 全局文件夹，因此从 <code>.cline/rules</code>、<code>~/.cline/rules</code> 或 <code>~/Cline/Rules</code> 加载的规则虽已应用于模型，却未显示在面板中——而在 Documents 文件夹被 OneDrive 重定向的 Windows 上，全局规则根本无法被找到。</li>
+<li>从历史记录中删除任务现在会真正将其移除。索引条目缺失但磁盘文件仍存在的任务此前会被报告为已删除，然后在下次刷新时重新出现。</li>
+<li>你自己配置的子 agent 在你已批准委派后，不再要求你批准其各个工具调用。</li>
+<li>压缩不再会在长任务进行到一半时静默回退为截断。摘要器此前一直保留任务启动时捕获的凭据，因此一旦凭据刷新，其请求就会因授权错误而失败，且该错误被吞掉；现在它会跟随任务当前的凭据和模型。</li>
+<li>模型轮次在发起工具调用前就达到输出 token 上限时，不再会结束任务。它最多会重试三次，并提醒模型简洁作答、将大型工作拆分到多次工具调用中。</li>
+</ul>
+<p><strong>完整更新日志</strong>：<a href="https://github.com/cline/cline/compare/v4.1.19...v4.1.20"><tt>v4.1.19...v4.1.20</tt></a></p>
+<p><a href="https://github.com/cline/cline/releases/tag/v4.1.20">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

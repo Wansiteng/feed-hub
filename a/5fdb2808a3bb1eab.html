@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI Codex 0.157.0</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI Codex 0.157.0</h1>
+<p><small>OpenAI Codex Releases · 评分 7/10：Codex正式版新增GPT-6模型支持与多项交互功能<br/>原标题：0.157.0</small></p>
+<p><strong>要点</strong></p><ul><li>Codex 0.157.0 新增 GPT-6 Sol 和 Luna 模型，支持 Amazon Bedrock</li><li>默认启用全屏 transcript 和后台服务自动启动</li><li>文件上传超时从 60 秒延长至 5 分钟，并增加失败重试</li></ul>
+<hr/>
+<h2>新功能</h2>
+<ul>
+<li>新增 GPT-6 Sol 和 Luna，包括对 Amazon Bedrock 的支持以及针对旧模型的迁移提示。（<a href="https://github.com/openai/codex/pull/47332">#47332</a>，<a href="https://github.com/openai/codex/pull/47347">#47347</a>）</li>
+<li>默认启用全屏转录，并新增 Shift 点击以扩展文本选择范围。（<a href="https://github.com/openai/codex/pull/47178">#47178</a>，<a href="https://github.com/openai/codex/pull/47414">#47414</a>）</li>
+<li>为符合条件的交互式会话启用后台服务器自动启动，并在服务器设置不兼容时提供恢复选项。（<a href="https://github.com/openai/codex/pull/47179">#47179</a>，<a href="https://github.com/openai/codex/pull/47318">#47318</a>）</li>
+<li>新增 <code>f</code> 快捷键，可在其他应用中打开分叉对话，同时保留草稿和排队的 prompt。（<a href="https://github.com/openai/codex/pull/47185">#47185</a>）</li>
+<li>使 <code>/import</code> 在远程会话和本地后台服务器会话中可用。（<a href="https://github.com/openai/codex/pull/47317">#47317</a>）</li>
+<li>改进终端渲染，支持 Unicode 项目符号、复选框、对齐的公式和优化符号。（<a href="https://github.com/openai/codex/pull/47191">#47191</a>，<a href="https://github.com/openai/codex/pull/47322">#47322</a>）</li>
+</ul>
+<h2>Bug 修复</h2>
+<ul>
+<li>切换线程时保留正在进行的语音对话。（<a href="https://github.com/openai/codex/pull/47381">#47381</a>）</li>
+<li>在轮次结束时将未发送的问题答案恢复到编辑器中，且不干扰正在进行的会话历史搜索。（<a href="https://github.com/openai/codex/pull/47422">#47422</a>，<a href="https://github.com/openai/codex/pull/47423">#47423</a>）</li>
+<li>在自动屏幕模式下，遵循 tmux 鼠标设置，并恢复通过 SSH 使用 Terminal.app 时的原生回滚。（<a href="https://github.com/openai/codex/pull/47399">#47399</a>，<a href="https://github.com/openai/codex/pull/47417">#47417</a>）</li>
+<li>修复了实时连接和独立网页搜索（包括搜索重定向）的已配置代理路由。（<a href="https://github.com/openai/codex/pull/47101">#47101</a>，<a href="https://github.com/openai/codex/pull/47142">#47142</a>，<a href="https://github.com/openai/codex/pull/47204">#47204</a>）</li>
+<li>为暂时性文件上传失败添加了重试机制，并将上传超时时间延长至五分钟。（<a href="https://github.com/openai/codex/pull/47122">#47122</a>，<a href="https://github.com/openai/codex/pull/47393">#47393</a>）</li>
+<li>在重定向以及持续的 HTTP 和 WebSocket 流量中强制执行网络限制，包括在策略变更撤销访问权限时取消连接。（<a href="https://github.com/openai/codex/pull/47389">#47389</a>，<a href="https://github.com/openai/codex/pull/47407">#47407</a>）</li>
+</ul>
+<h2>更新日志</h2>
+<p>完整更新日志：<a href="https://github.com/openai/codex/compare/rust-v0.156.0...rust-v0.157.0"><tt>rust-v0.156.0...rust-v0.157.0</tt></a></p>
+<ul>
+<li><a href="https://github.com/openai/codex/pull/47063">#47063</a> Add a partial index for agent message board root posts <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47064">#47064</a> Stop redundant message-board reads when limits reach one <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47065">#47065</a> Deduplicate deprecation notices in the TUI transcript <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47068">#47068</a> Highlight selected newlines in the transcript view <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47073">#47073</a> Wait for thread idle in Guardian context budget tests <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47074">#47074</a> Refresh host-supplied cloud skills at turn startup <a href="https://github.com/TAFOYA-OAI">@TAFOYA-OAI</a></li>
+<li><a href="https://github.com/openai/codex/pull/47075">#47075</a> Include attributed previews in agent message board notifications <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47077">#47077</a> Serialize environment updates and cancel removed pending attachments <a href="https://github.com/sayan-oai">@sayan-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47079">#47079</a> Mask daemon socket paths exposed through ancestor bind mounts <a href="https://github.com/nicksteele-oai">@nicksteele-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47081">#47081</a> Track cumulative MCP attribution across requests and thread history <a href="https://github.com/peilin-openai">@peilin-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47082">#47082</a> Show the voice toggle in the TUI shortcut overlay <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47083">#47083</a> Extract per-thread enrichment into a dedicated async helper <a href="https://github.com/aibrahim-oai">@aibrahim-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47084">#47084</a> Avoid building a host SQLite driver for SQLx macros <a href="https://github.com/aibrahim-oai">@aibrahim-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47085">#47085</a> Update model catalog descriptions and GPT-5.6-Sol priority <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47086">#47086</a> Format analytics credit usage with consistent decimal precision <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47088">#47088</a> Disable unused default dependency features <a href="https://github.com/aibrahim-oai">@aibrahim-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47089">#47089</a> Centralize JSON-RPC response serialization through payloads <a href="https://github.com/aibrahim-oai">@aibrahim-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47094">#47094</a> Restrict Unix local MCP servers to stdio descriptors <a href="https://github.com/yuzhu-oai">@yuzhu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47095">#47095</a> Remove the <code>rust-release-prepare</code> workflow <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47096">#47096</a> Keep TUI hints immediately above the composer <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47100">#47100</a> Preserve assistant answers in bounded TUI task responses <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47101">#47101</a> Honor configured proxies for realtime WebSocket connections <a href="https://github.com/celia-oai">@celia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47106">#47106</a> Preserve originating turn metadata for yielded skill calls <a href="https://github.com/eddie-openai">@eddie-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47108">#47108</a> Preserve required Windows runtime variables for filesystem helpers <a href="https://github.com/iceweasel-oai">@iceweasel-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47112">#47112</a> Lowercase the retry hint for conversations open in another app <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47113">#47113</a> Persist thread creator identity in rollouts and SQLite <a href="https://github.com/nornagon-openai">@nornagon-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47114">#47114</a> Preserve and expose thread item lifecycle timestamps <a href="https://github.com/chiam-oai">@chiam-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47116">#47116</a> Honor the configured product SKU in remote plugin requests <a href="https://github.com/jessedu-oai">@jessedu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47118">#47118</a> Support model-catalog overrides for Code Mode tool messages <a href="https://github.com/rhan-oai">@rhan-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47121">#47121</a> Pass thread IDs to attachment uploads <a href="https://github.com/kchainani-oai">@kchainani-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47122">#47122</a> Increase OpenAI file blob upload timeout from 60 seconds to 5 minutes <a href="https://github.com/wilkes-oai">@wilkes-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47125">#47125</a> Add extra policy configuration for Guardian reviews <a href="https://github.com/won-openai">@won-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47129">#47129</a> Preserve foreign working directories in extension tool environments <a href="https://github.com/anp-oai">@anp-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47130">#47130</a> Remove the <code>ultrafast</code> service tier from <code>gpt-5.6-sol</code> <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47132">#47132</a> Support caller-provided MITM CAs in the network proxy <a href="https://github.com/viyatb-oai">@viyatb-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47137">#47137</a> Prevent horizontal transcript selection from triggering autoscroll <a href="https://github.com/imac-oai">@imac-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47142">#47142</a> Honor system proxy settings for standalone web search <a href="https://github.com/celia-oai">@celia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47143">#47143</a> Extract exec-server CLI startup into a dedicated module <a href="https://github.com/anp-oai">@anp-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47149">#47149</a> Update code mode catalog snapshot hashes <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47155">#47155</a> Ignore stale thread-close notifications after resuming a thread <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47158">#47158</a> Harden gateway OAuth credential persistence and error redaction <a href="https://github.com/alexsong-oai">@alexsong-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47159">#47159</a> Expose HTTP origins in MCP server status <a href="https://github.com/frantic-openai">@frantic-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47162">#47162</a> Apply workspace routing to Guardian v2 classifier requests <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47170">#47170</a> Add explicit gateway login control and authentication status <a href="https://github.com/alexsong-oai">@alexsong-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47174">#47174</a> Preserve empty cell metadata under pending tool-call pressure <a href="https://github.com/ningyi-oai">@ningyi-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47178">#47178</a> Enable the fullscreen transcript by default <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47179">#47179</a> Enable automatic daemon startup by default <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47185">#47185</a> Allow forking conversations locked by another app in the TUI <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47191">#47191</a> Render aligned equations and optimization notation in TUI math <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47199">#47199</a> Separate thread preparation from execution persistence <a href="https://github.com/dermanyang-oai">@dermanyang-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47204">#47204</a> Resolve proxy routes for standalone web search redirects <a href="https://github.com/celia-oai">@celia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47207">#47207</a> Add explicit gateway OAuth sign-in to app-server <a href="https://github.com/alexsong-oai">@alexsong-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47212">#47212</a> Preserve MCP request trace context across transport workers <a href="https://github.com/bromano-oai">@bromano-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47235">#47235</a> Route multi-agent spawning through <code>SpawnRequest</code> <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47236">#47236</a> Suppress agent message board notifications to the post author <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47240">#47240</a> Prevent V2 agent eviction from racing with queued messages <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47244">#47244</a> Centralize agent resume handling in <code>LocalAgentControl</code> <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47248">#47248</a> Add explicit app and account targets to MCP resource reads <a href="https://github.com/victor-openai">@victor-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47249">#47249</a> Drop descendant channel posts from retained remote compaction v2 history <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47252">#47252</a> Return agent snapshots from <code>close_agent</code> <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47257">#47257</a> Preserve explicit message-board unsubscribes when posting <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47258">#47258</a> Test spawn settings reporting after child removal <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47259">#47259</a> Subscribe authors to message-board channels created by posting <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47263">#47263</a> Expose hosted plugin extensions in app-server summaries <a href="https://github.com/victor-openai">@victor-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47267">#47267</a> Stream agent snapshots from local status subscriptions <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47271">#47271</a> Implement <code>AgentControl</code> for <code>LocalAgentControl</code> <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47272">#47272</a> Allow Guardian sync review across compaction hash differences <a href="https://github.com/felixxia-oai">@felixxia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47275">#47275</a> Enable Guardian thread context by default <a href="https://github.com/felixxia-oai">@felixxia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47281">#47281</a> Add regression coverage for message board unsubscribe persistence <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47287">#47287</a> Update the Guardian extra-policy snapshot for retained instructions <a href="https://github.com/felixxia-oai">@felixxia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47292">#47292</a> Consolidate agent operations in the <code>AgentControl</code> implementation <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47301">#47301</a> Separate local agent runtime state from controller handles <a href="https://github.com/jif-oai">@jif-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47302">#47302</a> Use compact display metadata for Guardian review threads <a href="https://github.com/charliemarsh-oai">@charliemarsh-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47303">#47303</a> Clean up legacy Guardian thread metadata in SQLite <a href="https://github.com/charliemarsh-oai">@charliemarsh-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47317">#47317</a> Enable <code>/import</code> in remote and local daemon sessions <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47318">#47318</a> Offer explicit recovery for incompatible background servers <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47319">#47319</a> Match agent status symbols to the selected row style <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47320">#47320</a> Fix Escape navigation in read-only agent sessions <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47321">#47321</a> Honor the system clock preference across more TUI timestamps <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47322">#47322</a> Render TUI Markdown lists with Unicode bullets and checkboxes <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47323">#47323</a> Persist resume metadata in compaction checkpoints <a href="https://github.com/owenlin0">@owenlin0</a></li>
+<li><a href="https://github.com/openai/codex/pull/47325">#47325</a> Keep report reason tags within Sentry limits <a href="https://github.com/ningyi-oai">@ningyi-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47326">#47326</a> Restrict MCP OAuth authorization endpoints to HTTP(S) <a href="https://github.com/viyatb-oai">@viyatb-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47327">#47327</a> Preserve image generation request IDs on failure <a href="https://github.com/chrisdong-oai">@chrisdong-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47329">#47329</a> Standardize TUI menu description wording and punctuation <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47330">#47330</a> Identify failed SQLite databases in <code>codex doctor</code> output <a href="https://github.com/dkovalenko-oai">@dkovalenko-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47331">#47331</a> Avoid redundant spacing above the transcript composer <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47332">#47332</a> Add GPT-6 Sol and Luna to the model catalog <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47338">#47338</a> Move the activity inspection hint into keyboard shortcut help <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47340">#47340</a> Add conditional turn interruption that preserves pending input <a href="https://github.com/pmccrary-oai">@pmccrary-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47342">#47342</a> Skip stored title lookups for ephemeral forks <a href="https://github.com/keyz">@keyz</a></li>
+<li><a href="https://github.com/openai/codex/pull/47347">#47347</a> Add GPT-6 Sol and Luna to Amazon Bedrock catalogs <a href="https://github.com/celia-oai">@celia-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47348">#47348</a> Overlap subagent spawn persistence and clean up cancelled children <a href="https://github.com/owenlin0">@owenlin0</a></li>
+<li><a href="https://github.com/openai/codex/pull/47349">#47349</a> Move plugin recommendations into developer context <a href="https://github.com/adaley-openai">@adaley-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47350">#47350</a> Reuse cloud skill catalogs across turns until invalidated <a href="https://github.com/hlevy-openai">@hlevy-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47353">#47353</a> Preserve <code>invalid_prompt</code> as a distinct error classification <a href="https://github.com/rennie-openai">@rennie-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47355">#47355</a> Reserve spacing after recaps at the transcript tail <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47358">#47358</a> Color paths and URLs in <code>codex doctor</code> by check status <a href="https://github.com/dkovalenko-oai">@dkovalenko-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47360">#47360</a> Preserve user prompt URL destinations across terminal widths <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47361">#47361</a> Restrict Windows sandbox default object access to the logon session <a href="https://github.com/viyatb-oai">@viyatb-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47362">#47362</a> Bound inbound exec-server requests across client transports <a href="https://github.com/viyatb-oai">@viyatb-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47365">#47365</a> Resume model context from the latest compaction boundary <a href="https://github.com/owenlin0">@owenlin0</a></li>
+<li><a href="https://github.com/openai/codex/pull/47369">#47369</a> Overlap agent metadata reads when resuming a V2 root <a href="https://github.com/vkg-oai">@vkg-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47375">#47375</a> Add an opt-in preference for the local MXC sandbox <a href="https://github.com/iceweasel-oai">@iceweasel-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47377">#47377</a> Add opt-in reasoning status for realtime V3 delegations <a href="https://github.com/guinness-oai">@guinness-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47380">#47380</a> Route TUI voice controls through the app <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47381">#47381</a> Keep voice conversations running across TUI thread navigation <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47382">#47382</a> Show a voice badge in the agents overview <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47384">#47384</a> Restore composer hints after clearing selection at the transcript bottom <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47389">#47389</a> Enforce network policy throughout HTTP and WebSocket requests <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47393">#47393</a> Retry transient OpenAI file blob upload failures <a href="https://github.com/mtsui-oai">@mtsui-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47397">#47397</a> Refresh bundled model metadata and instructions <a href="https://github.com/andrewgu-oai">@andrewgu-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47399">#47399</a> Respect tmux mouse settings in fullscreen and overlays <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47407">#47407</a> Enforce application network policy across app-server requests <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47408">#47408</a> Enforce application network policy for AWS auth and telemetry <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47410">#47410</a> Honor network policy in remote control and recover remote execution <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47411">#47411</a> Apply shared network policy throughout embedded Codex startup <a href="https://github.com/acrognale-oai">@acrognale-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47413">#47413</a> Cache decrypted gateway OAuth secrets per backend <a href="https://github.com/charliemarsh-oai">@charliemarsh-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47414">#47414</a> Support Shift-click to extend transcript selections <a href="https://github.com/etraut-openai">@etraut-openai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47417">#47417</a> Use native scrollback for Terminal.app over SSH in auto mode <a href="https://github.com/fcoury-oai">@fcoury-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47422">#47422</a> Recover unsent question drafts when TUI turns end <a href="https://github.com/imac-oai">@imac-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47423">#47423</a> Preserve history search during background draft recovery <a href="https://github.com/imac-oai">@imac-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47424">#47424</a> Clear pending async question notifications when turns end <a href="https://github.com/imac-oai">@imac-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47428">#47428</a> Apply inherited environment settings at turn boundaries <a href="https://github.com/sayan-oai">@sayan-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47435">#47435</a> Allow environment selection updates during an active turn <a href="https://github.com/sayan-oai">@sayan-oai</a></li>
+<li><a href="https://github.com/openai/codex/pull/47437">#47437</a> Stabilize retry timing and WebSocket tests <a href="https://github.com/anp-oai">@anp-oai</a></li>
+</ul>
+<p><em>（有 1 段翻译失败，保留了原文）</em></p>
+<p><a href="https://github.com/openai/codex/releases/tag/rust-v0.157.0">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

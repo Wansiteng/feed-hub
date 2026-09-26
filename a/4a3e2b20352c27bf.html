@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>VLLM 4x RTX 3060 vs 8x RTX 3060 性能损失</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">VLLM 4x RTX 3060 vs 8x RTX 3060 性能损失</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：本地推理多卡扩展的实际经验讨论，与本地部署相关但非重大更新<br/>原标题：VLLM 4x rtx 3060 vs 8x rtx 3060 performance loss</small></p>
+<p><strong>要点</strong></p><ul><li>用户用4块RTX 3060 12GB在VLLM中运行，计划未来通过主板分叉升级到8块GPU</li><li>当前用3块3060在llama.cpp分层模式下运行Qwen 3.8 27B Q6，速度25 tps</li><li>用户担心超过4块GPU会因PCIe瓶颈严重拖慢token生成速度，但不确定3060是否受影响较小</li></ul>
+<hr/>
+<p>大家好！</p>
+<p>我目前正在搭建自己的本地 AI 服务器，用的是华南金牌 H12D-8D EPYC 主板，配了 8 根 16GB 2666 MHz 内存条（其他配件还在等货中）</p>
+<p>我现在有四块 RTX 3060 12GB 显卡，打算在 VLLM 里以 PCIe4 x16 运行它们。</p>
+<p>不过看到这块主板每个插槽都支持拆分，能上 8 块显卡跑 PCIe 4x8，我就开始琢磨这将来会不会是个可行的升级方向。</p>
+<p>关于性能结果我看到的信息互相矛盾。如果我没理解错的话，超过 4 块 GPU 会因为 PCIe 瓶颈大幅拖累 token 生成速度？但这跟具体用什么 GPU 有关系吗？</p>
+<p>我知道比如 RTX 3090 需要更高的 PCIe 带宽，因为它性能强得多，会吐出多得多的需要同步的数据（请原谅我术语不专业），那是不是意味着我用 3060 从 4 块加到 8 块，性能损失会更小？</p>
+<p>有没有人能大概估一下我该期待什么？现在我用 Qwen 3.8 27b Q6，在 llama.cpp 分层模式下跑（三块 3060），能到 25 tps。我估计换成 VLLM 加四块 GPU 会有提升（也许能到 50 tps？），但 8 块 GPU 呢？</p>
+<p>会不会比我现在的基线还低？</p>
+<p>如果我问得外行请见谅，我算是新手，也不太信任聊天机器人。我铁了心要搞一台够用的本地 AI 服务器，想在手头硬件上把性价比拉满。</p>
+<p>由 <a href="https://www.reddit.com/user/snakeat3rr"> /u/snakeat3rr </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wptfja/vllm_4x_rtx_3060_vs_8x_rtx_3060_performance_loss/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wptfja/vllm_4x_rtx_3060_vs_8x_rtx_3060_performance_loss/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wptfja/vllm_4x_rtx_3060_vs_8x_rtx_3060_performance_loss/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

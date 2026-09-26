@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Astra 和 Opus 刚通过了图灵的另一项测试</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Astra 和 Opus 刚通过了图灵的另一项测试</h1>
+<p><small>TechCrunch · AI · 评分 6/10：前沿模型完成图灵二战密码破译工作，能力进展值得一读<br/>原标题：Astra and Opus just passed Turing’s other test</small></p>
+<p><strong>要点</strong></p><ul><li>两名密码分析师用 OpenAI 和 Anthropic 的 LLM 破解了长期未解的 Enigma 密文</li><li>开发者 Carter Leffen 让 OpenAI 的 Astra 模型自主研究并还原了一条自 2005 年起无人破解的电文</li><li>退休工程师 Frode Weierud 验证了该解法，称 Astra 两天完成人类数周的工作</li></ul>
+<hr/>
+<p>计算机先驱<a href="https://en.wikipedia.org/wiki/Alan_Turing">艾伦·图灵</a>最为人熟知的，是他那个用来测试人工智能与人类智能能否被区分开来的同名实验。然而，他一生中面临的更重要的考验，是破解二战期间纳粹德国使用的 Enigma 密码。</p>
+<p>如今，两位密码分析学家表示，他们利用 OpenAI 和 Anthropic 构建的 LLM，破解了两条由 <a href="https://en.wikipedia.org/wiki/Enigma_machine">Enigma 密码机</a>加密、长期悬而未决的电文。</p>
+<p>图灵和他的密码分析团队曾建造了一台早期计算机，名为<a href="https://en.wikipedia.org/wiki/Bombe">炸弹机（Bombe）</a>，使英国得以在战时破译 Enigma 电文，但仍有少量存档电文始终未能破解——通常是因为转录错误或原始加密者出了差错。</p>
+<p>开发者 Carter Leffen 只是让 OpenAI 的最新模型 Astra 在一个 Enigma 电文数据库中搜索一条未破解的电文并将其解码。该模型<a href="https://x.com/carterleffen/status/2100405732935868840">确实做到了</a>：它自行做了档案研究，找到上下文线索，搭建了一个 Enigma 密码机模拟器，最终还原出一条自 2005 年以来一直困扰研究者的电文的<a href="https://en.wikipedia.org/wiki/Plaintext">明文</a>。他甚至用 Astra 搭建了<a href="https://mvueh-enigma-solved.carterl.chatgpt.site/">一个交互式网站</a>，解释整个问题。</p>
+<p>Frode Weierud 是一位退休电气工程师，毕生对密码学抱有浓厚兴趣，他维护着网站 <a href="https://cryptocellar.org/">Crypto Cellar</a>，其中包含各种资源和记录，以及一个电文数据库。上周，Weierud <a href="https://www.cryptocellar.org/bgac/the-mvueh-break.html">验证</a>了 Leffen 的解法，他说这让他感到“惊叹”。</p>
+<p>值得注意的是，鉴于 AI agent 为了回答眼前的问题会不遗余力，Astra 模型的日志中提到了一个“私人收藏”中的存档电文，这些电文并非由 Weierud 托管。他仍不确定该模型是否访问了这些电文，但推测它们可能是由另一位研究者发布在网上的某处，或者该模型能够访问德国政府的公共档案。</p>
+<p>“GPT–6 Astra 表现得像一位非常专业的密码分析学家和档案研究者，”他写道。“它在两天内取得的成果，人类研究者需要数周甚至数月。就我个人而言，我花了数周时间研究 GPT–6 Astra 提到的 Bundesarchiv 档案。”</p>
+<p>9 月 21 日，另一位密码分析学家、网络安全高管 <a href="https://www.linkedin.com/posts/jwcyber_proud-to-share-that-working-alongside-anthropic-share-7508868584660709376-3PEG/?utm_source=social_share_send&amp;utm_medium=member_desktop_web&amp;rcm=ACoAAAltMbcB_bpSwgTP0uSCkN9_aQetL3oTMLY">Jack Willis</a> 联系了 Weierud，称他使用 Anthropic 的 Claude Opus 5 模型<a href="https://cryptocellar.org/bgac/the-fmngi-break.html">破解了</a>另一条未解电文。Willis 给 Claude 提供了明显更多的引导，后者最终得以利用某位军官姓名的已知签名破解了该电文。</p>
+<p>Weierud 指出，目前仅剩七条未破解的 Enigma 电文，另有一条电文明文已知但密码仍未破解。</p>
+<p>也许不会太久了。</p>
+<p><a href="https://techcrunch.com/2026/09/25/astra-and-opus-just-passed-turings-other-test/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Bots for the last mile: Rollouts, Security Review</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Bots for the last mile: Rollouts, Security Review</h1>
+<p><small>评分 6/10：Cursor 博客新方向，但标题信息有限，需看正文判断</small></p>
+<p><strong>要点</strong></p><ul><li>Cursor 发布 Rollouts 和 Security Reviewer 两款软件开发 bot</li><li>Rollouts 跟踪 PR 到生产的变更，发现回归并自动回滚或暂停发布</li><li>Security Reviewer 在每个 PR 上运行，查找漏洞并给出修复方案</li></ul>
+<hr/>
+<p>今天我们发布软件开发机器人，帮助你更快地将安全、可靠的代码投入生产。</p>
+<ul>
+<li><strong>Rollouts</strong> 跟踪一次变更从 PR 到生产环境的全过程，标记回归问题，并采取行动恢复健康状态。</li>
+<li><strong>Security Reviewer</strong> 在你的代码库中发现并修复安全问题。</li>
+</ul>
+<h2><a href="https://cursor.com/blog/rollouts-and-security-reviewer#why-we-built-these"><span>#</span></a>我们为什么构建这些</h2>
+<p>写代码不再是慢的那一环。没有加速的是 PR 提交之后的一切：确保代码安全、盯着部署、判断延迟上升是不是真的、弄清楚十一个变更中哪个搞坏了结账流程。</p>
+<p>这些工作既困难又重复，还需要大量上下文。听起来正是机器人该干的活！</p>
+<p>我们说过正在朝着自驾驶代码库的方向努力。Rollouts 和 Security Review 自主处理每个软件团队都希望有更多专业知识和时间去做的一些常见任务。</p>
+<h2><a href="https://cursor.com/blog/rollouts-and-security-reviewer#rollouts"><span>#</span></a>Rollouts</h2>
+<p>Rollouts 跟踪一次变更，从 PR 打开的那一刻，到你确信它在生产环境中正常工作的那一刻。</p>
+<p>连接源代码管理、你的部署系统和你的遥测（Datadog、Grafana、Honeycomb，或者你的指标和追踪所在的任何地方）。合并之前，Rollouts 读取 diff 并编写监控计划：它看到的风险、变更应该产生的影响，以及你的埋点无法告诉你它是否生效的地方。如果计划遗漏了什么，你可以编辑它。</p>
+<p>部署之后，Rollouts 将计划中的信号与部署前的基线进行比较。当它发现回归时，会告诉你它怀疑哪个变更以及它计划做什么。根据你的配置，这可能是一条发给作者的提醒、一次暂停的渐进式发布，或者一个等待批准的 revert PR。</p>
+<p>它目前擅长做的三件事：</p>
+<ul>
+<li>它能捕捉到局限于某个区域某个端点的回归，在全球告警触发之前就发现</li>
+<li>它能区分预期影响和回归，因此有意的峰值不会触发任何人的告警</li>
+<li>它在合并前标记缺失的埋点，这是不良变更被忽视的最常见原因</li>
+</ul>
+<p>即将推出：功能开关集成，让 Rollouts 可以直接增减流量，以及感知发布列车和部署冻结。</p>
+<h2><a href="https://cursor.com/blog/rollouts-and-security-reviewer#security-reviewer"><span>#</span></a>Security Reviewer</h2>
+<p>Security Reviewer 在每个 PR 上运行，在整个代码库的上下文中读取变更，并报告漏洞，附带解释和修复建议。</p>
+<p>静态分析靠模式匹配：它会标记 SQL 调用附近的每一个字符串拼接，却漏掉重构后不再运行的授权检查。Security Review 像安全工程师那样阅读代码：用户输入从哪里进入，最终到哪里，途中经过了什么。</p>
+<p>开箱即用，它会查找：</p>
+<ul>
+<li>SQL、命令、模板和 LDAP 层面的注入</li>
+<li>新增和变更路由上缺失或损坏的身份验证和授权</li>
+<li>提交到源代码中的密钥和凭证</li>
+<li>不安全的反序列化和未验证的重定向</li>
+<li>引入已知漏洞的依赖变更</li>
+<li>基础设施和配置中的不安全默认值</li>
+</ul>
+<p>每个发现都有严重程度、攻击路径和一键修复。</p>
+<h2><a href="https://cursor.com/blog/rollouts-and-security-reviewer#get-started"><span>#</span></a>开始使用</h2>
+<p>Rollouts 和 Security Reviewer 今天已在 Teams 和 Enterprise 计划中提供。从 <a href="https://cursor.com/automations">automations</a> 标签页启用任一机器人即可开始使用。</p>
+<p><a href="https://cursor.com/blog/rollouts-and-security-reviewer">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

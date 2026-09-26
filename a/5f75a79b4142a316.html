@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>别人忙着卷Code，Kimi抽身反打浏览器插件：网页操作一秒变Skill</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">别人忙着卷Code，Kimi抽身反打浏览器插件：网页操作一秒变Skill</h1>
+<p><small>量子位 · 评分 8/10：Kimi 浏览器 agent 与 Skill 机制，直接相关 agent 工具链</small></p>
+<p><strong>要点</strong></p><ul><li>Kimi WebBridge 升级为 Kimi 浏览器扩展，侧边栏可直接对话操作网页</li><li>新版支持把网页操作录制并保存成 Skill，方便重复任务复用</li><li>官方提醒网页改版或动态加载时操作仍可能卡住，可截图确认后调整指令</li></ul>
+<hr/>
+<div><p>
+        &lt; img id="wx_img" src="https://www.qbitai.com/wp-content/uploads/imgs/qbitai-logo-1.png" width="400" height="400"&gt;
+    </p>
+
+
+      
+                    
+        	<div>
+				     <h1>别人忙着卷Code，Kimi抽身反打浏览器插件：网页操作一秒变Skill</h1>
+    			   <div>
+             <span><em><a href="https://www.qbitai.com/author/jay" title="由 Jay 发布">Jay</a></em></span>
+                          <p><span>2026-09-25</span>
+             <span>14:20:56</span>
+          <span>
+          来源：<a href="https://www.qbitai.com">量子位</a>            </span></p></div>
+                          
+                            			<blockquote>
+<p>鹭羽 发自 凹非寺<br>
+量子位 | 公众号 QbitAI</p>
+</blockquote>
+<p>不ber？<strong>Kimi</strong>你是考古派的啊。。。</p>
+<p>都6202年了，怎么还在玩浏览器插件？？？</p>
+<p>前脚刚出了个Kimi Code Desktop，把浏览器加塞进了本地窗口，转头又给Chrome安排上了<strong>「新」</strong>插件。</p>
+
+<p>说新吧，倒也没多新鲜。</p>
+<p>老瓶装新酒，就是4个月前发布的Kimi WebBridge，改头换面成了<strong>Kimi浏览器扩展</strong>。</p>
+<p>顺便功能也升了级——</p>
+<p>打开网页、读取内容、点击按钮……这些老一套的东西倒都还在，主要新增功能有两处：</p>
+<p>一是现在浏览器<strong>侧边栏</strong>直接可用，二是在网页上做过的事能帮忙录成<strong>Skill</strong>，方便下次复用。</p>
+<p>好好好，这下用Kimi更方便了（doge）</p>
+<p>新版加点料</p>
+<p>老实说，旧版<strong>WebBridge</strong>的名字还挺直白的。</p>
+<p>“网页桥梁”一头接本地Agent，一头连Chrome或Edge扩展。Agent发来指令，它就能在用户的真实浏览器中跳转页面并完成任务，再把操作结果送回去。</p>
+<p>简而言之，它是<strong>让Agent用上你的浏览器</strong>。</p>
+
+<p>至于新版呢，先是把<strong>入口</strong>给改了。</p>
+<p>现在点击工具栏里的Kimi图标，登录Kimi账号，就能在<strong>侧边栏直接对话</strong>，让Kimi操作当前网页；原先由本地Agent调用扩展的方式则继续保留。</p>
+
+<p>功能上延续WebBridge，可以完成<strong>网页浏览操作与信息抓取</strong>。</p>
+<p>不过，之前Agent通过WebBridge操作浏览器时，每次都需要迭代调教一段时间，才能高效完成任务。</p>
+<p>现在这个问题在新版得到了解决。</p>
+<p>新版支持录制用户在网页上的动作，再整理成<strong>Skill</strong>。</p>
+<p>举个栗子，比如我每天都会打开同一个网站，查找当天新闻再导出数据，Kimi浏览器扩展现在就能把这一套网页操作保存成Skill，下次直接调用。</p>
+<p>如果某次任务做得很顺利，Kimi也能将此次会话以Skill形式保存下来。</p>
+<p>正因如此，<strong>新版更适合重复工作</strong>。用户随手可用，流程也可以反复调用。</p>
+
+<p>当然，官方也提醒，遇到网页改版、页面动态加载等情况，仍然可能让操作中途卡住。所以遇到复杂页面失败时，可以先截图确认页面状态，再调整指令。</p>
+<p>浏览器插件仍能打</p>
+<p>AI插件走到这儿，其实也绕了挺长一段路。</p>
+<p><strong>Manus</strong>团队早年的产品Monica，就把AI放在任意网页边上，帮用户提问、写邮件；<strong>豆包插件</strong>也一直在强调视频内容筛选、外语网页翻译和论文阅读。</p>
+<p>那一代的AI插件主要解决的是<strong>「看网页」</strong>。</p>
+<p>到了<strong>「用网页」</strong>时期，Manus后来又推出了Browser Operator，让Agent经授权后操作用户的本地浏览器。</p>
+
+<p>Kimi WebBridge做的也是差不多的事情，都是真实浏览器控制。今天的Kimi浏览器扩展则再往前推了一步，能够让做过的网页流程有机会沉淀下来。</p>
+<p>所以6202年了，<strong>浏览器插件还真得继续做</strong>，用户在这儿，痛点也在这儿。</p>
+<p>不过，Kimi浏览器扩展紧跟着<strong>Kimi Code Desktop</strong>前后脚发布，这件事本身就蛮有意思的。</p>
+
+<p>Kimi Code Desktop是专门给Agent做项目的工作台，尤其是<strong>内置浏览器</strong>，会一路跟着项目走，非常适合改完网页立即看效果。</p>
+<p>哪里不对，用户可以直接点选页面元素、附上截图和评论，让Agent打回重做。</p>
+<p>同样指向浏览器，<strong>一个是项目内部，一个是用户外部应用</strong>，将Kimi Code Desktop和浏览器插件结合来看，产品思路就清楚多了：</p>
+<p>Agent在桌面端拿到项目文件、终端和改动记录；需要检查自己做出的网页时，打开会话里的内置浏览器；需要进入用户日常使用的网站时，再通过扩展操作已有的Chrome或Edge。</p>
+<p>Agent的手越伸越长，也越做越稳。</p>
+<p>参考链接：<br>
+[1]https://x.com/Kimi_Moonshot/status/2102372557190230244<br>
+[2]https://www.kimi.ai/products/kimi-browser-extension<br>
+[3]https://mp.weixin.qq.com/s/0x-tXOxlutrxE9YNODng0A</p>
+<p>— 完 —<br>
+量子位 QbitAI · 头条号签约<br>
+关注我们，第一时间获知前沿科技动态</p>
+
+                
+                
+                <p><em>版权所有，未经授权不得以任何形式转载及使用，违者必究。</em></p>
+            </div>
+     		</div>
+<p><a href="https://www.qbitai.com/2026/09/497075.html">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

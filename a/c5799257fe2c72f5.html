@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ThinkingCap 3.8-27B vs. Swift 3.8-27B vs. Qwen 3.8-27B 基准对比</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">ThinkingCap 3.8-27B vs. Swift 3.8-27B vs. Qwen 3.8-27B 基准对比</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：开放模型推理效率对比，有实测数据<br/>原标题：ThinkingCap 3.8-27B vs. Swift 3.8-27B vs. Qwen 3.8-27B Benchmarks</small></p>
+<p><strong>要点</strong></p><ul><li>ThinkingCap 与 Swift 均将中位完成 token 减少近 5k，约 40%，与模型卡宣称一致</li><li>ThinkingCap 与原始 Qwen3.8-27B 在 Aider 评测中得分完全相同：首试 27.1%、重试 77.6%</li><li>Swift 首试通过率 30.8% 最高，但重试通过率 75.7% 略低</li></ul>
+<hr/>
+<p>随着 <a href="https://huggingface.co/bottlecapai/ThinkingCap-Qwen3.8-27B">ThinkingCap-Qwen3.8-27B</a> 的发布，我觉得有必要对原版 Qwen3.8-27B、新的 ThinkingCap 以及 <a href="https://huggingface.co/ukisai/Swift-Qwen3.8-27b">Swift-Qwen3.8-27B</a> 做一次对比。Swift <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wh5elt/cut_qwen3827b_reasoning_tokens_by_40_38/">我已经评测过</a>，它和 ThinkingCap 做的事情完全一样：减少 3.8-27B 以之闻名的过度推理循环。事实上，它们的宣称几乎一模一样：两个模型都声称能将推理 token 减少约 40%，而性能下降极小。我想验证一下这些说法。</p>
+<p>我使用了自己标准的 Aider 评测套件，我发现它能很好地区分被测模型（目前约 20 个），而且只有一个模型（Qwen3.8-Flash）得分超过 90%。通过这项评测，我可以测量许多有用的指标，包括 pass1/2、completion tokens、秒/用例、tok/solve，以及模型尝试中格式良好的 diff 数量。以下是每个模型 2 次运行的结果，这应该能将误差范围最多缩小到 +/- 2-3%。所有 3 个模型都在 llama.cpp 0.5.0 中以 Q8_0 量化进行评估：</p>
+<ul><li><strong>ThinkingCap-Qwen3.8-27B (xhigh)</strong><br>首次通过率：27.1% · 重试通过率：77.6% · 格式良好的 diff：100.0% · 中位 token 数：7436 · 秒/用例：777 · tok/solve：12.8K</li><li><strong>Qwen3.8-27B (xhigh)</strong><br>首次通过率：27.1% · 重试通过率：77.6% · 格式良好的 diff：99.1% · 中位 token 数：12547 · 秒/用例：1481 · tok/solve：19.3K</li><li><strong>Swift-Qwen3.8-27B (xhigh)</strong><br>首次通过率：30.8% · 重试通过率：75.7% · 格式良好的 diff：98.1% · 中位 token 数：7301 · 秒/用例：750 · tok/solve：12.1K</li></ul>
+<p>令人震惊的是，ThinkingCap 和原版 27B 的得分*完全相同*。我甚至从未遇到过同一个模型两次运行得分完全相同的情况，所以把这当作纯粹的巧合吧。不过，这无疑支持了 BottlecapAI 关于性能下降极小的说法。Swift 的表现与其他 2 个模型的差距在噪声范围内，仅低 2%，但首次通过率高于它们两者。</p>
+<p>借用 Claude 的一句话，真正的故事在于 completion tokens：两个微调模型的中位 completion tokens 都比原版少了近 5k。这几乎*完全*符合它们模型卡中宣称的 40% 削减。ThinkingCap 每次求解使用的 token 略多，因此比 Swift 稍慢一些，但两者在这方面的差距也只有几个百分点。有一点在图表上看不到：中位数持平，但在平均 completion tokens 上，ThinkingCap 多用了 8.5%，因为它的尾部更长——有更多用例它仍然会严重过度思考，而 Swift 则实现了更均匀的推理 token 削减。另一个区别：两个模型在失败的用例上花费的 token 都比成功的用例多，但 Swift 更为明显（失败 13.2k vs 成功 5.9k），而 ThinkingCap 则是（中位数 9.4k vs 中位数 6.8k）。也许 ThinkingCap 更容易放弃？或者它只是知道自己何时已经输了。</p>
+<p>为了区分这两个出色的微调模型，我们需要更细致地观察它们的表现。有 3 种语言在编程性能上能区分它们：</p>
+<ul><li><strong>ThinkingCap-Qwen3.8-27B (xhigh)</strong><br>cpp：11.5% / 61.5% · javascript：35.4% / 85.4% · python：27.3% / 78.8%</li><li><strong>Qwen3.8-27B (xhigh)</strong><br>cpp：7.7% / 69.2% · javascript：27.1% / 81.2% · python：42.4% / 78.8%</li><li><strong>Swift-Qwen3.8-27B (xhigh)</strong><br>cpp：11.5% / 69.2% · javascript：37.5% / 81.2% · python：36.4% / 72.7%</li></ul>
+<p>如你所见，ThinkingCap 在 C++ 上明显不如 Swift，pass2 低了 8%。然而，它在 Javascript 和 Python 上扳回了劣势，分别高出 4% 和 6%。如果你使用其中某种语言的频率高于其他语言，这一点值得注意。在 Aider 中其他语言上的表现统计上相似（p &gt; 0.05）。最后一个区别——ThinkingCap 是唯一在格式良好的 diff 上获得满分的模型：零错误输出、零格式错误回复，而另外两个模型都有若干次。</p>
+<p>总之，希望这能帮助任何试图在这两个精心制作的微调模型之间做选择的人，它们都名副其实……</p>
+<p><strong>编辑：</strong> <a href="https://huggingface.co/ukisai/Swift-Qwen3.8-Flash-Next">Swift Flash Next 已发布！</a>。和我一起在<a href="https://www.reddit.com/r/unsloth/comments/1wp8t5y/please_quantize_swiftqwen38flashnext/">这里</a>请求 Unsloth UDv3 量化版本。</p>
+<p>由   <a href="https://www.reddit.com/user/returnity"> /u/returnity </a>提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp5vqr/thinkingcap_3827b_vs_swift_3827b_vs_qwen_3827b/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp5vqr/thinkingcap_3827b_vs_swift_3827b_vs_qwen_3827b/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp5vqr/thinkingcap_3827b_vs_swift_3827b_vs_qwen_3827b/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

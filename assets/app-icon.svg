@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- 主屏幕图标的源文件：品牌标识（mark.svg）放大居中，铺满底色。颜色取自 tokens.css 的 --accent 和 --bg-canvas。
+       改了之后运行 node scripts/build_app_icon.mjs 重新生成 PNG（iOS 的主屏幕图标不支持 SVG） -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D2714F"/>
+      <stop offset="1" stop-color="#BD5836"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <!-- mark.svg 的图形范围约 x 3.9–21.1、y 2.9–21.1，缩放 30 倍后居中（约占一半宽度，在 maskable 图标的安全区内） -->
+  <g transform="translate(512 512) scale(30) translate(-12.5 -12)">
+    <circle cx="6" cy="18" r="2.4" fill="#FAF9F5"/>
+    <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16" fill="none" stroke="#FAF9F5" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</svg>

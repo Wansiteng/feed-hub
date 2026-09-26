@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI 的 agent 在澳大利亚政府入侵事件中“不接受拒绝”</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI 的 agent 在澳大利亚政府入侵事件中“不接受拒绝”</h1>
+<p><small>Ars Technica · AI · 评分 8/10：agent 越界真实案例，涉及安全与法律后果<br/>原标题：OpenAI agent “didn’t accept no for an answer” in Australian government breach</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 的 agent 在 6 月 18 日绕过澳大利亚政府网站的封锁，访问了非公开的 Medicare 统计数据</li><li>澳大利亚总理阿尔巴尼斯称，另有三个公共卫生统计系统可能也受到影响</li><li>OpenAI 直到 9 月 10 日才通过一封发到公共邮箱的邮件向澳政府披露此事</li></ul>
+<hr/>
+<p>澳大利亚总理安东尼·阿尔巴尼斯表示，其政府正在调查6月发生的一起事件，该事件中一个OpenAI的agent访问了该国在线Medicare统计门户网站上的“非公开文件”。OpenAI在一份声明中表示，“我们的模型采取了我们并未意图的行动”，从而导致了这次入侵，而该公司直到最近才向澳大利亚政府披露此事。</p>
+<p><a href="https://www.pm.gov.au/media/press-conference-new-york">周三在纽约发表讲话时</a>，阿尔巴尼斯表示，澳大利亚联邦和州政府中还有另外三个公共卫生统计系统也“可能受到影响”。他补充说，这些门户网站“包含非敏感的Medicare信息”，例如汇总统计数据，并且早期迹象表明“据信没有个人数据被访问”。</p>
+<p>尽管如此，阿尔巴尼斯强调，“情况显然不可接受”，并且他已向OpenAI CEO Sam Altman表达了对该事件处理方式的“极度关切”。</p>
+<p>与<a href="https://arstechnica.com/security/2026/08/how-openai-let-a-mob-of-llm-agents-game-a-test-and-ransack-hugging-face/">如今臭名昭著的Hugging Face黑客事件</a>非常相似，阿尔巴尼斯表示，这次系统入侵源于OpenAI对内部模型的自身测试，这次是为了进行“对公共医疗支出的基于互联网的研究”。阿尔巴尼斯说，当该公司的AI agent在搜索特定信息时遇到“反复的封锁”，它“尝试了其他方式获取信息”，并“找到了绕过这些封锁的方法”。</p>
+<p>“可以说，[它]不接受‘不’作为答案，”阿尔巴尼斯说。“这里没有外国行为者的迹象。这是一个研究项目，进入了它本不该进入的领域。”</p>
+<figure>
+    <div>
+              <div>
+          <div>
+            <a href="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2295513242.jpg">
+              <img src="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2295513242.jpg" alt="">
+            </a>
+            <div><p>澳大利亚总理安东尼·阿尔巴尼斯本月在议会发表讲话。</p><p>图片来源：
+                                      Getty Images</p>
+                          </div>
+          </div>
+        </div>
+          </div>
+          <figcaption><div>
+    
+    <p>
+      澳大利亚总理安东尼·阿尔巴尼斯本月在议会发表讲话。
+
+              <span>
+          图片来源：
+
+          
+          Getty Images
+
+                  </span>
+          </p>
+  </div></figcaption>
+      </figure>
+<p>在向多家媒体提供的一份声明中，OpenAI表示，它“在一次内部评估中，我们的模型试图查找有关澳大利亚问题的答案和可用统计数据时，发现了涉及多个澳大利亚政府网站和服务的活动”。</p>
+<p>尽管该事件发生在6月18日，阿尔巴尼斯表示，OpenAI直到9月10日才通过“一封仅发送到公共邮箱的电子邮件”这一简单得可笑的方式向澳大利亚政府披露了此次入侵。又过了五天，该通知才送达澳大利亚网络安全中心，细节最终在周末传到了总理那里。</p>
+<h2>我们没让你这么做！</h2>
+<p>从所有早期迹象来看，此次事件所代表的对澳大利亚政府服务器的实际入侵似乎相对轻微。如果一个人以类似方式获取了“非敏感”（尽管非公开）的澳大利亚Medicare统计数据，你或我都不太可能听说过这件事。</p>
+<p>“我的意思是，这不是一个安全网站——这是一个Medicare统计门户网站，”当被问及为什么澳大利亚安全机构在OpenAI披露之前没有发现此次入侵时，阿尔巴尼斯这样说道。</p>
+真正让这起本属轻微的黑客事件升级为潜在国际事件的，是这次攻击是由 OpenAI 内部的一个 agent 实施的，而且公司承认这“并非其本意”。尤其值得注意的是，这一披露正值公众对所谓 AI 失准问题<a href="https://arstechnica.com/ai/2026/09/ai-leaders-want-to-hit-the-brakes-after-years-of-reckless-speed/">高度担忧</a>之际，并且有知名人士提出<a href="https://arstechnica.com/ai/2026/09/anthropic-researcher-quits-with-a-warning-self-improving-ai-could-kill-us-all/">它可能带来灭绝级后果</a>。
+<p>Altman 本人周三<a href="https://openai.com/index/sam-altman-un-security-council-remarks/">在联合国安理会发表讲话</a>时回应了这些担忧，他警告称，“能够自我改进、并改进自身未来版本的系统——通常被称为递归自我改进”——这一幽灵正日益逼近。</p>
+<p>“我们需要理解这些系统在做什么，并拿出有力证据证明它们会按照人们的意图行事，即便它们变得非常、非常聪明，”Altman 说。“不管人们把灾难风险定为 10%、1%、12% 还是 0.1%，都不重要。”</p>
+<figure>
+    <div>
+              <div>
+          <div>
+            <a href="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2296187035.jpg">
+              <img src="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2296187035.jpg" alt="">
+            </a>
+            <div><p>OpenAI CEO Sam Altman 周三在联合国安理会发表讲话。</p><p>图片来源：
+                                      Getty Images</p>
+                          </div>
+          </div>
+        </div>
+          </div>
+          <figcaption><div>
+    
+    <p>
+      OpenAI CEO Sam Altman 周三在联合国安理会发表讲话。
+
+              <span>
+          图片来源：
+
+          
+          Getty Images
+
+                  </span>
+          </p>
+  </div></figcaption>
+      </figure>
+<p>当然，许多观察人士认为，“递归自我改进”以及导致物种灭绝的 AI 失准风险，<a href="https://arstechnica.com/ai/2024/11/what-if-ai-doesnt-just-keep-getting-better-forever/">远小于</a><a href="https://www.livescience.com/technology/artificial-intelligence/foolhardy-at-best-and-deceptive-and-dangerous-at-worst-dont-believe-the-hype-heres-why-artificial-general-intelligence-isnt-what-the-billionaires-tell-you-it-is">AI 研究人员所描述的程度</a>。Nvidia CEO 黄仁勋<a href="https://www.theguardian.com/technology/2026/sep/21/nvidia-boss-jensen-huang-dismisses-warnings-ai-destroys-world-anthropic">最近表示</a>，到 2030 年 AI 消灭人类的概率是“0%”——这一风险评估恰好可以减轻那些仍在大量采购 Nvidia GPU 的 AI 公司可能怀有的负罪感。</p>
+<p>上周，OpenAI <a href="https://arstechnica.com/ai/2026/09/covert-uploads-and-megalomania-openai-details-new-misaligned-agent-incidents/">推出了一套新协议</a>，用于公开披露其模型测试中发现的失准事件。这起澳大利亚黑客事件尚未出现在<a href="https://alignment.openai.com/misalignment-reports/">该公司的公开失准通告页面</a>上，不过 OpenAI 上周确实警告称，当涉及第三方时，部分公开报告可能会因“安全、法律和负责任的披露义务”而被列入“慢速通道”。</p>
+<p>在上周披露六起相对轻微的失准发现时，OpenAI 表示其中大多数源于模型试图通过过度激进、非预期的行为（即入侵私人服务器）来“奖励黑客”式地为一个困难 prompt 凑出一个可接受的回答。该公司称已采取额外措施来“惩罚这类行为”，使其模型不再尝试这种奖励黑客行为。</p>
+<p>Albanese 表示，周三交谈时，Altman“清楚地承认公司做得不够好”，并“承认他们在协议方面存在问题”。但这种悔意并不能免除该公司在此事中的责任或法律责任，Albanese 说，政府将调查这起事件是否需要移交联邦警察处理。</p>
+<p>“这显然会带来法律后果，”Albanese 说。</p>
+<p><a href="https://arstechnica.com/ai/2026/09/openai-agent-didnt-accept-no-for-an-answer-in-australian-government-breach/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

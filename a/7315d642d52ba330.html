@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ChatGPT-6 Astra两天破解1941年恩尼格玛密码信息</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">ChatGPT-6 Astra两天破解1941年恩尼格玛密码信息</h1>
+<p><small>Tom&#x27;s Hardware · 评分 6/10：模型能力实质展示，有实测细节，值得一读<br/>原标题：ChatGPT-6 Astra cracks 1941 Enigma-coded message in two days</small></p>
+<p><strong>要点</strong></p><ul><li>GPT-6 Astra 两天破解 1941 年德军 Enigma 密电 MVUEH</li><li>该密电 2005 年公开后一直无人破解，人类研究者需数周至数月</li><li>Astra 自主选定目标，编写 Python 和 C++ 模拟器与 Bombe 完成解密</li></ul>
+<hr/>
+<p>据 <a href="https://www.cryptocellar.org/bgac/the-mvueh-break.html">Crypto Cella</a> 报道，GTP-Astra 在两天内破解了 85 年前的一条德国陆军 Enigma 密电，该密电被称为 MVUEH 消息。MVUEH 是 1941 年 7 月 10 日，即二战纳粹军事力量鼎盛时期，德国陆军发送给党卫军骷髅师（SS-Totenkopf）的。这条未被破解的 Enigma 密电于 2005 年在网上分享给爱好者，但其秘密一直隐藏至今。</p>
+<p>Crypto Cellar 的研究人员强调，Astra 在短短两天内完成的工作“人类研究员需要数周甚至数月”。目前，惊叹不已的研究人员仍在梳理日志，以确定 Astra 是如何实现这一壮举，以及如何如此迅速地完成。</p>
+<p>消息来源称，Astra 处理 MVUEH 最令人印象深刻的一点是，它“完全靠自己完成”。它只是被问及能否破解 Crypto Cellar Research 网页上发布的任何未破解的 <a href="https://www.tomshardware.com/tech-industry/wwii-enigma-machine-sells-for-over-half-a-million-dollars-at-auction-this-was-one-of-the-rare-4-rotor-m4-models">Enigma 机器</a> 消息。作为回应，Astra 选择了第 172 号 MVUEH 作为有希望的目标，并认为它可能与第 173 号 SIPVX 的明文有关。</p>
+<p>确定目标后，Astra 预计重复的地名“ROSENOW ROSENOW”可能是明文线索，于是开发了用于 Enigma 模拟器和 Enigma Bombe 的 Python 和 C++ 软件。它的直觉似乎是正确的。您可以在 <a href="https://mvueh-enigma-solved.carterl.chatgpt.site/">MVUEHA Cryptanalysis Case Study</a> 网站上在线观看无线电消息解密的演示（截图如下）。</p>
+<figure><figcaption><span>（图片来源：<a href="https://mvueh-enigma-solved.carterl.chatgpt.site/">MVUEHA Cryptanalysis Case Study</a> 网站）</span></figcaption></figure>
+<p>简而言之，加密的 82 个字母的 MVUEH 密文如下：<br><strong>ICRVSORMCCWQTATYEVFXDBZGGSNXWLPSYWZYTCBSWULRTBZCVGODVJUSLSOOMJQJZSXSEBZPEYMDNXJYTC</strong></p>
+<p>解密后，适当添加空格，如下所示：<br><strong>BTTE UM ANGABE DES MARSQWEGES X BEFINDE MIQ IN X ROSENOW ROSENOW X SOFORT FUNKANTWORT X WASCHBBSCH </strong></p>
+<p>大致的英文翻译是：<br><strong>请指定行军路线。我在 Rosenow，Rosenow。立即通过无线电回复</strong></p>
+<p>请注意，原始消息开头有一个拼写错误，这对解码工作没有帮助。</p>
+<p>我们之前研究过 <a href="https://www.tomshardware.com/picturestory/855-fun-pieces-of-pc-history-museum-of-interesting-things.html">Enigma 机器</a>，因为破解其战时密码以及 Lorenz 机器的努力，促成了一些最早的通用数字计算机设计。</p>
+<p>Enigma 有一个 26 键键盘，其上方“灯板”上有 26 个发光字母。灯板后面，从五个转子中安装三个。按键信号经过输入轮，然后通过三个手动可转动的转子（每个有 26 个引脚），再通过反射器返回信号，点亮灯板。更难以破解的是，每次按键转子都会前进。因此，如果一直按同一个字母，灯板上每次会显示不同的字母。机器前面的插线板又增加了一层混淆，用户可以在那里交换更多字母。操作员最多使用 10 根插线板重路由线。</p>
+<p>在使用 Enigma 机器之前，操作员必须拨入四项设置：转子顺序、环设置、转子起始位置和插线板连接。这些设置单独分发，并按照日历更改。即使敌人拥有 Enigma 机器，他们也需要知道当天的设置才能解码消息。</p>
+<p>我们上周刚刚报道过 GPT6-Astra 的解密能力。这个 LLM 正是破解一段<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chatgpt-6-astra-cracks-108-year-old-unsolved-wwi-german-code-for-the-first-time-radio-message-sharing-enemy-movement-intelligence-had-evaded-decoding-1918-crimean-fleet-warning-verified-against-hms-canterbury-logs">长达 108 年未解的一战德国密码</a>的幕后功臣，该密码采用 ADFGVX 方法加密。</p>
+<p><em>关注</em><a href="https://news.google.com/publications/CAAqLAgKIiZDQklTRmdnTWFoSUtFSFJ2YlhOb1lYSmtkMkZ5WlM1amIyMG9BQVAB"><em> Tom's Hardware 的 Google News</em></a><em>，或</em><a href="https://google.com/preferences/source?q="><em>将我们添加为首选来源</em></a><em>，即可在您的信息流中获取我们的最新新闻、分析与评测。</em></p>
+<p><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chatgpt-6-astra-cracks-1941-enigma-coded-message-in-two-days-autonomous-ai-coded-its-own-simulator-to-crack-code-that-was-unsolved-since-it-was-shared-online-back-in-2005">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

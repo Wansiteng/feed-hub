@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>GPT-6 的更好 prompt 缓存</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">GPT-6 的更好 prompt 缓存</h1>
+<p><small>评分 7/10：缓存命中率与成本延迟优化，与 agent 工程相关<br/>原标题：Better prompt caching for GPT-6</small></p>
+<p><strong>要点</strong></p><ul><li>GPT-6 改进 prompt caching，默认提高缓存命中率，缓存输入 token 折扣最高 90%</li><li>缓存折扣适用于 30 分钟内复用的共享前缀</li><li>新增 Prompt Caching Dashboard 和诊断工具，可监控命中率、排查未命中原因</li></ul>
+<hr/>
+<p><span>GPT‑6 让持久化 agent 能够连续数小时处理复杂任务，从重构代码库到产出经过充分调研的文档和演示文稿。这些 agent 背后的应用会发起一系列相互依赖的 API 请求，往往会沿用之前轮次中的相同指令、工具定义和上下文。OpenAI 会缓存这些共享上下文，以便在多个请求之间复用计算，从而缩短响应时间，并为开发者提供最高 90% 的缓存输入 token 折扣。</span></p>
+<p><span>随着 GPT‑6 系列的推出，我们上线了改进后的 prompt 缓存系统，默认即可实现更高的缓存命中率。现在，对于在 30 分钟窗口内被复用的符合条件的共享前缀，我们会提供缓存折扣。我们还推出了新工具，帮助开发者监控缓存性能、诊断未命中情况，并选择要缓存 prompt 的多少内容。</span></p>
+<p><span>新的 </span><a href="https://platform.openai.com/usage?usage_section=prompt-caching"><u><span>Prompt Caching Dashboard</span></u>⁠<span>（在新窗口中打开）</span></a><span> 会显示你的应用输入中有多少来自缓存。你可以跟踪一段时间内的命中率，并使用输入构成图表来对比已缓存和未缓存的 token。这些视图有助于你发现缓存命中的下降，并评估应用变更对缓存性能的影响。</span></p>
+<p><span>当你遇到意外的缓存未命中时，可以使用 </span><a href="https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics"><u><span>prompt 缓存诊断工具</span></u>⁠<span>（在新窗口中打开）</span></a><span> 来了解发生了什么。将某个请求与最近的响应进行对比，找出导致无法复用的模型、工具、设置或输入变化。受影响的估算 token 数量可帮助你评估影响规模，并决定如何优化集成以最大化缓存命中率。</span></p>
+<pre><code>{
+  "prompt_cache_diagnostics": {
+    "type": "cache_miss",
+    "reason": "tools_changed",
+    "comparison_reusable_tokens": 5629,
+    "cache_missed_tokens": 5629
+  }
+}
+</code></pre>
+<p><b><span>选择要缓存的内容。</span></b><span>显式缓存断点让你可以选择要复用哪些 prompt 前缀。更新后的 </span><a href="https://developers.openai.com/api/docs/guides/prompt-caching"><u><span>prompt 缓存指南</span></u>⁠<span>（在新窗口中打开）</span></a><span> 说明了如何使用它们、缓存前缀在多长时间内仍符合条件，以及工具和输入的变化会如何影响复用。</span></p>
+<p><b><span>调整推理力度而不破坏缓存。</span></b><span>在 GPT‑6 模型上，你现在可以在多次响应之间 </span><a href="https://developers.openai.com/api/docs/guides/reasoning?api-mode=responses#change-reasoning-mid-conversation"><u><span>更改推理力度</span></u>⁠<span>（在新窗口中打开）</span></a><span> 而不破坏缓存。对于更难的任务可以提高力度，对于常规的后续任务可以降低力度，只需追加一个 </span><span><code><span>configuration_update</span></code></span><span>，同时保持请求级别的推理力度不变。这样，你就可以在保留可复用上下文的同时，调整任务所需的推理量。</span></p>
+<p><b><span>在工具和指令变化时保留缓存。</span></b><span>随着 agent 的工具使用需求发生变化，请保持工具定义、schema 和顺序稳定，以便较早的上下文仍可复用。使用 </span><span><code><span>allowed_tools</span></code></span><span> 仅让相关工具可被调用，或在不需要工具时将 tool_choice 设为 none，而不是移除定义。使用新的 developer 消息在上下文末尾追加新指令，以覆盖较早的指令。请参阅我们的 </span><a href="https://developers.openai.com/api/docs/guides/prompt-caching#manage-tools-with-append-only-updates"><u><span>工具变更管理指南</span></u>⁠<span>（在新窗口中打开）</span></a><span>。</span></p>
+<p><b><span>预热缓存以降低延迟。</span></b> <a href="https://developers.openai.com/api/docs/guides/prompt-caching#prewarm-the-cache"><u><span>预热</span></u>⁠<span>（在新窗口中打开）</span></a><span>会提前准备好已知上下文，这样当请求到达时，模型可以更快开始响应。例如，应用可以在启动期间、用户提出第一个问题之前，预热共享指令、工具定义或参考资料。这样就把处理过程移出了用户的等待时间。</span></p>
+<p><span>这些可选控制项基于引擎的默认性能构建，帮助你根据自身工作负载定制缓存策略。</span></p>
+<ul><li><p>Strawberry Browser</p></li><li><p>Manus</p></li><li><p>Wordsmith</p></li></ul>
+<ul><li><p><span>在</span><a href="https://platform.openai.com/usage?usage_section=prompt-caching"><u><span>Prompt Caching Dashboard</span></u>⁠<span>（在新窗口中打开）</span></a><span>中监控缓存命中率。</span></p></li><li><p><span>使用</span><a href="https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics"><u><span>诊断工具</span></u>⁠<span>（在新窗口中打开）</span></a><span>排查意外未命中。</span></p></li><li><p><span>按照</span><a href="https://developers.openai.com/api/docs/guides/prompt-caching"><u><span>prompt caching 指南</span></u>⁠<span>（在新窗口中打开）</span></a><span>改进你的设置，或者</span><a href="https://developers.openai.com/api/docs/guides/prompt-caching#how-to-optimize-prompt-caching"><u><span>使用 Codex</span></u>⁠<span>（在新窗口中打开）</span></a><span>来审查你的代码、应用改进并衡量结果。</span></p></li></ul>
+<p><a href="https://openai.com/index/better-prompt-caching-for-gpt-6">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

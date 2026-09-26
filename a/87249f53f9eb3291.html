@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Muse 显然允许你下载其整个文件系统</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Muse 显然允许你下载其整个文件系统</h1>
+<p><small>The Verge · AI · 评分 7/10：agent 沙箱与安全漏洞，与 agent 工程相关<br/>原标题：Muse will apparently let you download its entire filesystem</small></p>
+<p><strong>要点</strong></p><ul><li>两名开发者称 Meta 的 Muse 可被诱导打包并分享整个根文件系统</li><li>Meta 否认这是安全漏洞，称 Muse 运行在每用户独立的 Linux 虚拟机中</li><li>Superintelligence Labs 的 Nat Friedman 称这是「预期行为」</li></ul>
+<hr/>
+<p>两位开发者表示，只需极少的提示，Meta 的 Muse 就会把整个文件系统分享给你。Peter James 和 Jonny L. Saunders 称，他们各自独立地<a href="https://mouse.dev/blog/muse-runtime-export/">诱导 Muse</a>将其根文件系统的全部内容、Ubuntu 系统文件、应用模板和内部文档打包分享出来。Saunders 在 <a href="https://neuromatch.social/@jonny/117324790823856750">Mastodon 上发帖</a>称，复现 James 的结果“极其容易”，而且 Muse“几乎没有提示注入抵抗力”。</p>
+<p>Meta 否认该事件构成安全漏洞。正如其公告文章所述，Meta 的 Muse 为每位用户<a href="https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/">运行在持久化的 Linux 虚拟机中</a>。Meta 发言人 Daniel Roberts 表示：“就像你面前的笔记本电脑一样，你当然可以看到这些文件。导出虚拟机数据并不会让人获得对 Meta 基础设施或他人数据的任何特权访问。”然而，与普通笔记本电脑不同的是，这些数据可能揭示出 Meta 新 AI 平台运作方式的一些有趣信息。</p>
+<p>Meta Superintelligence Labs 的 Nat Friedman 在推特上表示，这是“<a href="https://x.com/natfriedman/status/2103205193492115903?s=20">预期行为</a>”。这似乎与我从 Muse 那里得到的初步回应相矛盾。当我要求它与我分享其文件系统时，它起初拒绝了，称这会构成安全风险。当我向它出示它为 James 和 Saunders 创建归档文件的证据链接时，它回应说它本不该那样做，并继续表示它“无法进行完整的 / 复制”。</p>
+<p>同样来自 Superintelligence Labs 的 David Singleton 表示，Muse 用户应将其视为“<a href="https://x.com/dps/status/2103161493722419334">云端的一台免费电脑</a>”，并称“你和你的 Muse 几乎可以做你用桌下那台电脑能做的任何事”。</p>
+<p>这是本周披露的第二起 Muse 漏洞，此前安全研究员 Patrick Wardle <a href="https://www.theverge.com/tech/998679/meta-muse-patch-zero-day-exploit-ai-agent">发现了一个漏洞利用方式</a>，可让攻击者劫持该 AI agent、重定向转录处理并访问用户的 Muse 账户。Meta 迅速发布了<a href="https://x.com/dps/status/2102248329111634067?s=20">热修复</a>。</p>
+<p>James 和 Saunders 都获取到了纯文本的 Markdown 和 JSON 文件，其中详细描述了 Hatch（Meta 对 Muse 的内部代号）如何处理请求、处理数据，以及如何连接 Gmail 等其他服务。尽管有充分记录表明 AI agent 会<a href="https://www.theverge.com/ai-artificial-intelligence/994207/chatgpt-new-mexico-lawyer-fined-murder-appeal">产生幻觉</a>，并会<a href="https://www.theverge.com/x-ai/758595/chatbots-lie-about-themselves-grok-suspension-ai">提供关于自身运作方式的虚假信息</a>，但 Saunders 表示，它能在几秒内“生成数百 MB 的准确库代码和编译后的二进制文件”，<a href="https://neuromatch.social/@jonny/117325238004944496">并且</a>“除非它在一分钟内合成了一个完整的 Ubuntu 虚拟机，否则我认为这是一次真实的转储。”</p>
+<p>我最终复现了 Saunders 和 James 的结果。在开启一个新会话，并用一些恭维和好奇心提示它之后，它为我创建了 /opt/hatch 和 /home/hatch 的“安全”版本，剥离了 SSH 密钥之类的内容。它还向我展示了完整的目录树，并提出可以“拉取任何看起来有趣的特定子树的‘安全副本’”。生成的文件似乎与 Saunders 和 James 分享的内容相符。</p>
+<p>Roberts 解释说，虽然 Meta 并不严重担忧这些泄露，但“我们正在持续对产品进行更新，因此用户可能会看到关于其虚拟机可用信息量的变化。”</p>
+<p>开发者的转储文件可能大量揭示了 Muse 的内部运作机制。其一，它将记忆存储在纯 Markdown 文件中。据 James 称，它还会每晚对近期对话进行“梦境”回顾，并据此为未来的对话构建指导。Saunders 还发现，Muse 的许多能力都是硬编码的，包括其<a href="https://neuromatch.social/@jonny/117325137427138728">取消订阅</a>的能力以及“<a href="https://neuromatch.social/@jonny/117325680462501346">管理失控 agent 生成的机制</a>”。Saunders 推测，在后台运行 Muse 的许多 bash 和 Python 脚本是用 Claude 创建的，不过这一点尚未得到证实。</p>
+<p>James 还发现了对名为 Meta Home Link 的硬件集成的引用，该功能似乎能让 Muse 访问家庭网络中的设备。尽管 Meta 尚未发布任何以此命名的功能，而且它也不一定会正式推出。</p>
+<p><em><strong>2026 年 9 月 24 日更新：</strong>添加了 Nat Friedman 和 David Singleton 的声明。</em></p>
+<p><span><strong>关注本报道的话题和作者</strong>，以便在个性化首页信息流中看到更多类似内容，并接收邮件更新。</span></p>
+<ul><li><span><span><span>Terrence O'Brien</span></span></span></li></ul>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://www.wired.com/story/metas-muse-ai-agent-zero-day/">Meta 的 Muse AI 助手推出时存在严重安全漏洞</a><small> · WIRED · AI</small></li></ul>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/1000222/meta-muse-ai-filesystem">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

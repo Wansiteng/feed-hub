@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Gemini 3.8 TTS Playground</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Gemini 3.8 TTS Playground</h1>
+<p><small>评分 6/10：Gemini TTS 模型与自定义语音能力，附带可玩工具</small></p>
+<p><strong>要点</strong></p><ul><li>Google 发布 gemini-3.8-flash-tts 和 gemini-3.8-flash-lite-tts 两款语音模型</li><li>新模型提供超 2000 种声音，30 秒音频样本即可定制音色</li><li>Gemini 3.8 Flash TTS 生成 1 分 18 秒音频耗时约 20 秒，花费 2.74 美分</li></ul>
+<hr/>
+<p><strong>工具：</strong> <a href="https://tools.simonwillison.net/gemini-tts-playground">Gemini 3.8 TTS Playground</a></p>
+<p>Google 今天<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-text-to-speech/">发布了两款新的 Gemini 文本转语音模型</a>——<code>gemini-3.8-flash-tts</code> 和 <code>gemini-3.8-flash-lite-tts</code>。</p>
+<p>它们自带一个包含 2,000 多种声音的语音库，还能用“仅仅 30 秒的音频样本——你自己的声音，或者你有权使用的声音”来创建自定义语音。</p>
+<p>我用 GPT-6 Astra <a href="https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2Fa82f3aef2677c623d1776092d6b21224">vibe coding</a> 出了这个自带 API key 的 playground 界面，利用了底层 Gemini API 开放的 CORS 策略。</p>
+<p><img alt="Screenshot of a web app for composing multi-speaker text-to-speech conversations, with a Compose panel on the left and Connection and Under the hood panels on the right. Left panel: &quot;01 Compose&quot; with a &quot;Load example&quot; button. &quot;Compose settings are saved in the URL for bookmarking or sharing. Your API key is excluded.&quot; Toggle with &quot;Single voice&quot; and &quot;Conversation&quot; (Conversation selected). &quot;Cast&quot; section with &quot;+ Add speaker&quot; button. Speaker &quot;Gus&quot;, Voice &quot;Puck&quot;, with a remove × button. Speaker &quot;Pearl&quot;, Voice &quot;Kore&quot;, with a remove × button. &quot;Give each speaker a unique name and a voice. Type to search the loaded catalog by voice ID, name, or language.&quot; &quot;Dialogue&quot; section with &quot;+ Add line&quot; button. &quot;LINE 01&quot; with up, down and × buttons; Speaker dropdown &quot;Gus&quot;; Delivery style &quot;excited and gossipy&quot;; text &quot;Pearl, have you heard? Half the flock just packed up and moved to the Pacifica pier!&quot; &quot;LINE 02&quot; with up, down and × buttons; Speaker dropdown &quot;Pearl&quot;; Delivery style &quot;calm and unimpressed&quot;; text &quot;I heard. Honestly, Gus, I don't see the appeal. We've got everything we need right here at Pillar Point Harbor.&quot; Right panel: &quot;Connection&quot; with a &quot;DIRECT API&quot; badge. &quot;Gemini API key&quot; field showing masked dots with a &quot;Show&quot; button. &quot;2,089 voices loaded. Type in any Voice field to search.&quot; &quot;Your key stays in this page's memory and is sent directly to Google. It is never saved to browser storage.&quot; &quot;Model&quot; dropdown &quot;gemini-3.8-flash-tts&quot;. &quot;Uses your Gemini API account and quota.&quot; &quot;Under the hood&quot; panel with an expanded &quot;▼ Request JSON&quot; section showing a JSON code excerpt, a &quot;Copy JSON&quot; button, and an expanded &quot;▼ Response details&quot; section showing a JSON code excerpt." src="https://static.simonwillison.net/static/2026/tts-playground.webp"></p>
+<p>这个 API 的一个显著特点是，它很容易定义多个角色之间的完整对话，每个角色都有不同的声音和语音风格指令。</p>
+<p>下面是一段简短的演示片段，内容是两只鹈鹕在争论要不要搬到 <a href="https://simonwillison.net/2026/Sep/12/sighting-399708714/">Pacifica Pier</a>。我让 Claude 4.5 Opus <a href="https://claude.ai/share/3597fc77-9323-4583-aeb9-b0e4c3f654a3">写了脚本</a>，并生成了<a href="https://simonwillison.net/u/vj">一个用该工具渲染它的 URL</a>。</p>
+<p><audio controls="controls">
+  <source src="https://static.simonwillison.net/static/2026/pelicans-pacifica-pier.wav" type="audio/wav"></source>
+  你的浏览器不支持 audio 元素。
+</audio></p>
+<p>使用 Gemini 3.8 Flash TTS（不是更便宜的 Flash-Lite）生成 1 分 18 秒的音频大约花了 20 秒，成本为 2.74 美分。</p>
+<p>标签： <a href="https://simonwillison.net/tags/text-to-speech">text-to-speech</a>, <a href="https://simonwillison.net/tags/gemini">gemini</a></p>
+<p><a href="https://simonwillison.net/2026/Sep/23/gemini-tts-playground/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

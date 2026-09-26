@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>用 LFM2.5-VL-DSpark 加速视觉语言模型</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">用 LFM2.5-VL-DSpark 加速视觉语言模型</h1>
+<p><small>评分 6/10：视觉语言模型加速技术，有一定工程参考价值<br/>原标题：Accelerating vision-language models with LFM2.5-VL-DSpark</small></p>
+<p><strong>要点</strong></p><ul><li>Liquid AI 发布 LFM2.5-VL-DSpark 草稿模型，为 LFM2.5-VL-3B 加速</li><li>设备端解码最高提速 3.13x，H100 上最高 2.66x，端到端最高 2.62x</li><li>草稿模型仅增加 280M 参数，占目标模型 8.9%</li></ul>
+<hr/>
+<p>今天，我们发布了一款实验性的</p>
+<p><a href="https://huggingface.co/papers/2607.05147"><strong>DSpark</strong></a> <strong>草稿模型，用于我们的视觉语言模型</strong>（VLM）<a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B">LFM2.5-VL-3B</a>。与我们<a href="https://huggingface.co/blog/LiquidAI/lfm25-dspark">近期发布的 LFM2.5-DSpark 草稿模型</a>一样，它增加了一条投机解码路径，以极小的内存开销换取更大的速度提升，同时不改变输出质量。
+</p>
+<ul>
+<li><strong>更快的推理：</strong>设备端解码速度最高提升 3.13 倍，H100 上最高提升 2.66 倍，端到端增益最高分别达 2.62 倍和 2.27 倍。</li>
+<li><strong>内存开销小：</strong>草稿模型增加 280M 参数，在 3B 目标模型基础上仅增加 8.9%</li>
+<li><strong>首日支持：</strong>兼容 LFM 的 DSpark 集成，支持 llama.cpp、MLX-VLM 和 SGLang</li>
+</ul>
+<h2>
+	
+		
+	
+	<span>
+		VLM 的投机解码如何工作
+	</span>
+</h2>
+<p>视觉草稿模型采用与我们文本 LFM2.5-DSpark 草稿模型相同的架构：它在固定的一组抽取层上捕获目标模型的隐藏状态，并以此为依据草拟一个包含 k 个候选 token 的块。图像 patch 和文本 token 在这些层之前被投影到共享表示中，因此无论输入模态如何，草稿模型处理的都是维度相同的隐藏状态向量。推理算法因此与文本模型保持一致。
+<a href="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/P7UX63U74cbjMWDapPjFm.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/P7UX63U74cbjMWDapPjFm.png" alt="DSpark-Vision"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		训练与架构
+	</span>
+</h2>
+<p>我们遵循 DSpark 配方，使用混合的视觉语言 SFT 数据，并偏向我们预期模型将服务的工作负载。基于 3、4、5 层的消融实验，草稿模型是一个简化的纯注意力草稿器，具有 4 层和 9 的块大小。我们在最终数据混合上运行了 10 个 epoch，并在每个 epoch 后测量接受率，接受率随着训练 token 增加而提升，随后达到收益递减。在推理时，我们建议根据硬件选择 8 或 9 的块大小。</p>
+<p>由此得到的草稿模型约有 280M 参数，仅使部署模型的参数量增加 8.9%。</p>
+<ul><li><strong>解码器堆栈（4 层）</strong><br>LFM2.5-VL-3B：193.0M</li><li><strong>隐藏状态投影</strong><br>LFM2.5-VL-3B：21.0M</li><li><strong>Markov 头</strong><br>LFM2.5-VL-3B：65.5M</li><li><strong>归一化 + 置信度头</strong><br>LFM2.5-VL-3B：6.4k</li><li><strong><strong>总计</strong></strong><br>LFM2.5-VL-3B：<strong>279.5M</strong></li></ul>
+<h2>
+	
+		
+	
+	<span>
+		CPU 和 GPU 上的推理加速
+	</span>
+</h2>
+<p>用于 LFM2.5-VL-3B 的 DSpark 草稿模型首日即支持 <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>、<a href="https://github.com/Blaizzy/mlx-vlm">MLX-VLM</a> 和 <a href="https://github.com/sgl-project/sglang">SGLang</a>。</p>
+<p>我们同时测量了设备端推理和 GPU 推理。两种配置均使用 DSpark 块大小 8，并在六项多样化的视觉任务上进行评估，包括通用 VQA、文本 VQA、图像描述、图表 VQA、复杂推理和多轮对话，遵循 <a href="https://huggingface.co/papers/2603.14989">MMSpec benchmark</a>。</p>
+<p><strong>设备端推理。</strong>在 M5 Max 上使用 MLX，解码速度按任务提升 2.30 倍至 3.13 倍。端到端延迟改善 1.56 倍至 2.62 倍。在 M3 Ultra 上使用 llama.cpp，解码提升 1.57 倍至 2.14 倍，端到端提升 1.30 倍至 1.77 倍。  </p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/n638hOT2C6Yoflniz2ffs.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/n638hOT2C6Yoflniz2ffs.png" alt="Screenshot 2026-09-24 at 15.49.03"></a></p>
+<p><strong>GPU 推理。</strong>在 H100 上，同一草稿模型实现 20.4 倍至 2.66 倍的解码加速，端到端改善 1.64 倍至 2.27 倍。   </p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/QUPP6CX21dma5OiIYcEIL.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/644249b08443bce4c9890a0f/QUPP6CX21dma5OiIYcEIL.png" alt="Screenshot 2026-09-24 at 15.49.27"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		视觉工作负载中投机解码的局限性
+	</span>
+</h2>
+<p>在 LLM 中，prefill 主要是计算受限的，其开销随 prompt 长度呈（次）二次增长。VLM 更是雪上加霜，因为图像先经过视觉编码器，然后语言主干网络再处理数百个视觉 token 以及文本 prompt。边缘设备的算力远低于数据中心 GPU，因此 prefill 在端到端延迟中占比更高，正如在 Apple silicon 和 H100 上测得的首 token 时间和 decode 数据所示。（M5 的每核心 GPU 神经加速器缩小了这一差距）。</p>
+<p>投机解码只能加速 decode，无法加速视觉编码或 prefill。当这些阶段已经占据了大部分实际耗时，即使 decode 大幅提速，端到端收益也相当有限。这就是阿姆达尔定律：整体加速比受限于工作负载中未被加速的部分。</p>
+<h2>
+	
+		
+	
+	<span>
+		如何使用 LFM2.5-VL-DSpark
+	</span>
+</h2>
+<p>使用 <strong>SGLang</strong> 运行 DSpark 草稿模型，需要支持 LFM2 目标 DSpark 的 SGLang 构建版本（<a href="https://github.com/sgl-project/sglang/pull/40651">PR #40651</a>）。启动目标模型时挂载草稿模型：</p>
+<pre><code>python -m sglang.launch_server \
+  --model-path LiquidAI/LFM2.5-VL-3B \
+  --speculative-algorithm DSPARK \
+  --speculative-draft-model-path LiquidAI/LFM2.5-VL-3B-DSpark \
+  --speculative-draft-attention-backend flashinfer \
+  --speculative-dspark-block-size 9 \
+  --disable-radix-cache
+</code></pre>
+<p>然后查询位于 <code>http://localhost:30000/v1</code> 的 OpenAI 兼容端点。block size 从草稿模型的 <code>config.json</code> 中读取；基线就是去掉三个 <code>--speculative-*</code> 标志后的同一命令。</p>
+<p>使用 <strong>llama.cpp</strong> 运行它们需要相应的 llama.cpp 构建版本（<a href="https://github.com/ggml-org/llama.cpp/pull/29339">PR#29339</a>）。</p>
+<pre><code>llama-server -m models/LFM2.5-VL-3B-F16.gguf \
+  --mmproj models/mmproj-LFM2.5-VL-3B-F16.gguf \
+  -md LFM2.5-2.6B-DSpark-F16.gguf \
+  --spec-type draft-dspark --spec-draft-n-max 8 --spec-draft-n-min 0 \
+  -fa on -ngl 99 -c 8192
+</code></pre>
+<p>使用 MLX-VLM 运行它们需要相应的构建版本（<a href="https://github.com/Blaizzy/mlx-vlm/pull/2280">PR#2280</a>）。</p>
+<pre><code>mlx_vlm.server --model LiquidAI/LFM2.5-VL-3B --draft-model LiquidAI/LFM2.5-VL-3B-DSpark
+</code></pre>
+<p>block size 从 sidecar 元数据中读取（n-max 会被钳制到该值）。投机解码是<strong>精确</strong>的：目标模型会验证每一个候选 token，因此贪心输出与单独运行目标模型一致；每次响应的 <code>timings</code> 会报告 <code>draft_n</code> / <code>draft_n_accepted</code>。</p>
+<h2>
+	
+		
+	
+	<span>
+		快速上手
+	</span>
+</h2>
+<p>我们的视觉 DSpark 草稿模型已在 Hugging Face 上提供 <a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B-DSpark">Safetensors</a> 和 <a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B-DSpark-GGUF">GGUF 格式</a>。</p>
+<p>借助 LFM2.5，我们正在实现让 AI 随处运行的愿景。这些模型：</p>
+<ul>
+<li><strong>开放权重</strong> —— 下载、微调和部署均无限制。</li>
+<li><strong>第一天就快</strong> —— 首日即支持 llama.cpp、MLX 和 SGLang。</li>
+<li><strong>完整家族</strong> —— 从用于定制的基座模型到专门的音频和视觉变体，一种架构覆盖多种用例</li>
+</ul>
+<p>我们迫不及待想看到你的作品。</p>
+<h2>
+	
+		
+	
+	<span>
+		引用
+	</span>
+</h2>
+<p>如需引用，请使用以下参考文献或 BibTeX：<br><em>Liquid AI, "LFM2.5-VL-DSpark: Accelerating vision-language models on edge and beyond", Liquid AI Blog, Sep 2026.</em></p>
+<pre><code>@article{liquidAI2026vldspark,
+  author = {Liquid AI},
+  title = {LFM2.5-VL-DSpark: Accelerating vision-language models on edge and beyond},
+  journal = {Liquid AI Blog},
+  year = {2026},
+  note = {www.liquid.ai/blog/lfm2-5-vl-dspark},
+}
+</code></pre>
+<p><a href="https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

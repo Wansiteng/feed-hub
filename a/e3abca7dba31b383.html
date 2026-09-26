@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>UkisAI Swift 系列 / 27B、Flash Next 与 Bonsai 2 + GSQ-RCO</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">UkisAI Swift 系列 / 27B、Flash Next 与 Bonsai 2 + GSQ-RCO</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：开放权重高效推理模型家族发布，含量化版本<br/>原标题：UkisAI Swift Series / 27B, Flash Next and Bonsai 2 + GSQ-RCO / -63.4% thinking, x1.95 speed with xhigh accuracy</small></p>
+<p><strong>要点</strong></p><ul><li>UkisAI 发布 Swift 系列高效推理模型，基于 Qwen 训练</li><li>Swift1.5 27B 减少 58.5% 思考 token，得分反升 0.35%</li><li>Swift Flash Next 减少 63.4% 思考 token，速度提升 1.8 倍</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp6gal/ukisai_swift_series_27b_flash_next_and_bonsai_2/"> <img alt="UkisAI Swift Series / 27B, Flash Next and Bonsai 2 + GSQ-RCO / -63.4% thinking, x1.95 speed with xhigh accuracy" src="https://external-preview.redd.it/c3VpZ2NnN3lraHJoMX2MIfgflAdSs8gxXxoeisROXk1qV6B2Bc34hml8Ukji.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=66d6caf430889f2e387d2d80a0e2bb7b12c339b7" title="UkisAI Swift Series / 27B, Flash Next and Bonsai 2 + GSQ-RCO / -63.4% thinking, x1.95 speed with xhigh accuracy"> </a> </div>
+<p>大家好，</p>
+<p>我是来自 UkisAI 的 Jovan！今天我们推出 Swift，这是一个基于 Qwen 的高效推理 LLM 系列，训练时通过惩罚与病态过度思考模式相关的 token，并借助 <a href="https://www.adaptive-ml.com/post/a-simple-explanation-of-gspo">RL (GSPO)</a> 和 <a href="https://thinkingmachines.ai/blog/on-policy-distillation/">OPD</a> 恢复准确率。</p>
+<p>在收到大量好评、且我们的 Swift Qwen 3.8 27B 在 13 天内获得 <a href="https://ukisai.com/swift/downloads">35 万+ 次下载</a>之后，我们现在发布整个模型系列，以及呼声很高的 27B 和 Flash-Next 的 GSQ-RCO 量化版本。</p>
+<p>本次发布包括：</p>
+<p><a href="https://huggingface.co/collections/ukisai/swift-15-27b">Swift1.5 27B</a>，我们上一款模型的改进版，token 用量更低、修复了 bug、agentic 表现更好，<strong>思考 token 减少 58.5%</strong>，同时得分<strong>提高 0.35%</strong>，并在 Terminal Bench 2.1 上超越 base，因为它不会陷入“过度思考错误”循环。</p>
+<p><a href="https://huggingface.co/collections/ukisai/swift-flash-next">Swift Flash Next</a>，<strong>思考 token 减少 63.4%</strong>，<strong>速度提升 1.8 倍</strong>，在 xhigh 下相比 base 得分仅 -0.2%</p>
+<p><a href="https://huggingface.co/collections/ukisai/swift-bonsai-2">Swift Bonsai 2</a>，<strong>思考 token 减少 39.8%</strong>，同时得分<strong>提高 0.19%</strong>（不过我们仍想注明它属于实验性版本）</p>
+<p>我们的 benchmark 在 Base 和 Swift 上各运行 5 次，对五个随机种子及多个领域取平均，包括通用（GPQA、AIME26）、编程（LiveCodeBench）、视觉（ERQA）、Agentic（Terminal Bench 2.1）。</p>
+<p>需要说明的是，Swift1.5 27B 的 Terminal Bench 2.1 得分乍看之下低得有些误导。这不是 bug，而只是因为 Swift 模型不会陷入过度思考循环并导致任务失败，而是会坚持执行到底，从而导致平均 token 用量更高。在同等条件下比较时，token 减少幅度仍处于 -38.7% 区间。</p>
+<p>我们还添加了一个有趣的“游戏创作”benchmark，你可以在这里找到并试玩，它完全主观，但 Swift 用更少时间生成了更好的游戏：<a href="https://ukisai.com/swift-games/flash-next">Flash Next Game</a> 和 <a href="https://ukisai.com/swift-games/27b">27B Game</a></p>
+<p>我们提供了 Research API 和 HuggingFace Spaces，方便你在下载前先试用模型，或者如果你现在没有足够的算力运行它们！两者都可以在模型卡上找到。</p>
+<p>我们还为相关模型版本制作了 GGUF、NVFP4、MLX 和 W4A16 量化版本。</p>
+<p>关于我们训练方法和社区反馈的更多细节可在此查看：<a href="https://www.reddit.com/r/LocalLLaMA/comments/1wg7dd5/ukisai_swiftqwen3827b_583_thinking_x195_speed/">https://www.reddit.com/r/LocalLLaMA/comments/1wg7dd5/ukisai_swiftqwen3827b_583_thinking_x195_speed/</a></p>
+<p>各种量化和模型版本都可在各自的 collection 中获取：</p>
+<p>Swift1.5 27B：<a href="https://huggingface.co/collections/ukisai/swift-15-27b">https://huggingface.co/collections/ukisai/swift-15-27b</a></p>
+<p>Swift Flash Next：<a href="https://huggingface.co/collections/ukisai/swift-flash-next">https://huggingface.co/collections/ukisai/swift-flash-next</a></p>
+<p>Swift Bonsai 2：<a href="https://huggingface.co/collections/ukisai/swift-bonsai-2">https://huggingface.co/collections/ukisai/swift-bonsai-2</a></p>
+<p>我们还在开发一个 9B 变体，将在未来几天内发布。</p>
+<p>我们非常希望你能通过在真实世界任务上的独立评估来提供反馈。和上次发布一样，我们采用“糖果店”模式，尽可能满足更多 Swift 模型和量化版本的请求，所以请在评论中分享你的需求！</p>
+<p>由   <a href="https://www.reddit.com/user/Secure_Recording_472"> /u/Secure_Recording_472 </a>提交</p>
+<br>
+<p><span><a href="https://v.redd.it/c9pgxy6ykhrh1">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp6gal/ukisai_swift_series_27b_flash_next_and_bonsai_2/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp6gal/ukisai_swift_series_27b_flash_next_and_bonsai_2/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

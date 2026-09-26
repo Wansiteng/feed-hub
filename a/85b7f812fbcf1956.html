@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>有人对 Qwen Flash Next IQ4 和 Qwen 27b FP8 做过完整跑分吗？这里有一些</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">有人对 Qwen Flash Next IQ4 和 Qwen 27b FP8 做过完整跑分吗？这里有一些</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：量化模型基准对比，对本地推理有参考但样本有限<br/>原标题：Did anyone do a full bench of e.g. Qwen Flash Next IQ4 and Qwen 27b FP8? Here are some</small></p>
+<p><strong>要点</strong></p><ul><li>用户用 Codex 对 Qwen 3.8 Flash Next IQ4_XS 和 Qwen 3.8 27B FP8 做了快速评测</li><li>MMLU-Pro 上 Flash Next IQ4_XS 得 83.8%，27B FP8 得 75.0%</li><li>GPQA Diamond 上 Flash Next IQ4_XS 得 42.5%，27B FP8 得 27.5%</li></ul>
+<hr/>
+<p>编辑：因为我现在用手机，格式不得不改一下，表格乱了……</p>
+<p>我让 Codex 对 Qwen 3.8 Flash Next IQ4_XS（通过 vLLM + r9v 提供服务）和 Qwen 3.8 27B FP8（通过 vLLM + Radiance 提供服务）做了一次快速评测</p>
+<p>这不是完整评测。我只跑了一个精简的快速测试，因为完整版在我的系统上要花太长时间。</p>
+<p>结果：</p>
+<p>MMLU-Pro<br> Flash Next IQ4_XS：83.8%<br> 27B FP8：75.0%</p>
+<p>GPQA Diamond<br> Flash Next IQ4_XS：42.5%<br> 27B FP8：27.5%</p>
+<p>GSM8K<br> Flash Next IQ4_XS：97.5%<br> 27B FP8：90.0%</p>
+<p>德语 MGSM<br> Flash Next IQ4_XS：92.5%<br> 27B FP8：90.0%</p>
+<p>IFEval<br> Flash Next IQ4_XS：89.6%<br> 27B FP8：89.6%</p>
+<p>这次快速测试总共花了大约 2 小时。下一轮更完整的测试在我的系统上已经要 &gt;8 小时，所以我现在实在没时间做完整评测。</p>
+<p>250 个用例的“快速”试验在 27B FP8 上耗时 36 分 27 秒，在 Flash Next IQ4_XS 上耗时 2 小时 05 分 47 秒。</p>
+<p><strong>！！重要</strong>：这里的 MMLU 只有 80 道随机题，所以显然不要太当真这些具体数字。其他评测也一样，都不是完整的。这更像是一次快速对比，而不是正式完整的 benchmark 运行。当然，两个量化版本用的是同一批题目 </p>
+<p>供参考，我跑的是 64 GB DDR5 和 2x R9700。<br> 这里没有应用最近的 r9v 更新。<br> 如果有 128 GB DDR5，你还可以用 tcclaviger 的 Flash Next MXFP4 量化版，这应该能让 QFN 运行速度大约快 2 倍。</p>
+<p>有什么更有参考价值的 benchmark 建议吗？有人做过更大规模的对比吗？</p>
+<p>每周都有很多评论说 FP8 27B 比 QFN 的低量化版更好。不过我觉得 IQ4_XS 已经算相当低了，而无论是在日常使用还是这次快速评测中，我都没真正看出来这一点。对于单用户使用，我仍然更偏好即使是低量化版的 QFN。</p>
+<p>不过并发情况就不一样了。在我的系统上，FP8 27B 在这方面的速度大约是 QFN 的 4 倍</p>
+<p>由   <a href="https://www.reddit.com/user/smallDeltaBigEffect"> /u/smallDeltaBigEffect </a>提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpp28m/did_anyone_do_a_full_bench_of_eg_qwen_flash_next/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpp28m/did_anyone_do_a_full_bench_of_eg_qwen_flash_next/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpp28m/did_anyone_do_a_full_bench_of_eg_qwen_flash_next/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

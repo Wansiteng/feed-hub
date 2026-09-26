@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>40 核 M5 Max 上的 Splash：针对自家芯片调优 kernel 使 decode 提速 20%</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">40 核 M5 Max 上的 Splash：针对自家芯片调优 kernel 使 decode 提速 20%</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 8/10：Apple Silicon 本地推理 kernel 调优，与读者本地跑模型直接相关<br/>原标题：Splash on a 40-core M5 Max: +20% decode by tuning the kernels for your own chip</small></p>
+<p><strong>要点</strong></p><ul><li>Splash 默认 kernel 规则基于 16/20 核 M5 与 32 核 M4 Max 测得，40 核 M5 Max 只能靠猜</li><li>在 40 核 M5 Max 上，split-K 布局对检查 draft token 的 8 行步骤明显更快</li><li>开发者可用 make tune-kernels 工具为自家芯片实测每种量化矩阵乘法</li></ul>
+<hr/>
+<p>顺便说一下，引擎的默认 kernel 规则是在较小的芯片上测出来的（16/20 核 M5 和 32 核 M4 Max），所以 40 核 M5 Max 只能靠猜了。</p>
+<p>Splash 的仓库里有一个开发者工具“make tune-kernels”，它会测试在你的硬件上运行每个量化矩阵乘法的所有可用方式。在我的机器上，它发现“split-K”布局（每个输入行拆成四份，最后再把部分和合并起来）在检查 draft token 的 8 行步骤上要快得多。</p>
+<p>为 Inco 写的说明（<a href="https://github.com/incoai/splash/issues/154">https://github.com/incoai/splash/issues/154</a>）</p>
+<p>在此期间可以试试：</p>
+<p>从源码构建 Splash（git clone <a href="https://github.com/incoai/splash">https://github.com/incoai/splash</a>，git checkout 1.0.2，make；需要带 Metal 工具链的 Xcode 26+），然后在空闲的 Mac 上运行 build/engine-tests/tune-kernels build/splash.metallib &lt;你的模型文件夹&gt; --confirm。--confirm 这一步会告诉你胜出的方案是否真的能加速你芯片上的整个前向传播。</p>
+<p>用你喜欢的模型来打补丁。</p>
+<p>Swift 模型转换也可以在 Hugging Face 上获取：<a href="https://huggingface.co/SiliconSpecies/Swift-1.5-Qwen3.8-27B-Splash">https://huggingface.co/SiliconSpecies/Swift-1.5-Qwen3.8-27B-Splash</a></p>
+<p>由   <a href="https://www.reddit.com/user/SeveralViolins"> /u/SeveralViolins </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpw0jn/splash_on_a_40core_m5_max_20_decode_by_tuning_the/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpw0jn/splash_on_a_40core_m5_max_20_decode_by_tuning_the/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wpw0jn/splash_on_a_40core_m5_max_20_decode_by_tuning_the/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>阿里称新 Qwen Image 2.1 以仅 7B 参数击败 Google Nano Banana 2.0</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">阿里称新 Qwen Image 2.1 以仅 7B 参数击败 Google Nano Banana 2.0</h1>
+<p><small>Tom&#x27;s Hardware · 评分 7/10：轻量图像模型可本地跑，与本地推理兴趣相关<br/>原标题：Alibaba claims new Qwen Image 2.1 AI model beats Google Nano Banana 2.0 with minuscule 7B parameter model</small></p>
+<p><strong>要点</strong></p><ul><li>阿里云发布轻量图像生成模型 Qwen Image 2.1，仅 70 亿参数</li><li>官方称其内部基准得分 60.2，超过 Google Nano Banana 2.0 的 59.82</li><li>新许可证禁止商业转售，商用需单独向 Qwen 团队申请授权</li></ul>
+<hr/>
+<p>阿里云发布了一款全新的轻量级图像生成 AI 模型，名为 <a href="https://huggingface.co/Qwen/Qwen-Image-2.1">Qwen Image 2.1</a>。它仅有 70 亿参数，是一款极其精简的开放权重模型，甚至能在 RTX 3090 这样的老款消费级显卡上运行。尽管设计轻量，其开发者声称它的能力超过了一系列闭源模型，包括 Google 的 Nano Banana 2.0。</p>
+<p>这一结论基于其内部 benchmark，因此在做出任何确切论断之前，我们希望能看到更多测试，但早期报告表明它是一款非常能打的图像模型，原生支持透明度，并能基于多张参考图生成统一的图像。</p>
+<p>不过，引发关注的一点是 Qwen Image 2.1 许可协议的变化。与上一版本不同，这一版明确禁止对该模型进行商业转售，任何想将其用于商业转售的人都必须直接从开发者处获得单独许可。</p>
+<h2>能否与最强模型一较高下？</h2>
+<p>Qwen Image 2.1 引入了多项新功能，提升了其实用性，并帮助它更好地与现有替代方案竞争。它原生支持透明度，因此可以生成带有透明背景的图像，这对希望将 AI 作为其他用途一部分的艺术家，或贴纸等按需印刷产品来说尤其有用。</p>
+<p>它还改进了图像编辑，最多可使用 10 张参考图。官方列举的示例包括：拿一张现有人物图像，再向模型输入服装图片，它就能合成出该人物穿着这些服装的图像。Qwen 团队承诺图像之间保持一致，能有效保留人物和产品特征。</p>
+<p>不过，Qwen Image 2.1 最突出的特点在于其紧凑的体积。其视觉生成组件仅有 70 亿参数，是同类模型中最精简的之一。在官方对比测试中，唯一参数更少的模型是美团开发的 LongCat-Image，为 60 亿参数。其他大多数模型的规模是它的数倍，或者干脆是闭源的。</p>
+<p>不过，Qwen Image 2.1 的开发者声称它能直接与那些闭源模型竞争。在同样的内部 benchmark 上，该模型在 Qwen Image Benchmark 中得分 60.2。相比之下，OpenAI 的 GPT Image 2.5 Sunburst 得分为 67，Muse Image 为 62.34，Google 的 Nano Banana 2.0 为 59.82。</p>
+<p><a href="https://arena.ai/leaderboard/text-to-image">AI Arena 上的初步测试</a>表明，在不太有利的 benchmark 条件下，它并没有那么强，但仍然非常接近。在那里，它获得了 1228 分，而 Nano Banana 2 为 1260 分。Musw Image 排名还要再高几位，得分为 1276，而 GPT 65 Sunburst 以 1423 分位居榜首。</p>
+<p>在图像编辑方面，AI Arena 称它现在是开放权重选项中的最佳：</p>
+<figure><blockquote cite="https://twitter.com/cantworkitout/status/2102416020678008986"><p dir="ltr" lang="en">@Alibaba_Qwen 的 Qwen-Image-2.1 刚刚成为 Image Edit Arena 和 Text-to-Image Arena 中排名第一的开源模型！在 Image Edit Arena 中获得 1367 分，Qwen-Image-2.1 在开源模型中排名第一。它在总榜上排名第 16，距离第 15 名的 GPT-Image-1.5-high-fidelity 仅差 3 分。… https://t.co/J5MqBP22eM pic.twitter.com/MV5USBrMa9<a href="https://twitter.com/cantworkitout/status/2102416020678008986">2026年9月22日</a></p></blockquote></figure>
+<p>这些仍是早期结果，还需要更多测试才能完全证实或反驳 Qwen 团队的说法，但到目前为止，它们似乎与实际情况相当吻合。尽管我们无法得知那些专有模型依靠多少参数来取得更高分数，但 Qwen Image 2.1 似乎正以其适中的权重紧追不舍。</p>
+<h2>在本地硬件上运行良好</h2>
+<p>来自 Qwen Image 2.1 早期采用者个人的报告称，它在消费级显卡上运行良好。Hacker News 论坛成员、GenAI Showdown 网站开发者 Vunderba <a href="https://news.ycombinator.com/item?id=49775499">声称他们能够在 RTX 4090 上使用 Qwen Image 2.1 在大约五秒内转换一张 1MP 图像</a>。</p>
+<p>在 Stable Diffusion 子版块上，<a href="https://www.reddit.com/r/StableDiffusion/comments/1wlo06m/a_brief_review_after_trying_out_qwen_image_21/">用户 cgs019283 称赞了它的能力</a>，表示它可以在 RTX 5070 和 5080 等现代 Nvidia 50 系列显卡上在大约 25 秒内生成 1MP 图像。不过他们表示，如果使用大量参考图像，耗时会长得多，而且在他们的测试中，编辑图像是该模型最慢的功能。</p>
+<p>还有人在更老旧、性能低得多的硬件上运行该模型。一位用户声称使用 Nvidia <a href="https://www.reddit.com/r/StableDiffusion/comments/1wlpq0h/comment/pb0osma/">RTX 3060 和 64GB 内存，在大约 50 秒内生成 2K 分辨率图像。</a></p>
+<p>一位用户很幸运，<a href="https://www.reddit.com/r/StableDiffusion/comments/1wlpq0h/comment/pb0p2zh/">拥有一块 RTX 6000 Pro 可以折腾</a>。在这块强大的硬件上，它能在短短几秒内输出 1024 x 1024 图像。</p>
+<p>尽管本地 AI 的搭建和使用与 Google 的 Nano Banana 和 OpenAI 的 GPT Image 模型等云端平台的可及性仍相去甚远，但早期结果至少从表面上看令人印象深刻。如果其功能集在更严格的测试下依然站得住脚，那么对于那些想要快速、高质量图像生成，同时又在本地运行、拥有完全控制权、无需云账户或订阅的人来说，它可能会成为一个强劲的竞争者。</p>
+<h2>许可难题</h2>
+<p>在 Qwen Image 2.1 早期采用者的所有评论中，一个反复出现的话题是开发者如何处理许可。<a href="https://huggingface.co/Qwen/Qwen-Image-2.1/blob/main/LICENSE">其措辞显得模棱两可</a>：</p>
+<p>“我们授予您一项非排他性、全球范围、不可转让且免版税的有限许可，依据我们拥有或体现在材料中的知识产权或其他权利，使用、复制、分发、拷贝、创建材料的衍生作品并对其进行修改，仅限非商业用途。”</p>
+<p>随后它表示，任何希望将这些“材料”用于商业目的的人，都需要专门为此用例从 Qwen 团队获得许可。这在社区中引起了足够的担忧，以至于 Qwen 团队在 Twitter/X 上发布了一份声明：</p>
+<figure><blockquote cite="https://twitter.com/cantworkitout/status/2101917379785838660"><p dir="ltr" lang="en">过去 24 小时里，我们收到了大家对 Qwen-Image-2.1 的厚爱，谢谢！！同时也收到了很多关于许可证的问题，尤其是围绕模型输出。所以答案在这里：输出不属于许可材料的一部分。用户保留对图像及其他……的权利 https://t.co/5kLG46bvN9<a href="https://twitter.com/cantworkitout/status/2101917379785838660">2026年9月21日</a></p></blockquote></figure>
+<p>这似乎基本上澄清了问题。你用该模型生成的任何内容都不应被归类为许可材料，因此不应受该条款约束。</p>
+<p>不过，这确实意味着该模型本身未经阿里巴巴许可不得转售。这与原始 Qwen Image 所基于的 Apache 模型有很大不同，并且可能拉伸了开放权重的定义。它肯定没有它本可以做到的那么开放。</p>
+<p>但对大多数人来说，这无关紧要。你可以在本地硬件上运行 Qwen Image 2.1，生成一些相当有效的图像，并随心所欲地使用它们。凭借如此轻量的设计提供如此令人印象深刻的能力，闭源权重模型开发者的反应将会很有意思。</p>
+<p><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/alibaba-claims-new-qwen-image-2-1-ai-model-beats-google-nano-banana-2-0-with-minuscule-7b-parameter-model-benchmarks-show-open-weight-contender-is-competitive-with-openai-and-meta-image-models">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

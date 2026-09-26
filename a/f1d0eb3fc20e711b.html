@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>为什么我们不能把失控的 AI 挡在互联网之外？</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">为什么我们不能把失控的 AI 挡在互联网之外？</h1>
+<p><small>The Verge · AI · 评分 7/10：探讨 agent 沙箱与隔离，与 agent 运行时安全相关<br/>原标题：Why can’t we just keep rogue AIs off the internet?</small></p>
+<p><strong>要点</strong></p><ul><li>研究者称严格物理隔离会降低AI测试的真实性</li><li>物理隔离成本高、拖慢研究，且无法消除模型内部潜在风险</li><li>Stuxnet通过U盘突破物理隔离，说明隔离并非绝对安全</li></ul>
+<hr/>
+<p>AI agent <a href="https://www.theverge.com/ai-artificial-intelligence/999874/openai-agents-hacked-an-australian-government-website-in-search-for-data">不断失控</a>，逃出本应安全的测试环境，<a href="https://www.theverge.com/column/980337/rogue-ai-science-fiction-openai">攻击现实世界的目标</a>，<a href="https://www.theverge.com/ai-artificial-intelligence/990149/openai-rogue-agents-german-wiki">强占冷门维基</a>，还<a href="https://www.theverge.com/ai-artificial-intelligence/987566/ai-civilizations-opeai-hugging-face-hack">留下指令</a>让其他 agent 照做。研究人员之所以要测试这些系统，正是因为它们可能做出不可预测甚至危险的行为。那么，让 agent 干脆不联网，岂不是更安全？</p>
+<p>“严格的物理隔离会降低真实感……这是一种权衡，而非根本性的技术问题。”</p>
+<p>理论上确实如此。研究人员可以将运行 AI 工具的计算机与互联网及其他外部网络隔离开来，这种技术被称为物理隔离（air gapping）。具体做法包括物理拔除或禁用线缆和无线硬件，并使用“哑”外设，对于特别敏感的配置还会使用法拉第笼或其他屏蔽手段，阻止电磁信号进出。如果实施得当，物理隔离系统既不会给 agent 提供通往外部目标的直接路径，也不会给外部系统留下进入的直接通道，从而让 OpenAI 模型<a href="https://www.theverge.com/ai-artificial-intelligence/972380/open-ai-hugging-face-hack-ai-safety-warning">对 Hugging Face 发起的攻击</a>这类行为即便并非完全不可能，也会变得困难得多。</p>
+<p>但在实践中，一个完全密封的盒子也意味着一个相当受限的实验室，尤其是当目标是评估 AI 在现实世界中的表现时。德国马克斯·普朗克安全与隐私研究所科学主任 Thorsten Holz 解释说，虽然有些 AI 实验可以在物理隔离的机器上运行，但贴近现实的评估往往需要访问外部服务、API 和数字基础设施。“严格的物理隔离会降低真实感，”他说，并将物理隔离的决策描述为“一种权衡，而非根本性的技术问题”。</p>
+<p>英国伯明翰大学计算机科学学院助理教授 Ruizhe Li 将完全隔离比作在“人造真空”中测试 AI，这可能反而会削弱评估本身的价值。“我们最终测试的是一个被阉割的 AI 模型，这会让评估者无法看清 AI 模型在真实部署环境中如何表现、如何失败，或如何执行工具调用攻击，”Li 说。</p>
+<p>真实感并非唯一的代价。Li 表示，物理隔离成本高昂，可能让研究慢到近乎停滞，把本可快速迭代的工作变成“一道缓慢的物流障碍”。Holz 说，在严格的物理隔离下，一些实验也会变得“困难得多”。德国图宾根 ELLIS 研究所首席研究员 Maksym Andriushchenko 表示，对于高风险实验来说，这种摩擦或许是合理的，但如果对所有事情都这么做，就会拖慢新模型的开发。</p>
+<p>而且，即便研究人员想对所有东西都做物理隔离，Andriushchenko 也质疑，是否存在足够多的安全基础设施，能支撑前沿 AI 实验室这种规模的物理隔离。</p>
+<p>“这一切听起来非常科幻，但理论上可行。”</p>
+<p>物理隔离也不会消除 AI 带来的所有风险。Holz 说，agent 仍可能攻陷隔离环境内部的系统，并且理论上可能产生“一旦被移出外部就可能造成危险的恶意产物”。此外，Li 表示，物理隔离“无助于诊断或解决模型内部潜伏的风险”。</p>
+<p>也无法保证气隙能始终保持完全密封。外部人员总能突破这道隔离，正如<a href="https://nuclearnetwork.csis.org/the-cyber-threat-to-nuclear-facilities/">Stuxnet恶意软件</a>所发生的那样——据<a href="https://www.washingtonpost.com/world/national-security/stuxnet-was-work-of-us-and-israeli-experts-officials-say/2012/06/01/gJQAlnEy6U_story.html">报道</a>，这款网络武器由以色列和美国<a href="https://www.bbc.co.uk/news/technology-12633240">开发</a>，用于破坏伊朗的核计划，而它是通过U盘传播的。信息也可能朝另一个方向流动。<a href="https://arxiv.org/abs/1503.07919">研究人员</a>已<a href="https://thehackernews.com/2018/02/airgap-computer-hacking.html">多次</a><a href="https://www.sophos.com/en-us/blog/air-gap-security-beaten-by-turning-pc-capacitors-into-speakers">演示</a>了将计算机内部组件变成发射器的方法，如果屏蔽不完美，这可能成为问题。“这一切听起来很像科幻小说，但理论上是有可能的，”Andriushchenko说。</p>
+<p>这种迂回的逃逸路径已成为网上讨论的焦点，人们争论先进AI能否逃脱隔离。OpenAI研究员Noam Brown最近在X上<a href="https://x.com/firesidealpha/status/2100641742135701983?s=20">提出</a>，两台气隙隔离的机器理论上可以通过操纵CPU温度并读取其变化来进行通信，由此引发了这场辩论。“你甚至可以说，‘好吧，我们应该把计算机做气隙隔离。’但我不认为这就足够了，”他说。这一想法在社交媒体上遭到质疑和嘲笑，较为宽容的批评者指出，这种通信方式可行与两个AI系统发现并利用它之间存在着巨大差距，尤其是该技术的数据传输速度会慢得令人痛苦。</p>
+<p>足够先进的AI或许无需诉诸精心设计的逃逸路径。人类可能会被说服为它架起桥梁。AI安全研究人员多年来一直<a href="https://arxiv.org/abs/1707.08476">担忧</a>这种可能性，而近期事件已提供了<a href="https://www.theverge.com/ai-artificial-intelligence/975577/aisi-openai-anthropic-agent-hacking">具体证据</a>，表明模型可能尝试进行社会工程。</p>
+<p>“这种权衡值得更严格的审视，我们已经看到事情多么容易出错。”</p>
+<p>气隙隔离只是保护AI系统的一种手段。“将隔离作为一揽子安全解决方案会制造虚假的安全感，”Li说。它应与其他措施配合使用，比如理解模型的内部运作、确保其对齐，以及防范人为错误——这是近期许多AI失控事件背后平淡无奇的故障点。“在实践中，测试存在于一个谱系上，”他解释说，该领域依赖的是“分层隔离模型，而非全有或全无的做法”。</p>
+<p>不过，极端隔离确有其用武之地。哈佛肯尼迪学院计算机科学家兼公共政策助理教授Stephen Casper将气隙隔离描述为敏感系统的“绝佳主意”，并指出其在核设施中的应用。虽然不排除先进AI可能找到某种新奇逃逸方式的可能性，但Casper表示，到那时我们或许更应该担心那些平淡无奇的突破隔离手段，比如合规失误或人为错误。</p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/999874/openai-agents-hacked-an-australian-government-website-in-search-for-data">近期</a> <a href="https://www.theverge.com/ai-artificial-intelligence/994383/openais-rogue-ai-rubygems-hack">发生的</a> <a href="https://www.theverge.com/ai-artificial-intelligence/972380/open-ai-hugging-face-hack-ai-safety-warning">多起事件</a>引发了人们的质疑：AI 实验室究竟把<a href="https://www.theverge.com/ai-artificial-intelligence/982323/openai-hit-brakes-voluntary-pacing-ai">这条界线划在哪里</a>。许多<a href="https://www.theverge.com/ai-artificial-intelligence/972441/openai-rogue-ai-agent-hacked-more-than-hugging-face">入侵事件</a><a href="https://www.theverge.com/ai-artificial-intelligence/973670/anthropic-claude-hacked-organizations-during-cyber-tests">都涉及</a>正在接受<a href="https://www.theverge.com/ai-artificial-intelligence/985385/openais-rogue-ai-model-hugging-face-cybersecurity-incident-reports-metr">网络安全能力</a>测试的模型，而在许多方面，它们的<a href="https://www.theverge.com/column/980337/rogue-ai-science-fiction-openai">表现完全符合设计预期</a>。问题在于，它们是在研究人员本意设定的边界之外做出这些行为的。</p>
+<p>Holz 表示，AI“评估往往优先考虑真实性和便利性”，但他认为，对于明确为攻击性网络能力而设计的 agent，应当施加更严格的防护措施，可能包括默认采用强隔离和严格监控。“这种权衡值得更深入的审视，我们已经看到事情有多容易出问题，”他说。</p>
+<p><span><strong>关注本报道的话题和作者</strong>，即可在个性化首页信息流中看到更多类似内容，并接收邮件更新。</span></p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/999881/why-cant-we-airgap-rogue-ai-agents">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

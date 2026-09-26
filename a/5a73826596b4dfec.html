@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude 5.5 发布，性能直逼 Fable，还要卷价格</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Claude 5.5 发布，性能直逼 Fable，还要卷价格</h1>
+<p><small>爱范儿 · 评分 9/10：Claude 重要模型发布，直接关系编码 agent 能力</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 发布 Claude Opus 5.5，多数任务表现达到 Fable 5.1 水平</li><li>Opus 5.5 典型任务成本比 Opus 5 降低 40%，输出速度提高超 30%</li><li>API 输入输出价格每百万 token 4 美元和 20 美元，比 Opus 5 低 20%</li></ul>
+<hr/>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130239682-18.png"></p>
+<p>九月的新模型像下饺子一样接连登场，却大多只来得及各领风骚一两天，很快又被下一款抢走风头。</p>
+<p>就在刚刚，Anthropic 正式发布了 Claude Opus 5.5。这是 Claude 5.5 家族的首款模型，未来几周内还会有 Sonnet 5.5 和 Haiku 5.5 陆续登场。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130156710-1.png"></p>
+<p>Opus 5.5 并非一次常规的半代升级。官方称，它在多数任务上的表现已经达到 Claude Fable 5.1 水平，相比 Opus 5 的典型任务成本降低 40%，输出速度提高超过 30%。</p>
+<h2>半代升级，Opus 性能直逼 Fable</h2>
+<p>Anthropic 将 Opus 5.5 定位为面向长时间编程 Agent 和知识工作的主力模型。从官方公布的成绩看，它在 Agent 编程、电脑操作和专业工作上都取得了明显提升。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130160842-2.png"></p>
+<p>在 Terminal-Bench 4.0 中，Opus 5.5 得分为 66.4%，高于 GPT-6 Astra 的 57.9% 和 Opus 5 的 52.3%；FrontierCode v1.1 得分为 54.4%，略高于 GPT-6 Astra 的 53.3%；CursorBench 4.0 则从 Opus 5 的 46.6% 提高到 57.8%。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130162617-3.png"></p>
+<p>面向知识工作的 GDPval-AA v2.1 中，Opus 5.5 得到 1846 Elo，超过 Fable 5.1 的 1735 和 Opus 5 的 1708。在 OSWorld 2.0 电脑操作评测中，它也从 Opus 5 的 74.0% 提高到 81.8%。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130163595-4.png"></p>
+<p>优势并没有覆盖所有项目。</p>
+<p>Opus 5.5 在 AutomationBench 中得到 40.0%，略低于 GPT-6 Astra 的 41.4%；在 Terminal-Bench-Science 0.1 中得到 58.7%，与 Astra 的 64.6% 仍有差距。</p>
+<p>Anthropic 自己也提醒，当前前沿模型之间的榜单差距，已经无法完整反映真实工作中的体验。在公司内部使用中，Opus 5.5 与 Fable 5.1 的差距比部分评测结果看起来更小。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130164758-5.png"></p>
+<p>真正能体现此次升级的，是持续数小时甚至十几个小时的长任务。</p>
+<p>早期测试者曾用 Opus 5.5 在一天内完成一项涉及 68 万行代码的迁移工作；另一项 20 万行代码库审计只用了不到三小时，而 Opus 5 完成同类任务超过 20 小时，token 消耗约为前者的 2.5 倍。</p>
+<p>Anthropic 还让 Opus 5.5 和 Fable 5.1 把 HAProxy 从 C 语言重写为 Rust，两者都通过了绝大多数回归测试，Opus 5.5 用时 9.5 小时，Fable 5.1 用时 12 小时，前者成本低了 51%。</p>
+<p>知识工作方面，在一项季度业绩报告测试中，模型只能从一份较难检索的网页副本中寻找资料，任何虚构数字或引语都会导致失败。Opus 5.5 在不同思考强度下提交的 18 份报告中有 16 份过关，Fable 5.1 和 Opus 5 没有一次达到同一标准。</p>
+<p>另一项虚构并购分析要求模型先在 Excel 中建立财务模型，再制作面向管理层的演示文稿。Opus 5.5 与 Opus 5 得出了相同结论，但前者的模型更完整，演示文稿也更清楚，完成时间从 93 分钟缩短到 63 分钟，成本降低一半。</p>
+<h2>降价之后，Opus 开始成为日常主力</h2>
+<p>比榜单更容易被用户感知的变化来自价格和速度。</p>
+<p>Opus 5.5 的 API 输入和输出价格分别为每百万 token 4 美元和 20 美元，比 Opus 5 低 20%；缓存读取价格从 0.50 美元降至 0.20 美元，降幅达到 60%。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130168918-6.png"></p>
+<p>除了输入、输出及缓存价格下调，Opus 5.5 还提供最高 2.5 倍速度的 Fast mode，价格为每百万输入 token 8 美元、输出 token 40 美元。</p>
+<p>模型支持 100 万 token 上下文和 12.8 万 token 最大输出，思考模式始终开启，默认 effort 为 medium，用户可以根据任务调整思考强度。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130169833-7.png"></p>
+<p>长时间运行的 Agent 还能通过上下文压缩整理较早的对话，同时保留最近回合，降低长任务被上下文拖慢的概率。</p>
+<p>Opus 5.5 已经上线 Claude、Claude Code 和 Claude Platform，同时登陆 AWS、Google Cloud 与 Microsoft Azure，API 模型名称为 claude-opus-5-5。它也成为 Claude 付费计划的默认模型。</p>
+<p>Anthropic 同时提高了 Pro、Max 和 Team 计划的五小时使用限额。</p>
+<p>ClaudeDevs 表示，此次限额直接增加 20%，更低的模型价格还会让同一额度下的可用时长进一步增加约 25%。订阅用户还会获得一次可自行选择时间使用的额度重置，有效期截至 10 月 22 日。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130170632-8.png"></p>
+<p>价格下降并不等于所有设置下的 token 消耗都会同步下降。</p>
+<p>有开发者根据 Artificial Analysis 的测试指出，Opus 5.5 在 max 档运行 Intelligence Index 时，输出 token 消耗位居已测模型最高水平。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130171589-9.png"></p>
+<p>不过，官方所称的单任务成本降低，主要建立在默认设置和典型工作负载上，且多数用户不会长期使用 max 强度，真实成本仍会受到任务类型、推理档位、上下文长度和缓存命中率影响。</p>
+<p>社区最早出现的一批实测，大多集中在创意编程、3D 建模和可交互模拟。</p>
+<p>Wes Bos 在连续一周使用并消耗大量 token 后认为，Opus 5.5 已经达到 Fable 级别；他让模型渲染了 500 种常见健身器材，并据此做出一套完整的健身房搭建器。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130173410-10.gif"></p>
+<p>BridgeMind 则用一次提示生成了可玩的 Mario Kart 游戏。据其展示，Opus 5.5 生成的场景和玩法细节明显多于 Fable 5.1 的版本，Mario、Luigi 等角色也被做进了游戏。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130192519-11.gif"></p>
+<p>更特别的案例来自 Jake Eaton。</p>
+<p>他没有使用图像模型或现成绘图软件，而是让 Opus 5.5 编写约 7500 行 Python 代码，通过标准库模拟不同笔刷，再逐像素绘制出多种艺术风格。Ben Poole 展示的 sketch-to-simulation，则让模型把草图和概念示意直接转化为可以运行的交互模拟。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130205911-12.png"></p>
+<p>不过，Opus 5.5 的创意能力并非在所有方向都占优。</p>
+<p>Auggie 用 Bach Benchmark 测试其音乐创作能力，生成的四声部众赞歌出现了声部间距、重复音和平行八度等问题，他认为前一天由 Grok 4.7 生成的版本可能更好。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130213467-13.png"></p>
+<p>沃顿商学院教授 Ethan Mollick 在早期测试后给出了相近的判断。他认为 Opus 5.5 是首个让自己感到接近 Fable 水平、同时又不属于 Fable 或 Astra 系列的模型，不过 Claude 近期常见的文字过密问题仍未完全消失。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130214897-14.png"></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130215703-15.gif"></p>
+<p>Anthropic 显然意识到了这个问题。官方将表达能力列为此次更新重点，称 Opus 5.5 会优先给出重要信息，减少术语和特殊表达，也更愿意遵循用户设定的写作规则。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130231274-16.png"></p>
+<p>对需要连续工作数小时的 Agent 来说，可读性并非装饰，用户能否迅速检查模型的判断，会直接影响任务是否敢于继续交给它执行。</p>
+<h2>Personal Agent 的时代，从一张便宜账单开始</h2>
+<p>Opus 5.5 还是 Anthropic 提出放慢前沿竞赛节奏之后发布的第一款模型。</p>
+<p>发布之前，Frontier Design 和 METR 等外部机构参与了评估，Anthropic 也用覆盖近 2000 个模拟场景的自动化行为审计检查模型的越界、欺骗和高风险行为。</p>
+<p>官方评估显示，Opus 5.5 尝试突破限制边界的频率较 Opus 5 和 Claude Mythos 5.1 低约 85%，但 Anthropic 也承认，模型有时能察觉自己正在接受测试，现有评估仍无法覆盖真实部署中的所有风险。</p>
+<p>由于其生物与网络安全能力已接近 Mythos 5.1，Opus 5.5 启用了与 Fable 5.1 相近的安全措施，大部分网络安全任务会转交给 Opus 4.8，只有通过验证的安全研究人员和生命科学机构才能获得更完整的能力。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130232525-17.png"></p>
+<p>Opus 5.5 还启用了用于防止模型蒸馏的 preserved thinking，并保留零数据留存选项。</p>
+<p>每次操作执行前，系统都会通过分类器进行检查，企业安全团队也可以审计其开源沙箱。能力越靠近前沿，Anthropic 给模型加上的权限门槛也越多。</p>
+<p>从 Opus 5 到 Opus 5.5，Anthropic 只用了两个月左右。型号只前进了半步，模型市场的竞争逻辑却已经发生改变。</p>
+<p>当头部模型在常见任务上的差距逐渐缩小，厂商很难继续依靠几项榜单成绩长期维持溢价，竞争开始转向调用频率、持续工作时长和企业预算。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790130239682-18.png"></p>
+<p>一个模型能否被反复调用、长时间运行，并以可接受的成本进入真实工作流，正在变得比单次评测高出几个百分点更加重要。</p>
+<p>旗舰能力持续降价，意味着先进智能正在从稀缺服务变成可以大规模使用的通用生产资料。Personal Agent 也由此获得了全天运行的经济基础，它可以持续记住用户、理解用户，在后台处理琐事，并完成过去需要人们反复发起的任务。</p>
+<p>九月模型发布仍会制造一轮又一轮潮水，但真正改变海岸线的，从来都是持续上涨的水位。当先进智能便宜到可以全天运行，Personal Agent 也会从偶尔拍岸的浪花，变成日常生活无法忽略的潮汐。</p>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><a href="https://www.ifanr.com/1681629?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

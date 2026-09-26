@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Qwen3.8-27B：用 KV Cache 移植提升输出质量</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Qwen3.8-27B：用 KV Cache 移植提升输出质量</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 7/10：本地推理与多 agent 上下文传递的实质技术尝试<br/>原标题：Qwen3.8-27B: Using KV Cache Transplants to Boost Output Quality</small></p>
+<p><strong>要点</strong></p><ul><li>用 KV Cache 移植让 Qwen3.8-27B 低精度量化跑出更高精度结果</li><li>实验用 5 种量化策略跑 180 次 NIAH 任务，耗时 14 小时 26 分</li><li>动态量化策略与 Q6/f16 参考结果的一致率高于静态低精度策略</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq76f6/qwen3827b_using_kv_cache_transplants_to_boost/"> <img alt="Qwen3.8-27B: Using KV Cache Transplants to Boost Output Quality" src="https://external-preview.redd.it/q3evP6JeDpAC2MdSQHWYxnCYTqbJkElIQsLFqVSdkss.png?width=140&amp;height=81&amp;auto=webp&amp;s=d39c4c208d55b26179446aa55ac5f84224359090" title="Qwen3.8-27B: Using KV Cache Transplants to Boost Output Quality"> </a> </div>
+<p>自从我<a href="https://www.reddit.com/r/LocalLLaMA/comments/1wdqit1/running_qwen3827bq4_at_max_context_on_a_32_gb_gpu/">上一篇帖子</a>以来，我一直在思考动态性能降级的不同方案，试图尽可能多地从我的 GPU 中榨取高质量的推理。</p>
+<p>周末我读到了一篇非常有趣的论文：<a href="https://arxiv.org/abs/2510.03215">Cache-to-Cache：大语言模型之间的直接语义通信</a>。在文中，作者描述了运行多 LLM agent 系统的方法。但他们不是让 agent 通过 harness+工具调用+消息来互相交流，而是让 agent <em>将一个 agent 的 kvcache 直接融合进另一个 agent 的 kvcache</em>，从而传递上下文。</p>
+<p>假设这可行，你可以想象这是一种在 agent 之间传递上下文的更快、更完整的方式：不是一个 agent 生成摘要/交接消息，而是直接把它工作记忆里的内容抽出来，嫁接到目标模型上。</p>
+<p>他们接着描述了具体做法，简而言之，他们训练了一个小型神经网络，能够在源模型和目标模型的内部表示之间进行“转换”，从而可以融合不同规模甚至不同架构的模型的 kvcache。</p>
+<p>这让我开始思考：<strong>如果我想在同一个模型的不同量化版本之间复用 kvcache 呢？</strong>我的意思是，相同的架构、相同的训练过程……它们应该是兼容的吧，即使不训练一个“转换器”？</p>
+<p>那么，如果我用高精度量化开始推理，然后在设备空间不足时换入低精度量化来“接管”，会发生什么？相比一开始就直接运行低精度量化，我能得到更好的结果吗？</p>
+<p>剧透一下，所有这些问题的答案都是<strong>肯定的（在我跑的 benchmark 上）！</strong>下面我会详细说明我做的具体实验。</p>
+<h1>方法</h1>
+<p>我生成了不同上下文长度下难度较高的 NIAH 风格任务，让 5 种不同的 Qwen3.8 量化策略一决高下！</p>
+<p>对于这些任务，我使用了 Qwen3.8-27B 的三种不同量化版本，均由 <a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">unsloth</a> 制作：</p>
+<p>- UD-Q6_K</p>
+<p>- UD-Q4_K_XL</p>
+<p>- UD-IQ3_S</p>
+<p><strong>策略</strong></p>
+<p>基于这些量化版本，我定义了三种静态量化策略来运行任务：</p>
+<ol> <li><strong>IQ3_S</strong>：f16 kvcache，最大 ctx 196,096</li> <li><strong>Q4_K_XL</strong>：q8_0 kvcache，最大 ctx 183,296</li> <li><strong>Q6_K</strong>，f16 kvcache，最大 ctx 175,104</li> </ol>
+<p>注意，Q3 和 Q4 策略的 ctx 窗口大小是为 24 GiB GPU 设计的，而 Q6_K 的情况需要 &gt; 24 GiB 才能运行。这是为了评估小设备上的静态量化策略与更大设备上的静态量化策略相比有多接近。</p>
+<p>目的是看看动态量化策略能否弥补其中一部分差距！</p>
+<p>说到这个，我定义了两个动态量化策略，分别与每个小精度静态模型的情况进行对比。这两个动态量化策略的 ctx 限制也都是为 24 GiB GPU 设计的。</p>
+<p><strong>IQ3_S 对比</strong></p>
+<p>对于这个策略，我在最差情况模型量化为 IQ3_S 的多量化策略上运行了任务：</p>
+<p>- 用 Q6_K、f16 kvcache、最大 ctx 54,272 开始任务</p>
+<p>- 然后换入 Q4_K_XL、f16 kvcache、最大 ctx 109,312</p>
+<p>- 然后换入 IQ3_S、f16 kvcache、最大 ctx 192,096</p>
+<p>在数据中，你可以看到这个策略被标记为 <em>Q6→Q4→Q3, f16 KV。</em></p>
+<p><strong>Q4_K_XL、q8_0 kv 对比</strong></p>
+<p>对于这个策略，我在最差情况量化为 Q4_K_XL、q8_0 kv 的多量化策略上运行了任务：</p>
+<p>- 用 Q6_K、f16 kvcache、最大 ctx 54,272 开始任务</p>
+<p>- 然后将模型的 kvcache 量化为 q8_0。最大 ctx：91,136</p>
+<p>- 然后换入 Q4_K_XL、f16 kvcache、最大 ctx 109,312</p>
+<p>- 然后将模型的 kvcache 量化为 q8_0。最大 ctx：183,296</p>
+<p>（对于运行中途的量化，我使用了上一篇帖子中描述的 hot-reload 方法。f16&lt;-&gt;q8_0 的转换由同一个 llama.cpp fork 处理。）</p>
+<p>在数据中，你可以看到这一策略被标记为 <em>Q6/f16→Q6/q8→Q4/f16→Q4/q8。</em></p>
+<p><strong>任务</strong></p>
+<p>我生成了数十个独特的 NIAH（“大海捞针”）任务，这些任务要求模型解析大量输入文本，并遵循散布在文本中的特定指令来检索一个秘密值。（部分素材来源：<a href="https://github.com/gkamradt/needle-in-a-haystack">gkamradt/needle-in-a-haystack</a>）</p>
+<p>我选择 NIAH，是因为它似乎是评估多量化策略连贯性的一个合理方式。每个任务都要求模型在干扰文本中推理一系列“步骤”，因此一个被移植了 kvcache 的模型需要能够精确地从源模型中断的地方接续思路。</p>
+<p>此外，NIAH 不需要复杂的测试设置，而且答案在客观上是正确或错误的。</p>
+<p>对于每个任务和测试用例，我测量了以下内容：</p>
+<p>* 结果（正确/错误）</p>
+<p>* 生成的 token 总数</p>
+<p>* 总耗时</p>
+<p>我之所以纳入耗时，尽管每种量化的 prefill/decode 速度都非常接近，是因为我想证明多量化方法并不会比运行单量化策略明显更慢。将 kvcache 从一种量化转移到另一种量化意味着我们不需要重复 prefill！</p>
+<p><strong>结果</strong></p>
+<p>总的来说，我布置的 benchmark 任务代表了 <strong>180 次不同的运行</strong>，我的 GPU 花了 <strong>14 小时 26 分钟</strong>才完成。</p>
+<p>这里最大的问题出在 IQ3_S/f16 策略上。尤其是在较重的任务中，它持续生成超过 5 万个推理 token，而且常常在完全耗尽上下文窗口（约 196k）后仍未能生成任何回复。</p>
+<p>尽管如此，它在<em>较短的任务上</em>表现还算合理，甚至在与 Q6/f16 的一致性方面得分高于 Q4_K_XL、q8_0。看来得感谢 xhigh 推理了！</p>
+<p>说到与 Q6/f16 的一致性，对我来说这是一个重要的追踪指标，因为我想比较动态方法在逼近高精度参考方面能接近多少。</p>
+<p><strong>与 Q6/f16 的一致性</strong></p>
+<p>_见图片 1_</p>
+<p><a href="https://preview.redd.it/739ykn0h8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=959e05ef0110a00d687bd288cb67c254725fb27c">https://preview.redd.it/739ykn0h8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=959e05ef0110a00d687bd288cb67c254725fb27c</a></p>
+<p>这张图显示了最终答案与 Q6/f16 结果完全相同的任务数量，<em>即使那个答案是错误的</em>。这里的动机是确定动态量化策略能否逼近 Q6/f16，而我认为这张图有力地表明它可以！</p>
+<p>在两种情况下，动态量化与 Q6/f16 模型结果的一致性都远高于其静态对应版本。总体而言，避开 IQ3_S 的路径在高上下文下最终更接近 Q6，这并不太令人意外！</p>
+<p>我不想过分看重任务正确性，因此这里关注的是“与 Q6/f16 的一致性”。这是因为我不确信我的 NIAH 任务能代表整体性能。（话虽如此，如果你好奇的话，我在下面也附上了任务正确性结果）。</p>
+<p><strong>平均推理时间和平均输出 token 数</strong></p>
+<p>_见图片 2 和 3_</p>
+<p><a href="https://preview.redd.it/i7tmdbdm8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=aa475a88ee31d5f334ccb541be8f3594598572b3">https://preview.redd.it/i7tmdbdm8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=aa475a88ee31d5f334ccb541be8f3594598572b3</a></p>
+<p><a href="https://preview.redd.it/i4klmw0l8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=e72d0d3f54e12012d999d5456135a07d6bedd2ba">https://preview.redd.it/i4klmw0l8qrh1.png?width=1057&amp;format=png&amp;auto=webp&amp;s=e72d0d3f54e12012d999d5456135a07d6bedd2ba</a></p>
+<p>这些图表展示了已完成任务种子（包括错误运行和上下文耗尽运行）的推理时间（秒）和总输出 token 数的算术平均值。</p>
+<p>我特别想强调推理时间，因为对于动态策略来说，它包含了换出模型权重和对 kvcache 进行量化的时间！</p>
+<p>我认为这很好地展示了这里的优势——跨任务的推理时间实际上并没有变差，尽管我们在使用花哨的动态量化策略。原因如下：</p>
+<p>- 当换出模型权重时（例如 Q6-&gt;Q4），我们进行的是直接的 KV Cache 移植，直接把 kvcache 从一种量化搬到另一种。</p>
+<p>- 当对现有模型的 kvcache 进行量化时（例如 Q6/f16-&gt;Q6/q8），我使用的是我 fork 的 llama.cpp，它可以热重载运行中模型的上下文/运行时，并在 kvcache 精度之间自动转换。</p>
+<p>简而言之，在这两种情况下，<em>都不需要重复 prefill！</em> 转换之后，模型会从它们中断的地方精确地继续 prefill/decode。</p>
+<p><strong>任务正确性</strong></p>
+<p>这是所有策略/运行的任务正确性表格。我按“使用的最低模型精度”对结果进行了拆分，以便更容易比较静态和动态。</p>
+<p><strong>最差情况 IQ3_S：</strong></p>
+<ul><li><strong>Q3/f16</strong><br>10k：6/10 · 25k：<strong>9/10</strong> · 50k：2/10 · 75k：<strong>4/10</strong></li><li><strong>Q6-&gt;Q4&gt;Q3</strong><br>10k：<strong>7/10</strong> · 25k：7/10 · 50k：<strong>7/10</strong> · 75k：<strong>4/10</strong></li></ul>
+<p>结果：动态量化在 2 种情况下优于静态，1 次打平，1 次落败。</p>
+<p><strong>最差情况 Q4_K_XL，q8 kv：</strong></p>
+<ul><li><strong>Q4/q8</strong><br>10k：<strong>7/10</strong> · 25k：<strong>8/10</strong> · 50k：5/10 · 75k：4/10</li><li><strong>Q6-&gt;Q6/q8-&gt;Q4-&gt;Q4/q8</strong><br>10k：<strong>7/10</strong> · 25k：7/10 · 50k：<strong>7/10</strong> · 75k：<strong>7/10</strong></li></ul>
+<p>结果：动态量化在超过 50k 上下文时优于静态，在此之前基本持平。</p>
+<p><strong>总体：</strong></p>
+<p>这里我将动态策略直接与参考进行对比，去掉了 10k 和 25k 任务，因为低于这些级别时动态策略实际上就是在运行 Q6/f16。它们每次都是完全相同的。</p>
+<ul><li><strong>Q6-&gt;Q4-&gt;Q3</strong><br>50k：<strong>7/10</strong> · 75k：4/10</li><li><strong>Q6-&gt;Q6/q8-&gt;Q4-&gt;Q4/q8</strong><br>50k：<strong>7/10</strong> · 75k：7/10</li><li><strong>Q6/f16</strong><br>50k：6/10 · 75k：<strong>8/10</strong></li></ul>
+<p>结果：我认为从这些结果中得不出太多结论，除了 IQ3_S 量化在高上下文下确实会崩溃。这个表格说明了为什么我没有太把任务正确性当回事。如果按字面理解，它表明在 50-75k 上下文之间，Q6-&gt;Q4 和 Q6-&gt;Q6/q8 优于 Q6/f16！</p>
+<h1>结论</h1>
+<p>总体而言，我对这些结果相当满意！</p>
+<p>虽然这个 benchmark 并不完美，但就我的目的而言，我完全满意动态模型量化是抵消硬件限制带来的典型精度损失的好方法。</p>
+<p>我的测试主要是围绕压榨 24 GiB GPU 的极限来设计的，因为这样更容易与只能在 32 GiB GPU 上运行的参考进行对比。下一步，我将把它集成到我的推理设置中，看看在开启所有花哨功能（即投机解码和 mmproj，这两项在这些 benchmark 期间都未启用）时它的表现如何。</p>
+<p>我的直觉是，在实际推理中使用这些策略时需要把握好的权衡是避免过于频繁地降低模型量化。虽然我认为连贯性应该没问题，但到了某个时候，换出权重所需的时间会变得明显。所以，我想我会尝试进行设置，创建大的上下文“批次”，让模型在大约 40-50k token 内保持不变地运行。</p>
+<p>在我看来，Q6/f16-&gt;Q6/q8-&gt;Q4/f16-&gt;Q4/q8 策略已经是这方面的一个很好的例子。kvcache 重新加载所需的时间比模型重新加载要少得多，至少在我目前对 llama.cpp 的修改下是这样。也许我以后可以在这方面继续努力！</p>
+<p>由   <a href="https://www.reddit.com/user/wadeAlexC"> /u/wadeAlexC </a>提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq76f6/qwen3827b_using_kv_cache_transplants_to_boost/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq76f6/qwen3827b_using_kv_cache_transplants_to_boost/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq76f6/qwen3827b_using_kv_cache_transplants_to_boost/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

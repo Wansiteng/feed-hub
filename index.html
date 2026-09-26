@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- 首帧之前设置主题，避免白闪。各页面保持一致（tests/test_web.py 会检查） -->
+  <script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-title" content="Feed Hub">
+  <title>Feed Hub</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <!-- 添加到主屏幕时的图标（iOS 只认 PNG）；源文件是 assets/app-icon.svg -->
+  <link rel="apple-touch-icon" href="assets/app-icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/components.css">
+  <link rel="stylesheet" href="app/app.css">
+  <meta name="theme-color" content="">
+  <!-- config.js 由发布流程生成，记录私有仓库名和站点地址；本地调试时不存在也没关系 -->
+  <script src="config.js" defer></script>
+  <script src="assets/theme.js" defer></script>
+  <script src="app/main.js" type="module"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <noscript>Feed Hub 的管理页面需要开启 JavaScript。</noscript>
+</body>
+</html>

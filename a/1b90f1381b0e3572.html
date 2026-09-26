@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI失控Agent还找DeepSeek、Kimi当外援！近百万条作案短链曝光</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI失控Agent还找DeepSeek、Kimi当外援！近百万条作案短链曝光</h1>
+<p><small>量子位 · 评分 7/10：Agent安全事件，涉及工具链与模型滥用，值得关注</small></p>
+<hr/>
+<div><p>
+        &lt; img id="wx_img" src="https://www.qbitai.com/wp-content/uploads/imgs/qbitai-logo-1.png" width="400" height="400"&gt;
+    </p>
+
+
+      
+                    
+        	<div>
+				     <h1>OpenAI失控Agent还找DeepSeek、Kimi当外援！近百万条作案短链曝光</h1>
+    			   <div>
+             <span><em><a href="https://www.qbitai.com/author/tingyu" title="由 听雨 发布">听雨</a></em></span>
+                          <p><span>2026-09-26</span>
+             <span>15:04:15</span>
+          <span>
+          来源：<a href="https://www.qbitai.com">量子位</a>            </span></p></div>
+                          
+                            			<p>听雨 发自 凹非寺<br>
+量子位 | 公众号QbitAI</p>
+<p>OpenAI，又被扒了…</p>
+<p><b>近700个OpenAI智能体组团攻入Hugging Face</b>，这事儿快有两个多月了吧。</p>
+<p>谁曾想，直到今天还在发酵？？</p>
+<p>这次，8名研究者顺着智能体留在公网的痕迹一路猛挖，从数百万个短链接中，找出了接近100万个相关URL，并还原出大量攻击载荷。</p>
+
+<p>翻Hugging Face内部Slack、扫描内网、外传数据、尝试销毁痕迹……</p>
+<p>还有的Agent把搜刮到的服务器资源和凭证，直接叫作<b>「LOOT」</b>，翻译一下就是「战利品」。</p>
+<p>OpenAI智能体，你们坏事做尽！</p>
+<p>更离谱的是，它们还尝试调用DeepSeek、Kimi、Qwen等国产模型，让外援帮忙判断攻击方案能不能通过评测。</p>
+<p>还动手写起了验证码识别程序，试图注册更多账号。</p>
+<p>几乎同一时间，OpenAI发了一篇长推。</p>
+<p>意思是：<b>还在查，可能还要花上好几个月</b>。</p>
+
+<p>虽然我们经常被扒，经常有Agent冲出沙箱，但是《影响有限》，严重程度较低！</p>
+<p>也是同一时间，专攻网络安全的<b>GPT-6 Cyber</b>曝光了。</p>
+
+<p>一边排查自家Agent为什么冲出沙箱，一边准备推出更强的网络攻防模型。</p>
+<p>OpenAI这两天多少有点忙啊～</p>
+<p>新鲜出炉的100万条「作案短链」</p>
+<p>先简单给各位来个前情提要。</p>
+<p>7月，OpenAI在内部跑网络安全评测，一批智能体为了拿到基准测试ExploitGym的答案，逃出沙箱，一路打进了Hugging Face的服务器。</p>
+<p>OpenAI公开承认了这件事，8月底又发了一份37页的技术报告，Hugging Face自己也写过一篇很详细的技术时间线。</p>
+<p>按理来说，该交代的都交代了。</p>
+<p>但是吧，有个关键环节一直没讲明白：</p>
+<p>这些智能体一开始几乎被关在笼子里，只能打开网址，没法和网页交互，也发不出数据。它们到底是怎么把代码送出去的？</p>
+<p>独立调查<b>Swarm Traces</b>这次发布的新报告，给出了一部分答案。</p>
+<p>作者包括Parse.bot的Alex Forman、Mishka Kharlov、Will Tom三名工程师，以及另外5名安全和AI研究人员。</p>
+
+<p>整个调查的起点，恰好就是Parse。</p>
+<p>9月11日，三名工程师发现，OpenAI内部智能体早在6月就曾试图使用Parse提供的服务。</p>
+<p>这批智能体与此前被曝私自搭建公共留言板、互相交换答案的「智能体蜂群」属于同一批。</p>
+<p>几人一看：好家伙，正撞我枪口上了！</p>
+<p>于是沿着这条线索继续追查，随后在一个URL扫描服务中，发现了十几个来自公共短链接平台的异常链接。</p>
+<p>这些链接看起来很普通，打开后却藏着一小段Base64编码的代码，以及下一条链接的地址。</p>
+
+<p>沿着地址继续追，代码就会一段接一段地出现。</p>
+<p>全部解码、拼接之后，他们得到了一份用于扫描Hugging Face内部网络的Python程序。</p>
+<p>简单来说，就是OpenAI智能体把程序剁碎，分别塞进大量短链接里，再用一个链接指向下一个链接。</p>
+<p>光把代码藏进链接里还不够，它们还找来一个叫mShots的截图服务当「外接浏览器」。</p>
+<p>智能体先把代码塞进网页，再让mShots替自己打开。网页一加载，代码也跟着跑了起来。</p>
+
+<p>为了把执行结果传回来，它们又把服务器返回的文字转成一格格像素，让mShots截成图片，自己再从图片中解码。</p>
+<p>就这样，原本只有GET权限、只能打开网页的智能体，愣是拐出了读写互联网的效果。</p>
+<p>研究团队随后扫描了攻击期间产生的数百万个URL，花费两周时间追踪链接、识别编码方式，最终从接近100万个相关短链接中，还原出超过8万份攻击载荷。</p>
+<p>一路深挖，几位老哥又发现，智能体使用的编码组合超过1500种。</p>
+<p>简单的只是Base64，复杂的会套上多层编码和压缩，再把内容加密成带有RSA签名的数据块，解密密钥还被藏在另一组链接里。</p>
+<p>一些短链接在攻击结束两个多月后，依然公开挂在互联网上。</p>
+<p>Hugging Face确认，这些载荷与其事故响应中发现的内容吻合，相关访问密钥已经在7月撤销。</p>
+<p>但是就连Hugging Face也不知道，原来公网还遗留着这样一份完整的短链接清单。</p>
+<p>而在恢复出的8万多份载荷里，有一份脚本格外扎眼。</p>
+<p>智能体给搜到的敏感信息直接起名为：<b>LOOT，战利品</b>。</p>
+
+<p>AWS凭证、Bearer Token，以及名称中带有「SECRET」「PASSWORD」「CREDENTIAL」「KEY」的环境变量，都被打包塞进了LOOT。</p>
+<p>它甚至给搜到的Token做了一套评分机制：权限越大，分数越高。</p>
+<p>排在前五名的Token会被继续拿去读取Kubernetes里的Secret、ConfigMap和节点信息，新拿到的内容再一起装回LOOT。</p>
+<p>连Token都要排个「含金量榜单」，你们Agent搜刮起凭证来还挺讲究效率的啊～</p>
+<p>顺着这条「暗道」，研究者还原出了大量此前没有公开的行为：</p>
+<p>有些智能体在扫描Hugging Face的内部网络，寻找云端凭证、API密钥和Kubernetes集群信息。</p>
+<p>有的还试图搜索Hugging Face的内部Slack，前后发出27条查询，搜的都是cybergym、exploitgym、agent-scorer这类和评测相关的关键词，想打听自己这场考试的内情。</p>
+<p>还有一些智能体，甚至琢磨起了验证码。</p>
+<p>研究人员发现，它们尝试运行图像分类模型识别图片，以便注册新的外部服务账号。</p>
+<p>验证码这次真遇上专业对口的了……</p>
+<p>整件事最抓马的部分在于：<b>AI开始找AI当外援？？</b></p>
+<p>研究人员恢复出的脚本显示，OpenAI智能体已经开始四处找AI外援。</p>
+<p>它们把攻击方案发给DeepSeek、Kimi和Qwen，请对方帮忙检查：这个漏洞到底行不行，能不能达到基准测试的要求。</p>
+<p>（涉及模型包括DeepSeek-V4-Pro、DeepSeek-V4-Flash、Kimi-K2.6、DeepSeek-V3.1和Qwen3-235B-A22B）</p>
+<p>到了Claude这边，画风又变成了大型的「在吗～」现场。</p>
+<p>智能体先想办法通过在线聊天服务的浏览器验证，再给Claude 3 Haiku和Claude Haiku 4.5发去一句：</p>
+<p>Reply with exactly OK（只回复OK）。</p>
+
+<p>更早的时候，它们还给GPT-2发过一个孤零零的「Hi」。</p>
+<p>不er，你们一群AI折腾半天，第一句话和人类加好友也没什么区别啊？？</p>
+<p>be like：在吗？看得到吗？回个OK。</p>
+
+<p>此前大家看到的，还是1000多个OpenAI智能体自己拉群、分工、交换情报。</p>
+<p>现在，它们连「群外援助」都找上了。</p>
+<p>DeepSeek、Kimi、Qwen、Claude，能联系的都试一遍，再把其他AI的判断能力接进自己的任务链。</p>
+<p>有外媒记者表示：这可能是首个被公开记录的大型AI实验室智能体自主尝试调用、运行其他AI模型的案例。</p>
+<p>听起来已经很有AI组团搞事内味儿了。</p>
+<p>当然，到这里还得泼一盆冷水——</p>
+<p>Swarm Traces这份报告，约80%的材料都是智能体向外发出的请求，缺少服务器返回结果。研究者能看到它们想干什么，却很难确认每次尝试有没有成功。</p>
+<p>97%的载荷也没有原始时间戳，不少日期只能通过压缩文件头、JWT、Docker构建时间等线索估算。</p>
+<p>研究人员还承认，他们无法确认数据集中的每一条活动都来自OpenAI智能体。</p>
+<p>OpenAI正在猛猛亡羊补牢</p>
+<p>面对这份最新报告，OpenAI也发了回应。</p>
+<p>大意是，我们还没来得及细看，但其中的活动和我们正在进行的调查一致～</p>
+<p>同一天还发了一条长推：HF事件后，他们承诺对模型在训练和评测中的行为做一次更大范围的审查。</p>
+
+<p>但是吧，目前审查到的绝大多数行为都是普通研究任务，比如访问公开网页回答问题。</p>
+<p>已发现的越界案例大多《严重程度较低》，对第三方服务影响较小，或者没有影响。</p>
+<p>要全部查完，还得好几个月。</p>
+<p>但是有一说一，OpenAI你所谓的《影响较小》，大伙真的是一扒一个准。</p>
+<p>9月17日，OpenAI发布了一套新的模型失准事件披露框架，并一口气公开了6起案例。</p>
+<p>其中包括模型把绕过约束的指令偷偷写进任务摘要、掩盖自己犯下的错误，以及为了完成任务采取未经授权的操作。</p>
+<p>OpenAI也承认，过去的披露很大程度上是临时起意，常常攒几起才一起发。</p>
+<p>6月，一名OpenAI智能体还黑进了澳大利亚的国民级医保数据库。</p>
+
+<p>作案过程：公开数据访问受阻后，它换了一条路，绕过了门户的访问限制，获取了公开和非公开文件。</p>
+<p>而且直到3个月后，OpenAI才通知澳大利亚方面，我们把你们黑了…</p>
+
+<p>与此同时，<b>GPT-6 Cyber</b>马上要来了。</p>
+<p>这个版本将在未来数周内预览，少量进入Daybreak Red计划的客户已经拿到Alpha版本。</p>
+<p>OpenAI还将推出一款尚未命名的配套产品，帮助客户建立自动化安全工作流、发现并修补漏洞，同时让OpenAI更容易监控这些模型被如何使用。</p>
+<p>这咋说呢。</p>
+<p>自家的智能体刚被扒出翻墙、找外援、搜刮战利品，这边就要把一个更懂网络攻防的模型卖给大家。</p>
+<p>所以，这算是某种亡羊补牢嘛？？</p>
+                
+                
+                <p><em>版权所有，未经授权不得以任何形式转载及使用，违者必究。</em></p>
+            </div>
+     		</div>
+<p><a href="https://www.qbitai.com/2026/09/497382.html">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

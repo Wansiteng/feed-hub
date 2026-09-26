@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Jev 对 Kev：开源 Jev 替代方案并排测试</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Jev 对 Kev：开源 Jev 替代方案并排测试</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：开放权重小模型对比评测，有实质 benchmark 数据<br/>原标题：Jev vs. Kev: open-source Jev alternative tested side by side</small></p>
+<p><strong>要点</strong></p><ul><li>Kev 4B 与 Jev 在 362 项新题上准确率差距在 2 个百分点内</li><li>Jev 在复述检测 PAWS 上以 87.0% 领先 Kev 的 74.5%</li><li>两者标价相同，但 Jev 每次请求多计约 257 个输入 token，短请求成本最高差 12 倍</li></ul>
+<hr/>
+<div> <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq2hfc/jev_vs_kev_opensource_jev_alternative_tested_side/"> <img alt="Jev vs. Kev: open-source Jev alternative tested side by side" src="https://external-preview.redd.it/GwnqPzv_muScOnvwWAo9JrtiSpdRBa7BF_Otfr1Hjb8.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=3014a8a0a144ace377f1750e46c7f903cc3c8528" title="Jev vs. Kev: open-source Jev alternative tested side by side"> </a> </div>
+<p>我们托管了 Kev 4B（Jared Palmer 基于 Apache-2.0 协议对 Qwen3.5-4B 的微调版本），并在同一端点上与 Jev 并排运行，以比较两者的表现。</p>
+<p>我们构建了一组全新的 362 个测试项，均发布于两个模型上线之后（新的 arXiv 论文、Stack Exchange 问题和 GitHub issue），答案取自原始来源。</p>
+<p>几点发现：</p>
+<p>- 每项任务的准确率差距都在 2 个百分点以内，在此样本量下属于噪声范围</p>
+<p>- Jev 的校准更好，并在复述检测上领先（PAWS 87.0% 对 74.5%）</p>
+<p>- 标价相同，但 Jev 每次请求会固定多计入约 257 个输入 token（直接调用 TypeSafe 时计数相同），因此短请求的成本最高可达 12 倍</p>
+<p>如果你想自己运行，基准测试代码、测试项和结果都在 GitHub 上。两个模型均通过我的创业公司 Opper 路由。欢迎深入探讨具体细节。</p>
+<p>由   <a href="https://www.reddit.com/user/facethef"> /u/facethef </a> 提交</p>
+<br>
+<p><span><a href="https://opper.ai/blog/jev-vs-kev-open-decision-model">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq2hfc/jev_vs_kev_opensource_jev_alternative_tested_side/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq2hfc/jev_vs_kev_opensource_jev_alternative_tested_side/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

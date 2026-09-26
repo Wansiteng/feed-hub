@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Swift1.5-Qwen3.8-Flash-Next 相比基础 3.8-Flash 表现惊艳！</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Swift1.5-Qwen3.8-Flash-Next 相比基础 3.8-Flash 表现惊艳！</h1>
+<p><small>r/LocalLLaMA 每日热门 · 评分 6/10：本地模型微调体验，信息量一般<br/>原标题：Swift1.5-Qwen3.8-Flash-Next is phenomenal vs. base 3.8-Flash!</small></p>
+<p><strong>要点</strong></p><ul><li>Swift-1.5-Qwen3.8-Flash-Next 在 Aider 基准上首次通过率 41.1%，与基座 40.2% 基本持平</li><li>Swift 版本中位 token 用量仅为基座的 40%，中位耗时也降至 40%</li><li>Swift 单例最多用 44k token，基座则高达 203k，几乎不再反复循环推理</li></ul>
+<hr/>
+<p><strong>TL;DR</strong> - <a href="https://huggingface.co/ukisai/Swift1.5-Qwen3.8-Flash-Next">Swift Flash</a> 是一款杀手级模型，能大幅减少多余的推理。快来试试吧！</p>
+<p>如果你没看过我<a href="https://www.reddit.com/r/LocalLLaMA/comments/1wp5vqr/thinkingcap_3827b_vs_swift_3827b_vs_qwen_3827b/">之前的对比帖</a>，那我得说，我是 Swift Qwen3.8 系列的超级粉丝。从 27B 发布起我就一直在用，它的性能和品质让我印象深刻（v1.5 还要更好）。减少过度思考是一大胜利，而在实际使用和 benchmark 中，品质似乎基本相当。节省的时间非常可观。</p>
+<p>当 UkisAI 告诉我他们打算发布一款 Swift Flash 模型时，我兴奋得不行。那是我日常使用的模型，也是我在本地用过的最好的模型，但在非常难的问题上，它比 3.8-27B 思考得还要多。我下载了 Q5_K_L（带 Q8_0 engrams），与 Unsloth 的 Q5_K_XL 基础版（同样带 Q8_0 engrams）进行对比。这是在 128GB 内存下、配合 SSD engrams 和 262k 上下文时能安全运行的最高品质配置，我认为这已经是我能做出的最公平的对比了。</p>
+<p>和往常一样，我运行了我在每个模型上都会跑的同一套 Aider agentic coding benchmark。从中我能得到很多有用的数据，包括首次尝试和重试的通过率、token 使用中位数、实际耗时、每次解决的 token 数，以及格式正确的 diff 比例。图表如下：</p>
+<ul><li><strong>Qwen3.8-Flash-Next (xhigh)</strong><br>首次尝试通过：40.2% · 重试通过：90.7% · token/用例：17646 · 秒/用例：1542 · token/解决：24.8K · 格式正确的 diff：98.1%</li><li><strong>Swift-1.5-Qwen3.8-Flash-Next (xhigh)</strong><br>首次尝试通过：41.1% · 重试通过：86.9% · token/用例：6991 · 秒/用例：608 · token/解决：10.5K · 格式正确的 diff：100.0%</li></ul>
+<p>如你所见，Swift 的表现几乎和基础模型一模一样。在这个规模的数据集上，考虑到 benchmark 结果固有的噪声，这些差异还达不到统计显著性。现实中，约 5% 的差异才算显著，而我们看到的差异不到 4%。从首次尝试通过率可以看出，Swift 在较容易的题目上与基础模型通过率相同，只是在需要第二次尝试的最难题目上略逊一筹。基础模型能挽回 84% 需要重试的用例，而 Swift 只有 78%。</p>
+<p>在 token 使用和实际耗时方面，两者完全没法比。<strong>Swift 做到了 UkisAI 所宣称的——它只用了中位数 40% 的 token，并在中位数 40% 的时间内完成任务，品质却几乎相同。</strong>这太惊人了，也证明了他们在 RL/OPD 上的工作成果。</p>
+<p>一个特别有价值的发现：基础模型经常陷入长时间的长篇推理，反复绕回自己。Swift 几乎从不这样。在基础模型最耗 token 的 20 次运行中，Swift 只用了 29% 的 token，并解决了 20 个中的 16 个，而基础模型解决了 17 个。即便在基础模型思考得最费劲的最具挑战性的问题上，Swift 也几乎保留了全部品质。Swift 在任何用例上使用的 token 最多为 44k，而基础模型为 203k。</p>
+<p>以下是排名前三的编程语言的细分：</p>
+<ul><li><strong>Qwen3.8-Flash-Next (xhigh)</strong><br>cpp：23.1% / 84.6% · javascript：37.5% / 91.7% · python：57.6% / 93.9%</li><li><strong>Swift-1.5-Qwen3.8-Flash-Next Q5_K_L (xhigh)</strong><br>cpp：30.8% / 73.1% · javascript：41.7% / 93.8% · python：48.5% / 87.9%</li></ul>
+<p>与基础模型配对比较（n=107）：99 个一致，2 个胜出，6 个落败（净 −4），McNemar 精确检验 p ≈ 0.29（不显著）。再次说明，两者在品质上统计上无法区分。C++ 压缩得最厉害，token 使用量仅为基础模型的 29%（python/javascript 约为 46%），而且它承担了 6 个落败中的 3 个。如果你经常写 C++，这点值得了解。</p>
+<p>总之，我觉得这篇帖子已经够长了。我相信现在有些人会希望有个 Swift 版的我。希望你能从中有所收获。感谢 <a href="https://www.reddit.com/u/Secure_Recording_472">u/Secure_Recording_472</a> 和 UkisAI 团队与社区分享这么有用的模型！</p>
+<p>由 <a href="https://www.reddit.com/user/returnity"> /u/returnity </a> 提交</p>
+<br>
+<p><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq56pf/swift15qwen38flashnext_is_phenomenal_vs_base/">[链接]</a></span><span><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq56pf/swift15qwen38flashnext_is_phenomenal_vs_base/">[评论]</a></span></p>
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wq56pf/swift15qwen38flashnext_is_phenomenal_vs_base/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Show HN：Whiteboard（YC W26）——面向深思熟虑软件设计的开源 IDE</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Show HN：Whiteboard（YC W26）——面向深思熟虑软件设计的开源 IDE</h1>
+<p><small>Hacker News（300 分以上） · 评分 7/10：人机协作设计工具，可接入 Claude Code、Codex，契合 agent 工具链兴趣<br/>原标题：Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design</small></p>
+<p><strong>要点</strong></p><ul><li>Whiteboard 是开源桌面应用，让人类与 agent 在同一画布上协作设计软件</li><li>支持接入 Claude Code、Codex 等 coding agent，并提供 SDK 让 agent 在画布上绘图</li><li>内置 Rust 编写的 AST 语义 diff 查看器，可折叠测试与文档改动</li></ul>
+<hr/>
+<a href="https://github.com/devdotfast/whiteboard/blob/main/docs/assets/review-logo.png"><img src="https://github.com/devdotfast/whiteboard/raw/main/docs/assets/review-logo.png" alt="Whiteboard logo"></a>
+<p dir="auto"><strong>一个用于深思熟虑的软件设计的开源画布</strong></p>
+<p dir="auto">Whiteboard 是一款开源桌面应用，人类和 agent 可以在同一个工作空间中共同设计软件架构。</p>
+<p dir="auto">Whiteboard 可以接入你已经在使用的工具——例如 Claude Code、Codex 等——并为你的 agent 提供一个 SDK，让它在应用内画布上绘制内容来描述自己的工作。</p>
+<p dir="auto">
+  <a href="https://github.com/devdotfast/whiteboard/blob/main/docs/assets/whiteboard-demo.gif"><img src="https://github.com/devdotfast/whiteboard/raw/main/docs/assets/whiteboard-demo.gif" alt="An agent writes a Whiteboard review from a terminal prompt, which includes a sequence diagram"></a>
+</p>
+<p dir="auto">这里有一段 1 分钟的演示视频，做了更详细的说明：<a href="https://www.youtube.com/watch?v=ChPn3ftULWE">https://www.youtube.com/watch?v=ChPn3ftULWE</a></p>
+<ol dir="auto">
+<li><a href="https://install.dev.fast">下载 Whiteboard</a> 并打开应用。</li>
+<li>在欢迎界面连接 Claude Code、Codex 或其他编程 agent。</li>
+<li>让你的 agent 将当前分支与最新的 main 分支进行对比，
+并在 Whiteboard 中打开结果。</li>
+</ol>
+<p dir="auto">根据我们的经验，Whiteboard 与 GPT-6 Sol、Claude Opus 5.5 这类模型配合效果最佳，它们在智能、成本和速度之间取得了良好平衡。</p>
+<p dir="auto">以下是一些如何高效使用 Whiteboard 的示例 prompt。我们正在努力确保正确的选择默认内置到系统 prompt 中——这也是这个系统开源的原因之一！——但在此之前：</p>
+<blockquote>
+<p dir="auto">嘿，这堆 commit 的设置是为了让我能有一个 [api] 来实现 [目标]</p>
+<p dir="auto">我想看到：</p>
+<ul dir="auto">
+<li>建议的 api</li>
+<li>示例</li>
+<li>这样做的动机（如果你能在上下文/仓库中找到的话）</li>
+</ul>
+<p dir="auto">然后我们可以深入实现，并解释各部分是如何运作的。</p>
+</blockquote>
+<h3 dir="auto">针对一次添加遥测的改动：</h3>
+<blockquote>
+<p dir="auto">你能给我解释一下最新那个 posthog pr 里的遥测改动吗 <a href="https://github.com/devdotfast/whiteboard/commit/4837e107946e27ebad50c282eb0f2585210d2a35">https://github.com/devdotfast/whiteboard/commit/4837e107946e27ebad50c282eb0f2585210d2a35</a> —— 我们在追踪什么，如何据此构建好的仪表盘或产品漏斗？对于卡顿、错误、崩溃等情况我们是怎么处理的……用 whiteboard</p>
+</blockquote>
+<p dir="auto">如果你看到任何不满意的地方，把它在剪贴板中高亮出来交给你的 agent，它就能在 Whiteboard 上重新绘制以满足你的需求！</p>
+<h3 dir="auto">从图表到代码</h3>
+<p dir="auto">纯 HTML 工具无法提供便捷的方式来将规格说明或图表与代码关联起来；这尤其棘手，因为权衡取舍往往只有在第一轮实现之后才会被发现。在 Whiteboard 中，当你点击时序图、实体关系图，或 agent 追踪记录中的引用等可视化内容时，你可以直接跳转到底层代码。在浏览代码时，你可以开箱即用地获得 VSCode 的快捷键和 LSP 支持。</p>
+<p dir="auto">原始 diff 视图可能非常嘈杂，所以我们用 Rust 写了一个语义化、感知 AST 的 diff 查看器，让你只查看与自己相关的代码改动。我们设置了一些合理的默认值：新增的大型函数会被总结为伪代码，单元测试和文档改动等内容会被折叠/隐藏。这一切都可以通过基于 WASM 的插件系统进行自定义。</p>
+<p dir="auto">我们发现很难推断我们的 agent 自主做出了哪些决策，以及这些决策如何影响一次改动。因此我们为 agent 构建了工具，让它们能在 Whiteboard 上查询并关联自己的追踪记录，这样你就能可视化自己设定的需求，理解它们是如何被实现的，并了解 agent 自主做出了哪些决策。</p>
+<h2 dir="auto">开源，运行在你自己的机器上</h2>
+<p dir="auto">Whiteboard 采用 MIT 许可证，并针对你本地的代码检出运行。面向团队的托管产品已在规划中，而且一切将始终可以自托管。</p>
+<ul dir="auto">
+<li><p dir="auto">你目前无法在 Whiteboard 中编辑文件。如果你发现自己想要这样做，请提交一个 issue！</p></li>
+<li><p dir="auto">在一次审查中跨多个仓库工作和浏览文件的支持还不够完善。</p></li>
+<li><p dir="auto">虽然你可以通过分享按钮在多台机器之间共享审查，但审查共享后所做的更新不会对其他人显示。你需要重新分享该审查。</p></li>
+</ul>
+<p dir="auto">欢迎贡献和反馈。</p>
+<p dir="auto">阅读 <a href="https://github.com/devdotfast/whiteboard/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> 了解设置和 pull request 工作流程，并遵守 <a href="https://github.com/devdotfast/whiteboard/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>。按照 <a href="https://github.com/devdotfast/whiteboard/blob/main/SECURITY.md">SECURITY.md</a> 中所述报告漏洞。有问题？在 <a href="https://discord.gg/wYvd2cpMQg">Discord</a> 上提问。</p>
+<p dir="auto">Whiteboard 针对本地检出运行。匿名遥测不包含你的代码、diff、Whiteboard 文本、prompt 或模型输出。阅读 <a href="https://github.com/devdotfast/whiteboard/blob/main/docs/privacy.md">隐私概览</a>，查看完整的 <a href="https://github.com/devdotfast/whiteboard/blob/main/docs/telemetry.md">遥测参考</a>，或随时关闭遥测。</p>
+<p dir="auto">Whiteboard 在 <a href="https://github.com/devdotfast/whiteboard/blob/main/LICENSE">MIT License</a> 下提供。内置的 Code - OSS fork 保留 Microsoft 的 MIT 许可证和第三方声明；参见 <a href="https://github.com/devdotfast/whiteboard/blob/main/apps/review-desktop/LICENSE"><code>apps/review-desktop/LICENSE</code></a> 和 <a href="https://github.com/devdotfast/whiteboard/blob/main/apps/review-desktop/UPSTREAM"><code>apps/review-desktop/UPSTREAM</code></a>。</p>
+<p dir="auto">既然大家都在使用专用的 agent TUI 和桌面应用，我们现在只用文本编辑器来逐行审查 diff，所以我们想为什么不做一个专门用于审查代码的文本编辑器呢。既然如此，不如以市面上最成功的开源编辑器作为起点。</p>
+<p dir="auto">我们内置 Code OSS，而不像其他 fork 那样维护补丁，因为 coding agent 很难处理补丁，而且原版 VS Code 中有很多我们不需要的东西（比如，如今约 45% 的代码库都是 Copilot 😬）。</p>
+<p dir="auto">我们定期监控上游 Code OSS，并在安全/功能补丁发布时合并进来。</p>
+<p><a href="https://github.com/devdotfast/whiteboard">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>
