@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI Jalapeño 设计访谈实录</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI Jalapeño 设计访谈实录</h1>
+<p><small>Tom&#x27;s Hardware · 评分 8/10：OpenAI 自研推理芯片深度访谈，AI 硬件重要进展<br/>原标题：OpenAI Jalapeño design interview transcript</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 在 Hot Chips 2026 发布 Jalapeño 推理 ASIC</li><li>Jalapeño 主打能效，目标是降低推理成本与延迟</li><li>芯片可运行开源模型，两个月内完成适配调优</li></ul>
+<hr/>
+<p>OpenAI 在 2026 年 8 月的 Hot Chips 上发布了其 Jalapeño 推理 ASIC，这款芯片高度依赖 AI，实现了令人难以置信的短设计周期。发布之后，<em>Tom's Hardware</em> 有机会与该公司硬件副总裁 Richard Ho 坐下来交谈，解答我们关于这款芯片如何诞生、未来雄心以及 AI 如何可能用于硅片开发的一些最紧迫的问题。</p>
+<p>以下文章是我们对 <a href="https://www.linkedin.com/in/richard-ho-chips/">Richard Ho</a> 采访的完整记录，为流畅和清晰起见进行了编辑。您还可以阅读我们今年早些时候制作的其他采访记录，包括 <a href="https://www.tomshardware.com/pc-components/cpus/intel-vp-robert-hallock-sets-nova-lake-expectations-teases-return-to-raptor-lake-for-ddr4-platforms-our-full-1-1-interview-transcript">Intel</a>、<a href="https://www.tomshardware.com/pc-components/gpus/amd-fsr-redstone-press-roundtable-ces-2026">AMD</a>、<a href="https://www.tomshardware.com/tech-industry/gc-2026-press-q-and-a-transcript">Nvidia</a>、<a href="https://www.tomshardware.com/video-games/steam-machine-interview-full-transcript-valve-engineers-discuss-usd1-049-pricing-compact-design-component-shortages-and-windows-support">Valve</a> 等。作为 <em>Tom's Hardware Premium</em> 的 <a href="https://www.tomshardware.com/tech-industry/get-free-access-to-ai-chip-design-week-on-toms-hardware-premium-sign-up-for-an-account-to-read-all-the-in-depth-reports">AI Chip Design Week</a> 的一部分，本记录限时免费访问。</p>
+<p><strong>Jake Roach，Tom's Hardware 高级 CPU 分析师：</strong>当你在 Hot Chips 上抛出这个时，那真是个相当精彩的结尾。我想从高层次开始。OpenAI 开发自己的 ASIC 有很多原因，但有没有一件你能更具体指出的驱动因素？无论是性能、效率——究竟是什么真正推动了那个决定？</p>
+<p><strong>Richard Ho，OpenAI 硬件副总裁：</strong>是效率。我认为那是我们追求的主要目标，因为显然，正如 Sam [Altman] 一直在说的，我们将受限于算力，而算力限制实际上是我们能为数据中心获取多少电力。</p>
+<p>我们想做的是，在我们能够获得的有限算力和有限电力下尽可能高效，并充分利用它。因为我们真正关心的是我们能向用户提供多少智能，而拥有更高效的推理设备非常有用。这就是为什么我们专注于推理，因为训练会发生，你在预训练中做大量计算，但真正对用户的成本在于推理侧，他们对智能的感知也将体现在那里。他们的用户体验，比如 ChatGPT 响应有多快，或 Codex 响应有多快，或 agent 响应有多快——延迟真的很重要。</p>
+<p>你可以在我们宣布的内容的要素中看到所有这些。你可以看到，我们既有一个非常好的低延迟设备，适合那些真正关心它的人，我们也可以很容易地转动旋钮，获得非常好的吞吐量，这样你就可以降低推理成本。实际上，那就是我们追求的目标。我很高兴团队成功交付了它。</p>
+<h2>自研的好处</h2>
+<p><strong>Roach</strong>：开发自己的 ASIC 与采用市场上现有的产品相比——你们只是对当前产品的效率不满意吗？</p>
+<p><strong>Ho：</strong>嗯，我不会那么说。真正思考这个问题的方式是，我们想利用我们拥有的协同设计机会。这是你与第三方芯片供应商无法真正做好的事情，因为模型中有大量的研究知识产权。你无法广泛分享这些，因为它会泄露。无论你设置多少保密协议，它都会泄露出去。</p>
+<p><strong>Ho：</strong>拥有一个内部团队能够与我们的研究人员合作，他们能够全面了解整个技术栈，并处理这个问题：“我们应该在软件中做这个吗？我们应该在模型中做吗？还是我们应该在硬件中做这个优化？”我们能够明智地做出这些权衡，因为我们有全面的了解，我认为这就是它的来源。</p>
+<p>Jalapeño 的许多好处在于我们拥有的那种可见性，能够确切地看到需要什么硬件来做出这些权衡。要明智，把我们需要放回编译器、放回技术栈的东西放回去，但真正让硬件为这个特定应用飞起来，这就是在 OpenAI 内部进行全栈协同设计机会的成果。</p>
+<p><strong>Roach：</strong>我想澄清一些要点，因为关于针对这个特定工作负载进行优化的各种引述已经流传开来，我认为这可能被错误地归因于专门针对 OpenAI 的工作负载进行优化。</p>
+<p><strong>Ho：</strong>是的，这是错误归因。使用 <em>SemiAnalysis</em> 的 InferenceX 基准测试的全部意义在于它使用的是开源模型，而且它们是不同的模型。架构不同，大小也不同。我们真正想展示的是，为了消除行业中的误解，即我们的自定义推理芯片只适用于 OpenAI 模型——我们已经通过 Hot Chips 的结果表明，它在开源模型上飞起来，在任何 LLM 上都能飞起来，从某种意义上说。所有基于 transformer 的 LLM 模型都将非常高效。</p>
+<p>我们还想要展示的是编程有多么容易。拿这些模型——我们直到芯片回来后甚至都没有看过它们——让它们在两个月左右的时间里启动并高效运行，并能够展示结果，这表明它是可编程的、通用的，并且不是为 OpenAI 模型硬编码的。</p>
+<p><strong>Roach：</strong>这让我想知道：Jalapeño 显然是为 OpenAI 的推理工作负载设计的。这就是它的全部用途吗，还是你们考虑外部客户？OpenAI 硬件的计划是什么？</p>
+<p><strong>Ho：</strong>老实说，你可以把它用于任何人。但公司内部对计算的需求如此强劲。我们甚至需要很长时间才能满足自己的需求，而这个需求一直在增长。</p>
+<p>随着日活跃用户和周活跃用户的增长，随着新模型、Codex 的新能力以及所有其他正在进行的推理事项——还有即将发布的新公告，虽然尚未公开，但我们内部大致知道——我认为在很长一段时间内，我们仅仅为 OpenAI 提供计算就会忙得不可开交。这并不是说它不能用于其他地方。我相信它可以，但我认为我们的首要任务是确保 OpenAI 的计算需求首先得到满足。</p>
+<h2>工具和时间线内部</h2>
+<p><strong>Roach：</strong>转到时间线，这很了不起——我想是九个月，到初始 RDL 的 tape-out？真的很了不起。由 AI 辅助。这会变得更快吗？这是 AI 辅助设计过程所能做的起点吗？随着你们推进路线图，你们能够更快地行动吗？</p>
+<p><strong>Ho：</strong>我喜欢这样理解：我们建立了一个新的基准。在旧基准下，大概需要18个月到两年。这通常还是在已有一些IP或更传统的架构设计的基础上。而我们是完全从零开始。我们什么都没有。这里没有一行代码可以参考。</p>
+<p>我们已经证明的是，有了AI的帮助，一支非常优秀的团队可以做到一个新的基准。那么，它会变得更短吗？这取决于你想做什么。</p>
+<p>对于Jalapeño，在架构和微架构上，我认为我们做出了一些明智且务实的取舍，以实现非常快的上市时间，因为计算需求太高了。就像，“好吧，你们能多快给我们这个设备？”我们做了一些务实的取舍。</p>
+<p>如果你要做一个复杂得多的设备——而且技术也在进步，比如3D堆叠、共封装光学等等——那会花更长时间吗？会花九个月吗？我不会说它会花九个月。我认为它会比没有AI模型时更快。如果你做的是Jalapeño的衍生设计，那应该会快得多。我们应该能够非常非常快地做到。</p>
+<p>我们要说的是，我认为我们正在建立一个新的基准：从零开始九个月。然后你会经历通常的工程起伏。但我们认为，芯片设计领域的每个工程团队都应该能够以此作为新的基准，因为它是一个证明点，证明正在使用的模型——对我们来说，AI模型主要是Codex、Sol、Sol之前的那一个，现在我们正转向<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/openai-claims-gpt-6-astra-is-an-ethereal-alien-mind-with-agi-like-qualities-company-warns-of-alignment-challenges-as-new-frontier-leader-emerges">Astra</a>——这些模型非常强大。</p>
+<p>甚至从我们2025年11月开始这项工作，到我们流片的时候，模型已经有了巨大的改进。甚至从那时到我们5月开始做内核优化、芯片首次上线时，我们自己都震惊于Codex变得有多好，以及它能做什么。</p>
+<p>老实说：我们其实对在那两个月的基准冲刺中能够压榨出的性能感到有点惊讶，因为我们之前没有意识到模型在内核优化方面有多出色。</p>
+<p>说实话，这是每个人都可以从中学习的东西。它是一个证明点，证明这是可以做到的。这就是AI应该被使用的方式。我们没有取代我们的工程师；他们只是变得超级高效。用一支更小的、由真正优秀的工程师组成的团队，加上大量这类AI工具，你可以比原本更快、更好地完成事情。我认为这是AI时代工程应该如何进行的一个好模式。</p>
+<p><strong>Roach：</strong>我很欣赏这个见解。我知道至少对我们在<em>Tom's Hardware</em>的一些读者来说，想法是“在ChatGPT里给我做一个CPU”，然后它就吐出点东西来。但显然，实际发生的事情要多得多。</p>
+<p>在开发过程中，你们使用的是Cadence和Synopsys的标准EDA工具吗？那些工具在哪里？</p>
+<p><strong>Ho：</strong>我认为这非常重要。总的来说，我的团队在很多方面都非常信奉开源。我们实际上把东西回馈给了开源，而且我们在来这里之前就信奉开源。</p>
+<p>但对于签核，你需要使用标准的EDA流程，我们确实用了，因为你想确保那些结果是良好且正确的。今天没有真正的替代方案。部分原因在于，这是标准流程与AI优化、由真正优秀的工程师优化相结合的结果。</p>
+<h2>来自更广泛行业的兴趣</h2>
+<p><strong>Roach：</strong>显然，你们与整个行业的硬件供应商都有合作。我很好奇，在Jalapeño发布之后，你们是否与他们讨论过这个AI辅助流程，以及是否从他们那里听到了什么。</p>
+<p><strong>Ho：</strong>是的，我们在发布之前就与他们接触了，因为我们知道结果已经出来了，所以开始与其中一些人交谈。评审之后，我们确实与他们有了更多的沟通。</p>
+<p>我不会在这里抢先透露任何信息。我可以告诉你，业界对此非常感兴趣，我也可以告诉你，我们认为这对整个行业都有很多好处，我们希望能促成这一点。</p>
+<p>这不是那种“嘿，我们有了这个，我们要自己留着”的事情。不是那样的。我们希望让整个行业总体上更有生产力，因为每个人都能获得更好的算力对我们也有帮助，所以我们希望确保每个人都能得到它。说实话，我想我们很快就会看到更多这方面的消息。</p>
+<p><strong>Roach：</strong>澄清一下，当你说看到业界的兴趣时，那是指设计流程，即你们如何构建芯片，而不一定是“嘿，我们要向所有人扔出一堆Jalapeño”。</p>
+<p><strong>Ho：</strong>对，没错。我们做了什么来实现那些时间线，我们做了什么在最后获得性能提升。我们是怎么做到的？我们用了什么？我认为这些是我们也想带给业界的经验。</p>
+<p>你可能知道，围绕AI用于芯片设计有一个相当活跃的创业场景，这很好。有很多聪明人在思考这件事并尝试去做。我们对此有自己的看法，我认为在某个时候我们想告诉世界：“这是我们的看法。”</p>
+<p>其基础是Codex和GPT-6 Astra的推出。这些是基础性的，我们基本上可以指向它；它不会是幻灯片或空谈。我们可以指向它说：“这是我们做的，这是我们怎么做的，这是我们得到的。”它将非常具体。</p>
+<p><strong>Roach：</strong>所以这是一个概念验证，最终比预期快了很多？</p>
+<p><strong>Ho：</strong>是的。说实话，它的运作方式——我会给你一点内幕——我们的工程师就像，“哦，我们有这些模型，它们挺酷的。我们应该试试吗？”</p>
+<p>他们试了。并没有真正的“这就是我们要做的，这就是我们要怎么做”。他们只是在基层尝试了一下。然后他们就像，“天哪，太好了。嘿，过来看看这个。”然后慢慢地整个团队都变得，“哦天，这真的很有用，真的很好，这就是我们要怎么做的。”</p>
+<p>研究人员帮助了我们。当我们遇到一些“哦，它不太能这样做”的情况时，我们公司的研究人员帮助了我们，我们会问他们：“有没有什么办法我们可以微调它之类的？”然后他们会给出回复。</p>
+<p>这真的是芯片团队和研究团队之间的合作。我们确实与他们坐在一起。芯片团队实际上被认为是OpenAI内部那个研究相关组织的一部分。合作非常紧密，因为这就是我们最初实现协同设计的方式。</p>
+<p>但后来这部分几乎是额外的收获。我们并不一定把这件事作为我们所做工作的目标。结果只是，“哦是的，这真的很有用。”工程师们很喜欢，现在我们有了这样做的方法。</p>
+<p><strong>Roach：</strong>我想在这里稍微拉远一点，因为现在每个人都在担心的一件事就是供应，总的来说。不仅是供应，甚至还有做任何事情的空间。你们在这方面进展如何？我猜你们已经预见到了这种情况并确保了供应。</p>
+<p><strong>Ho：</strong>情况很艰难，因为供应非常有限。我不想说“我早就告诉过你们”，但两年前，Sam（Altman）和我一起走访了各家晶圆厂和供应商。我去说：“拜托，拜托，拜托，多建一些，多建一些。我们会需要的。”而他们说：“嘿，相信我们。我们以前见过这种周期。”</p>
+<p>但我认为现在所有人都已经看得很清楚，就像我们之前讨论的那样，芯片设计有了新的基准。供应也有了新的基准，无论是内存、逻辑晶圆，还是其他所有组件，SSD 等等，需求都有了新的基准。供应链正在做出响应，但这需要数年时间才能运转起来。</p>
+<p>我们已经观察这种情况有一段时间了，所以我们一直在积极行动，努力确保我们的供应已经建立和落实。我们认为在这方面我们处于良好状态。</p>
+<h2>选择 Turing 而非 Vera，以及 OpenAI 的北极星</h2>
+<p><strong>Roach：</strong>我在 Tom's Hardware 广泛报道芯片，主要关注 CPU。我们有专门负责图形的人，我读到 <em>SemiAnalysis</em> 上关于它的文章时觉得很有意思，讲的是与 Jalapeño 机架并排的 Turing 机架。</p>
+<p>选择 Turing 而不是 Vera 的决策是怎么做出的？考虑到 Nvidia 和 OpenAI 多年来紧密的合作关系，我本以为会是 Vera。为什么 Turing 是合适的选择？</p>
+<p><strong>Ho：</strong>我们做那个设计的方式，实际上是从降低风险和能够快速完成设计的角度出发的。Vera 作为独立产品，在成熟度上稍微落后一些。Turing 器件很强。它做到了我们需要它做的事，而且部分原因是我们的合作伙伴对它有一些经验。</p>
+<p>我们没有必要在那上面冒巨大风险，所以我们没有冒。就像我之前说的，对于 Jalapeño 项目，我们试图做出非常务实的决策。我们想在性能和成本目标上保持进取，但我们不想承担不必要的风险。这感觉是一个很好的设计决策，符合我们做这些设计决策的参数范围。</p>
+<p><strong>Roach：</strong>我很好奇从内部来看：Jalapeño 现在的范围是——你们有巨大的算力需求。它甚至可能无法满足这一需求。想法会不会是：“嘿，如果有一天我们能在自己的加速器上运行一切，那就太好了”？这是不是最终的空中楼阁式目标？</p>
+<p><strong>Ho：</strong>我认为最终目标是使用在性能和成本方面最好的设备。如果结果是我们自己的内部设备，因为我们可以做协同设计，因为我们可以做其余的部分，然后我们获得每瓦性能优势，那么是的，就让情况如此。</p>
+<p>但如果不是，如果还有由硅片供应商或其他合作伙伴提供的另一款芯片，我非常乐意把它们放进集群。我们的目标是降低基础设施成本。这就是我们的目标。无论最好的方式是什么，我们都会去做。</p>
+<p>现在，我们押注的是，由于这种协同设计的优势，我们能够比商用硅片做得更好，而 Jalapeño 似乎正在带来回报。它会继续带来回报吗？我相信会。但我会说那是我们的北极星吗？不会。我会说我们的北极星是我们能够获得的最低基础设施成本。</p>
+<p><strong>Roach：</strong>我想问你这个问题，因为我知道我们会收到评论说：“哦，他们还在用 Nvidia。他们还在用 AMD。”显然，你们现在什么都用。</p>
+<p><strong>Ho：</strong>我们现在什么都用。但如你所知，这是持续的——你无法想象——这是持续的评估。随着我们继续部署，我们会不断评估，所以比例可能会变化。</p>
+<p>但只要我们牢记这个北极星，什么才是最好的设备，而不是抱着“嗯，我们造了它，所以它就必须在那里”的态度——这不是我们思考的方式——那么我认为我们就是在为自己和终端客户做正确的事。</p>
+<h2>Jalapeño 上的投机解码与性能</h2>
+<p><strong>Roach：</strong>再深入一点技术细节——我知道我们时间快到了——投机解码目前还没有在 Jalapeño 上实现。你们计划在 Jalapeño 上实现它吗？</p>
+<p><strong>Ho：</strong>它在硬件里已经实现了。我们没有对它做 benchmark 的唯一原因，是我们没有时间去训练那些 draft 模型来在 Jalapeño 上做投机解码。我们有内部模型可以做这件事。这就是我们再做一次那个 benchmark 的唯一原因。</p>
+<p>给你讲讲这件事的背景。我们本来没打算做这个 benchmark，直到芯片回来之后才决定。我们看到它能跑，而且跑得非常好。他们说：“我们要怎么把这件事告诉全世界？”我们说：“哦，那个 benchmark。那就干吧。”</p>
+<p>太疯狂了。距离论文截止日期——也就是演讲截止日期——只有两个月。就像在问：“我们能做吗？这些模型我们能搞定几个？”我们就直接上了，我们说：“嗯，没时间做多 token 预测了，但嘿，看起来我们的单 token 预测可能比多 token 预测还要好。那就把这些结果发出去吧，因为它能给你一个指示。”</p>
+<p>多 token 预测会有 3-5 倍的性能提升。那是我们手里的底牌。我们有这个能力，而且我们会在自己的模型里推出它。当我们把它投入生产时，我们就会提供这个能力。</p>
+<p>但为了 benchmark 去做那件事似乎没有必要，因为如果你的单 token 预测比当前最先进的多 token 预测还要好，你就知道你的多 token 预测会好得多。这就是背后的原因。</p>
+<p><strong>Roach：</strong>所以你是说，芯片回来了。你有两个月时间。你们原本甚至没打算展示 benchmark？</p>
+<p><strong>Ho：</strong>没有。Hot Chips 的组织者其实非常灵活、非常友好。他们问我们：“你们今年想演讲吗？”我们说：“我们不确定。最晚什么时候能告诉你们？”</p>
+<p>他们还有最后一个时段，就一直给我们留着。如果不讲，议程可能就会提前结束之类的。然后最后，很晚的时候，在芯片回来之后，我们说：“能给我们吗？”他们说：“行，上吧。”我们就上了。</p>
+<p><strong>Roach：</strong>我还有一个问题，是关于更长上下文窗口的。如果我没记错的话，在 <em>SemiAnalysis </em>InferenceX benchmark 上它们都是 8K/1K。我知道你们还没有分享那些。我猜你们内部已经看过更长的上下文窗口了。</p>
+<p><strong>Ho：</strong>是的，当然是在内部。就像我们说的，我想我们在某张幻灯片里提到过，在内部模型上，差距会更大。是的，在更长的上下文、更大的模型下，Jalapeño 的表现似乎比现有的一些其他设备上的基准测试还要好。</p>
+<p>我还要强调，我们做了很多与 Grace Blackwell 的对比，但那是因为那些是我们能找到的最好的已发布结果。显然，到我们部署的时候，会是 Vera Rubin，在部署计划的一些部分甚至可能是 Vera Rubin Ultra。</p>
+<p>我们做了内部的对比，但显然我们不会公布那些。那些必须由 Nvidia 和其他有能力的人来发布。我们不会自己公布那些结果。</p>
+<h2>产能爬坡与未来</h2>
+<p><strong>Roach：</strong>我相信这是对的——Jalapeno 在今年剩余时间里会缓慢爬坡，但 2027 年才是真正……</p>
+<p><strong>Ho：</strong>2027 年。是的。我想如果可以的话，我们想先放一些量进去，非常小的量，只是为了确保一切运行良好，我们可以在生产环境中测试。然后 2027 年才是爬坡真正显现的时候。</p>
+<p><strong>Roach：</strong>回到你的路线图，你想设定一个新的基线。你显然已经宣布了另外两代 [...] Gen 2 即将流片。这是否是未来相同的节奏？我们是否应该在明年的 Hot Chips 前后期待了解更多关于 Jalapeño 2 的信息？</p>
+<p><strong>Ho：</strong>让我把这一点说清楚。我不认为你应该仅仅按照日历日程来流片。</p>
+<p>我们希望在我们设想的设备在某个方面——比如每瓦性能、原始性能或延迟——取得某种阶跃式改进时才流片。这在很大程度上取决于技术何时可用。</p>
+<p>无论是你使用哪一代 HBM、使用哪种类型的 SerDes，还是能否让光通信更接近硅片。我们的项目和流片将取决于这些技术的成熟度。</p>
+<p>我们可以执行得非常快。我们会背靠背地进行这类执行吗？我对此表示怀疑，因为技术还没有为此准备好，而且我不想流片一个只比之前流片的好 2% 的东西，因为为此更换整个机群不值得。但我看到的是，技术确实以相当合理的节奏在改进，我们能够在这个节奏内快速执行。</p>
+<p>最重要的是打造正确的设备。你必须花足够的时间来打造正确的设备。知道那个设备是什么。然后当你打造它时，就快速地打造。尽快把它推出来。</p>
+<p>但你需要花足够的时间来知道下一个最好的设备是什么，这不仅仅是例行公事式的跑步机。这就是我认为我们不想仅仅为了做而去做的事情。我们希望我们做的每一个设备都能真正实现阶跃式改进。</p>
+<p><strong>Roach：</strong>对我来说最有趣的幻灯片之一是演示中很靠前的那张，你列出了目标，不仅是目标，你还列出了非目标。我觉得这非常说明问题，因为你必须定义你不打算做什么。</p>
+<p><strong>Ho：</strong>完全正确。我们希望在这里的项目上非常深思熟虑，因为我们是一个非常小的团队。我们做的事情，我们希望产生真正高的影响，而影响是为了北极星：为我们的客户更便宜地实现更多智能。这就是我们试图做的事情。</p>
+<p>我们希望非常深思熟虑地考虑需要什么才能做到这一点。正如我所说，如果某些东西可以由生态系统提供，而我们无法做得更好，那我们就直接采用生态系统。</p>
+<p>我们始终会做一些我们认为能够发挥我们协同设计优势、利用我们对未来趋势的了解，并能够明智地加以运用的事情。</p>
+<p><em><strong>[会话结束]</strong></em></p>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/openais-custom-jalapeno-ai-inference-asic-is-for-openais-internal-use-but-company-leaves-the-door-open-to-broader-rollout-firm-says-it-will-have-its-hands-full-with-jalapeno-for-a-good-long-time">OpenAI 定制 Jalapeno AI 推理 ASIC 供内部使用，但公司不排除更广泛部署</a><small> · Tom&#x27;s Hardware</small></li><li><a href="https://www.tomshardware.com/tech-industry/asics/this-is-how-ai-should-be-used-openai-head-of-hardware-breaks-down-the-ai-assisted-design-of-its-jalapeno-asic">「AI 就该这样用」——OpenAI 硬件负责人详解其 Jalapeño ASIC 的 AI 辅助设计</a><small> · Tom&#x27;s Hardware</small></li><li><a href="https://www.tomshardware.com/pc-components/cpus/openais-jalapeno-asics-are-deployed-alongside-amd-epyc-turin-cpus-as-hosts-hardware-vp-says-nvidias-vera-standalone-is-a-little-bit-behind-on-that-maturity-level">OpenAI 的 Jalapeño ASIC 与 AMD EPYC Turin CPU 搭配部署，而非英伟达 Vera</a><small> · Tom&#x27;s Hardware</small></li></ul>
+<p><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/openai-jalapeno-design-interview-transcript-hardware-vp-richard-ho-explains-how-ai-assisted-design-may-shape-the-future-of-inference-asics">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

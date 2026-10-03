@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>别被迷惑——LLM 不会推理</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">别被迷惑——LLM 不会推理</h1>
+<p><small>MIT Technology Review · 评分 6/10：关于 LLM 推理能力的深度长文，有实质观点<br/>原标题：Don’t be fooled—LLMs don’t reason</small></p>
+<p><strong>要点</strong></p><ul><li>AlphaGo 第 37 手并非直觉，而是搜索推理的产物</li><li>当前 LLM 靠 next-token 预测，只相当于系统 1 的快速直觉</li><li>chain of thought 仍是同一预测过程，缺乏独立推理机制</li></ul>
+<hr/>
+<p>2016年3月的一个下午，在首尔，我看着一个我参与构建的程序在围棋棋盘第五线上落下一子，那步棋看上去简直像是送给人类对手的一份大礼。在这场五番棋第二局的第37手，看起来荒谬至极，以至于一些解说员认为这是程序出了故障。</p>
+<p>事实并非如此。AlphaGo赢下了那局棋，最终以4比1击败了史上最伟大的职业围棋棋手之一李世石。“我原以为AlphaGo是基于概率计算的，只不过是一台机器，”李世石<a href="https://vialogue.wordpress.com/2018/02/16/alphago-reflections-and-quotes/">事后说</a>。“但当我看到这步棋时，我改变了想法。毫无疑问，AlphaGo是有创造力的。”</p>
+<p>1997年深蓝击败当时的世界国际象棋冠军加里·卡斯帕罗夫时，靠的是为每一方各向前推演六到八步，每秒评估2亿个棋局局面，使用的是人类硬编码的规则。围棋则是一种复杂得多的棋类。一颗棋子的价值，取决于相距遥远的棋块和地盘在数十手棋中如何演变。即便只计算其中一小部分可能的结果，超级计算机也要花上数十亿年。要取胜，AlphaGo必须一眼看出谁占上风，甚至发明出人类从未想到过的下法。</p>
+<p>正因如此，许多关于AlphaGo对阵李世石这场比赛的叙述，都把第37手描绘成机器纯粹直觉的一次闪光。但这是一种误解。实际上，正是AlphaGo的推理能力让它做出了这个富有创造力的选择——而这种能力，是当今的AI所欠缺的。如果我们希望未来的AI系统能在科学和医学等领域产出可信的结果和真正新颖的洞见，我们就需要赋予它们这种真正的推理能力。</p>
+<p>AlphaGo由两个系统组成。第一个是它的策略网络，经过训练来猜测一位强大的人类棋手会下哪一步。这个“直觉”部分认为第37手没什么特别——这步棋被顶尖人类棋手走出的概率大约只有万分之一。让AlphaGo选择它的，是程序的搜索机制，这种机制不局限于眼前的合理性，而是权衡所提议落子的未来后果。它明确地构建并搜索了一棵拥有数千个分支的博弈树，每个分支都代表一种不同的可能未来。</p>
+<p>行为科学中有一个著名理论，经丹尼尔·卡尼曼<a href="https://www.penguin.co.uk/books/56314/thinking-fast-and-slow-by-kahneman-daniel/9780141033570">推广</a>，区分了人类思维的两种模式：系统 1 快速、凭直觉、不费力；系统 2 缓慢、循序渐进、深思熟虑。AlphaGo提供了一个与这种划分惊人相似的机器版本。它的网络提供直觉——这步棋看起来有前途，这个局面看起来能赢——而它的搜索提供深思熟虑，用后续的落子和应对来检验这些直觉。正如人类认知一样，这两半缺一不可。仅凭直觉永远不会选择第37手，而蛮力搜索也很难从众多可能的落子中筛选出它。</p>
+<p>这与当今AI模型的工作方式截然不同。大语言模型一次又一次地挑选下一个token。这相当于系统 1 在运作——快速、联想式，并且在几乎所有人会书写的主题上都能出人意料地出色地完成模式补全。</p>
+<p>ChatGPT问世后不久，业界就意识到，仅凭语言流畅还不足以真正有用。表面上的解决办法是让模型学会深思熟虑：它们不再立即作答，而是可以生成中间步骤，把问题分解开来，传递部分结果，并影响后续推理——这一过程被称为chain of thought。</p>
+<p>事实证明，这些提升是实实在在的，尤其是在数学和编程方面。但与 AlphaGo 的搜索不同，这并没有引入一种真正独立的推理机制：中间推理仍然由同一个下一 token 预测过程产生，只是在模型给出答案之前迭代了更长时间。</p>
+<p>有三个缺陷使得聊天机器人的所作所为无法被（以科学家可能认可的方式）称为推理。首先，这些模型通常不维护任何显式、持久且可检查的认知状态。没有一个公开的账本记录模型正在考虑哪些假设、对各种解释有多大信心、正在权衡哪些证据、以及保留着哪些未解决的问题——而所有这些都应随着新信息的到来而被系统性地修正。</p>
+<p>其次，它们缺乏系统所知与系统如何操作这些知识之间的清晰分离。知识与推理在神经网络的权重中密不可分地交织在一起——不存在一套独立、显式表示的信念。第三，虽然聊天机器人产生的思维链看起来像是深思熟虑，但研究表明，这些机器人往往是在事后<a href="https://arxiv.org/abs/2608.09867">编造</a><a href="https://arxiv.org/abs/2510.27338">这些思维链</a>，通过一条路径得出答案，却报告另一条路径。</p>
+<p>这是个问题，因为在我们都关心的那些高风险应用中，比如医学、工程和科学研究，重要的不仅是系统得出什么结论，还有它如何得出这个结论。当错误发生时——例如在医学诊断和治疗中——我们需要能够准确指出哪里出了问题：是系统的推理有误，是它引用了无效证据，还是它做出了错误假设？</p>
+<p>这就是我最近离开 Google DeepMind 的原因。我认为我们需要一种全新的机器推理方法——一种借鉴 AlphaGo 架构的方法。AlphaGo 维护着关于给定局面的已知信息记录：博弈树。这一数据结构包含 AlphaGo 考虑过的所有变化和可能未来，每一步棋和每个局面都附有其神经网络做出的判断。随着推理的推进，AlphaGo 更新博弈树，并最终综合其中的信息来决定走哪一步。</p>
+<p>同样，对于通用推理，系统应维护一种认知状态，表示系统认定哪些已确定、哪些存疑、哪些已排除、哪些问题仍悬而未决。于是，推理可以被理解为一系列改变认知状态以推进知识、减少不确定性的动作：推导结论、将问题分解为若干部分，以及——至关重要地——决定接下来要问什么问题、进行什么计算或做什么实验。</p>
+<p>当然，开放世界推理比下围棋或国际象棋这样的棋盘游戏更难。在现实世界中，当前事态只有部分已知，可用动作集合庞大且多变，动作的后果是随机的或未知的。</p>
+<p>但 LLM 和其他神经模型的最新进展，如今让我们有能力应对这类通用推理问题。例如，LLM 可以根据已知信息和可用资源，提出解决问题的办法。它们可以通过 API 或代码与工具交互，并帮助评估某个主张是否有可用证据支持。</p>
+<p>最重要的是，为了让系统保持诚实，系统中的一个独立部分必须评估每一步在多大程度上真正解决了不确定性，只有当变化有证据支持时才更新信念。一旦这些规则得到执行，模型就能积累经过认证的知识，并通过从过去的推理经验中学习来改进其推理策略。你可以把这样的系统想象成打了兴奋剂的科学方法，其目的是产生经得起审视的知识。</p>
+<p>我不认为把系统 1 做得更大就能实现可信赖的机器智能。规模会让直觉更敏锐，但不会让直觉更具审慎性。第 37 手之所以重要，是因为机器坚持了一个立场，权衡了各种可能的未来，并选择了它的人工本能很可能会拒绝的那一手。</p>
+<p>社会需要在药物发现、材料、气候、诊断等领域有这样的创造性着法——在这些领域，棋盘看起来完全不像围棋棋盘，也没有人把规则交到我们手上。我们只有从能够推理的系统中才能获得这样的洞见——这些系统的结论源自一系列可审计的证据、推断和信念修正，而不是源自事后讲述的一个令人信服的故事。</p>
+<p><em>Thore Graepel 是伦敦大学学院机器学习讲席教授。他曾是 DeepMind 旗下 AlphaGo 团队的核心成员，致力于确保 AI 造福人类繁荣。</em></p>
+<p><a href="https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- 首帧之前设置主题，避免白闪。各页面保持一致（tests/test_web.py 会检查） -->
+  <script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>设计预览 · Feed Hub</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="preview.css">
+  <meta name="theme-color" content="">
+  <script src="../assets/theme.js" defer></script>
+  <script src="preview.js" type="module"></script>
+</head>
+<body>
+  <header class="page-head">
+    <div class="head-bar">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg>
+        <span>Feed Hub</span>
+      </div>
+      <div data-theme-switcher></div>
+    </div>
+    <h1>设计系统预览</h1>
+    <p class="lede">下面两栏固定为浅色和深色，用的是同一份 <code>tokens.css</code>，色值和对比度由页面实时读取计算。页面本身（包括这段文字）跟随右上角的主题设置。</p>
+    <ol class="steps">
+      <li class="done">① Design tokens</li>
+      <li class="done">② 主题切换</li>
+      <li class="done">③ 基础组件</li>
+      <li class="done">④ 业务页面</li>
+    </ol>
+  </header>
+
+  <section class="theme-status" aria-labelledby="theme-status-title">
+    <h2 id="theme-status-title" class="block-title">主题切换</h2>
+    <dl class="status-grid">
+      <div><dt>你的偏好</dt><dd id="st-pref">…</dd></div>
+      <div><dt>页面实际主题</dt><dd id="st-theme">…</dd></div>
+      <div><dt>系统当前外观</dt><dd id="st-system">…</dd></div>
+      <div><dt>Safari 工具栏颜色</dt><dd><span class="st-swatch"></span><code id="st-meta">…</code></dd></div>
+    </dl>
+    <ul class="rules">
+      <li>三种状态：浅色、深色、跟随系统。偏好存在本机浏览器（localStorage），同一浏览器的其他标签页会同步切换。</li>
+      <li>主题写在 <code>&lt;html data-theme&gt;</code> 上。<code>&lt;head&gt;</code> 最前面的内联脚本在首次绘制前就设置好，深色模式打开页面不会先闪一下白。</li>
+      <li>切换时颜色有 200ms 过渡；首屏加载没有过渡。跟随系统时，iPad 自动切换深色，页面会随之变化。</li>
+      <li>组件只引用语义变量，不按主题分叉写颜色；也可以把 <code>data-theme</code> 挂在任意容器上做局部主题，下面两栏就是这样做的。</li>
+    </ul>
+  </section>
+
+  <main class="themes">
+    <section class="theme" data-theme="light" aria-label="浅色"><h2 class="theme-name">浅色</h2><div class="slot"></div></section>
+    <section class="theme" data-theme="dark" aria-label="深色"><h2 class="theme-name">深色</h2><div class="slot"></div></section>
+  </main>
+
+  <template id="specimen">
+    <!-- 1 背景色阶 -->
+    <div class="block">
+      <h3 class="block-title">背景色阶</h3>
+      <p class="block-note">层级靠背景色阶、发丝边框和留白区分，不靠阴影。</p>
+      <div class="layers" aria-hidden="true">
+        <div class="layers-sidebar">
+          <span class="layers-line"></span><span class="layers-line is-hover"></span><span class="layers-line is-current"></span><span class="layers-line"></span>
+        </div>
+        <div class="layers-canvas">
+          <span class="layers-chip"></span>
+          <div class="layers-card"><span class="layers-line"></span><span class="layers-line short"></span></div>
+        </div>
+      </div>
+      <div class="swatches">
+        <div class="swatch"><span class="chip" style="background: var(--bg-canvas)"></span><div><code class="tok">--bg-canvas</code><span class="val" data-token="--bg-canvas"></span><p class="use">页面主背景</p></div></div>
+        <div class="swatch"><span class="chip" style="background: var(--bg-sidebar)"></span><div><code class="tok">--bg-sidebar</code><span class="val" data-token="--bg-sidebar"></span><p class="use">侧边栏</p></div></div>
+        <div class="swatch"><span class="chip" style="background: var(--bg-muted)"></span><div><code class="tok">--bg-muted</code><span class="val" data-token="--bg-muted"></span><p class="use">当前项、用户气泡、表头、行内代码</p></div></div>
+        <div class="swatch"><span class="chip" style="background: var(--bg-elevated)"></span><div><code class="tok">--bg-elevated</code><span class="val" data-token="--bg-elevated"></span><p class="use">输入框、菜单、弹窗</p></div></div>
+        <div class="swatch"><span class="chip chip-hover"></span><div><code class="tok">--bg-hover</code><span class="val" data-token="--bg-hover"></span><p class="use">悬停，叠加在任意背景上</p></div></div>
+      </div>
+    </div>
+
+    <!-- 2 文字 -->
+    <div class="block">
+      <h3 class="block-title">文字</h3>
+      <p class="block-note">右侧是在三种背景上的对比度，低于 4.5（WCAG AA）会标出来。</p>
+      <div class="text-row">
+        <p class="text-sample" style="color: var(--text-primary)">主要文字：标题、正文、选中项</p>
+        <div class="meta"><code class="tok">--text-primary</code><span class="val" data-token="--text-primary"></span></div>
+        <div class="ratios" data-fg="--text-primary"></div>
+      </div>
+      <div class="text-row">
+        <p class="text-sample" style="color: var(--text-secondary)">次要文字：图标默认色、说明性正文</p>
+        <div class="meta"><code class="tok">--text-secondary</code><span class="val" data-token="--text-secondary"></span></div>
+        <div class="ratios" data-fg="--text-secondary"></div>
+      </div>
+      <div class="text-row">
+        <p class="text-sample" style="color: var(--text-muted)">弱化文字：时间、来源、占位符</p>
+        <div class="meta"><code class="tok">--text-muted</code><span class="val" data-token="--text-muted"></span></div>
+        <div class="ratios" data-fg="--text-muted"></div>
+      </div>
+    </div>
+
+    <!-- 3 边框 -->
+    <div class="block">
+      <h3 class="block-title">边框</h3>
+      <div class="border-row"><span class="border-line"></span><code class="tok">--border</code><span class="val" data-token="--border"></span><span class="use">卡片、输入框、分隔线</span></div>
+      <div class="border-row"><span class="border-line strong"></span><code class="tok">--border-strong</code><span class="val" data-token="--border-strong"></span><span class="use">聚焦、悬停时加深</span></div>
+    </div>
+
+    <!-- 4 强调色与状态 -->
+    <div class="block">
+      <h3 class="block-title">强调色与状态</h3>
+      <p class="block-note">强调色只给发送按钮和品牌点缀，整屏占比控制在 5% 以内。</p>
+      <div class="swatches cols">
+        <div class="swatch"><span class="chip chip-icon" style="background: var(--accent)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><div><code class="tok">--accent</code><span class="val" data-token="--accent"></span></div></div>
+        <div class="swatch"><span class="chip chip-icon" style="background: var(--accent-hover)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><div><code class="tok">--accent-hover</code><span class="val" data-token="--accent-hover"></span></div></div>
+        <div class="swatch"><span class="chip" style="background: var(--danger)"></span><div><code class="tok">--danger</code><span class="val" data-token="--danger"></span></div></div>
+        <div class="swatch"><span class="chip" style="background: var(--success)"></span><div><code class="tok">--success</code><span class="val" data-token="--success"></span></div></div>
+        <div class="swatch"><span class="chip chip-text" style="background: var(--warning); color: var(--on-warning)">Aa</span><div><code class="tok">--warning</code><span class="val" data-token="--warning"></span></div></div>
+        <div class="swatch"><span class="chip chip-focus"></span><div><code class="tok">--focus-ring</code><span class="val">accent 35% · 2px</span></div></div>
+      </div>
+      <div class="status-text">
+        <span style="color: var(--danger)">删除失败</span>
+        <span style="color: var(--success)">已保存</span>
+        <span class="ratios inline" data-fg="--danger" data-bgs="--bg-canvas" data-labels="danger"></span>
+        <span class="ratios inline" data-fg="--success" data-bgs="--bg-canvas" data-labels="success"></span>
+      </div>
+    </div>
+
+    <!-- 5 字体层级 -->
+    <div class="block">
+      <h3 class="block-title">字体层级</h3>
+      <p class="block-note">衬线负责标题和阅读正文，无衬线负责界面控件。</p>
+      <div class="type">
+        <div class="type-row"><p class="t-display">今天有 12 篇值得一读</p><code class="spec">serif · 40 / 1.2 · 400 · −0.02em · 欢迎语</code></div>
+        <div class="type-row"><p class="t-h1">一级标题：像读一本杂志</p><code class="spec">serif · 32 / 1.2 · 400</code></div>
+        <div class="type-row"><p class="t-h2">二级标题：层级靠留白和色阶</p><code class="spec">serif · 24 / 1.2 · 400</code></div>
+        <div class="type-row"><p class="t-h3">三级标题：Serif 与 Sans 的分工</p><code class="spec">serif · 20 / 1.2 · 500</code></div>
+        <div class="type-row">
+          <div class="t-reading">
+            <p>这是一段阅读正文示例。衬线字体配合 1.75 的行高，让长段落读起来更像纸质出版物；中文和 English 混排时，两种字体的字重与基线应当协调，数字 2026 也不应显得突兀。</p>
+            <p>段落之间留出 0.75em 的距离。<strong>加粗强调用 600 字重</strong>，而不是 700；<em>斜体 Italic</em> 只用于英文引用和书名。</p>
+          </div>
+          <code class="spec">serif · 16 / 1.75 · 400 · 段距 0.75em · 阅读正文</code>
+        </div>
+        <div class="type-row"><p class="t-ui-lg">帮我把这篇文章翻译成中文，保留代码块</p><code class="spec">sans · 16 / 1.5 · 400 · 用户消息、主输入框</code></div>
+        <div class="type-row"><p class="t-ui">订阅源 · 兴趣与设置 · 保存更改</p><code class="spec">sans · 15 / 1.5 · 400 · 控件</code></div>
+        <div class="type-row"><p class="t-ui-sm">Electrek · 电池 / 新能源 · 3 小时前</p><code class="spec">sans · 14 / 1.5 · 400 · 列表</code></div>
+        <div class="type-row"><p class="t-caption">达到这个分数的内容才会进入你的 feed。</p><code class="spec">sans · 13 · text-muted · 辅助说明</code></div>
+        <div class="type-row"><p class="t-micro">上次运行 9 月 25 日 18:20</p><code class="spec">sans · 12 · text-muted · 标签、时间</code></div>
+        <div class="type-row"><p class="t-mono">python -m feedhub run --fake-llm</p><code class="spec">mono · 13.5 · 代码</code></div>
+        <div class="type-row weights">
+          <p><span class="w400">常规 Regular 400</span><span class="w500">中等 Medium 500</span><span class="w600">半粗 Semibold 600</span></p>
+          <p class="serif"><span class="w400">常规 Regular 400</span><span class="w500">中等 Medium 500</span><span class="w600">半粗 Semibold 600</span></p>
+          <code class="spec">字重克制：正文 400，强调 500–600，不用 700</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 圆角 -->
+    <div class="block">
+      <h3 class="block-title">圆角</h3>
+      <div class="radii">
+        <div><span class="radius-box" style="border-radius: var(--radius-xs)"></span><code>xs 4</code><span class="use">行内代码</span></div>
+        <div><span class="radius-box" style="border-radius: var(--radius-sm)"></span><code>sm 8</code><span class="use">按钮、输入框</span></div>
+        <div><span class="radius-box" style="border-radius: var(--radius-md)"></span><code>md 12</code><span class="use">卡片、菜单</span></div>
+        <div><span class="radius-box" style="border-radius: var(--radius-lg)"></span><code>lg 16</code><span class="use">弹窗</span></div>
+        <div><span class="radius-box" style="border-radius: var(--radius-xl)"></span><code>xl 20</code><span class="use">主输入框</span></div>
+        <div><span class="radius-box pill" style="border-radius: var(--radius-full)"></span><code>full</code><span class="use">胶囊、头像</span></div>
+      </div>
+    </div>
+
+    <!-- 7 间距 -->
+    <div class="block">
+      <h3 class="block-title">间距（4px 基准）</h3>
+      <div class="spacing">
+        <div><span style="width: var(--space-1)"></span><code>1 · 4</code></div>
+        <div><span style="width: var(--space-2)"></span><code>2 · 8</code></div>
+        <div><span style="width: var(--space-3)"></span><code>3 · 12</code></div>
+        <div><span style="width: var(--space-4)"></span><code>4 · 16</code></div>
+        <div><span style="width: var(--space-6)"></span><code>6 · 24</code></div>
+        <div><span style="width: var(--space-8)"></span><code>8 · 32</code></div>
+        <div><span style="width: var(--space-12)"></span><code>12 · 48</code></div>
+        <div><span style="width: var(--space-16)"></span><code>16 · 64</code></div>
+      </div>
+      <p class="block-note">阅读栏最宽 <code>--reading-width</code> 768px，侧边栏 <code>--sidebar-width</code> 272px。</p>
+    </div>
+
+    <!-- 8 阴影与浮层 -->
+    <div class="block">
+      <h3 class="block-title">阴影与浮层</h3>
+      <p class="block-note">阴影只给浮层和主输入框；深色模式只用边框。</p>
+      <div class="elevation">
+        <div class="elev-flat">平铺内容<span>无边框、无阴影</span></div>
+        <div class="elev-card">卡片<span>发丝边框</span></div>
+        <div class="elev-float">浮层 / 主输入框<span>边框 + <code>--shadow-float</code></span></div>
+      </div>
+      <div class="overlay-demo"><div class="overlay-dialog">遮罩 <code>--overlay</code> · 弹窗 <code>--bg-elevated</code></div></div>
+      <div class="tooltip-demo"><span class="tooltip">提示是反色小标签</span></div>
+    </div>
+
+    <!-- 9 动效 -->
+    <div class="block">
+      <h3 class="block-title">动效</h3>
+      <p class="block-note">快、克制、无弹跳。系统开启「减少动态效果」时，位移和缩放全部关闭。</p>
+      <div class="motion">
+        <div class="motion-row"><div class="demo hover-demo">悬停这里</div><code class="spec">hover · 150ms ease</code></div>
+        <div class="motion-row"><button type="button" class="demo" data-replay="rise">点击重播</button><code class="spec">新内容进入 · 200ms · 上移 4px 淡入</code></div>
+        <div class="motion-row"><button type="button" class="demo" data-replay="pop">点击重播</button><code class="spec">菜单、弹窗 · 250ms · ease-out · scale .97→1</code></div>
+        <div class="motion-row"><div class="demo press-demo">按住这里</div><code class="spec">按下 · scale .98</code></div>
+        <div class="motion-row"><svg class="mark breathe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg><code class="spec">思考中 · logo 呼吸 · 1.6s · scale .95↔1</code></div>
+      </div>
+    </div>
+
+    <!-- 10 代码高亮 -->
+    <div class="block">
+      <h3 class="block-title">代码高亮色</h3>
+      <pre class="code-sample"><code><span class="c-comment"># 批量打分，每批 12 条</span>
+<span class="c-keyword">async def</span> <span class="c-function">score_entries</span>(llm, items: <span class="c-type">list</span>[<span class="c-type">Entry</span>]) -&gt; <span class="c-type">dict</span>:
+    batch = items[:<span class="c-number">12</span>]
+    system = <span class="c-string">"只输出一个 json 对象"</span>
+    <span class="c-keyword">return await</span> llm.<span class="c-function">json_chat</span>(system, batch)</code></pre>
+      <div class="swatches cols code-swatches">
+        <div class="swatch"><span class="chip" style="background: var(--code-keyword)"></span><code class="tok">keyword</code></div>
+        <div class="swatch"><span class="chip" style="background: var(--code-string)"></span><code class="tok">string</code></div>
+        <div class="swatch"><span class="chip" style="background: var(--code-number)"></span><code class="tok">number</code></div>
+        <div class="swatch"><span class="chip" style="background: var(--code-function)"></span><code class="tok">function</code></div>
+        <div class="swatch"><span class="chip" style="background: var(--code-type)"></span><code class="tok">type</code></div>
+        <div class="swatch"><span class="chip" style="background: var(--code-comment)"></span><code class="tok">comment</code></div>
+      </div>
+      <div class="ratios" data-fg="--code-comment,--code-keyword,--code-string,--code-number,--code-function,--code-type" data-bgs="--code-bg" data-labels="comment,keyword,string,number,function,type"></div>
+    </div>
+
+    <!-- ================= 第 ③ 步：基础组件 ================= -->
+    <div class="block section-break">
+      <p class="section-kicker">第 ③ 步 · 基础组件</p>
+      <h3 class="block-title">按钮</h3>
+      <p class="block-note">primary 用主文字色做底、反色字；强调色只给发送按钮；ghost 只在悬停时有背景。</p>
+      <div class="state-grid">
+        <span></span><span class="state-h">默认</span><span class="state-h">悬停</span><span class="state-h">按下</span><span class="state-h">聚焦</span><span class="state-h">禁用</span>
+        <span class="state-l">Primary</span><button type="button" class="btn btn-primary btn-sm">保存</button><button type="button" class="btn btn-primary btn-sm is-hover">保存</button><button type="button" class="btn btn-primary btn-sm is-active">保存</button><button type="button" class="btn btn-primary btn-sm is-focus">保存</button><button type="button" class="btn btn-primary btn-sm" disabled>保存</button><span class="state-l">Secondary</span><button type="button" class="btn btn-secondary btn-sm">取消</button><button type="button" class="btn btn-secondary btn-sm is-hover">取消</button><button type="button" class="btn btn-secondary btn-sm is-active">取消</button><button type="button" class="btn btn-secondary btn-sm is-focus">取消</button><button type="button" class="btn btn-secondary btn-sm" disabled>取消</button><span class="state-l">Ghost</span><button type="button" class="btn btn-ghost btn-sm">放弃</button><button type="button" class="btn btn-ghost btn-sm is-hover">放弃</button><button type="button" class="btn btn-ghost btn-sm is-active">放弃</button><button type="button" class="btn btn-ghost btn-sm is-focus">放弃</button><button type="button" class="btn btn-ghost btn-sm" disabled>放弃</button><span class="state-l">Danger</span><button type="button" class="btn btn-danger btn-sm">删除</button><button type="button" class="btn btn-danger btn-sm is-hover">删除</button><button type="button" class="btn btn-danger btn-sm is-active">删除</button><button type="button" class="btn btn-danger btn-sm is-focus">删除</button><button type="button" class="btn btn-danger btn-sm" disabled>删除</button><span class="state-l">Icon</span><button type="button" class="btn btn-icon btn-sm"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#settings"/></svg></button><button type="button" class="btn btn-icon btn-sm is-hover"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#settings"/></svg></button><button type="button" class="btn btn-icon btn-sm is-active"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#settings"/></svg></button><button type="button" class="btn btn-icon btn-sm is-focus"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#settings"/></svg></button><button type="button" class="btn btn-icon btn-sm" disabled><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#settings"/></svg></button><span class="state-l">Send</span><button type="button" class="btn btn-send"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button><button type="button" class="btn btn-send is-hover"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button><button type="button" class="btn btn-send is-active"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button><button type="button" class="btn btn-send is-focus"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button><button type="button" class="btn btn-send" disabled><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button>
+      </div>
+      <div class="demo-row">
+        <button type="button" class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#plus"/></svg>添加订阅源</button>
+        <button type="button" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#upload"/></svg>导入 OPML</button>
+        <button type="button" class="btn btn-secondary is-loading"><svg class="mark mark-sm mark-breathe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg>保存中</button>
+      </div>
+      <p class="block-note tight">默认高 36px、小号 30px；加载中用 logo 呼吸，不用旋转的 spinner。</p>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">输入与表单</h3>
+      <p class="block-note">聚焦只加深边框，不发光。触屏设备上输入框字号不小于 16px，避免 iOS 自动放大。</p>
+      <div class="form-grid">
+        <div class="field"><label class="label">默认</label><input class="input" placeholder="https://example.com/feed.xml"></div>
+        <div class="field"><label class="label">已填写</label><input class="input" value="Simon Willison"></div>
+        <div class="field"><label class="label">聚焦</label><input class="input is-focus" value="MLX 量化"></div>
+        <div class="field"><label class="label">出错</label><input class="input" aria-invalid="true" value="ftp://example"><span class="field-error">请填写 http:// 或 https:// 开头的地址</span></div>
+        <div class="field"><label class="label">禁用</label><input class="input" value="deepseek-flash" disabled></div>
+        <div class="field"><label class="label">搜索</label><div class="input-with-icon"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#search"/></svg><input class="input" type="search" placeholder="搜索标题、来源"></div></div>
+        <div class="field"><label class="label">下拉选择</label><div class="select"><select><option>AI / 大模型</option><option>Agent 与工具链</option><option>电池 / 新能源</option></select><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#chevron-down"/></svg></div></div>
+        <div class="field"><label class="label">数字</label><input class="input" type="number" value="72"></div>
+      </div>
+      <div class="field wide"><label class="label">多行文字（衬线，适合写长段兴趣描述）</label><textarea class="textarea textarea-serif" rows="3">多推一些 BMS 算法、电池安全和储能系统的工程实践；少推融资新闻和发布会软文。</textarea><span class="hint">AI 会按这段描述给每篇新内容打 0–10 分。</span></div>
+      <div class="control-grid">
+        <div><span class="label">开关</span><div class="demo-row tight">
+          <label class="switch"><input type="checkbox" role="switch" aria-label="关"><span class="switch-track"></span></label>
+          <label class="switch"><input type="checkbox" role="switch" aria-label="开" checked><span class="switch-track"></span></label>
+          <label class="switch"><input type="checkbox" role="switch" aria-label="禁用" disabled><span class="switch-track"></span></label>
+        </div></div>
+        <div><span class="label">复选</span><div class="demo-row tight"><label class="check"><input type="checkbox" checked>抓取全文</label><label class="check"><input type="checkbox">不翻译</label></div></div>
+        <div class="span-2"><span class="label">滑块</span><div class="range"><input type="range" min="0" max="10" value="6" aria-label="推送门槛"><output>6</output></div></div>
+        <div class="span-2"><span class="label">分段选择</span><div class="demo-row tight">
+          <div class="segmented" role="radiogroup" aria-label="状态"><button type="button" class="segmented-item" role="radio" aria-checked="true">已推送</button><button type="button" class="segmented-item" role="radio" aria-checked="false">重要</button><button type="button" class="segmented-item" role="radio" aria-checked="false">已过滤</button></div>
+        </div></div>
+        <div><span class="label">滚轮选择</span><div class="mount-wheel"></div></div>
+      </div>
+      <div class="demo-row">
+        <span class="badge">默认</span><span class="badge badge-success">正常</span><span class="badge badge-danger">抓取失败</span><span class="badge badge-warning">排队翻译</span><span class="badge badge-solid">重要</span><span class="badge badge-outline">不筛选</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-inline"><span class="dot dot-success"></span>正常</span><span class="demo-inline"><span class="dot dot-danger"></span>失败</span><span class="demo-inline"><span class="dot dot-warning"></span>排队</span><span class="demo-inline"><span class="dot"></span>停用</span>
+        <span class="score is-important">9</span><span class="score">7</span><span class="score is-low">3</span><span class="avatar">AL</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">主输入框</h3>
+      <p class="block-note">浮在底部居中、大圆角卡片；自动增高到 40vh；左边附件，右边模式胶囊和发送。空内容时发送按钮降低透明度并禁用。可以直接在这里输入试试。</p>
+      <div class="mount-composer"></div>
+      <div class="demo-caption">聚焦状态</div>
+      <div class="composer is-focus composer-static"><div class="composer-input static-text">帮我找找这周关于固态电池的文章</div><div class="composer-bar"><button type="button" class="btn btn-icon" aria-label="附件"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#paperclip"/></svg></button><span class="spacer"></span><button type="button" class="pill"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#search"/></svg><span>搜索文章</span><svg class="icon icon-chevron" aria-hidden="true"><use href="../assets/icons.svg#chevron-down"/></svg></button><button type="button" class="btn btn-send" aria-label="发送"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-up"/></svg></button></div></div>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">消息</h3>
+      <p class="block-note">AI 回复无气泡、通栏、衬线阅读排版；用户消息是弱背景圆角气泡。复制、重试等操作悬停才出现（触屏设备始终显示）。</p>
+      <div class="thread">
+        <div class="msg msg-user"><div class="msg-bubble">这周有哪些值得看的电池新闻？</div></div>
+        <div class="msg msg-ai">
+          <div class="prose">
+            <p>找到 <strong>3 篇</strong>评分在 8 分以上的文章，按时间排列：</p>
+            <ol>
+              <li><a href="#">宁德时代公布新一代钠离子电池量产计划</a> <span class="meta">CnEVPost · 9 分</span></li>
+              <li><a href="#">固态电池界面稳定性的新方法</a> <span class="meta">Nature Energy · 8 分</span></li>
+              <li><a href="#">储能系统 BMS 的热失控预警实践</a> <span class="meta">Energy-Storage.news · 8 分</span></li>
+            </ol>
+            <blockquote>评分理由来自你的兴趣描述：「电池化学体系、BMS 与电池安全」。</blockquote>
+            <p>最近 3 次运行的情况：</p>
+            <table><thead><tr><th>时间</th><th>新条目</th><th>推送</th><th>翻译</th></tr></thead><tbody><tr><td>18:23</td><td>143</td><td>31</td><td>30</td></tr><tr><td>17:23</td><td>28</td><td>6</td><td>6</td></tr></tbody></table>
+            <p>设置里的 <code>threshold</code> 决定推送门槛，对应的配置：</p>
+            <pre><code class="language-json">{
+  "threshold": 6,  // 推送门槛
+  "important_threshold": 9,
+  "mode": "translated"
+}</code></pre>
+          </div>
+          <div class="msg-actions"><button type="button" class="btn btn-icon btn-sm" aria-label="复制" data-tooltip="复制"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"/></svg></button><button type="button" class="btn btn-icon btn-sm" aria-label="重试" data-tooltip="重试"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#rotate-ccw"/></svg></button></div>
+        </div>
+        <div class="msg msg-ai"><div class="thinking"><svg class="mark mark-breathe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg><span>正在读取文章记录…</span></div></div>
+      </div>
+      <div class="demo-caption">流式输出：文字直接追加，平滑跟随滚动；往上滑会暂停跟随并出现「回到底部」。</div>
+      <div class="stream-demo">
+        <div class="stream-scroll"><div class="thread stream-thread"><div class="msg msg-user"><div class="msg-bubble">立即运行一次</div></div></div></div>
+        <div class="stream-dock"><button type="button" class="scroll-bottom" hidden><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#arrow-down"/></svg>回到底部</button></div>
+      </div>
+      <div class="demo-row"><button type="button" class="btn btn-secondary btn-sm" data-action="stream"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#play"/></svg>模拟流式输出</button></div>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">菜单、弹窗与提示</h3>
+      <p class="block-note">浮层都用 elevated 背景；菜单从 97% 缩放淡入；遮罩 40% 黑；提示是反色小标签。</p>
+      <div class="overlay-specimens">
+        <div class="menu" role="menu" aria-label="示例菜单">
+          <div class="menu-label">显示方式</div>
+          <button type="button" class="menu-item" role="menuitemradio" aria-checked="true"><span class="menu-text">只看中文</span><svg class="icon menu-check" aria-hidden="true"><use href="../assets/icons.svg#check"/></svg></button>
+          <button type="button" class="menu-item is-hover" role="menuitemradio" aria-checked="false"><span class="menu-text">中英对照</span><svg class="icon menu-check" aria-hidden="true"><use href="../assets/icons.svg#check"/></svg></button>
+          <div class="menu-sep"></div>
+          <button type="button" class="menu-item" role="menuitem"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#pencil"/></svg><span class="menu-text">编辑</span><span class="menu-hint">E</span></button>
+          <button type="button" class="menu-item is-danger" role="menuitem"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#trash-2"/></svg><span class="menu-text">删除</span></button>
+        </div>
+        <div class="dialog dialog-static" role="dialog" aria-label="示例弹窗">
+          <div class="dialog-head"><h2 class="dialog-title">删除订阅源？</h2><p class="dialog-desc">「Mavs Moneyball」会从清单里移除，已推送的文章不受影响。</p></div>
+          <div class="dialog-foot"><span class="spacer"></span><button type="button" class="btn btn-ghost">取消</button><button type="button" class="btn btn-danger">删除</button></div>
+        </div>
+      </div>
+      <div class="demo-row">
+        <span class="tooltip tooltip-static">复制链接</span>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="menu">打开菜单<svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#chevron-down"/></svg></button>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="dialog">打开弹窗</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="confirm">确认删除</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="toast">显示通知</button>
+        <button type="button" class="btn btn-icon btn-sm" aria-label="悬停看提示" data-tooltip="悬停 0.45 秒出现提示"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#info"/></svg></button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">侧边栏</h3>
+      <p class="block-note">顶部「新建」，中间单行截断的列表（悬停 bg-hover、当前项 bg-muted），底部用户信息。窄屏时变成抽屉。</p>
+      <aside class="sidebar sidebar-demo">
+        <div class="sidebar-head"><a class="sidebar-brand" href="#">Feed Hub</a><button type="button" class="btn btn-icon btn-sm" aria-label="收起侧边栏"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#panel-left"/></svg></button></div>
+        <nav class="sidebar-nav">
+          <a class="nav-item is-primary" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#square-pen"/></svg><span class="nav-label">新建</span></a>
+          <a class="nav-item is-current" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#house"/></svg><span class="nav-label">首页</span></a>
+          <a class="nav-item is-hover" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#newspaper"/></svg><span class="nav-label">文章</span></a>
+          <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#rss"/></svg><span class="nav-label">订阅源</span><span class="nav-count">58</span></a>
+        </nav>
+        <div class="sidebar-section">分组</div>
+        <nav class="sidebar-nav">
+          <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#hash"/></svg><span class="nav-label">AI / 大模型</span><span class="nav-count">24</span></a>
+          <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#hash"/></svg><span class="nav-label">Agent 与工具链：编码 agent、MCP、本地推理</span><span class="nav-count">17</span></a>
+        </nav>
+        <div class="sidebar-foot"><button type="button" class="user-btn"><span class="avatar">AL</span><span><span class="user-name">Alex</span><br><span class="user-sub">you/feed-hub-engine</span></span><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#chevron-down"/></svg></button></div>
+      </aside>
+    </div>
+
+    <div class="block">
+      <h3 class="block-title">空状态</h3>
+      <p class="block-note">页面中上部是衬线大号问候语，下面是居中的输入框和 3–4 个建议胶囊。</p>
+      <div class="hero-demo">
+        <h2 class="hero-greeting"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.2"/><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg>晚上好，Alex</h2>
+        <p class="hero-sub">上次运行 20 分钟前 · 过去 24 小时推送 31 篇，其中 4 篇重要</p>
+        <div class="mount-hero-composer"></div>
+        <div class="suggestions">
+          <button type="button" class="suggestion"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#star"/></svg>重要文章</button>
+          <button type="button" class="suggestion is-hover"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#play"/></svg>立即运行</button>
+          <button type="button" class="suggestion"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#link"/></svg>订阅地址</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>DeepSeek Harness 桌面版实测：更像「个人助理」，还给你送钱</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">DeepSeek Harness 桌面版实测：更像「个人助理」，还给你送钱</h1>
+<p><small>爱范儿 · 评分 7/10：agent harness 实测，直接对口读者核心兴趣<br/>原标题：DeepSeek Harness桌面版实测：更像「个人助理」，还给你送钱</small></p>
+<p><strong>要点</strong></p><ul><li>DeepSeek Harness 推出桌面版，提供 macOS 和 Windows 安装包，登录即送 6 元赠金</li><li>桌面版定位从编程转向日常办公，可直接处理 Word、Excel、PDF 并生成 PPT</li><li>新增 Automation 插件支持定时任务，关闭应用后任务仍会执行</li></ul>
+<hr/>
+<p><img alt="" height="821" src="https://s3.ifanr.com/wp-content/uploads/2026/09/222-5.png" width="1916"></p>
+<p>本以为 DeepSeek Harness 的桌面端会像 ChatGPT 一样直接叫 DeepSeek，没想到还是这个长长的名字。</p>
+<p>这一次又是赶在放假之前的发布，DeepSeek 正式推出了 DeepSeek Harness 桌面端。不同于之前需要通过终端来部署安装，现在 DeepSeek 官方就提供了开箱即用的安装包。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695914729-1.png"></p>
+<div>图｜DeepSeek Harness 官网：https://www.deepseek.com/harness/</div>
+<p>打开 Harness 官网，已经可以直接下载 macOS 和 Windows 版本。</p>
+<p>此外，现在安装 DeepSeek Harness 桌面版，登录即送 6 元赠金，有效期到 10 月 6 日。</p>
+<p><a href="https://s3.ifanr.com/wp-content/uploads/2026/09/img_6abbdf3c4a837.png"><img alt="" src="https://s3.ifanr.com/wp-content/uploads/2026/09/img_6abbdf3c4a837.png"></a></p>
+<div>
+<p>▲ 图｜梁圣也是给我们发钱了</p>
+</div>
+<p>能够常驻在本地电脑，也意味着它不再只是一个需要打开网页、输入 Prompt 才开始工作的 AI Agent，它也能像 Codex 一样开始稳定地在后台运行、定时开工，或者给自己安装新的能力。</p>
+<p>我们也快速安装了 DeepSeek Harness 桌面版，想看看如果只是把网页里的 Harness 塞进一个桌面窗口，这件事给实际的体验能带来什么变化。</p>
+<h2>终于像是一个普通软件了</h2>
+<p>就像普通的应用程序安装一样，打开就是登录或使用 API Key。但这里的登录并不会同步我们在 DeepSeek 应用内的聊天对话，它使用的只是我们在 DeepSeek 官方开放平台的账号，使用其中的余额。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695926764-2.png"></p>
+<p>而无论是使用 API Key 还是账号登录，进入之后我们就能看到熟悉的 DeepSeek Harness 的界面。几乎所有的界面交互和功能，都和此前终端版本都类似。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695930647-3.png"></p>
+<p>该有的功能像是标准模式、PTC 模式、极简模式和创作模式四种不同的 Agent 预设，以及丰富的插件功能和可以自定义的第三方模型等等，DeepSeek Harness 桌面版全部都有。</p>
+<p>不一样的是，DeepSeek 对 Harness 的定位发生了变化。</p>
+<p>在官方这次的介绍中，DeepSeek 首先展示的并不是写代码，编程只是其中的一部分，每天的工作才是 DeepSeek Harness 桌面端更加适配的场景。</p>
+<p>给它一个 Word，让它整理资料；给它一个 Excel，让它分析数据、生成图表；扔进去一份 PDF，让它提取信息；最后再做出一份演示文稿。</p>
+<p>它可以直接在 Workspace 中浏览 Word、Excel、PDF、Markdown、代码等不同文件，处理完成后的结果也继续留在这个文件夹里。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695936789-4.png"></p>
+<p>官方现在也把 Office 和 PDF 的预览直接做进了 Harness，在 9 月 28 日发布的 0.2.0-rc.1，还专门优化了 Office 与 PDF 的文字选择和预览体验。</p>
+<p>我们这次也找了一个有各种文档的文件夹，里面有 PDF、Word、Excel、Markdown、图片，还有一些散乱的资料。</p>
+<p>然后告诉 Harness：阅读这个文件夹里的所有材料，整理重要信息，核对其中的数据，最后生成一份报道大纲和一份汇报 PPT。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695942933-5.png"></p>
+<div>图｜还能看到有两个子智能体在工作</div>
+<p>速度还是一如既往的快，将近 300 tok/s 的速度，然后看着它开始自己判断该读哪些文件、调用哪些工具，以及最终如何把结果交给我们。</p>
+<p>这和之前的本地终端 Agent 类似，但现在生成的文件和每轮代码变更，会集中展示在对话中。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695947556-6.png"></p>
+<p>我们可以直接在侧栏<strong>预览文件内容</strong>、<strong>查看代码差异（Diff）</strong>，并通过对话继续提出修改要求；也可以随时使用本地应用打开文件进一步编辑。</p>
+<p>这些听起来似乎都不是多么惊人的 AI 能力，但它解决的恰恰是 Agent 产品很容易忽略的事情。</p>
+<p><strong>模型会不会干活是一回事，人愿不愿意每天这样让它干活，又是另一回事。</strong></p>
+<p>桌面版另一个更值得测试的变化，是 Automation。DeepSeek 把自动化任务做成了一个默认可以按需开启的插件。</p>
+<p>打开以后，我们可以直接告诉 Harness，「每周五下午五点，读取这个项目文件夹本周新增的资料，整理一份周报。」</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695953091-7.png"></p>
+<p>它会创建一个周期任务，而任务什么时候执行、下一次什么时候运行、之前有没有成功，都可以在单独的界面里查看和修改。</p>
+<p>开启之后，即便关闭 DeepSeek Harness 桌面端，定时任务也不会被注销。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695957324-8.png"></p>
+<p>这项功能在当前版本的 DeepSeek Harness 桌面端上还是实验室功能，我们需要点击插件前往开启。</p>
+<p>在插件页面能看到，包含智能体团队、自动授权审查、自动化任务，以及语音输入在内的四项插件功能，都需要我们手动开启。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695961778-9.png"></p>
+<p>其中语音输入功能还需要下载一个本地的语音识别包，包含模型、运行时和下载缓存，大小为 1 GB 左右。</p>
+<p>看名字 SenseVoiceSmall，是一个是由阿里巴巴（阿里通义实验室 / 达摩院 / FunAudioLLM 与 FunASR 团队）推出的轻量级多任务语音理解模型。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695965402-10.png"></p>
+<p>我们也测试了一下语音识别的准确性，基本上说的各种问题都能很快得到识别，并且准确。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695969375-11.gif"></p>
+<p>这些插件功能，至少让过去我们需要先进入浏览器的繁琐操作，简化到了点开 App 就能用的状态，并且能更好地和本地应用结合。</p>
+<p>从 DeepSeek Harness 最初发布开始，他们就一直强调 Harness 背后的设计：Everything is a plugin。</p>
+<p>终端是一种插件、Agent loop 是插件，还有工具、Skill，甚至交互界面，都可以是插件继续往 Harness 里面装。</p>
+<p>这一次 DeepSeek 做的事情，是终于让普通小白用户也能容易轻松地碰到这套系统。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790695998640-12.png"></p>
+<p>桌面端和新版一样，增加了完整的插件管理页面。以前可能需要命令行完成的插件安装，现在只需要输入 npm 包名。</p>
+<p>已经安装的插件也可以直接在这里查看来源、停用或者卸载。这个变化看起来只是给 npm 包加了一个图形界面，但 DeepSeek 在发布稿里提到：<strong>按照官方模型 API 用户口径统计，大约 60% 的 Harness 用户使用过第三方插件</strong>。</p>
+<p>换句话说，插件已经已经变成 Harness 很大一部分用户真实的使用方式。</p>
+<p>DeepSeek 接下来甚至准备建设官方插件市场，而比插件商店更有意思的是，当我们找不到想要的插件，还可以让 Harness 自己写。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790696002018-13.png"></p>
+<p>Agent 预设中的创作模式，就是专门用来自己生成 DSH 插件。例如直接说「帮我写一个稿件检查器插件」，接下来 Harness 会自己读取插件开发 Skill、检查可用接口、写 JavaScript、调用插件管理器安装。</p>
+<p>大概十分钟之后，一个稿件检查器真的出现在了 Harness 自己的界面上。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790696005047-14.png"></p>
+<p>这个过程还是要比「AI 一次生成了多少行代码」有意思得多，因为在这里，AI 写出来的代码，会直接改变 AI 自己所在的软件。</p>
+<p>传统软件的功能边界由产品经理和开发者决定，Harness 想尝试的，是让我们每个普通用户，也可以自己决定自己的 AI 最后是什么样。</p>
+<h2>DeepSeek Harness 的未来会是什么样</h2>
+<p>在 DeepSeek Harness 桌面版发布的官方文章里，他们也提到了下一步优化的方向。</p>
+<p>除了让插件市场更加繁荣和安全之外，他们还会进一步强化沙箱隔离安全性，完善「智能体团队」（Agent Teams）的多 Agent 协同协作效果，并加入个性化长期记忆机制等。</p>
+<p>此外，未来的桌面版 DeepSeek Harness 也会增加浏览器及其他桌面 GUI 软件的自动化操作，即 Computer/Browser Use 的功能，并支持远程访问与移动端部署。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790696008748-15.png"></p>
+<p><em>*封面图片原图来自 X</em></p>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><a href="https://www.ifanr.com/1682532?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

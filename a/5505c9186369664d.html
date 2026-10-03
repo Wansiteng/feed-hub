@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Holo4：驱动通用计算机使用 agent</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Holo4：驱动通用计算机使用 agent</h1>
+<p><small>评分 7/10：通用 computer-use agent 新模型发布，与 agent harness 兴趣直接相关<br/>原标题：Holo4: powering generalist computer-use agents</small></p>
+<p><strong>要点</strong></p><ul><li>Holo4 发布 27B dense 和 35B-A3B MoE 两个版本，已上线 H Models API</li><li>Holo4 支持 GUI、代码、MCP 和 API 多种接口，同一模型跨桌面、网页、Android 运行</li><li>在 OSWorld 2.0 上 Holo4 27B 得分 61.7%，Opus 5.5 为 81.8%，35B-A3B 为 30.9%</li></ul>
+<hr/>
+<a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-cover.jpg"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-cover.jpg" alt="Floor of screens from Holo4 benchmark runs across web apps, desktop software and mobile."></a>
+<p>Holo4 是我们全新的 agentic 模型系列。它有两种规格：27B dense 和 35B-A3B Mixture of Experts。两者均可在 H Models API 上使用。我们同时发布 Holotron 3 的更新版本：Holotron4 Nano。</p>
+<p>Holo4 建立在我们此前的模型之上，可通过任何可用的界面与软件交互：GUI、代码、MCP 和 API。它在学术 benchmark 上得分不错，但我们是专为真实业务工作流打造的。它通过监督学习和强化学习，在大量环境和任务上训练而成，其中包括由我们的 Agentic Task Factory 生成的任务。</p>
+<p><strong>立即开始使用：</strong></p>
+<h2>
+	
+		
+	
+	<span>
+		为每一种界面打造的模型
+	</span>
+</h2>
+<p>Holo4 能在屏幕上点击和输入，能编写并运行自己的代码，也能调用 MCP 或 API 工具。它会选择最适合任务的方式。大多数 agentic 模型只针对单一界面训练：以 GUI 为重点的模型离开屏幕就寸步难行，而偏好工具调用的模型则困在没有 API 的应用面前。真实工作并非如此割裂，单个业务任务就可能需要结合这些不同方式。</p>
+<p>Holo4 可运行在桌面、网页、Android、代码沙箱以及业务 API 上。每种情况下都是同一个模型，调用方式也相同。你无需为每个平台选择不同的模型。</p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-benchmark-table.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-benchmark-table.png" alt="Holo4 benchmark results with cost per task, against Qwen3.8 27B and frontier models"></a></p>
+<p>Holo4 模型相比其 Qwen 基座有显著提升。在长工作流上，Holo4 仅落后于最强的闭源模型：在 OSWorld 2.0 上，Holo4 27B 得分为 61.7%，而 Opus 5.5 为 81.8%，Holo4 35B-A3B 则达到 30.9%。但它的参数量少了几个数量级，成本也低得多。我们将公开 benchmark 上得分背后的每一条 trajectory：可在 <a href="https://trajectories.hcompany.ai">trajectories.hcompany.ai</a> 回放每一步，或从 <a href="https://huggingface.co/datasets/Hcompany/trajectories">Hugging Face</a> 下载。</p>
+<h2>
+	
+		
+	
+	<span>
+		以极低成本比肩前沿
+	</span>
+</h2>
+<p>在桌面控制（OSWorld 2.0）和 API 使用（AutomationBench）最难的学术 benchmark 上，Holo4 以远低于前沿模型的单任务成本与之竞争。</p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-cost-osworld2.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-cost-osworld2.png" alt="OSWorld 2.0: average partial score vs. cost per task"></a></p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-cost-automationbench.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-cost-automationbench.png" alt="AutomationBench: score vs. cost per task"></a></p>
+<details>
+<summary>关于成本-性能图表的说明</summary>
+
+<p><strong>OSWorld 2.0。</strong> 成本根据每次 agentic 运行的输入和输出 token 估算。Holo4 按 H Models API 价格计（单次运行）。Qwen3.8 27B：模型卡得分，成本按我们在阿里云按目录价运行所消耗的 token 计算。Qwen3.6 35B-A3B：在我们的 harness 中单次运行，按阿里云目录价计算，缓存命中按输入价格的 20% 计。OpenAI 发布数据提供了 GPT 和 Opus 的 effort 扫描；其他闭源和开放权重数据点采用<a href="https://osworld-v2.xlang.ai/">官方 OSWorld 2.0 排行榜</a>。各版本、harness 和任务子集有所不同。连线连接闭源模型中非支配的得分与成本组合；Holo4 不在其中。</p>
+<p><strong>AutomationBench。</strong> Holo4、Qwen3.8 27B 和 Qwen3.6 35B-A3B：AutomationBench v1.0.6，得分和成本在我们的内部 harness 中测得。其他模型：得分来自<a href="https://github.com/zapier/AutomationBench">AutomationBench README</a> 的公开集，单任务成本来自<a href="https://zapier.com/benchmarks">官方排行榜</a>，后者运行于私有集。Holo4 在私有集上的评估完成后我们将予以公布。</p>
+</details>
+<h2>
+	
+		
+	
+	<span>
+		真正干活的 AI
+	</span>
+</h2>
+<p>基于我们 Agentic Task Factory 的环境和任务训练，Holo4 模型在专业软件上表现出色。以下示例展示了 Holo4 27B 与其基座模型 Qwen3.8 27B 的对比。两个模型使用相同的 prompt 和 harness。</p>
+<h3>
+	
+		
+	
+	<span>
+		3D 建模 · 埃菲尔铁塔
+	</span>
+</h3>
+<blockquote>
+<p>在 FreeCAD 中构建一个埃菲尔铁塔的 3D 模型，比例为 1 毫米比 1 米，以原点为中心并与 X 轴和 Y 轴对齐。按此设计进行制作。</p>
+<p>该塔在任意高度上的平面均为正方形，绝不为圆形。其半宽，即从中心轴量到角点的距离，在地面处为 62.5 毫米，在高度 57 处为 32.5 毫米，在高度 115 处为 17.5 毫米，在高度 276 处为 9.35 毫米。在这些高度之间，半宽遵循一条平滑曲线，靠近地面处下降陡峭，越高处越平缓，绝不为直线。</p>
+<p>四条相同的塔腿，每个象限一条，每条都是一个方形柱，其外角遵循该轮廓。每条塔腿在地面处宽 14 毫米，到高度 276 处收窄至 4 毫米。塔腿从地面到第一层平台之间彼此分离，并随着升高而收拢。它们之间不填充任何东西：塔是通透的，从任何一侧都能直接看穿。</p>
+<p>三层平台，每层都是以中心轴为中心的实心方形板：在高度 57 处宽 72 毫米、厚 4 毫米；在高度 115 处宽 40 毫米、厚 3 毫米；在高度 276 处宽 22 毫米、厚 3 毫米。</p>
+<p>一根从高度 276 到 324 的桅杆，方形，底部宽 8 毫米，向顶端收窄至 2 毫米。</p>
+<p>每个部件都必须是体积非零的封闭实体，且任何部件都不得填充塔腿之间的空间。</p>
+</blockquote>
+<p><strong>Holo4 27B</strong>（84 次调用，130 万 token）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/eiffel-holo4-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/eiffel-holo4.mp4"></video></p>
+<p><strong>Qwen3.8 27B</strong>（60 次调用，100 万 token）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/eiffel-qwen38-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/eiffel-qwen38.mp4"></video></p>
+<h3>
+	
+		
+	
+	<span>
+		3D 建模 · H 标志
+	</span>
+</h3>
+<blockquote>
+<p>在 FreeCAD 中构建 H 公司标志的 3D 模型：一个实心填充的圆盘，旁边是一个块状无衬线大写字母 H，两者拉伸至相同厚度，两个形状高度相近且彼此分开、互不重叠，圆盘的中心与 H 的中部齐平。将两个形状都涂成黑色。</p>
+</blockquote>
+<p><strong>Holo4 27B</strong>（94 次调用，150 万 token）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/h-logo-holo4-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/h-logo-holo4.mp4"></video></p>
+<p><strong>Qwen3.8 27B</strong>（118 次调用，190 万 token）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/h-logo-qwen38-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/h-logo-qwen38.mp4"></video></p>
+<h3>
+	
+		
+	
+	<span>
+		游戏设计 · Pac-Man
+	</span>
+</h3>
+<blockquote>
+<p>在 Godot 中构建一个 Pac-Man 风格的游戏，并让它保持运行。</p>
+<p>一个由墙壁构成的矩形迷宫，按网格布局，豆子填满每一条开放的通道。一个玩家标记沿通道持续移动，吃掉经过的每颗豆子并为其得一分。三个幽灵在同一条通道中移动并追逐玩家。如果幽灵抓到玩家，玩家失去一条命，一切重置到起始位置。分数和生命值绘制在屏幕上。</p>
+<p>没有人会来玩这个。玩家用简单的启发式自行驱动：在每个路口它朝最近的豆子前进，除非有幽灵靠近，此时它会远离幽灵移动。游戏必须无人值守地无限运行，完全不需要键盘输入。</p>
+<p>当它正常工作时，启动游戏并让它一直运行。</p>
+</blockquote>
+<p><strong>Holo4 27B</strong>（68 次调用，240 万 token，268 行）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/pacman-holo4-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/pacman-holo4.mp4"></video></p>
+<p><strong>Qwen3.8 27B</strong>（197 次调用，1140 万 token，327 行）</p>
+<p><video controls="" poster="https://assets.hcompanyprod.fr/holo4/pacman-qwen38-poster.jpg" src="https://assets.hcompanyprod.fr/holo4/pacman-qwen38.mp4"></video></p>
+<h2>
+	
+		
+	
+	<span>
+		我们如何构建 Holo4
+	</span>
+</h2>
+<h3>
+	
+		
+	
+	<span>
+		Agentic Task Factory
+	</span>
+</h3>
+<p>我们内部的 agentic 流水线集合仅凭文档就能构建交互式环境和可验证任务，例如真实网站或开源软件的截图。到目前为止，它已在 Web 应用、MCP 服务器和桌面环境中产出了约 10,000 个任务，包括通过 GUI 和 MCP 暴露同一状态的混合环境。</p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-task-factory.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-task-factory.png" alt="Agentic Task Factory: sources, build, gates, runtime and output"></a></p>
+<h3>
+	
+		
+	
+	<span>
+		训练
+	</span>
+</h3>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-training.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-training.png" alt="Holo4 training: supervised fine-tuning on 127B tokens, two RL experts, one merged model"></a></p>
+<h3>
+	
+		
+	
+	<span>
+		Harness
+	</span>
+</h3>
+<p>除了训练之外，我们还借助 OSWorld 2.0 上 agentic 性能的反馈，重建了我们的 harness——即执行模型动作并在数百步中管理其上下文的循环。Agents 会标记每个任务失败的原因，工程师则审查相应的修复方案。最大的改动是赋予 agent 一个可靠的记忆，使其能够跟踪数百步，并在桌面机器本身上提供一个 shell。</p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holo4-harness-history.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holo4-harness-history.png" alt="Automatic harness engineering: OSWorld 2.0 score of every evaluation run over time"></a></p>
+<p><em>Opus 5（70.2%）和 GPT-5.6 Sol（66.2%）在 <a href="https://openai.com/index/introducing-gpt-6-sol-and-luna/">OpenAI 的发布图表</a>中 v2026.08.08 离线集上使用了最大努力的部分奖励，与成本-性能图一致。其他参考分数来自模型卡和官方排行榜。任务发布、子集和 harness 各不相同。</em></p>
+<h2>
+	
+		
+	
+	<span>
+		Holotron4 Nano
+	</span>
+</h2>
+<p>我们的后训练技术栈旨在适应新的基础模型，并产出能够跨界面和环境泛化的 agents。作为 <a href="https://hcompany.ai/newsroom/h-joins-nemotron-coalition">NVIDIA Nemotron Coalition</a> 的成员，我们将最新的技术栈应用于 Nemotron 3 Nano Omni 模型，作为 Holotron 3 的后续工作。</p>
+<p>同样的配方将 Nemotron 3 Nano Omni 转变为 Holotron4 Nano，这是一个通用 agentic 模型，在 GUI 工作流以及暴露 MCP、API 或编码沙箱的环境中显著优于基础模型。</p>
+<p><a href="https://assets.hcompanyprod.fr/holo4/hf/holotron4-benchmarks.png"><img src="https://assets.hcompanyprod.fr/holo4/hf/holotron4-benchmarks.png" alt="Holotron4 Nano vs. Nemotron 3 Nano Omni across five benchmarks"></a></p>
+<p><em>增益是相对于 Nemotron 3 Nano Omni 的绝对百分点提升。</em></p>
+<p>这些增益表明我们的配方具有良好的迁移性，能够将通用模型转变为 agentic 专家。其中没有任何内容是与规模相关的。</p>
+<h2>
+	
+		
+	
+	<span>
+		亲自运行
+	</span>
+</h2>
+<p>两种规模现已在 <a href="https://hub.hcompany.ai/models-api/introduction">H Models API</a> 上提供。权重以 BF16、FP8、NVFP4 和 4-bit GGUF 格式发布在 <a href="https://huggingface.co/collections/Hcompany/holo4">Hugging Face</a> 上，与我们的小型模型 <a href="https://huggingface.co/Hcompany/Holotron4-30B-A3B">Holotron4 Nano</a> 并列。</p>
+<p>我们将在未来几天发布优化的 DSpark drafter checkpoints，以进一步加速推理。</p>
+<p><a href="https://huggingface.co/blog/Hcompany/holo4">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

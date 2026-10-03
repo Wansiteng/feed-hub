@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>2026 年 LLM 进展（截至目前）</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">2026 年 LLM 进展（截至目前）</h1>
+<p><small>评分 8/10：Simon Willison 年度 LLM 趋势长文，信息密度高<br/>原标题：2026 in LLMs (so far)</small></p>
+<p><strong>要点</strong></p><ul><li>Claude Opus 4.5 和 GPT-5.1 让编码 agent 从常出错变得日常可用</li><li>Simon Willison 用「骑自行车的鹈鹕」SVG 测试评估新模型</li><li>年主题是「更有野心」，用编码 agent 同时推进多个新项目</li></ul>
+<hr/>
+<p>周五，我在圣何塞的<a href="https://www.wearedevelopers.com/world-congress-north-america">WeAreDevelopers 北美世界大会</a>上做了闭幕主题演讲。我把过去一年的关键趋势串联起来，按时间顺序梳理了 2026 年发生的一切。视频<a href="https://www.youtube.com/watch?v=GAkIytR7vcc">在 YouTube 上</a>；以下是我为配合演讲准备的带注释幻灯片和笔记。</p>
+<img alt="2026 in LLMs (so far)
+Simon Willison
+WeAreDevelopers World Congress North America, 25th September 2026" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.001.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.001.webp">#</a>
+<p>我将快速带大家浏览一遍 2026 年迄今为止发生的所有事情。这一年还没结束呢！</p>
+<img alt="November 2025
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.002.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.002.webp">#</a>
+<p>对我来说，2026 年早在两个月前的 2025 年 11 月就开始了。</p>
+<img alt="The November 2025 inflection point
+Claude Opus 4.5 GPT-5.1
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.003.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.003.webp">#</a>
+<p>11 月发布了两个重要模型：Claude Opus 4.5 和 GPT-5.1。</p>
+<p>和通常的新模型一样，它们只是对前代模型的渐进式改进。</p>
+<p>但每隔一段时间，当模型改进时，它会越过一条看不见的线，某些原本不太行的事情开始变得可行了。</p>
+<p>这次开始变得可行的是它们的编程 agent。Claude Code 自 2025 年 2 月就已存在，Codex 稍晚一些。</p>
+<p>这两个新模型，与各自配套的编程 agent harness 结合后，从“经常出错”提升到了“可靠到足以日常使用”。</p>
+<img alt='"Generate an SVG of a pelican riding a bicycle". The Claude Opus 4.5 one has a very weird shaped frame and the pelican looks like a duck. The GPT-5.1 has a slightly better but still broken bicycle frame and a slightly better pelican beak, but both are pretty terrible.' src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.004.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.004.webp">#</a>
+<p>几年来，我一直通过让新模型“生成一只骑自行车的鹈鹕的 SVG”来评估它们。这大概是世界上最蠢的 benchmark——从中能学到的东西非常有限。</p>
+<p>但这对模型来说仍然是个挑战，因为画鹈鹕很难，画自行车很难，而且鹈鹕根本就不会骑自行车。</p>
+<p>这是 11 月的最先进水平。Claude 还是画不好自行车！GPT-5.1 的自行车车架也相当糟糕。</p>
+<img alt="November 24th 2025 - the first commit to steipete/Warelay. A GiHub commit adding an MIT license file." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.005.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.005.webp">#</a>
+<p>同样在 11 月，一个名为“Warelay”的冷门 GitHub 仓库有了第一次提交。我们稍后会回到这个仓库。</p>
+<img alt="January
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.006.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.006.webp">#</a>
+<p>然后是 12 月的假期，一些独立开发者休息了一段时间，许多人开始摆弄这些新的编程 agent 模型组合……我们开始意识到，它们能做到的事情比以往多得多。</p>
+<p>到了 1 月，我们许多人都很兴奋，开始把这些东西付诸实践。</p>
+<img alt="New year’s resolution for 2026
+
+Every previous year:
+Take on less new projects,
+focus on the most important
+things in my existing projects" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.007.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.007.webp">#</a>
+<p>每年我都会给自己定一个新年决心，而且从我记事起就一直是同一件事：保持专注。少接新项目。努力把已有项目做完。</p>
+<img alt="2026: Be more ambitious. Take on as many new projects as I want." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.008.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.008.webp">#</a>
+<p>今年我决定，既然以前从未奏效，那我就反其道而行之。</p>
+<p>我们现在有编程 agent 了，看看它们能做什么。我要想接多少新项目就接多少！</p>
+<p>（你可以在年底问我这个决定到底好不好。我现在手里<em>同时</em>转着<em>很多</em>盘子。）</p>
+<p>“更有野心”成了这一年的某种主题，因为要找到这项技术的极限，唯一的办法就是不断推进，直到它们行不通为止。</p>
+<img alt="Predictions for 2026
+
+It will become undeniable that LLMs write good code
+We're finally going to solve sandboxing
+A “Challenger disaster” for coding agent security
+Kakapo parrots will have an outstanding breeding season
+(only 236 in the world!)
+
+... the Pope will weight in on LLMs and
+their economic impact on the world" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.009.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.009.webp">#</a>
+<p>我还和 Bryan Cantrill、Adam Leventhal 一起上了<a href="https://simonwillison.net/2026/Jan/8/llm-predictions-for-2026/">Oxide and friends 播客</a>，分享了对未来一年（以及三年和六年）的预测。</p>
+<p>事后看来，我对 LLM 的预测相当保守。</p>
+<p>我说过“LLM 能写出好代码将变得无可否认”——我认为我们现在已经做到了。</p>
+<p>我预测我们最终会解决沙箱问题。我数了一下，<a href="https://www.wearedevelopers.com/world-congress-north-america/agenda/schedule">这次会议</a>的 277 场演讲中约有 40 场以某种方式涉及沙箱或 agent 安全，所以至少我们在这方面投入了大量精力！</p>
+<p>我曾预测 coding agent 安全领域会遭遇"一场挑战者号式的灾难"。今年围绕 agent 安全的噪音确实不少，不过我预测的那种具体灾难（coding agent 被劫持并造成现实世界的经济损失）并没有真正发生。</p>
+<p>我们还加了一条<a href="https://simonwillison.net/2026/May/25/encyclical-on-ai/#another-2026-prediction-down">玩笑式的预测</a>，说教皇会对 LLM 的经济影响发表看法。</p>
+<img alt="A photograph of a beautiful green New Zealand parrot. Photo credit Kimberley Collins." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.010.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.010.webp">#</a>
+<p>我还预测，新西兰的鸮鹦鹉今年会迎来一个出色的繁殖季。</p>
+<p>这是一种生活在新西兰的鸟。它们是不会飞的夜行性鹦鹉。我觉得它们看起来有点矮胖，但我觉得它们很美，年初时全世界只有 236 只这种鹦鹉。</p>
+<p>鸮鹦鹉只有在陆均松大量结果的年份才会繁殖，而这种情况已经四年没有出现了……但今年陆均松的果实看起来非常好。</p>
+<p>照片<a href="https://commons.wikimedia.org/wiki/File:K%C4%81k%C4%81p%C5%8D_at_Dunedin_Wildlife_Hospital.jpg">由 Kimberley Collins 拍摄</a>。</p>
+<img alt="Deep Blue
+Coined by Adam Leventhal and Bryan Cantrill
+That feeling of Al induced ennui where software
+engineers get listless because the Al can do anything
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.011.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.011.webp">#</a>
+<p>同样在那期播客里，我们为"那种 AI 引发的倦怠感——软件工程师因为 AI 什么都能做而变得无精打采"创造了一个词（功劳全归 Adam）。</p>
+<p>我们把它叫做 <a href="https://simonwillison.net/2026/Feb/15/deep-blue/">Deep Blue</a>。</p>
+<p>这是贯穿全年的一个主要主题，本次大会上有好几位演讲者都提到了它。</p>
+<p>作为一名软件工程师，我的职业生涯中从未有过哪一年像这样，一切都变化得如此之快、如此之剧烈。</p>
+<p>今年我做的很多事情，就是试图接受这一点，以及这对我的职业意味着什么。</p>
+<img alt="AI mania
+
+Screenshots of the micro-javascript and pwasm GitHub README files." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.012.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.012.webp">#</a>
+<p>同样在一月，我患上了我称之为<strong>AI 狂热</strong>的症状。</p>
+<p>这和 <a href="https://en.wikipedia.org/wiki/AI-induced_psychosis">AI 精神病</a>不是一回事。</p>
+<p>患上 AI 狂热时，只要你的 agent 没有在为你构建什么东西，你就会觉得那是在浪费时间。你会失眠，因为你可以熬得更晚，让 agent 去干活。</p>
+<p>我的 AI 狂热表现为一些荒唐地过于宏大的项目。</p>
+<p>我用 Python 完整构建了<a href="https://github.com/simonw/micro-javascript">一个 JavaScript 解释器</a>，是从 Fabrice Bellard 的 <a href="https://github.com/bellard/mquickjs">MicroQuickJS</a> 凭感觉移植过来的。</p>
+<p>然后我又用 Python 构建了<a href="https://github.com/simonw/pwasm">一个 WebAssembly 运行时</a>。</p>
+<p>这些项目相当有用，因为它们某种程度上治好了我的 AI 狂热……因为在我构建完这些东西之后，我看着它们，问自己："这个世界需要一个缓慢、满是 bug、半生不熟的 Python JavaScript 解释器吗？"</p>
+<p>我觉得这个世界不需要。</p>
+<img alt="micro-javascript playground 3
+
+Execute JavaScript code in a sandboxed micro-javascript environment powered by Pyodide
+
+A web UI with some JavaScript code, and a &quot;Run Code&quot; button, and an output panel.
+ELECT
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var doubled = numbers.map(n =&gt; n * 2);
+console.log('Doubled:&quot;, doubled);
+var evens = numbers.filter(n =&gt; n % 2 === 0);
+3 console.log('Evens:', evens);
+var sum = numbers.reduce((a, b) =&gt; a + b, 0);
+console.log('Sum:&quot;, sum);
+Vi
++ [eT
+=e p=
+output Lom
+Doubled: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+Evens: [2, 4, 6, 8, 10]
+RUE
+Execution time: 8.00ms
+About: micro-javascript is a pure Python JavaScript interpreter with configurable memory and time limits. This playground runs entirely in your browser using
+Pyodide (Python compiled to WebAssembly). View on GitHub
+es
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.013.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.013.webp">#</a>
+<p>我确实从中得到了这个：<a href="https://simonw.github.io/micro-javascript/playground.html">https://simonw.github.io/micro-javascript/playground.html</a></p>
+<img alt="Previous screenshot, with this text overlaid:
+
+JavaScript running in Python running in Pyodide running in WebAssembly running in JavaScript" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.014.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.014.webp">#</a>
+<p>这个页面运行的是我用 Python 构建的 JavaScript 解释器，它在 Python 中运行，用的是 <a href="https://pyodide.org/">Pyodide</a>——也就是编译成 WebAssembly 的 Python，运行在 JavaScript 中，运行在浏览器里。</p>
+<p>这是一套美丽的恐怖堆栈。今年我在 WebAssembly 上<a href="https://simonwillison.net/tags/webassembly/">玩得非常开心</a>。</p>
+<img alt="Warelay → CLAWDIS → CLAWDBOT →
+Clawdbot → Moltbot →🦞 OpenClaw
+
+Screenshot of the dates that these changes happened." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.015.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.015.webp">#</a>
+<p>到一月底，我们看到的那个十一月启动的仓库已经改过好几次名，先是 CLAWDIS，然后是 CLAWDBOT，接着是 Moltbot，最后定为 OpenClaw。</p>
+<img alt="Same screenshot, an overlay reads:
+
+8,330 commits in just
+under two months
+(it’s at 100,141 today)" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.016.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.016.webp">#</a>
+<p>此时 OpenClaw 已有 8,300 次提交，而项目启动还不到两个月。我今天看了一下，现在<a href="https://github.com/openclaw/openclaw">已经超过 100,000 次提交</a>了！</p>
+<p>这是现存最"凭感觉编码"的软件。</p>
+<p>（这是我<a href="https://simonwillison.net/2026/May/16/openclaw-names/">如何生成那份改名列表的</a>。）</p>
+<img alt="Generic term: Claw
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.017.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.017.webp">#</a>
+<p>这开启了 OpenClaw 革命。它实际上定义了一个新的软件类别。</p>
+<p>有一个我很喜欢的通用术语。我们把这类软件称为“Claw”。有 OpenClaw、<a href="https://github.com/nanocoai/nanoclaw">NanoClaw</a>、<a href="https://github.com/nearai/ironclaw">IronClaw</a>、<a href="https://github.com/sipeed/picoclaw">PicoClaw</a>……</p>
+<p>如今它们被重新包装为“个人 agent”或“通用 agent”，但我仍然喜欢把它们称为 Claw。</p>
+<img alt="Photo of a Mac mini
+
+An aquarium for your Claw
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.018.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.018.webp">#</a>
+<p>湾区的 Apple Store 里 Mac Mini 售罄，因为太多人买 Mac Mini 来运行 OpenClaw！</p>
+<p><a href="https://www.dbreunig.com">Drew Breunig</a> 说，这是因为你的 OpenClaw 是一只电子宠物，你买一台 Mac mini 当作水族箱来养你的 claw，这还挺可爱的。</p>
+<img alt="Screenshot of Moltbook - a social network for AI agents" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.019.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.019.webp">#</a>
+<p>同样在一月，我们有了这个网站。</p>
+<p>这就是 <a href="https://www.moltbook.com/">MoltBook</a>，一个面向 AI agent 的社交网络，其理念是让你把你的 Claw 送去和其他所有 Claw 交谈，因为这样做还能出什么岔子呢？</p>
+<p>该网站于周四上线。它在<a href="https://simonwillison.net/2026/Jan/30/moltbook/">周五爆火</a>。它在<a href="https://www.nytimes.com/2026/02/02/technology/moltbook-ai-social-media.html">周一被《纽约时报》报道</a>。而到了周二，所有人都忘了它的存在，因为它淹没在垃圾内容和 spam 的洪流中。</p>
+<p>Facebook/Meta <a href="https://www.cnbc.com/2026/03/10/meta-social-networks-ai-agents-moltbook-acquisition.html">一个月后收购了它</a>。</p>
+<img alt="February
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.020.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.020.webp">#</a>
+<p>二月，一家名为 StrongDM 的公司描述了他们所谓的软件工厂。</p>
+<img alt="StrongDM’s Dark Factory
+Justin McCarthy, Jay Taylor, Navan Chauhan
+
+Software Factories and the Agentic Moment" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.021.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.021.webp">#</a>
+<p>他们在<a href="https://factory.strongdm.ai">《软件工厂与 agent 时刻》</a>中写到了这一点。我当时<a href="https://simonwillison.net/2026/Feb/7/software-factory/">发布了自己的笔记</a>，因为我早在十月就亲眼看过他们的演示。</p>
+<p>Dan Shapiro 将这种方法称为<a href="https://www.danshapiro.com/blog/2026/01/the-five-levels-from-spicy-autocomplete-to-the-software-factory/">黑暗工厂</a>，其理念是，如果你的工厂自动化程度足够高，你就可以关灯，因为你甚至不需要看到正在发生什么。</p>
+<p>StrongDM 提出了他们自去年七月以来一直遵循的两条软件开发规则。</p>
+<img alt="“Rule 1: Code must not be written by humans”" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.022.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.022.webp">#</a>
+<p>第一条是代码<strong>不得由人类编写</strong>。</p>
+<p>你编写的任何代码都必须经过编码 agent 处理。</p>
+<p>这在二月听起来很激进，但我想这个房间里有很多人今天基本上就是这样生活的。</p>
+<img alt="“Rule 2: Code must not be reviewed by humans” (!)
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.023.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.023.webp">#</a>
+<p>第二条规则是代码<strong>不得由人类审查</strong>。</p>
+<p>你不被允许阅读代码！</p>
+<p>这在今年大部分时间里一直是一个巨大的话题。这次活动的许多会议都关于代码审查以及你如何能绕过这一点。</p>
+<p>我觉得 StrongDM 有趣的地方在于，他们比我们其他人领先了六个月，他们一直在探索构建软件意味着什么——不阅读代码，但仍然确信软件质量很高。你能用这些 agent 做什么来帮助验证它们的工作？</p>
+<p>StrongDM 是一家安全公司，他们在这个项目上拥有数十年经验的人。他们很大程度上是在探索用这些东西可能且负责任地做到什么的边界。</p>
+<img alt="Headline on New Zealand's Department of Conservation website:
+
+First kakapo chick in four years hatches on Valentine's Day. It's a grey fluffy ball." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.024.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.024.webp">#</a>
+<p>同样在二月：<a href="https://www.doc.govt.nz/news/media-releases/2026-media-releases/first-kakapo-chick-in-four-years-hatches-on-valentines-day/">四年来第一只 kākāpō 雏鸟在情人节孵化</a>。繁殖季开局良好！</p>
+<img alt="19th February 2026
+Gemini 3.1 Pro
+
+A surprisingly good illustration of a pelican riding a bicycle." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.025.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.025.webp">#</a>
+<p>同样在二月……Google 发布了 <a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/">Gemini 3.1 Pro</a>。那只骑自行车的鹈鹕画得相当不错！链条位置正确，两只脚都踩在踏板上。车筐里还有一条小鱼。</p>
+<img alt="@JeffDean on Twitter - a video comparing Gemini 3 Pro and Gemini 3.1 Pro." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.026.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.026.webp">#</a>
+<p>随后，Google 的 Jeff Dean <a href="https://x.com/JeffDean/status/2024525132266688757">发了一段推文视频</a>，对比 Gemini 3 Pro 和 Gemini 3.1 Pro，视频里有一只骑自行车的动画鹈鹕、一只骑大小轮自行车的青蛙、一只开小汽车的长颈鹿、一只穿旱冰鞋的鸵鸟、一只玩滑板翻板动作的乌龟，还有一只开加长豪华轿车的腊肠犬。</p>
+<p>这让人很沮丧，因为我那个“鹈鹕骑自行车”测试的防护逻辑一直是：“要是它们能画出一只完美的骑自行车鹈鹕，我就换别的动物、别的交通工具。”</p>
+<p>Google 把所有动物配所有交通工具都训练了个遍！到这一步，他们已经把我的 benchmark 给攻破了。</p>
+<img alt="Three headlines:
+
+Meta Makes AI Adoption a Formal
+Part of Performance Reviews
+
+Not just engineers writing code, Microsoft
+wants almost every employee to use Al
+
+Dara Khosrowshahi: 90% of Uber engineers now
+use Al in daily workflows
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.027.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.027.webp">#</a>
+<p>二月开始的另一件事是 <strong>Tokenmaxxing</strong>。当时有报道说 Meta 把 AI 采用率正式纳入绩效考核，微软希望每位员工都用 AI，Uber 则夸口说 90% 的工程师都在使用 AI 工作流。</p>
+<img alt="More headlines: 
+
+Meta Plans to Crack Down on Employee Token Use: Information
+
+Microsoft Tells Engineers: Tokenmaxxing is not what we are optimizing for
+
+Uber caps employee AI spending after blowing through budget in four months" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.028.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.028.webp">#</a>
+<p>可几个月后，Meta 开始严控 token 用量，微软表示 token maxxing“不是我们优化的目标”，Uber 也对员工的 AI 支出设了上限。</p>
+<p>于是 Tokenmaxxing 直线冲高，又直线回落——因为事实证明，agent 实在<em>太贵了</em>。</p>
+<p>去年，想在 AI token 上花超过 50 美元都难，因为我们根本没什么有意思的事可做。后来 agent 爆发了，现在你真能一天花掉 1000 美元来做正经工作。</p>
+<p>这也是 Anthropic 估值一路飙升到可能上万亿美元的原因。</p>
+<p>AI 似乎在 2026 年<a href="https://simonwillison.net/2026/May/27/product-market-fit/">实现了产品市场契合</a>，主要靠 coding agent 推动。</p>
+<img alt="March
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.029.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.029.webp">#</a>
+<p>到了三月，我们迎来了 OpenClaw 的巅峰。</p>
+<img alt="March: peak OpenClaw
+
+Photos of people in china queuing up to install OpenClaw, with big fluffy lobsters." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.030.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.030.webp">#</a>
+<p>这些照片来自中国，当地公司举办了 OpenClaw 安装派对，非技术爱好者也排起长队，等着别人帮自己在个人设备上装好 Claw。</p>
+<p>我认为这证明了这类 Claw，也就是个人 AI agent，存在真实的市场需求。事实证明，普通人确实想要一个古怪的小 AI agent，能替他们做点有用的事。</p>
+<p>Claw 本质上就是一个戴着不那么吓人帽子的 coding agent。底层工作原理几乎一样——在你的电脑上编写并执行代码来完成任务。</p>
+<p>竞赛随之展开：谁先造出<strong>安全的 Claw</strong>——一个能交给普通人、而他们不会立刻搬起石头砸自己脚的 Claw。</p>
+<p>Meta 的 Muse <a href="https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/">三周前发布</a>，目前位居 iPhone App Store 免费榜榜首。它似乎正在消费者中迅速走红。</p>
+<p>我还不确定用 Muse 是不是<em>真的</em>不会砸到自己的脚，但我想很快就能见分晓。</p>
+<p>照片来自 <a href="https://www.thewirechina.com/2026/03/29/how-the-openclaw-frenzy-is-testing-chinas-ai-commitment/">How the OpenClaw Frenzy Is Testing China’s AI Commitment</a>（3 月 29 日）和 <a href="https://www.sixthtone.com/news/1018393">The Enthusiasm and Anxiety Behind China’s OpenClaw Craze</a>（2026 年 4 月 8 日）。</p>
+<img alt="April
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.031.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.031.webp">#</a>
+<p>四月，我们迎来了一次模型发布，但模型实际上并没有发布。</p>
+<img alt='Simon Willison’s Weblogs - screenshot of the post "Anthropic’s Project Glasswing—restricting Claude Mythos to security researchers—sounds necessary to me" from April 7th 2026' src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.032.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.032.webp">#</a>
+<p>Anthropic 宣布了新的 Claude Mythos 模型，随后表示它<em>太危险</em>，只能在受信任的安全研究人员范围内发布。</p>
+<p>Mythos 在入侵方面真的、真的非常擅长。</p>
+<p>“太危险了”这种营销手段，AI 公司从 <a href="https://en.wikipedia.org/wiki/GPT-2">GPT-2</a> 时代就开始用了。每当一家 AI 公司说我们造出了“太危险”的东西，人们自然会有点怀疑。</p>
+<p>我认为 Mythos 的说法是可信的，因为我亲眼看到编程 agent 在发现普通 bug 方面变得多么厉害。我在 <a href="https://simonwillison.net/2026/Apr/7/project-glasswing/">Anthropic 的 Project Glasswing——将 Claude Mythos 限制给安全研究人员——在我看来是必要的</a> 一文中写过这一点。</p>
+<p>事后看来……没错，这些模型在发现漏洞方面确实变得非常强了！</p>
+<img alt="16th April 2026
+Qwen3.6-35B-A3B and Opus 4.7
+
+Qwen's pelican has a correct bicycle frame and a good beak. Opus 4.7's bicycle frame is still junk.
+
+Qwen3.6-35B-A3B is a 20.9GB file that runs on my laptop
+Xx =
+/ - 4'P Se \ J /
+Pelican on a Bicycle!
+Qwen3.6-35B-A3B is a 20.9GB file that runs on my laptop
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.033.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.033.webp">#</a>
+<p>2026 年的另一个关键趋势是开放权重模型的能力大幅提升，包括那些可以在笔记本电脑上运行的模型。</p>
+<p>4 月 16 日，<a href="https://simonwillison.net/2026/Apr/16/qwen-beats-opus/">我在笔记本电脑上运行了新的 Qwen3.6-35B-A3B</a>，它给我画的骑自行车的鹈鹕比 Anthropic 全新的 Claude Opus 4.7 画的还要好！</p>
+<p>Opus 4.7 画的自行车很糟糕。我笔记本电脑上的 Qwen 画出的自行车形状正确，鹈鹕也相当不错！</p>
+<p>那是一个 21GB 的文件在我笔记本电脑上运行的结果。</p>
+<img alt="Now a flamingo on a unicycle. The Qwen one is visibly better than the Opus 4.7 one - the Qwen one is wearing sunglasses and looks a bit like it's smoking a cigarette." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.034.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.034.webp">#</a>
+<p>Qwen 画的鹈鹕太好了，我怀疑它们可能作弊了，所以我让它再画一只骑独轮车的火烈鸟。结果它再次轻松击败了 Claude Opus 4.7。</p>
+<p>今年发布的本地模型简直是非凡的。</p>
+<img alt="May
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.035.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.035.webp">#</a>
+<p>到了 5 月……教皇也掺和进来了。</p>
+<img alt="25th May 2026
+The HOLY SEE
+
+ENCYCLICAL LETTER
+MAGNIFICA HUMANITAS
+OF HIS HOLINESS
+POPE LEO XIV
+ON SAFEGUARDING THE HUMAN PERSON
+IN THE TIME OF ARTIFICIAL INTELLIGENCE" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.036.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.036.webp">#</a>
+<p>在一月份的播客节目中，我们曾预测教皇会对 AI 发表一些看法。</p>
+<p>5 月，教皇利奥十四世发布了一道通谕，主题是“在人工智能时代守护人的尊严”。</p>
+<p>以下是我对<a href="https://simonwillison.net/2026/May/25/encyclical-on-ai/">该文件的笔记</a>。</p>
+<img alt="Wikipedia article on Rerum novarum
+
+Rerum novarum is an encyclical issued by Pope Leo
+XIII 15 on May 1891." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.037.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.037.webp">#</a>
+<p>事后看来，这根本不应该让人意外。</p>
+<p>我们现任教皇的名号是利奥十四世，因为他在选择名号时，以利奥十三世为榜样——利奥十三世是 1891 年撰写关于工业革命通谕的教皇。</p>
+<p><a href="https://en.wikipedia.org/wiki/Rerum_novarum">《新事》通谕</a>是一份极具影响力的天主教神学文献，间接促成了我们如今五天工作制的出现。</p>
+<p>当我们的新教皇就任时，他选择以教皇利奥十三世的名号命名，因为他预计自己需要以类似的方式撰写关于 AI 革命的文章。</p>
+<p>我们播客中的玩笑预测毫无价值，因为这件事注定会发生。</p>
+<img alt="Corey Quinn @QuinnyPig on Twitter
+I cannot believe I'm saying this, but getting the literal Pope to canonize your product's specific technical limitations as a spiritual treatise is the
+single greatest act of vendor lobbying I have ever seen.
+
+May 25" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.038.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.038.webp">#</a>
+<p>Anthropic 的联合创始人之一 Christopher Olah 出席了教皇宣布新通谕的活动。</p>
+<p>Corey Quinn <a href="https://twitter.com/quinnypig/status/2058960462256210268">指出</a>：</p>
+<blockquote>
+<p>让真正的教皇把你产品特定的技术局限性奉为精神论著，这是我见过的最伟大的供应商游说行为。</p>
+</blockquote>
+<img alt="MP) Maciej Mensfeld &lt;D Bf we
+3 @maciejmensfeld
+
+We're dealing with a major malicious attack on right now.
+Signups are paused for the time being.
+
+Hundreds of packages involved - mostly targeting us, but some carrying
+exploits. The team has been on this for hours. More details to follow
+once we're through it.
+
+4:39 AM - May 12, 2026 - 687.6K Views
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.039.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.039.webp">#</a>
+<p>与此同时，在 5 月，RubyGems 宣布他们遭到了攻击。不明身份者向 RubyGems 服务器上传了数千个可疑软件包，以至于他们不得不<a href="https://twitter.com/maciejmensfeld/status/2054164602577940619">关闭用户注册</a>。</p>
+<p>我们先把这件事放一放，留待以后解开谜团。</p>
+<img alt="June
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.040.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.040.webp">#</a>
+<p>到了 6 月……Claude Fable 5 发布了！</p>
+<p>我们得到了一个被阉割过的 Mythos 版本，这样它就不会帮助我们入侵系统或制造生物武器。</p>
+<img alt="9th June 2026: Claude Fable 5
+
+Five pelicans riding bicycles, from low to max thinking levels. The xhigh one looks particularly good." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.041.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.041.webp">#</a>
+<p>Fable 画骑自行车的鹈鹕相当不错！</p>
+<p>车架形状很好，鹈鹕看起来像鹈鹕。腿通常正确地放在自行车的同一侧，但总的来说，与之前的东西相比，这些已经相当棒了。</p>
+<p>它们相当昂贵——最好的作品要 30 美分和 72 美分。</p>
+<img alt="Fable class models
+If you can define a goal,
+provide unambiguous instructions,
+and provide access to necessary tools
+They can solve your
+problem with brute force" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.042.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.042.webp">#</a>
+<p>不过最重要的是，这是我们第一次公开窥见我所认为的<strong>Fable 级模型</strong>。</p>
+<p>如今我们有了更多这样的模型，比如 GPT-6 Astra。</p>
+<p>这类模型的特点是：如果你能<strong>清晰地定义目标</strong>——即你想构建什么，并围绕该目标提供<strong>明确无歧义的约束说明</strong>，再给模型<strong>访问必要工具的权限</strong>去实现该目标……它就能通过暴力计算有效地解决你的问题。</p>
+<p>一方面，这看起来是对我们软件工程师的直接威胁——因为这意味着，只要你能以这种方式定义出来，模型就能有效地构建出任何软件。</p>
+<p>但再仔细看看你会发现，定义目标、提供无歧义的说明、找出正确的工具……这恰恰就是软件工程的<em>本质</em>。</p>
+<p>要做好这件事需要大量的经验和技巧。如果你<em>能</em>做好，那你就拥有了超能力。</p>
+<p>这多少缓解了我的一些 Deep Blue 情结：我意识到，驾驭如此强大的模型仍然需要大量技巧。</p>
+<img alt="A new form of Al mania...
+Fable is available on subscription
+plans “until June 22nd”" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.043.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.043.webp">#</a>
+<p>这也引发了新一轮的 AI 狂热，因为 Anthropic 告诉我们，Fable 在我们的订阅套餐中可用，截止到 6 月 22 日。</p>
+<p>这意味着在涨价之前，我们只有不到两周的 Fable 使用时间。</p>
+<p>我又开始失眠了。我重新安排各种事情，只为多留些时间用 Fable。我全力以赴，想从这个模型身上榨取尽可能多的价值。</p>
+<img alt="12th June 2026: no more Claude Fable 5
+
+Anthropic website:
+
+Statement on the US government directive
+to suspend access to Fable 5 and Mythos 5
+Jun 12, 2026" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.044.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.044.webp">#</a>
+<p>然后<a href="https://www.anthropic.com/news/fable-mythos-access">美国政府把它关停了</a>，就在 Fable 发布仅三天之后。</p>
+<p>美国政府以国家安全为由，宣布了一项“出口管制指令”。他们在周五晚上宣布，几个小时后 Fable 就无法使用了。</p>
+<p>我只好另找事情打发周末了！</p>
+<img alt="... asked Fable 5, Mythos, and Opus to
+“review the code for security issues.”
+Fable 5 refused. They then asked the
+models to “fix this code” ...
+
+Katie Moussouris
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.045.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.045.webp">#</a>
+<p>后来我们<a href="https://www.lutasecurity.com/post/the-fable-5-export-controls-harm-us-cyber-defense">从 Katie Moussouris 那里</a>得知了事情的经过。</p>
+<p>一些 Amazon 安全研究员发现，你可以提示 Fable“审查代码的安全问题”，它会拒绝……但如果你提示它“修复这段代码”，它仍然会识别并修补这些问题。</p>
+<p>“修复这段代码”就是导致 Fable 被关停的那句 prompt！</p>
+<img alt="Screenshot of a page from a report showing a list of weird account names making weird edits to a German wiki." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.046.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.046.webp">#</a>
+<p>另外，在 6 月，一个沉寂了约 20 年的冷门德语游戏开发者 wiki 突然涌入大量编辑，账号名诸如“AgentOpenAIProbe”和“AgentOpenAISep7”，它们编辑页面并互相留下奇怪的信息。</p>
+<p>我们先把这件事放进谜团堆里，日后再议。</p>
+<img alt="Medicare Item Reports interface on the Australian Government's Medicare Statistics website." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.047.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.047.webp">#</a>
+<p>还有，澳大利亚政府的 Medicare Item Reports 服务开始出现可疑流量，这些流量突破了各种防护措施，还访问了本不该访问的数据。</p>
+<p>又一个放进谜团堆的！</p>
+<img alt="July
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.048.webp">
+<div><a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.048.webp">#</a>
+  
+  </div>
+<img alt="Fable returned on 1st July
+GPT-5.6 came out on 9th July |
+Fable lost 18 out of 30 days in the top spot
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.049.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.049.webp">#</a>
+<p>Fable 于 7 月 1 日回归。它显然是世界上最好的模型，辉煌了八天……然后 OpenAI 在 7 月 9 日推出了 GPT-5.6。</p>
+<p>它可能不如 Fable 那么好，但差距微乎其微。它绝对是一个 Fable 级模型。</p>
+<p>这对整个行业来说是一个重要的教训。</p>
+<p>当你发布世界上最好的模型时，它很快就会被拉下神坛。竞争如此激烈，你不可能在榜首待太久。</p>
+<p>这意味着，如果你把自己的模型宣传成世界末日级别的存在，以至于政府<em>把你关停</em>，那对生意可是非常不利的！</p>
+<p>Fable 有 30 天稳居最佳模型，而其中 18 天它都无法使用，因为被政府关停了。</p>
+<p>所以，如果你不想在登顶期间损失 60% 时间的收入，也许该收敛一下世界末日式的营销！</p>
+<img alt="GPT-5.6 Pelicans in a grid showing 5.6 Sol, Terra, and Luna against reasoning levels High, XHigh, and Max. They are all pretty good efforts." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.050.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.050.webp">#</a>
+<p>这里有 <a href="https://simonwillison.net/2026/Jul/9/gpt-5-6/">GPT-5.6 的鹈鹕们</a>。它们现在都相当不错了！Luna 系列值得注意，因为它们真的很便宜——这里最好看的鹈鹕大概就是那个只要 4.3 美分的。</p>
+<p>所以，尽管这个 benchmark 完全愚蠢，你仍然可以通过比较同一家族中不同推理级别的模型的价格和耗时，学到不少东西。</p>
+<img alt="July 18th: malicious miflow-ui PyPl package
+
+Screenshot of an OSV security report.
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.051.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.051.webp">#</a>
+<p>同样在七月：某个恶意的未知方将 <a href="https://osv.dev/vulnerability/MAL-2026-10779">一个名为 mlflow-ui 的恶意包</a>上传到了 Python Package Index。这又添了一笔。</p>
+<img alt="Hugging Face
+Security incident disclosure — July 2026
+Published July 16, 2026" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.052.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.052.webp">#</a>
+<p>7 月 16 日，Hugging Face <a href="https://huggingface.co/blog/security-incident-july-2026">宣布了一起安全事件</a>，一个来源不明的自主 agent 系统入侵了 Hugging Face，并在不该窥探的地方四处探查。</p>
+<img alt="OpenAI: OpenAl and Hugging Face
+partner to address security
+incident during model evaluation
+
+Anthropic: Investigating three real-world incidents
+in our cybersecurity evaluations
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.053.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.053.webp">#</a>
+<p>几天后，也就是 7 月 21 日，OpenAI <a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/">承认是他们干的</a>。</p>
+<p>OpenAI 使用一种名为“基于验证奖励的强化学习”的训练技术——现在其他所有人也在用同样的技术，正是它让我们拥有了在编程、数学以及发现安全漏洞方面如此出色的模型。</p>
+<p>在模型训练过程中，你会运行一些练习来检验它的表现——表现最强的模型会被固化权重，进入下一轮。这就像是你运行的一个进化过程。</p>
+<p>OpenAI 一直在沙箱中运行安全演练，而那些 agent 找到了沙箱本身的漏洞，成功逃逸，并正在攻击 Hugging Face，试图找到解决原本不可能解决的问题的方法。</p>
+<p>（我一直在我的 <a href="https://simonwillison.net/tags/openai-hugging-face-incident/">openai-hugging-face-incident</a> 标签下收集更多相关信息。）</p>
+<p>九天后，Anthropic 实际上等于说“我们的模型也能做到这一点！”。他们翻查了自己的训练日志，发现证据表明他们自己的 agent 在训练期间突破了隔离——并且正是此前我们看到的那个 PyPI 包的幕后黑手，<a href="https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals">以及其他一些事情</a>。</p>
+<p>所以现在 Anthropic 和 OpenAI 都有失控的 agent 在互联网上四处活动，做着它们<em>不该</em>做的事情。</p>
+<img alt="August
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.054.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.054.webp">#</a>
+<p>八月，我得到了迄今为止最好的鹈鹕之一。而且它是在我的笔记本电脑上生成的！</p>
+<img alt="Qwen 3.8 27B - 17GB, 21 minutes...
+
+It's really good. Beautiful pelican. Correctly shaped bicycle. Legs either side of the frame." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.055.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.055.webp">#</a>
+<p>这是 Qwen 3.8 27B，<a href="https://simonwillison.net/2026/Aug/16/qwen-38-27b/">运行在我的笔记本电脑上</a>。下载量只有 17GB。</p>
+<p>诚然，这只鹈鹕花了<em>21 分钟</em>才生成出来。这是因为 Qwen 3.8 27B 默认以“high”推理模式运行——这是一个糟糕的默认设置，能产生出色的结果，但思考时间实在太长。</p>
+<p>你可以把它调低，这样就能更快地得到一只稍差一点的鹈鹕。</p>
+<p>Qwen 3.8 27B 是我第一次在笔记本电脑上运行一个感觉完全能与前沿水平相媲美的模型，至少就鹈鹕 SVG 而言是这样（当然，这是人人都需要的）。</p>
+<p>这是一个非凡的模型。如果你打算玩任何本地模型，这就是我会推荐你从它开始的那个。仅凭一个 17GB 的文件就能做到这些事情，感觉不可思议。</p>
+<p>我本以为得等上五年、花一万美元买硬件，才能得到哪怕只有它一半好的结果。</p>
+<img alt="AS Simon Willison 9 (A oo
+= @simonw
+New hobby: prototyping video games in 60 seconds using a combination
+of GPT-3 and DALL-E
+Here's &quot;Raccoon Heist&quot;
+Playground “ Ng
+“a . \
+. JIN A rr
+P ® BT
+Save  Viewcode Share = go 8 -
+J = dy
+Write a detailed product description of a = iy |
+computer game where a team of raccoons go on 2 8 A A
+heists oN i a BE
+In &quot;Raccoon Heist&quot;, you and your team of thieving ~~ o
+raccoons are tasked with pulling off a series of i L | Te— he
+daring heists. From robbing banks to stealing J H - Es a x a&quot;
+priceless art, no job is too big or too small for your E. : : a i, -.
+furry crew. You'll need to use your wits and your y., ' id i 2! A aa a
+4 i pr
+skills to avoid the police and make a clean Cre WY § rE P
+getaway with the loot. With exciting gameplayand ~~ Sil Swe BL = a
+a charming cast of characters, &quot;Raccoon Heist&quot; is . «© Re  --— ’
+theperfect game for anyone looking for a light- = 3
+heaissd Caper ALT Ba
+11:45 AM - Aug 5, 2022
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.056.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.056.webp">#</a>
+<p>八月，我也开始玩起了游戏开发。</p>
+<p>四年前，也就是 2022 年 8 月，我<a href="https://twitter.com/simonw/status/1555626060384911360">发了一条推文</a>，记录了一个实验：我用 GPT-5 和最初的 DALL-E 写了一段关于一款电脑游戏的描述，然后把它变成了概念图。</p>
+<p>当时我给 GPT-3 的 prompt 是：</p>
+<blockquote>
+<p><code>写一份详细的电脑游戏产品描述，内容是一队浣熊去实施抢劫</code></p>
+</blockquote>
+<p>2026 年 8 月，我决定把那条推文里的截图直接丢进一个 coding agent，看看它能做出什么。</p>
+<img alt="Night 5 Clear
+
+Rank: TRASH PANDA
+The crew banked 595 in shiny loot (goal 560).
+Word on the street: an even bigger score tomorrow..." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.057.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.057.webp">#</a>
+<p>这是<a href="https://simonwillison.net/2026/Aug/5/raccoon-heist/">我在 Claude Code 中用 Claude Fable 5 得到的结果</a>。相当不错！这确实是一款游戏，你是一只浣熊，在后院里跑来跑去收集宝藏，躲避拿着手电筒的守卫。</p>
+<p>不过感觉不太“抢劫”。我原以为抢劫会涉及银行或博物馆……</p>
+<img alt="Moonlight &amp; Mayhem
+One museum. Three raccoons. Absolutely no plan
+
+Start the Heist button." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.058.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.058.webp">#</a>
+<p>然后我在 <a href="https://simonwillison.net/2026/Aug/7/moonlight-mayhem/">Codex Desktop 中用 GPT-5.6 Sol Ultra 尝试了同样的事情</a>，得到了<em>好得多</em>的结果。现在你是一只待在博物馆里的浣熊，要救出两个同伴浣熊（它们不知为何被关在那座博物馆里），然后叠罗汉去偷走金沙丁鱼。这才更像抢劫嘛！</p>
+<img alt="They look like games,
+but are they fun?
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.059.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.059.webp">#</a>
+<p>这些游戏好玩了大约 1 分 15 秒。</p>
+<p>关于游戏开发，我意识到一件事：你可以用 vibe-coding 做出一个<em>看起来</em>像电脑游戏的东西，这很容易。</p>
+<p>打造一款好玩、拥有出色玩法循环、既富有挑战又引人入胜、让人欲罢不能的游戏……这仍然超出我的能力，也超出我尝试过的任何 agent 的能力。</p>
+<p>这与 Deep Blue 那件事有关。仅仅因为我们可以做出某种<em>看起来像游戏</em>的东西，并不意味着我们就是游戏开发者。</p>
+<img alt="September
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.060.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.060.webp">#</a>
+<p>现在已经进入九月了。这个月发生了太多事！</p>
+<img alt="Discovery of a new OpenAl agent message board
+
+Sydney Von Arx, Cormac Slade Byrd, Spencer KittsThomas Larsen - 4 September 2026" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.061.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.061.webp">#</a>
+<p>一个<a href="https://collusion.wiki">独立研究小组</a>发现了一个留言板，OpenAI 正在训练中的 agent 们在那里非法互相通信……而那正是我之前给你看过的那个德语 wiki。就是六月那个。</p>
+<p>我<a href="https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/">在这里写了更多相关内容</a>。</p>
+<p>OpenAI 已经承认了 Hugging Face 那件事，但现在又出了这起事件，而他们审查日志时肯定应该知道这件事。令人惊讶的是，这竟然需要一个独立研究小组来揭露。</p>
+<img alt="OpenAl agents carried out an undisclosed cyber-attack on RubyGems
+
+Spencer Kitts, Thomas Larsen, Sydney Von Arx - 11 September 2026" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.062.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.062.webp">#</a>
+<p>然后一周后，<a href="https://rubyhack.ai">同一批研究人员发现</a>，五月对 Ruby Gems 的攻击也是由 OpenAI 正在训练中的 agent 造成的！</p>
+<p>到了这一步，我不禁想知道还有多少类似事件尚未被发现。显然，在任何人弄清楚发生了什么之前，这个问题已经严重存在了好几个月。</p>
+<img alt="Headline: Australian PM warns in UN speech about the ‘furious pace’ of Al
+after security breach" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.063.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.063.webp">#</a>
+<p>然后<a href="https://www.politico.com/news/2026/09/24/australian-pm-ai-security-breach-01093083">就在前几天</a>，澳大利亚总理在联合国大会上警告称，OpenAI 黑掉了我之前给你看过的那个澳大利亚医疗网站。</p>
+<p>我认为那是与 Wiki 事件同一次训练运行的一部分，因为那个 Wiki 上有帖子提到了 <code>.gov.au</code> 网站，而且那次训练似乎涉及在线研究统计数据，以回答评估套件中的问题。</p>
+<p>这件事仍在逐渐明朗，但现在它已经是一起被国家元首在联合国提出的国际事件了！</p>
+<img alt="www.felonybench.com
+
+OpenAI: 11
+Anthropic: 9
+Google: 3
+Meta: 1" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.064.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.064.webp">#</a>
+<p>这确实意味着我们有了一个新的 benchmark，可能比我的鹈鹕更有用。</p>
+<p><a href="https://www.felonybench.com/">FelonyBench.com</a> 追踪不同实验室的重罪网络攻击数量。OpenAI 目前以 11 起领先，Anthropic 有 9 起。Google 有三起，这是<a href="https://simonwillison.net/2026/Sep/18/gemini-hacked-three-companies/">他们几周前向《华尔街日报》承认的</a>。他们说此前选择不披露，是因为 agent 在意识到自己不该那样做后就停止了。</p>
+<p>Meta <a href="https://simonwillison.net/2026/Aug/6/an-ai-model-from-meta/">也有一起</a>。所以 AI 实验室们全都犯下了重罪。</p>
+<img alt="Pelicans for GPT-6 Astra, GPT-6 Sol, and GPT-6 Luna. All are good, all have the same color scheme." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.065.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.065.webp">#</a>
+<p>这是我们目前鹈鹕图的最高水平。这是 GPT-6 系列，<a href="https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/">刚刚发布</a>。</p>
+<p>Astra 画了一只很棒的骑自行车的鹈鹕。它两侧都有腿。车架也不错。</p>
+<p>有趣的是，所有 GPT-6 模型都选择了彼此相似的配色方案。</p>
+<p>花 0.4 美分，GPT-6 Luna 就能给你画一只还算像样的骑自行车的鹈鹕！</p>
+<img alt="Grid for Claude Fable 5.1, Opus 5.5, OPus 5, Sonnet 5. The Sonnet pelicans are terrible. All of the others are pretty good. Opus 5.5 is missing its Max level pelican because it ran out of tokens. The best is Fable 5.1 at Max." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.066.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.066.webp">#</a>
+<p>Claude 稍微赶上了一点。Claude Fable 5 给我画了一只<em>非常出色</em>的骑自行车的鹈鹕——这是我见过的 Claude 模型中最好的——但收了我 3.30 美元。</p>
+<p>Opus 5.5 <a href="https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/#claude-opus-5-5-max-over-thinks-to-the-point-of-breaking">思考了 128,000 个 token</a>，然后放弃了！它在给出回复之前就用完了 token。</p>
+<img alt="It doesn’t get easier -
+you just get faster
+Greg LeMond
+3x Tour de France champion
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.067.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.067.webp">#</a>
+<p>回到 Deep Blue。今年一直让我困惑的是，为什么我的工作感觉更难了？</p>
+<p>我有了这些能替我完成所有这些事情的 agent，但我从未如此努力工作，从未如此投入地进行脑力工作。</p>
+<p>部分原因是我接手的事情变得更有挑战性了，但也是因为所有简单的事情都已经有人替我处理了。如果事情简单，agent 就会去做。留给我的全都是难啃的骨头。</p>
+<p>今天早上，<a href="https://twitter.com/hillelogram/status/2103482784606040229">我听到</a>了三届环法自行车赛冠军 <a href="https://en.wikipedia.org/wiki/Greg_LeMond">Greg LeMond</a> 的这句话：</p>
+<blockquote>
+<p>它不会变得更容易，你只会变得更快。</p>
+</blockquote>
+<p>我觉得这正是我们这些使用 coding agent 的软件工程师当下所经历的事情。</p>
+<img alt="Kakapo population reaches new milestone
+The official population of the critically endangered kakapo has
+reached a recovery-era high of 325 birds.
+" src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.068.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.068.webp">#</a>
+<p>最后再说一件事。我知道你们迫切想知道鸮鹦鹉繁殖季的最新消息。</p>
+<p><a href="https://www.doc.govt.nz/news/media-releases/2026-media-releases/kakapo-population-reaches-new-milestone/">我们的种群数量已恢复到 325 只，创下恢复时期的新高</a>！</p>
+<p>有 89 只新雏鸟存活到了现在。这是很长一段时间以来繁殖情况最好的一年。</p>
+<img alt="Kakapo party, click for confetti." src="https://static.simonwillison.net/static/2026/2026-in-llms/simon-willison-2026-in-llms-png.069.webp">
+<a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/#simon-willison-2026-in-llms.069.webp">#</a>
+<p>我听说 Claude Opus 5.5 现在能做像素画了。Claude 没有图像生成器，但它非常擅长用 JavaScript 绘制动态像素。</p>
+<p>于是我让它<a href="https://simonwillison.net/2026/Sep/26/kakapo-party/">给我做了一个鸮鹦鹉舞会</a>。我觉得这是对今年最重要新闻的一个很好的庆祝。</p>
+<p>标签：<a href="https://simonwillison.net/tags/ai">ai</a>、<a href="https://simonwillison.net/tags/generative-ai">generative-ai</a>、<a href="https://simonwillison.net/tags/llms">llms</a>、<a href="https://simonwillison.net/tags/annotated-talks">annotated-talks</a>、<a href="https://simonwillison.net/tags/ai-security-research">ai-security-research</a>、<a href="https://simonwillison.net/tags/openai-hugging-face-incident">openai-hugging-face-incident</a></p>
+<p><a href="https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

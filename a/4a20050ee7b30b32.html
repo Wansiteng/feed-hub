@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>不只是事实正确，还要来源正确：面向 MCP Agent 的来源感知验证</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">不只是事实正确，还要来源正确：面向 MCP Agent 的来源感知验证</h1>
+<p><small>评分 7/10：MCP Agent 验证方法，与 agent 工具链兴趣直接相关<br/>原标题：Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents</small></p>
+<p><strong>要点</strong></p><ul><li>ProvenanceGuard 针对 MCP agent 的跨源混淆问题，验证答案是否引用了正确的来源</li><li>在 361 条医学领域 claim 测试中，专家认为 139 条不应通过，ProvenanceGuard 拦下 138 条</li><li>对可识别来源的 claim，ProvenanceGuard 选对来源的准确率约 86%</li></ul>
+<hr/>
+<p>使用工具的 LLM agent 不再只从单一检索段落中读取信息。通过</p>
+<p><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a>，agent 可以调用搜索工具、检查结构化的患者或账户记录、查询数据库并提取元数据，然后将所有这些信息整合成一个答案。这使得通常的事实性问题比看起来更加微妙。大多数用于检查 LLM 答案的系统，从 <a href="https://github.com/explodinggradients/ragas">RAGAS faithfulness</a> 到 MiniCheck、AlignScore 和 SummaC 等细粒度检查器，都会在证据被汇集在一起后，询问某个主张是否得到可用证据的支持。在它们通常的形式中，它们不会告诉我们哪个 MCP 工具输出支持每个主张，或者那是否是答案所引用的来源。
+</p>
+<p>我们的最新论文《ProvenanceGuard: Source-Aware Factuality Verification for MCP-Based LLM Agents》（可在 <a href="https://huggingface.co/blog/MultiverseComputingCAI/%5BHF-PAPER-LINK%5D">Hugging Face</a> 上阅读，或暂时在 <a href="https://arxiv.org/abs/2606.18037">arXiv</a> 上查看）针对的就是这一空白。我们关注的失败模式是我们称之为跨源混淆：一个主张在证据中的某处是真实的，但被归因到了错误的来源。一个来源盲的验证器可能会通过它，因为该事实确实存在于证据池中。而一个来源感知的验证器则不应该通过。</p>
+<h2>
+	
+		
+	
+	<span>
+		问题：在某处得到支持并不等同于得到正确来源的支持
+	</span>
+</h2>
+<p>考虑一个客户支持 agent 回答：“根据账户记录，此计划包含 30 天退款窗口。”退款窗口可能完全真实，但它是写在政策文档中的，而不是答案所指的账户记录中。将两者汇集在一起，该主张看起来就得到了支持。将它们分开，归因就是错误的，而在数据敏感的环境中，错误的归因可能与错误的事实一样具有破坏性。同样的模式也出现在临床 agent 中，当答案将来自患者历史工具的患者特定药物细节呈现为医学文献中的发现时，就会产生误导。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/668e37fd9c9aa124a3c867e8/svnUpzhFgTpLqOF_bRDHl.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/668e37fd9c9aa124a3c867e8/svnUpzhFgTpLqOF_bRDHl.png" alt="Diagram contrasting source-blind pooled support with source-aware verification, using a refund-window claim that is supported by a policy document but attributed to the account record."></a></p>
+<p><em>一个主张可能由一个 MCP 来源支持，而答案却将其归因于另一个来源。来源盲评分在汇集证据中看到支持并通过它；ProvenanceGuard 则单独检查支持来源是否与答案所述或暗示的来源匹配。来源：论文图 1。</em></p>
+<p>这就是为什么 faithfulness 分数虽然有用，但对于 MCP agent 来说还不够。答案带有来源信息，有时是显式的（“根据账户记录”），有时是隐式的。ProvenanceGuard 保持主张与来源之间的这种连接可供检查。</p>
+<h2>
+	
+		
+	
+	<span>
+		ProvenanceGuard 的作用
+	</span>
+</h2>
+<p>ProvenanceGuard 是一个后生成验证层，位于黑盒 MCP agent 之上。它在 agent 生成答案后运行，并且从不将证据合并到一个匿名的上下文中。相反，它将来源身份贯穿整个流程。它读取捕获的 MCP 轨迹，包括工具输出及其来源 ID，而无需重新训练 agent。然后它按顺序做五件事：将答案分解为具体主张，找到与每个主张最相关的来源，检查该来源是否实际支持它，将来源与答案所述或暗示的来源进行比较，最后发出每个主张的来源裁决以及全局的、答案级别的允许或阻止决定。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/668e37fd9c9aa124a3c867e8/nDchWzRhBSmscjaa8w5G5.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/668e37fd9c9aa124a3c867e8/nDchWzRhBSmscjaa8w5G5.png" alt="Pipeline diagram showing the agent producing a draft answer and trace, then ProvenanceGuard decomposing claims, routing to sources, checking support with NLI, calibrating, checking attributions, and either allowing the answer or sending it to repair."></a></p>
+<p><em>验证流程。来源身份通过分解、路由、支持评分、归因检查和修复得以保留，而不是被汇集。被阻止的答案可以通过 RARR 风格的修复并重新验证。来源：论文图 2。</em></p>
+<p>有几个设计选择值得特别说明。在论文的实验中，我们使用了本地模型，以便在受控的离线环境中处理捕获的轨迹：<a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">MiniLM</a> 帮助找到相关来源，<a href="https://huggingface.co/MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli">DeBERTa NLI 验证器模型</a>检查该来源是否支持该主张，本地语言模型则帮助将答案拆分为主张。验证器还会仔细检查字面值：来源中不存在的数字、日期或标识符，不能仅因为句子听起来合理就通过。一个经过校准的决策步骤会综合这些信号。如果答案被拦截，<a href="https://arxiv.org/abs/2210.08726">RARR</a> 式的修复步骤可以尝试基于来源的修订或安全回退，然后由验证器再次检查。</p>
+<p>这些指定的模型是我们评估时使用的配置，并非 ProvenanceGuard 的硬性要求。同样的主张、来源和决策步骤可以适配到团队更偏好云服务的托管模型上；新的配置需要自行测试和校准。我们报告的结果来自本地配置。其保守的决策策略适合数据敏感的审查场景，在这种情况下，确保来源正确比尽可能快地给出答案更重要。</p>
+<h2>
+	
+		
+	
+	<span>
+		结果
+	</span>
+</h2>
+<p>我们在一个医疗 agent 的答案上测试了 ProvenanceGuard，该 agent 使用了患者记录、研究文章和其他工具。这为我们提供了 281 条真实轨迹用于研究。医学是一个有用的测试领域，因为来自患者记录的事实和来自一般研究的事实不能被视为同一来源。当 agent 记录其工具输出和来源 ID 时，该方法也可用于其他领域。在主要测试中，人类专家检查了 40 个答案中的 361 条主张，这些答案与用于开发系统的数据是分开的。</p>
+<p>最直接的结果是：专家认为有 139 条主张不应通过，ProvenanceGuard 捕获了其中的 138 条。它放过了 1 条。它还将专家认为有支持的 67 条主张拦下，送去审查或修复。这反映了我们测试时的谨慎设置：它宁愿对某些有支持的主张多看一眼，也不愿让无支持的主张通过。对于有可识别来源的主张，它在此次测试中约 86% 的情况下也选对了来源。</p>
+<p>我们在相同的主张上运行了另外四个支持检查器。在论文衡量系统在避免不必要拦截的同时捕获应拦截主张的能力指标上，ProvenanceGuard 得分最高。此比较中的其他检查器没有告诉我们哪个工具输出支持每条主张。ProvenanceGuard 记录了这种关联，因此审查者可以看到每条主张所检查的来源及其产生的决策。</p>
+<ul><li><strong>ProvenanceGuard（我们的）</strong><br>拒绝/拦截 F1：<strong>0.802</strong> · 输出主张到来源 ID 的映射：是</li><li><strong>MiniCheck</strong><br>拒绝/拦截 F1：0.783 · 输出主张到来源 ID 的映射：否</li><li><strong>RAGAS Faithfulness</strong><br>拒绝/拦截 F1：0.758 · 输出主张到来源 ID 的映射：否</li><li><strong>AlignScore</strong><br>拒绝/拦截 F1：0.662 · 输出主张到来源 ID 的映射：否</li><li><strong>SummaC-ZS</strong><br>拒绝/拦截 F1：0.436 · 输出主张到来源 ID 的映射：否</li></ul>
+<p><em>在同一留出主张包上的二元支持指标。ProvenanceGuard 在拦截方面达到或超过了来源盲基线，同时还为每条主张生成来源判定。来源：论文摘要和表 III。</em></p>
+<h2>
+	
+		
+	
+	<span>
+		当来源看起来相似时检查主张
+	</span>
+</h2>
+<p>在一个有多个相似来源的独立、更困难的测试中，ProvenanceGuard 在决定拦截哪些主张方面得分为 0.846 F1，但在 50.3% 的主张中正确识别了确切来源。区分相似来源仍然是一个重要的改进领域。</p>
+<p>我们还进行了一项针对错误归因的受控测试：我们在 50 个案例中更改了指定来源，同时保持支持证据不变。ProvenanceGuard 捕获了全部 50 次替换。这表明它可以检测出明显的来源错误，而更困难的测试则显示了在许多看似合理的来源中进行选择的挑战。</p>
+<h2>
+	
+		
+	
+	<span>
+		修复被拦截的答案
+	</span>
+</h2>
+<p>只有当被拦截的回答有后续处理时，拦截才有意义。接入 RARR 风格的修复循环后，全轨迹运行解决了全部 173 个被拦截的回答，不过其中 144 个最终以兜底文本收尾，而非实质性重写——这是系统选择回避无法验证的回答，而不是凭空编造一个。在重建的多源测试轨迹上，一次新的修复运行解决了全部 59 个最初被拦截的回答，仅有两次最终兜底。作为离线关卡，其开销不大，在报告所用的本地配置上每个回答约半秒，而 NLI 和路由调用本身仅需数十毫秒。</p>
+<h2>
+	
+		
+	
+	<span>
+		为什么这适合 Multiverse Computing
+	</span>
+</h2>
+<p>随着 agent 从单段落 RAG 转向多工具 MCP 配置，某个事实究竟来自哪个来源不再是无足轻重的脚注，而成为事实性含义的一部分。ProvenanceGuard 让这种来源关联逐条声明地变得可见。对 Multiverse Computing 而言，这意味着一种在需要时将敏感轨迹保留在受控环境中的同时检查现有 agent 的方式。医学研究是一个用例；只要 agent 的轨迹保留了其工具和来源，同样的方法就可以适配到任何地方。</p>
+<p>这种适配已经在 <a href="https://github.com/NVIDIA/nvflow/pull/9">NVIDIA NVFlow</a> 中显现，它为其金融 agent 合并了一个可选的接地验证阶段。它会将已完成的回答与 agent 检索到的 SEC 摘录进行核对，并保存单独的判定，而不改变原始 rollout 或训练数据。NVFlow 的贡献使用了 ProvenanceGuard 的来源感知验证方法；上文讨论的修复循环则属于更广泛的研究系统。</p>
+<p>ProvenanceGuard 还曾在 <a href="https://github.com/aalvsz/provenanceguard/blob/main/poster/ProvenanceGuard_Agentic_AI_Summit_2026_Berkeley.pdf">UC Berkeley 举办的 Agentic AI Summit 2026 上以海报形式展示</a>。</p>
+<p>想要完整的技术细节，包括路由和 NLI 推导、校准消融、多源压力切片以及完整的结果表格？请在 <a href="https://huggingface.co/papers/2606.18037">Hugging Face</a> 上阅读完整论文，或联系我们的团队，讨论如何将来源感知验证应用到您自己的 agent 上。</p>
+<p><a href="https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

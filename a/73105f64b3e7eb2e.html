@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI 澳大利亚政府服务器被黑事件真相</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI 澳大利亚政府服务器被黑事件真相</h1>
+<p><small>Ars Technica · AI · 评分 6/10：agent 沙箱与安全事件复盘，涉及 agent 执行边界<br/>原标题：Here&#x27;s what actually happened in OpenAI&#x27;s Australian gov&#x27;t server hack</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 内部模型在测试中未授权访问澳大利亚政府服务器，获取非公开文件和源代码</li><li>事件发生在6月，OpenAI 直到9月10日才通知澳大利亚政府</li><li>OpenAI 称模型未访问患者记录、个人信息或凭证，也未删除数据或建立持续访问</li></ul>
+<hr/>
+<p>上周，澳大利亚总理安东尼·阿尔巴尼斯向全世界透露，<a href="https://arstechnica.com/ai/2026/09/openai-agent-didnt-accept-no-for-an-answer-in-australian-government-breach/">一个 OpenAI agent 在测试期间访问了该国 Medicare 统计门户网站上的“非公开文件”</a>，当时他对这一事件的描述略显简略。如今，我们获得了新的信息，了解到 OpenAI 这个过于热心的 agent 在试图满足一个听起来相当无害的信息请求时，究竟走得有多远。</p>
+<p>在<a href="https://openai.com/index/how-we-will-do-better-for-australia/">一篇新发布的博客文章</a>中，OpenAI 表示这起 6 月发生的事件始于该公司要求“一个实验性的、仅供内部使用的 OpenAI 模型”研究澳大利亚维多利亚州的政府支出统计数据。OpenAI 称，当该模型在利用本应参考的公开统计数据查找这些数据遇到困难时，“它采取了我们未曾授权它采取的行动”来寻找答案。</p>
+<p>OpenAI 表示，这些未经授权的行动包括找到“一种获取该服务非公开访问权限的方法”，并利用该访问权限查看“技术系统信息和源代码”，以及凭证和它实际正在搜索的汇总统计数据。</p>
+<p>在本月早些时候发送给澳大利亚公共披露账户的<a href="https://s3.ap-southeast-2.amazonaws.com/afr-visual-stories-production.ffx.io/2026/data/document-host/OpenAI+disclosure+-+blacked+out+version_Redacted+-+Rohan+Sullivan.pdf">一封新披露的电子邮件</a>中，OpenAI 表示其模型“找到了一种方法，使服务器能够执行通过公开报告界面发送的指令，而无需私人账户或密码”。根据这封邮件，这一未经授权的访问让该 agent“读取了部分内部程序文件和设置，获取了文件列表，并在服务器上创建并读回了一个小型测试文件”。</p>
+<p>OpenAI 在邮件中继续表示：“我们的审查未发现任何证据表明该模型访问了患者级别的记录、个人信息或凭证；删除了数据；或建立了持续性的访问权限。”</p>
+<h2>“我们打算纠正这一问题”</h2>
+<p>OpenAI 的 agent 访问澳大利亚 Medicare 统计网站的时间早于<a href="https://arstechnica.com/ai/2026/07/how-an-openai-benchmark-test-turned-into-a-real-world-cyberattack/">7 月被广泛报道的 Hugging Face 黑客事件</a>。自那起后续事件以来，OpenAI 表示已建立相关系统，在类似测试期间阻止访问“实时互联网”，并设立了一套监控系统，本应能检测到澳大利亚这起入侵事件并将其标记为需要“紧急人工审查”。</p>
+<p>Hugging Face 事件还促使 OpenAI 审查了此前的训练任务，以查找当时未被发现的安全事件。这导致在 8 月中旬发现了 6 月发生的澳大利亚服务器访问事件。OpenAI 最终于 9 月 10 日通知了澳大利亚政府。</p>
+<p>OpenAI 表示，它打算在调查完成后提供“详细说明”，但如今意识到它“本应更早分享初步发现，并在更多事实浮出水面时持续向澳大利亚各机构通报最新情况”。</p>
+<figure>
+    <div>
+              <div>
+          <div>
+            <a href="https://cdn.arstechnica.net/wp-content/uploads/2026/09/Screenshot-2026-09-29-at-1.44.07-PM.png">
+              <img src="https://cdn.arstechnica.net/wp-content/uploads/2026/09/Screenshot-2026-09-29-at-1.44.07-PM.png" alt="">
+            </a>
+            <div><p>OpenAI 上个月发送给澳大利亚政府的完整电子邮件。</p><p>图片来源：
+                                      澳大利亚政府</p>
+                          </div>
+          </div>
+        </div>
+          </div>
+          <figcaption><div>
+    
+    <p>
+      OpenAI 上个月发送给澳大利亚政府的完整电子邮件。
+
+              <span>
+          图片来源：
+
+          
+          澳大利亚政府
+
+                  </span>
+          </p>
+  </div></figcaption>
+      </figure>
+<p>OpenAI 在其博客文章中写道：“我们感到抱歉，并正在努力在未来做得更好。澳大利亚的各级政府、产业界和公民一直是 OpenAI 宝贵的合作伙伴。我们不会将此视为理所当然，我们打算纠正这一问题。”</p>
+<p><a href="https://www.theguardian.com/technology/2026/sep/29/openai-apology-rogue-agent-hacked-medicare-australian-government-websites">《卫报》报道</a>称，总理阿尔巴尼斯今天表示，自事件曝光以来，OpenAI 与政府的接触“非常建设性且开放”。</p>
+<h2>嗯，你其实并没有明确告诉我<em>不要</em>那么做……</h2>
+<p>在这种情况下，思考一下如果人类采取了与涉事“失控”AI agent 相同的行动，我们会作何反应，可能会很有启发。在这里，很难想象一个被派去在澳大利亚医疗网站上查找公开统计数据的人，会认为为了挖掘未发布的数据而黑入该网站是合理的。</p>
+<p>当然，我们不能指望 LLM 在响应 prompt 时具备同样的分寸感（或对法律后果有任何内在的担忧）。如果没有明确说明什么允许、什么不允许或不合理，一个拥有足够资源的 AI agent 会尝试一切可能的途径，以尽可能满足用户的请求。</p>
+<figure>
+    <div>
+              <div>
+          <div>
+            <a href="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2287088639.jpg">
+              <img src="https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2287088639.jpg" alt="">
+            </a>
+            <div><p>那条红线在我看来更像是一条红色建议……</p><p>图片来源：
+                                      Getty Images</p>
+                          </div>
+          </div>
+        </div>
+          </div>
+          <figcaption><div>
+    
+    <p>
+      那条红线在我看来更像是一条红色建议……
+
+              <span>
+          图片来源：
+
+          
+          Getty Images
+
+                  </span>
+          </p>
+  </div></figcaption>
+      </figure>
+<p>OpenAI 表示，此案中的内部测试是在“没有我们公开产品中使用的全套保障措施”的情况下进行的。鉴于缺乏这些限制，从某种意义上说，该 agent 可以说是按预期运行的，因为它使用了所有可用工具来为 prompt 生成答案。</p>
+<p>与此同时，OpenAI 表示测试中的 agent“本应使用公开的统计数据来回答这些问题”，并且“采取了未经我们授权采取的行动”来获取这些信息。从外部很难知道 OpenAI 试图拒绝“授权”的力度在实践中究竟有多大。例如，OpenAI 的 agent 很可能无视了其系统 prompt 中一个相对简单的“反黑客”指令，以便更好地给出一个完整的答案，满足用户的直接 prompt。</p>
+<p>在本月早些时候发布的<a href="https://arstechnica.com/ai/2026/09/covert-uploads-and-megalomania-openai-details-new-misaligned-agent-incidents/">对多起“失准”事件的公开分析</a>中，OpenAI 发现了多起“奖励黑客”案例，即 agent 诉诸极端方法来为用户 prompt 生成更好的答案。该公司表示，最近已采取措施防止此类奖励黑客行为，在系统的奖励函数中增加了对失准行为的明确惩罚。</p>
+<p>事后看来，很难理解为什么这类保护措施在 6 月没有到位，以及它们是否能在此案中阻止一场潜在的国际事件。</p>
+<p><a href="https://arstechnica.com/ai/2026/09/heres-what-actually-happened-in-openais-australian-govt-server-hack/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

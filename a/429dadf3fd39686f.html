@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI 圈杀出新顶流，神秘「太空兔」能用涂鸦做网站</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">AI 圈杀出新顶流，神秘「太空兔」能用涂鸦做网站</h1>
+<p><small>爱范儿 · 评分 6/10：新 AI 模型实测体验，与模型能力进展相关</small></p>
+<hr/>
+<p><a href="https://s3.ifanr.com/wp-content/uploads/2026/09/img_6abb827d667b7.png"><img alt="" src="https://s3.ifanr.com/wp-content/uploads/2026/09/img_6abb827d667b7.png"></a></p>
+<p>我们先随手画了一张草图，就像一张粗糙的涂鸦。</p>
+<p>一个圆圈代表唱片，几条波浪线代表介绍，旁边画个框写上「买」；下面再摆几张大小不一的卡片，其中一张打个叉，表示已经售罄。最后在购物袋旁边画一根箭头，提醒页面要「从右边出来」。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667611735-1.png"></p>
+<p>如果把这样一张草图交给设计师，大概还得先解释半天我们到底想要什么。这次我们直接把它丢给了一个 AI，不到 5 分钟，一个真的可以打开的网站就出来了。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667614273-2.png"></p>
+<p>模型看懂了圆圈是唱片、波浪线是介绍、那个写着「买」的方框是按钮，也理解了购物袋旁边那根箭头代表动画方向。草图里没有画清楚的背景、排版和细节，它也自己补了进去。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667620188-3.png"></p>
+<p>于是我们又把这张草图画得更加随意，用简单的几笔勾勒出一家唱片店的大概布局：入口在下面，唱片墙靠左，大窗在右，试听台摆中间，再随手画一根弯箭头，写上「选一张 → 放这里」。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667623898-4.png"></p>
+<p>最后，只是在纸上随手画几笔，就能让模型把它变成一个可以逛的 3D 网页。</p>
+<p>我们可以转动镜头，看见家具的侧面；点一下唱片，封套会从架子里抽出来；再点试听台，唱片会被放上转盘，唱针落下，开始旋转。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667626877-5.png"></p>
+<p>最近，这种「草图即需求」的玩法很火，而实现这些功能的，是过去一周突然在海外 AI 圈刷屏的一只「太空兔」，Space Bunny Alpha。</p>
+<p>有意思的是，火成这样了，到现在还没人知道这只兔子是谁家的。</p>
+<h2>「太空兔」怎么就火了</h2>
+<p>和此前的匿名模型「牛来」一样，它没有技术报告，也没有哪家大模型公司出来认领，只是在 OpenRouter 和 OpenCode 上悄悄上线。然后靠着一批网友实测，一路冲上了两个平台的日调用量第一。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667629570-6.png"></p>
+<p>OpenRouter 对它的介绍很简单：反应快，而且一次能记住很多内容。社交媒体上实际的用户反馈也差不多，它既能看图、写代码，也能自己打开工具、修改文件，把一个任务一步步做下去。</p>
+<p>有人拿它和 GPT-6 Astra 做同一个精细的体素风格日式花园，Space Bunny 在细节呈现上甚至更胜一筹。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667630943-7.gif"></p>
+<p>还有网友直接上传一段游戏视频，让 Space Bunny 读取游戏视频片段，模型成功重建了飞船、风暴、Boss、连击与音效，还原度非常高。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667636246-8.gif"></p>
+<p>不少用户测试下来，模型的实测口碑都提到这是一个速度快、长上下文稳定，以及编码和 Agent 指令遵循都表现很好的模型。</p>
+<p>这也是 Space Bunny 很快火起来的原因，今年我们已经见过不少能力很强的模型，但真正要成为 Agent 工具中的主力模型，往往还得满足另外几个条件：不能太慢，不能每做一点事情就等很久，也不能一跑复杂任务成本就迅速上升。</p>
+<p>DeepSeek V4.1 Flash 和 GLM 5.3 Flash 今年能获得大量调用，很大一部分也是因为它们够快、够便宜，同时能力又没有掉得太厉害。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667641359-9.png"></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667641932-10.png"></p>
+<p>Space Bunny 抢的也是这个位置，只有又快又便宜，才能成为用户调用的主力模型。</p>
+<p>而从这一周的使用反馈来看，它已经开始成为了「日常主力」模型。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667642543-11.gif"></p>
+<p>在一个和 Opus 5、GPT-6 Sol 以及 Gemini 3.8 Flash 的火箭发射场景对比里，结果显示 Space Bunny 的表现几乎可以和 Sol 6、Grok 4.7 和 Gemini 3.8 Flash 媲美，甚至表现更好。</p>
+<p>而且，Space Bunny 整个搭建过程只用了大约 3 分钟。</p>
+<p>我们也在 OpenRouter 上创建了 API Key 并添加到 DeepSeek Harness 里面，参考社交媒体上最近一些比较火的 coding 测试，让 Space Bunny 来尝试一下。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667647084-12.png"></p>
+<p>接进了 Harness 的 Space Bunny，一样能够写文件、启动项目、调用浏览器检查结果。最后跑出了几个最近很火的项目，像是太空探索、喷墨占地小游戏，以及可以剖开和拆解的液氧甲烷发动机展台等。</p>
+<h2>草图转网页之外，3D 测试表现也不错</h2>
+<p>最近，Opus 5.5 发布几天后突然又火了起来，社交媒体上多了一大批用 Opus 5.5 实现的 3D 游戏。</p>
+<p>我们也让 Space Bunny 做了一个原创的喷墨占地小游戏。场景是一座阳光下的屋顶公园，玩家使用亮橙色墨水，对手使用青蓝色墨水。每局 60 秒，谁覆盖的地面更多谁就赢。</p>
+<p>规则看起来很简单，但要实现准确的地面墨迹和喷涂效果，也需要模型对代码进行反复推敲。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667648574-13.gif"></p>
+<p>它做出了一套明亮的玩具风格，圆头小人背着墨罐，屋顶上有花池、矮墙、通风管和透明天桥。远处的楼群简化成浅色方块，前景是橙色和蓝色的墨迹，也很好辨认胜负关系。</p>
+<p>虽然这仍然是一款规模很小的单机游戏，但它已经把场景、输入、对手、计分和结算放进了同一个可运行项目里，后续再进行修改或者上线将更加方便。</p>
+<p>参考 X 博主 @dotey 实现的《桃花源记》，我们也让 Space Bunny 做了一个同款。不过我们没有使用原推文里复杂的提示词，而是直接要求它从空项目开始，做一个可以在浏览器里游玩的 3D《桃花源记》场景。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667652705-14.gif"></p>
+<p>最后的结果也很不错，玩家可以操作在桃花源记里游玩，画面和场景也都符合桃花源的特点，但还是有一些差距。</p>
+<p>和 Opus 5.5 做出的那些高完成度场景相比，Space Bunny 的画面少了一些细节和质感；如果涉及比较复杂的 3D 运动，GPT-6 Astra 的处理也会更顺。</p>
+<p>这也是我们这一轮测试里比较明显的感受：</p>
+<p><strong>Space Bunny 很擅长快速把我们的想法搭建出来，而且经常第一版就已经能用；但如果要实现非常精细的视觉效果和复杂运动，它和更大的旗舰模型之间还是有差距。</strong></p>
+<p>除了之前的单一的 3D 物品展示测试，我们也要求 Bunny 做了一台液氧甲烷发动机教学展品。</p>
+<p>提示词里写清楚了要求有银灰金属、管路、涡轮泵、预燃室、燃烧室和钟形喷管，需要有足够清楚的结构层次。除了完整外观，还要提供剖视、爆炸图和部件说明。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667656416-15.gif"></p>
+<p>整体表现基本上做到了可以直接交付，点下「剖视＋爆炸」之后，原本聚在一起的组件会向不同方向分开，喷管被切开，内部结构露出来，细线还会保留各个部件之间原本的连接关系。</p>
+<p>总的来说，Space Bunny 已经能够搭出复杂的交互展台，把许多部件、视图和说明组织在一起，其网页编程能力可以满足我们在工作中对交付的要求。</p>
+<p>前前后后测下来，Space Bunny 给我们的感觉和网友们的实测体感类似。</p>
+<p>这确实是一个在多模态理解和 Agent 编程上的表现都不错的模型。给它一张图，它基本能看懂我们想做什么；给它一个空项目，它也知道从哪里开始。大多数时候，我们不需要写特别长的提示词，它就能先给出一个能跑的版本。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667657634-16.png"></p>
+<p>不过，我们在测试中也遇到了部分网友提到的「过度思考」问题，将推理强度调节为 Max 之后，任务的完成时长甚至会比旗舰模型还要久。</p>
+<h2>这次是谁家的兔子</h2>
+<p>模型能干什么，网友已经交出了一批作品；模型是谁家的，讨论却还没结束。</p>
+<p>「Space Bunny」这个名字确实很适合猜谜，至少比之前的「牛来」似乎是更有头绪了。</p>
+<p>太空、兔子，很容易让人联想到月球，再从月球想到名字里带 Moonshot 的月之暗面。顺着这个思路猜一手 Kimi，听起来也挺合理。</p>
+<p>但更科学的是分析 Space Bunny 处理文本的方式。模型会把输入文字拆成 token。不同模型家族使用的拆分方式可能不同，给它们输入相同的一组字符串，比较 token 数量，就能找到一些家族特征。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667658688-17.png"></p>
+<p>有研究员在公开报告中使用 50 条字符串进行了两轮测试，结果显示，Space Bunny 与其测试过的八个 MiniMax 版本全部匹配。而另一份开源项目 stealthprint 的记录，也报告了与 MiniMax 模型相符的分词特征。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667660010-18.png"></p>
+<div>图｜https://yfarmx.com/ai/models/stealth/space-bunny-alpha/</div>
+<p>这比看名字猜厂商更有依据，但同样还不足以确定开发者和具体版本，毕竟同一家族的多个模型可以共用分词器。</p>
+<p>还有线索来自 MiniMax 官方开源的 MiniMax Code 仓库，测试代码在 9 月 18 日就写进了「MiniMax-M3.1」的配置，一百万上下文、强制思考、low/high/max 推理档，比兔子上架还早了五天。</p>
+<p>9 月 27 日，MiniMax 又静默上线了 M3.1-Flash-Preview，规格和 Space Bunny 类似。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667660794-19.png"></p>
+<p>谜底可以再等等，但想尝试的要抓紧。OpenRouter 上模型 ID 是 stealth/space-bunny-alpha，OpenCode 上是 space-bunny-free，目前都是免费调用。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667662560-20.png"></p>
+<p>网友在测试 Space Bunny 时，用了一个很有意思的词来形容它：<strong>daily driver，日常主力。</strong></p>
+<p>意思大概就是这未必是每一项能力都最强的那个，但很可能是我们每天打开电脑之后，最顺手点开的那个。</p>
+<p>毕竟，大多数人每天真正要做的，并不是什么千禧年数学难题。</p>
+<p>可能只是改一个网页、补一个功能、修几个 Bug，或者让 AI 帮忙把一件重复的事情做完。为了这些任务，每一次都叫来最贵、最强的模型，其实没有太大必要。</p>
+<p>反而是那种反应够快、做出来的东西够用，而且用起来不用总惦记着价格的模型，更容易留在默认选项里。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/09/lark2pad-1790667667486-21.png"></p>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><a href="https://www.ifanr.com/1682401?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

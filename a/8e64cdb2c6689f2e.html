@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dwarkesh 对 Computer Use 的看法错在哪 + OpenAI 如何一周内做出 Jev 竞品</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Dwarkesh 对 Computer Use 的看法错在哪 + OpenAI 如何一周内做出 Jev 竞品</h1>
+<p><small>评分 8/10：深度播客，OpenAI CUA 团队谈 computer use 与 agent 架构<br/>原标题：Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 发布 Dots 个人助理、GPT-6.1 Sol 模型和 Agents API</li><li>GPT-6.1 Sol 的 Computer Use 成本仅为 Astra 的五分之一</li><li>Agents API 让开发者用上 Codex 和 ChatGPT 同款 Computer Use</li></ul>
+<hr/>
+<p>三个月前，Dwarkesh 一直在发布关于 RL 的<a href="https://x.com/search?q=from%3Adwarkesh_sp%20RL&amp;src=typed_query">精彩博客和节目</a>，他<a href="https://x.com/dwarkesh_sp/status/2070672008946589922">发布</a>了关于 RLVR 视频论文的一个框架性问题，这让很多 Computer Use 领域的人感到不满：</p>
+<p>我们对<a href="https://learninpublic.org/">公开学习</a>并不陌生，也对拥有大平台时犯错的压力并不陌生。然而，我们<a href="https://x.com/swyx/status/1852786783710539972">在 Anthropic 参与了 Computer Use 的发布</a>，参与了<a href="https://x.com/swyx/status/2016899888718442842">Claude Cowork</a> 并做了第一个关于它的<a href="https://www.latent.space/p/felix-anthropic">大型播客</a>，在 AIE 组织了<a href="https://www.youtube.com/watch?v=1UmZHb_E_SM&amp;list=PLEz0frWjePik&amp;pp=sAgC">第一个 Computer Use 专题</a>展示最前沿的技术，并且近距离接触了<a href="https://openai.com/index/openai-acquires-software-applications-incorporated/">OpenAI 收购 Sky Software</a>，这笔收购如今支撑着 Codex 在 computer use 领域享有的全面主导地位。这就是为什么我们很兴奋地请来今天的第一位嘉宾，<strong><a href="https://x.com/AriX/status/2088364788984217753">Ari Weinstein</a></strong>，Sky 的联合创始人，如今领导着所有那些外行可能忽略的惊人 CUA 进展：</p>
+<p>Ari 解释了为什么 Computer Use 现在与几个月前相比<strong>“完全不同了”</strong>，agent 如何学会调试和从失败中恢复，为什么将截图与无障碍数据、DOM、Playwright 和生成的代码结合起来会改变速度方程，以及为什么下一个前沿是让 agent 在使用软件方面真正达到超人水平。</p>
+<h2>OpenAI 克隆 Jev</h2>
+<p>在下半场，来自 OpenAI API 团队的 <strong>Nikunj Handa</strong> 拆解了<strong>新的开发者技术栈：异步工具调用、回合中引导、WebSockets、UltraFast 推理、Decisions API、prompt 缓存、预热、压缩以及 Agents API</strong>。鉴于我们是<strong><a href="https://www.latent.space/p/jev">第一个 Jev 播客</a></strong>，我们特别关注 Decisions API 异常快速的冲刺：</p>
+<p>以及为什么它目前只是一个 Luna 包装器，但团队有动力且足够无我，愿意克隆他们认为好的模式。</p>
+<h2>我们讨论：</h2>
+<ul><li><p>为什么 OpenAI 认为<strong>Computer Use 在过去几个月里发生了巨大变化</strong></p></li><li><p>Dots，以及当每个 agent 都有自己的 <strong>Linux 电脑</strong>时会发生什么变化</p></li><li><p>为什么 Computer Use 现在能<strong>比普通人更快</strong>地完成某些任务</p></li><li><p>从人类水平到<strong>“字面意义上的超人”computer use</strong> 的路径</p></li><li><p>为什么现代 agent 更擅长<strong>调试和从失败中恢复</strong></p></li><li><p>截图、无障碍树、DOM、Playwright 和<strong>生成的 JavaScript</strong> 如何协同工作</p></li><li><p><strong>App Shots</strong>，以及为什么它们比普通截图给模型提供更丰富的上下文</p></li><li><p>为什么 Computer Use 能闭合<strong>编写软件和测试软件</strong>之间的循环</p></li><li><p>当 agent 能够<strong>进行支付和操作网站</strong>时的信任、权限和安全</p></li><li><p><strong>异步函数调用</strong>，以及为什么模型不再需要在工具运行时停止推理</p></li><li><p>回合中引导、WebSockets，以及<strong>更响应式 agent</strong> 背后的架构</p></li><li><p><strong>UltraFast 推理</strong>，以及 OpenAI 如何将前沿模型推向更低的延迟</p></li><li><p><strong>Decisions API</strong> 背后快速的内部故事</p></li><li><p>为什么 Decisions API 不仅仅是<strong>低延迟</strong>的结构化输出</p></li><li><p>GPT Live、快速工具调用和<strong>实时计算机控制</strong></p></li><li><p>OpenAI 已经在如何将 Decisions API 用于<strong>支持分类和内部工作流</strong></p></li><li><p>更长的 prompt 缓存、<strong>缓存预热</strong>，以及缓存感知应用</p></li><li><p>面向<strong>长时间运行的 agent 线程</strong>的服务端压缩与手动压缩对比</p></li><li><p>哪些东西应该放在 <strong>Agents API</strong> 里，哪些应该放在开发者自己的 harness 里</p></li><li><p>OpenAI 作为<strong>“AI 云”</strong>，以及超越原始模型 API 去探索更高层原语</p></li></ul>
+<hr>
+<h2>Ari Weinstein</h2>
+<ul><li><p>OpenAI 计算机使用方向产品与工程</p></li><li><p><strong>X：</strong> <a href="https://x.com/AriX?lang=en">https://x.com/AriX</a></p></li><li><p><strong>LinkedIn：</strong> <a href="https://www.linkedin.com/in/weinsteinari/">https://www.linkedin.com/in/weinsteinari/</a></p></li></ul>
+<h2>Nikunj Handa</h2>
+<ul><li><p>OpenAI API 产品</p></li><li><p><strong>X：</strong> <a href="https://x.com/nikunjhanda">https://x.com/nikunjhanda</a></p></li><li><p><strong>LinkedIn：</strong> <a href="https://www.linkedin.com/in/nikunjhanda/">https://www.linkedin.com/in/nikunjhanda/</a></p></li></ul>
+<hr>
+<h2>时间戳</h2>
+<p><strong>00:00:00</strong> OpenAI DevDay：Dots、GPT-6.1、Agents API 和 Decisions API</p>
+<p><strong>00:02:52</strong> Dots 与个人云计算机</p>
+<p><strong>00:04:59</strong> 为什么 Computer Use 是“180 度不同”</p>
+<p><strong>00:06:04</strong> 从 Sky 到可自我调试的计算机使用 agent</p>
+<p><strong>00:09:24</strong> 计算机使用如何观察和操作软件</p>
+<p><strong>00:12:09</strong> 从快于人类到超人类计算机使用</p>
+<p><strong>00:16:03</strong> Agents API：信任、权限与安全</p>
+<p><strong>00:17:31</strong> 计算机使用在编码、测试和 QA 中的应用</p>
+<p><strong>00:19:14</strong> GPT-6 API、异步工具调用与 UltraFast 推理</p>
+<p><strong>00:23:21</strong> Decisions API 背后的快速诞生故事</p>
+<p><strong>00:25:32</strong> Decisions API 是什么，以及它如何工作</p>
+<p><strong>00:30:24</strong> OpenAI 正用这些新 API 构建什么</p>
+<p><strong>00:32:23</strong> Prompt 缓存、预热与 API 性能</p>
+<p><strong>00:35:20</strong> 面向长时间运行 agent 的上下文压缩</p>
+<p><strong>00:37:13</strong> 记忆、更高层 API 与 AI 云</p>
+<hr>
+<h1>文字记录</h1>
+<h2>引言：OpenAI DevDay 与新的 agent 技术栈</h2>
+<p><strong>Vibhu [00:00:00]：</strong> 好。我们非常兴奋能来到这里。今天是 OpenAI DevDay。特别播客</p>
+<p><strong>Swyx [00:00:08]：</strong> 我们是你们直播之后的第一档播客。</p>
+<p><strong>Vibhu [00:00:10]：</strong> 第一档播客。我们请到了 Ari，他负责计算机使用 agent 的产品和工程团队。在我们正式开始深入探讨计算机使用之前，你想先快速回顾一下吗？今天宣布了什么？你们今天这一连串发布都有哪些？</p>
+<p><strong>Ari Weinstein [00:00:24]：</strong> 是的。是的，这是非常令人兴奋的一天。我们刚结束主题演讲。真的很酷。有一堆计算机使用相关的发布，我觉得值得想一想。我们有 Dots，这是新的、某种意义上的个人助理产品，而且它有一些非常令人兴奋的计算机使用功能。还有 GPT-6.1 Sol，这是一个很棒的新模型，我觉得它特别适合计算机使用，因为它在成本和速度上有优势。我想，我想我们分享过，它的成本是 Astra 的五分之一，如果专门看计算机使用，成本是七分之一，这真的很惊人。抱歉，东西太多了。我正在努力理清。</p>
+<p><strong>Swyx [00:01:02]：</strong> 还有 API。</p>
+<p><strong>Ari Weinstein [00:01:03]:</strong> Agents API，现在里面集成了 Computer Use，这真的很酷，因为开发者现在可以基于与 Codex 和 ChatGPT 相同的 Computer Use 来构建应用。然后还有一些我们现有 Computer Use 功能的演示，比如 app shots，你可以把电脑上正在做的事情的上下文快速带入 Codex 和 ChatGPT。还有 Mac 上的原生 Computer Use，Roman 让它自动截取他应用的屏幕截图，而 Computer Use 在使用他的应用时，他还能在电脑上做别的事情。所以，是的，非常激动人心的主题演讲。</p>
+<p><strong>Swyx [00:01:35]:</strong> 更别提 Decisions API 了。</p>
+<p><strong>Ari Weinstein [00:01:37]:</strong> Decisions API。</p>
+<p><strong>Swyx [00:01:38]:</strong> 一开始就想问，它们都是同一个模型吗？还是说，同一个数据集蒸馏到不同的模型？</p>
+<p><strong>Swyx [00:01:44]:</strong> 基本上就是，Computer Use 是在用 Decisions API，还是说它们其实是分开的？</p>
+<p><strong>Ari Weinstein [00:01:49]:</strong> Decisions API 很酷的一点是，它具备所有这些新能力。它并行做推理。它没有推理过程。它是一个比我们用于 Computer Use 的模型更小的模型。这些特性让它非常快。</p>
+<h2>Dots 与将工作委派给云端电脑</h2>
+<p><strong>Swyx [00:02:07]:</strong> 是的。</p>
+<p><strong>Ari Weinstein [00:02:07]:</strong> 它们也让它在执行长周期、复杂任务方面稍微差一些。所以我觉得，如何把这些方法结合起来，仍然是一个开放的研究领域。但是，是的，我非常期待看到人们用 Decisions API 构建出什么。</p>
+<p><strong>Vibhu [00:02:24]:</strong> 有意思的一点是，Dots 现在附带了个人电脑。</p>
+<p><strong>Ari Weinstein [00:02:28]:</strong> 是的。</p>
+<p><strong>Vibhu [00:02:28]:</strong> 所以看起来它们更具持久性了。你已经用了一段时间了。人们应该怎样突破边界？应该以什么为目标？应该尝试什么？就我个人而言，我现在用它处理很多客服的事情。比如</p>
+<p><strong>Ari Weinstein [00:02:41]:</strong> 酷</p>
+<p><strong>Vibhu [00:02:41]:</strong> “哦，这个弄错了。我不想登录。我不想做身份验证。”找到问题然后直接把它解决掉。</p>
+<p><strong>Ari Weinstein [00:02:45]:</strong> 是的。</p>
+<p><strong>Vibhu [00:02:46]:</strong> 我们该怎么进一步推进？人们应该尝试什么？</p>
+<p><strong>Ari Weinstein [00:02:50]:</strong> Dots 是一个很酷的产品，因为每个 Dot 都能访问云端属于自己的 Linux 虚拟电脑，这和我们其他产品不同。你知道，传统上，我们可以访问云端的浏览器，或者它能访问你自己的电脑，但现在你可以在云端拥有自己的一整台 Linux 电脑。所以它可以运行完整的桌面应用，也可以使用网页浏览器。所以，是的，我觉得 Computer Use 的强大之处，以及我认为它如此令人兴奋的原因，在于它让 agent 能够做任何你作为一个人能做的事情，因为世界上所有软件都是为人类设计的，现在 agent 可以使用同样的软件，你可以把任务委派给 agent。所以，是的，任何你会在电脑上做的事情，你都可以让一个 Dot 去做。是的，我觉得特别有用的是什么，真的取决于最终用户是谁，以及在他们生活中什么是有价值的。但是，是的，我会先从想一想你花时间做的一件事开始，以及你如何能把这些委派给一个 agent。</p>
+<p><strong>Swyx [00:03:47]:</strong> 是的，很多订机票和购物，老实说甚至包括玩游戏之类的，对吧？</p>
+<p><strong>Ari Weinstein [00:03:52]:</strong> 完全没错。</p>
+<p><strong>Swyx [00:03:52]：</strong> 是的。</p>
+<p><strong>Ari Weinstein [00:03:53]：</strong> 是啊，我也不太清楚。对我来说，我最近做的一件事，我一直在忙这个。我订阅了一个备餐服务，因为我想吃得健康一点，你懂吧？我真的很喜欢我找到的这个备餐服务，因为它让我能对订的餐进行非常高粒度的定制。比如我可以说，“我要这么多克鸡肉和这么多克米饭。”但它太复杂了。我花了两个小时才下完一单，然后我发现我可以用 Computer Use 帮我做，它 15 分钟就搞定了。所以我实际上省了两个小时。它不仅比我快八倍，还在 GPT-6.1 Sol 上帮我省了两个小时。</p>
+<p><strong>Swyx [00:04:32]：</strong> 是的。</p>
+<p><strong>Ari Weinstein [00:04:32]：</strong> 所以这类任务我觉得真的非常强大。</p>
+<p><strong>Swyx [00:04:36]：</strong> 作为一个创作者，我可以立刻告诉你，我的头号用例就是自动化 YouTube。</p>
+<p><strong>Ari Weinstein [00:04:40]：</strong> 不错。</p>
+<p><strong>Swyx [00:04:40]：</strong> 因为 YouTube 不通过 API 暴露很多东西。</p>
+<p><strong>Ari Weinstein [00:04:43]：</strong> 是的。</p>
+<p><strong>Swyx [00:04:43]：</strong> 你只能把它放进虚拟机里，然后直接跑，比如说，比如说他们的 AB 测试功能或者发社区帖子。这些都没法通过 API 实现，因为他们讨厌开发者。</p>
+<p><strong>Swyx [00:04:53]：</strong> 总之，所以，</p>
+<p><strong>Ari Weinstein [00:04:55]：</strong> 我也从我们的开发者体验团队那里听说过。他们经常用它配合 YouTube。是的。真的很棒。</p>
+<p><strong>Swyx [00:04:59]：</strong> 所以我想稍微，你知道，说得刺激一点。我们的一位，领先的 AI 播客之一，我们的朋友，以说 Computer Use 在过去两年里没有进步而闻名。</p>
+<h2>Computer Use 在过去一年里发生了怎样的变化</h2>
+<p><strong>Ari Weinstein [00:05:12]：</strong> 是的。</p>
+<p><strong>Swyx [00:05:13]：</strong> 这是个非常有意思的说法，我觉得你是世界上最适合聊这个的人之一，比如，事情是怎么进步的，对吧？</p>
+<p><strong>Ari Weinstein [00:05:20]：</strong> 是的。你知道，那是几个月前说的，我想，我希望他们现在有不同的看法，因为 Computer Use 和以前相比简直是 180 度的不同。</p>
+<p><strong>Swyx [00:05:26]：</strong> 他是个很难被折服的人。</p>
+<p><strong>Ari Weinstein [00:05:27]：</strong> 是的，好吧。嗯，我们正在努力。</p>
+<p><strong>Swyx [00:05:30]：</strong> 但是，你知道，你一直在做。你基本上整个职业生涯都在做某种计算机自动化，对吧？</p>
+<p><strong>Ari Weinstein [00:05:34]：</strong> 是的。</p>
+<p><strong>Swyx [00:05:34]：</strong> 比如快捷指令</p>
+<p><strong>Ari Weinstein [00:05:35]：</strong> 是的</p>
+<p><strong>Swyx [00:05:35]：</strong> 在 Apple，然后是 Sky，然后，然后加入 OpenAI。你能讲讲你的主线是什么吗，比如是什么在驱动你，以及——当时可能做不到什么</p>
+<p><strong>Ari Weinstein [00:05:47]：</strong> 是的。</p>
+<p><strong>Swyx [00:05:48]：</strong> 还有，比如你的里程碑大概有哪些。</p>
+<p><strong>Vibhu [00:05:49]：</strong> 我想接着问一个后续问题，从使用 Codex Computer Use 的角度来看，比如上周</p>
+<p><strong>Ari Weinstein [00:05:57]：</strong> 是的</p>
+<p><strong>Vibhu [00:05:57]：</strong> 到今天，主要的变化是什么？是模型吗？是 Dots 吗？是 harness 吗？所以就是所有历史加上今天的发布到底真正改变了什么？</p>
+<p><strong>Ari Weinstein [00:06:04]：</strong>是的。说到这条主线，我想我一直都对自动化以及帮助人们自动化任务感到兴奋，因为这样你就能节省生活中的时间，专注于对你来说比非常精细地操作电脑更重要的事情。所以，是的，这就是我们做那些产品的原因。我之前在 Apple。我们创办了一家叫 Sky 的公司。我们最终加入了 OpenAI，这真的很令人兴奋。而且我觉得有件事是</p>
+<p><strong>Swyx [00:06:27]：</strong>而且几乎就像你得在 Apple 周围各种折腾，直到 Apple 说：“行吧，我们直接雇你，你就可以在里面干活了”，对吧？就像。</p>
+<p><strong>Ari Weinstein [00:06:35]：</strong>确实，那是个很适合工作的地方。回头看 Sky，真正有意思的是，我们当时也在做 Computer Use，而那时的模型能力差太多了。而现在，就在过去一年里，模型在 Computer Use 上已经变得极其强大。我觉得最大的变化是，以前它们能可靠地启动任务，但随后就会遇到问题，而现在它们真的很擅长调试。它们真的很擅长重试，反思什么有效、什么无效。而且我觉得我们也推动了 Computer Use 这个领域本身向前发展。我想我们在使用更多技术。现在 Computer Use 经常会写代码。所以如果你在 Codex 里实际看一下，手动展开工具调用，你会看到它并不是一次只做一个动作。它实际上是在写 JavaScript 代码并执行，由计算机执行这些代码，有时一次完成许多动作，这大大提速，也大大增强了能力。我们使用了更多可访问性、某种多模态接口。所以，模型可能会用截图，可能会用可访问性，可能会用 Playwright。它可以根据手头的任务使用很多不同的机制。然后，是的，模型的加速一直，一直非常惊人。所以，是的，今天有什么不同？我觉得我们一直在让计算机变得更好，所以我觉得仅仅一天的差别，可能比过去一个月甚至两个月的差别还要小一些。但是，是的，我觉得 Dot 里的 Computer Use 真的很令人兴奋，还有我们推出的新模型。</p>
+<h2>衡量 Computer Use 并改进 Harness</h2>
+<p><strong>Vibhu [00:08:03]：</strong>在主题演讲中，Tejal 提到 Computer Use 速度提升了 7 倍，在一些 benchmark 上也好得多。你们怎么考虑衡量它？Computer Use 是那种，就像你说的，你知道，它是随着时间推移不断改进的东西。</p>
+<p><strong>Ari Weinstein [00:08:20]：</strong>是的。</p>
+<p><strong>Vibhu [00:08:20]：</strong>是 harness 吗？是模型吗？是后训练吗？</p>
+<p><strong>Ari Weinstein [00:08:22]：</strong>对。</p>
+<p><strong>Vibhu [00:08:22]：</strong>你们内部怎么看如何衡量它有多好，以及新模型带来了哪些变化？</p>
+<p><strong>Ari Weinstein [00:08:29]：</strong>我们其实有很多不同的衡量方式，其中一些是在 harness 的不同排列和配置上进行的。这有点复杂，因为你知道，我们的生产产品有，你知道，更多安全检查，而且你知道，这些会根据手头任务的需求进行不同配置。所以有很多衡量方式，但我觉得无论我们怎么衡量，都能发现相当一致的提升。而这些提升，有时来自 harness，有时来自模型。而且是的，我对这个结果真的很兴奋：GPT-6.1 在 Computer Use 上比 Astra 更具成本效益，甚至超过了其基线成本的改进。看到这个真的很酷。</p>
+<p><strong>Swyx [00:09:10]：</strong>是的。我的意思是，直播中我特别喜欢的一个画面是，你有点像是在改进帕累托前沿，你的曲线，而且有很多讨论是关于你如何与 harness 一起改进它的。</p>
+<p><strong>Ari Weinstein [00:09:24]：</strong>是的。</p>
+<p><strong>Swyx [00:09:24]：</strong>你能举一些你经历过的顿悟时刻的例子吗，不管是模型驱动 harness 驱动模型，还是别的什么？</p>
+<p><strong>Ari Weinstein [00:09:32]：</strong>我不想重复自己，但我觉得，引入更多模态一直非常强大。</p>
+<p><strong>Swyx [00:09:36]：</strong>好的。</p>
+<p><strong>Ari Weinstein [00:09:36]：</strong>一个更具体的例子是，过去我觉得我们看到很多 Computer Use，产品不得不花大量时间，比如滚动，你知道吗？所以它会，比如截个屏。它会尝试做点什么。它会说，“哦，我得，比如向下滚动到下一页结果，”然后它会截个屏，然后它会尝试做点什么。它会再次向下滚动。所以我觉得，有了无障碍和其他，以及对 DOM 和其他类似东西的直接访问，现在语言模型实际上可以看到，比如整个页面或整个应用。它可以编写能一次执行多个步骤的代码。所以我觉得这些可能是最大的单个顿悟时刻。还有很多小的，相比之下没那么令人兴奋，但实际上我们也发现很多速度提升是由，比如很多小的琐碎问题驱动的，我们得深入进去内省。</p>
+<h2>App Shots、无障碍与更好的计算机上下文</h2>
+<p><strong>Swyx [00:10:21]：</strong>是的。很多非常艰难的工程。</p>
+<p><strong>Ari Weinstein [00:10:23]：</strong>是的。</p>
+<p><strong>Swyx [00:10:23]：</strong>我的意思是，总的来说 app shots，对吧？我觉得人们不太理解其中的区别，如果，因为 Codex 里有个不错的视觉效果，当它</p>
+<p><strong>Ari Weinstein [00:10:30]：</strong>是的</p>
+<p><strong>Swyx [00:10:30]：</strong>当你拍一个 app shot 时，但他们也许，他们理解了区别，你实际上能够驱动每个按钮，而且你有，你有每个文本，以一种非常优化的表示形式。</p>
+<p><strong>Ari Weinstein [00:10:40]：</strong>是的。完全正确。是的。其实挺有趣的。如果你想，比如真的对此很极客，你可以进入 Codex，按两个 command 键拍一个 app shot。这样你就从你正在使用的任何应用中抓取内容，把它带入 Codex 或 ChatGPT 聊天。然后，如果你点击附件，再点击右上角这个，比如小小的按钮，你就能看到原始文本，你就能看到原始的无障碍表示。是的，我们投入了大量工作，把</p>
+<p><strong>Swyx [00:11:04]：</strong>就是把所有东西都倾倒出来。是的。</p>
+<p><strong>Ari Weinstein [00:11:05]：</strong>倾倒出来，但同时也让它 token 高效，高效地做这件事。这里面，比如有点艺术性。而且，你知道，事实证明，为人类发明的同一项技术，你知道，那些可能有无障碍需求、想使用屏幕阅读器技术的人，那项技术对他们能够使用计算机真的很有帮助。它对 LLM 能够使用计算机也真的很有帮助。所以这，比如，真的很有趣，能参与其中。</p>
+<p><strong>Vibhu [00:11:27]：</strong>补充一下背景，我觉得很多人不理解 app shots。他们甚至不知道这是个功能。</p>
+<p><strong>Ari Weinstein [00:11:30]：</strong>是的。</p>
+<p><strong>Vibhu [00:11:31]：</strong>就是当你双击 command 时，它会拉入看起来像截图的东西</p>
+<p><strong>Ari Weinstein [00:11:34]：</strong>对</p>
+<p><strong>Vibhu [00:11:34]：</strong>然后你会想，“哦，为什么我只截了个图就扔进去了？”不，它实际上会抓取所有元数据、所有代码、所有一切。</p>
+<p><strong>Ari Weinstein [00:11:40]：</strong>对，没错。对。所以就像，你知道，如果你截取一个带链接的网页的截图——截图并不包含链接指向哪里。它也不包含，你知道，也许你截取日历的截图，日程标题是被截断的，对吧？但当你截取应用截图时，它会给语言模型提供关于一切事物的完整上下文，这就让它能做更多的事情。</p>
+<p><strong>Swyx [00:12:02]：</strong>是的。想了解更多的话，我邀请过 Jason Liu 在 AI Engineer 上就这个主题做了一场完整的 workshop。</p>
+<p><strong>Ari Weinstein [00:12:07]：</strong>太棒了。</p>
+<p><strong>Swyx [00:12:08]：</strong>他做得非常好。</p>
+<p><strong>Vibhu [00:12:09]：</strong>我有一个更宏观的愿景问题</p>
+<h2>迈向超人级的 Computer Use</h2>
+<p><strong>Ari Weinstein [00:12:11]：</strong>嗯</p>
+<p><strong>Vibhu [00:12:11]：</strong>关于 Computer Use agent。你举的例子——截个图、滚动页面、再截个图——就是我们当时所处的阶段。</p>
+<p><strong>Ari Weinstein [00:12:17]：</strong>对。</p>
+<p><strong>Vibhu [00:12:17]：</strong>如今它们已经能自动化很多事情了。瓶颈在哪里？是模型吗？是 harness 吗？到底是什么。你觉得两年内它会发展成什么样？你觉得它能连续运行好几个小时吗？我们要怎么走到那一步？对 Computer Use 的未来有什么预测吗？</p>
+<p><strong>Ari Weinstein [00:12:32]：</strong>嗯。我觉得真正疯狂的一点是，团队在过去几个月里取得的成果是，现在 Computer Use 完成任务的速度，在大多数情况下可能已经比普通人更快了。而我认为下一个前沿，是让 Computer Use 的表现真正达到超人级别，也就是它使用软件的速度能赶上甚至超过像我们这样的专家级用户。我觉得那一刻到来时会非常有意义、非常令人兴奋，因为我们会突然能够构建出提供更多实时体验的产品。而且我认为它还会降低使用 Computer Use 的门槛，或者说降低它的启动能量，让我们开始默认把某些事情交给 agent 去做，而这些事我们过去已经习惯手动完成。我觉得这也很令人兴奋，因为它能帮我们省下大量时间。而且我认为，你知道，有很多各种各样的小摩擦和瓶颈在阻碍这件事。我觉得，是的，模型侧有问题，推理侧有问题，harness 侧有问题，还有表示层的问题。你知道，我们发现随着 Computer Use 变快，我们越来越受限于操作本身的速度。比如，你知道，在我们的 Computer Use 任务 benchmark 中，有相当一部分时间实际上是在等，比如说你在 doordash.com 上自动化一个任务，很多时间其实是在等 doordash.com 自己加载完，你懂吧？</p>
+<p><strong>Swyx [00:14:04]：</strong>对，然后你就写个 wait，再执行这个 wait。</p>
+<p><strong>Ari Weinstein [00:14:07]：</strong>对，完全是这样。而且你想要——其实非常重要的是，你要把那个延迟降到最低，也就是从它终于加载完成，到你</p>
+<p><strong>Swyx [00:14:16]：</strong>对</p>
+<p><strong>Ari Weinstein [00:14:16]：</strong>触发 LLM 执行下一个动作之间的延迟要尽可能小，而这本身其实是一门统计科学。</p>
+<p><strong>Swyx [00:14:20]：</strong>也许可以用事件驱动的方式来做。</p>
+<p><strong>Ari Weinstein [00:14:22]：</strong>只要可能，你就希望它是事件驱动的。</p>
+<p><strong>Swyx [00:14:24]：</strong>JavaScript 有一些 load 事件。</p>
+<p><strong>Ari Weinstein [00:14:25]：</strong>JavaScript 有 load 事件，或者说网页浏览器有用于网页导航的 load 事件，但还有其他类型的事件其实没法做到事件驱动。所以这里有很多复杂性</p>
+<p><strong>Vibhu [00:14:34]：</strong>我想到的一个例子是，比如和客服聊天。</p>
+<p><strong>Ari Weinstein [00:14:37]：</strong>对。</p>
+<p><strong>Vibhu [00:14:37]：</strong>回复可能要 30 秒，也可能要三分钟。</p>
+<p><strong>Ari Weinstein [00:14:39]：</strong>哦，对。</p>
+<p><strong>Swyx [00:14:41]：</strong>我用 Codex 处理过太多机器人了。这很棒，但我也在想，对方知不知道自己在跟一个机器人说话，因为我回复的都是完整句子。比如，我大小写都用对了。</p>
+<p><strong>Ari Weinstein [00:14:50]：</strong>太搞笑了。</p>
+<p><strong>Swyx [00:14:51]：</strong>比如，我会给出完整的参考编号之类的。就是，太……明显太好了。我不在乎。就像，我只是想解决我的支持工单。</p>
+<p><strong>Vibhu [00:14:58]：</strong>我给它设了提示词，比如，你知道的，“别假装你是机器人。要表现得像个非常烦躁的人类。”</p>
+<p><strong>Vibhu [00:15:02]：</strong>简短的一句话，比如</p>
+<p><strong>Swyx [00:15:04]：</strong>对</p>
+<p><strong>Vibhu [00:15:04]：</strong>催一催，把这些都做了。我还告诉它，“在你等回复的时候，用 subagents 去研究更好的办法，搞清楚我们需要什么。”</p>
+<p><strong>Ari Weinstein [00:15:12]：</strong>不错。</p>
+<p><strong>Vibhu [00:15:12]：</strong>就是一点人类的小干预。</p>
+<p><strong>Ari Weinstein [00:15:14]：</strong>太棒了。我还觉得有一半时间对面也是个机器人，所以现在你</p>
+<p><strong>Vibhu [00:15:17]：</strong>对</p>
+<p><strong>Ari Weinstein [00:15:17]：</strong>就让机器人互相对话了。</p>
+<p><strong>Swyx [00:15:18]：</strong>对。我还要说，你知道，我们现在在 Computer Use 上达到的一个里程碑是，三四年前，我们还害怕把 LLM 接到网络和</p>
+<p><strong>Ari Weinstein [00:15:31]：</strong>对</p>
+<p><strong>Swyx [00:15:31]：</strong>接到我们的设备上。而现在我让它帮我配置 DNS。</p>
+<p><strong>Ari Weinstein [00:15:35]：</strong>哇。</p>
+<p><strong>Swyx [00:15:36]：</strong>我让它帮我付账单，真的，几万美元的东西我就直接交给它，用 Computer Use 放手一搏，你知道，最坏能发生什么呢？</p>
+<p><strong>Swyx [00:15:48]：</strong>所以这——这一切都真的很好。</p>
+<h2>在 Agents API 中用 Computer Use 安全构建</h2>
+<p><strong>Ari Weinstein [00:15:50]：</strong>对。</p>
+<p><strong>Swyx [00:15:50]：</strong>我觉得既然你已经……你知道，显然你也得自己试用自家产品之类的。既然你已经把它发布到 API 里了，有什么坑或者建议想告诉开发者吗，因为他们大概马上要亲身遇到这些了？</p>
+<p><strong>Ari Weinstein [00:16:03]:</strong> 首先，我非常兴奋我们把 Computer Use 引入了 Agents API。我觉得这真的很棒，因为显然很多开发者正在构建希望与第三方网站和服务协作的应用。而 Computer Use 具有这种通用性，它可以与任何东西配合使用。所以现在，开发者突然之间就能使用与我们正在构建的相同的 Computer Use 实现来开发了。我认为如果你想构建自己的 Computer Use harness，还有很多出色的工作要做，但这很难。而且，我们是在自己的 Computer Use harness 上训练模型的，所以使用随模型分发的那个是有优势的。实际上可能在速度、成本和准确性上都有优势。所以我认为能在此基础上进行构建真的很棒。而且，你知道，我觉得就像你刚才说的，我们所有人都还在这个过程中，也许我们中的一些人比世界上很多人更早地适应了这项技术并信任它。所以我认为我们有责任随着时间的推移建立这种信任，确保我们构建的东西是可靠的，构建正确的安全检查，在做像付款这样有后果的事情之前征求用户同意，也许根据应用的不同，确保只让它访问任务实际需要的网站或应用。所以我认为这是需要思考的重要事情。但没错，我真的鼓励大家试试新的 Agents API，在它上面构建各种酷炫的东西。我们很乐意听到你们的反馈，你知道，取决于进展如何。</p>
+<p><strong>Vibhu [00:17:31]:</strong> 你有没有看到它影响开发者工作流的方式有什么变化？所以 Dots 的其中一件事就是，你知道，你在 Slack 里就能看到它。</p>
+<p><strong>Ari Weinstein [00:17:38]:</strong> 是的。</p>
+<p><strong>Vibhu [00:17:38]:</strong> 你看到人们使用语音来构建。Roman 展示的那个例子，修改这个应用并沿途给我发截图之类的。</p>
+<h2>用 Computer Use 进行测试并闭合软件循环</h2>
+<p><strong>Ari Weinstein [00:17:46]:</strong> 是的。</p>
+<p><strong>Vibhu [00:17:46]:</strong> 你在采用情况中看到的，有没有关于人们如何将 Computer Use 用于编码工作流的？有什么技巧是大家应该借鉴的？</p>
+<p><strong>Ari Weinstein [00:17:55]:</strong> 实际上，我最喜欢的 Computer Use 用例之一，也是我们在实际中经常看到的，就是让 Computer Use 让 agent 去测试 agent 自己构建的软件，这比听起来要有意义得多。因为传统上，你知道，你在 Codex 里构建某个东西，然后 Codex 为你构建它，然后你必须测试它，而你现在就成了 agent 的 QA，对吧？所以有了 Computer Use，你就可以完成软件开发生命周期，agent 可以构建软件，也可以测试它。所以我玩得很开心，你知道，构建东西，让 agent 测试它。等它到我手上时，它已经能正常工作了。我还有额外的乐趣，因为有时我在开发 Computer Use 本身，所以现在我有一个 Computer Use agent 在使用我的 Computer Use agent，而后者又在使用别的东西。所以是的，我真的、真的认为这是一类非常强大的用例。</p>
+<p><strong>Swyx [00:18:44]:</strong> 我开发了一个可视化试玩技能，它真的能发现很多设计问题，</p>
+<p><strong>Ari Weinstein [00:18:49]:</strong> 不错</p>
+<p><strong>Swyx [00:18:50]：</strong>你知道，通常你只是看代码的话，其实不太会注意到这一点。不过它也非常适合用来克隆应用。如果你在用某个糟糕的 SaaS，想干掉它，你只要一个屏幕一个屏幕地把它克隆下来就行。而且显然，Computer Use 可以完全驱动一切，截图、记录下来，然后用 Codex 把一切都克隆出来。</p>
+<p><strong>Ari Weinstein [00:19:06]：</strong>那真的很酷。</p>
+<p><strong>Swyx [00:19:06]：</strong>不过，感谢你所有的进展。我觉得，那就是</p>
+<p><strong>Ari Weinstein [00:19:08]：</strong>当然</p>
+<p><strong>Swyx [00:19:09]：</strong>我们的时间。</p>
+<h2>Nikunj Handa：OpenAI API 有哪些新变化</h2>
+<p><strong>Ari Weinstein [00:19:10]：</strong>是的。</p>
+<p><strong>Swyx [00:19:10]：</strong>这不会是最后一次我们聊。</p>
+<p><strong>Ari Weinstein [00:19:12]：</strong>是的，酷。这真的很有趣。谢谢你们邀请我。</p>
+<p><strong>Swyx [00:19:14]：</strong>好的。</p>
+<p><strong>Vibhu [00:19:14]：</strong>好的。好，我们严格卡时间。我们直接开始吧。</p>
+<p><strong>Nikunj Handa [00:19:17]：</strong>来吧，好。</p>
+<p><strong>Vibhu [00:19:19]：</strong>好，那么，Nikunj，我们非常高兴能请到你。你在 API 方面发布了很多东西，就像我们刚刚</p>
+<p><strong>Nikunj Handa [00:19:25]：</strong>是的</p>
+<p><strong>Vibhu [00:19:25]：</strong>和 Ari 聊过的。你现在可以用 Computer Use agent 来构建了。你有什么想强调的，API 方面的变化，再稍微介绍一下你自己，以及你做什么？</p>
+<p><strong>Nikunj Handa [00:19:34]：</strong>好，当然。我叫 Nikunj。我负责 API 团队的产品。在这里大概三年了。一直在做模型发布。我觉得这在我于 OpenAI 的这段时间里，一直就是一件持续在做的事。而且，每出一个新模型，我们都会试着，基本上就是和后训练团队、研究团队紧密合作，弄清楚它有什么新东西。然后我们把这些能力在 API 里暴露出来。大致就是这么回事。如果你看看 GPT-6 的所有新东西，我们发布的那些很酷的新能力，首先是异步函数调用。所以你在 Codex 和 Dots 之类的东西里看到的很多情况是，工具调用耗时太长，你不必在工具运行的时候暂停模型的执行。所以你可以直接发起一个工具调用，继续运行，继续推理，然后再回来查看。所以我们发布了异步工具调用。我们还发布了回合中引导，所以现在你可以在模型推理的过程中，在中间注入消息。这样当你的工具调用完成时，你可以把那些指令放进去。</p>
+<h2>异步工具调用、回合中引导和 WebSockets</h2>
+<p><strong>Swyx [00:20:43]：</strong>而且那在一定程度上也是一种模型对齐能力，对吧？</p>
+<p><strong>Nikunj Handa [00:20:46]：</strong>是的。</p>
+<p><strong>Swyx [00:20:46]：</strong>就像，它们必须训练出被训练的能力。</p>
+<p><strong>Nikunj Handa [00:20:48]：</strong>没错，是的。而且</p>
+<p><strong>Vibhu [00:20:49]：</strong>我觉得我们在应用里一直都有这个。它推理的时候，你一直都可以引导。</p>
+<p><strong>Nikunj Handa [00:20:54]：</strong>是的。</p>
+<p><strong>Vibhu [00:20:54]：</strong>它以前不是最好的。现在好多了。</p>
+<p><strong>Nikunj Handa [00:20:57]：</strong>是的。</p>
+<p><strong>Vibhu [00:20:57]：</strong>很期待看到它在这个版本里表现如何</p>
+<p><strong>Nikunj Handa [00:20:58]：</strong>是的，而且我喜欢我们的主要</p>
+<p><strong>Vibhu [00:20:59]：</strong>而现在</p>
+<p><strong>Nikunj Handa [00:21:00]：</strong>目标就是，我们在 API 上的主要目标就是，一旦模型训练好、进入 harness，就把它放进 API。所以我们会等那个时机，等到它足够好。而这其中很大一部分其实是由 WebSockets 驱动的，我们大概几个月前发布了它。WebSockets 打开了与模型之间这种完整的双向通信。这不是 GPT Life 那个东西。我说的只是 GPT-6。你可以做所有这些异步工具调用、异步推理、注入消息。这是一个做起来非常有趣的 API。我觉得真的很享受。</p>
+<p><strong>Swyx [00:21:33]：</strong>对。这就是为什么我们是工程播客，因为我们可以聊 WebSockets。</p>
+<h2>UltraFast 与推理栈</h2>
+<p><strong>Nikunj Handa [00:21:36]：</strong>对。</p>
+<p><strong>Swyx [00:21:37]：</strong>这跟 UltraFast 也很搭，对吧？</p>
+<p><strong>Nikunj Handa [00:21:39]：</strong>哦，是的。</p>
+<p><strong>Swyx [00:21:39]：</strong>就是，这现在，我觉得是史上第一次在 API 里可用。</p>
+<p><strong>Nikunj Handa [00:21:43]：</strong>是的。</p>
+<p><strong>Swyx [00:21:43]：</strong>基本上就是你能达到的理论最快速度，Frontier of Intelligence。</p>
+<p><strong>Nikunj Handa [00:21:49]：</strong>对。做那个项目真的太令人兴奋了。我觉得，在讲 API 之前，UltraFast 最有趣的部分就是看着推理团队用 Astra 大展身手。他们就是不停地跑这些 Codex agent，试图榨出更多性能。而且我想说，至少有好几个月，很多精力都集中在效率和降低成本上，这也是我们能把 Luna 价格砍掉 80% 的原因。其中很大一部分是由他们落地的所有推理改进驱动的。然后现在他们转向了，怎么让它跑得尽可能快？所以 UltraFast 在像 Astra 这样的模型上看起来真的很惊艳。能跑那么快真的很酷。而且，WebSockets 其实，我们第一次发布 WebSockets 是为了 GPT-5.3 Codex Spark，就是那个。不敢相信我们给模型起了这么个名字，但你知道，我们就是为它发布的。显然它帮助很大，因为你得有工具调用。你确实大幅减少了与工具来回交互的开销。所以，WebSockets 在这方面很棒。</p>
+<p><strong>Swyx [00:22:57]：</strong>对。看到这种情况总是很可爱，比如我有我的重置用量额度，然后我有我从来没用过的 Spark 用量额度。</p>
+<p><strong>Nikunj Handa [00:23:03]：</strong>对。</p>
+<p><strong>Swyx [00:23:04]：</strong>就是，我想要的话它就在那儿。</p>
+<p><strong>Nikunj Handa [00:23:05]：</strong>我觉得它终于没了。</p>
+<p><strong>Swyx [00:23:06]：</strong>没了。没了，对。</p>
+<p><strong>Nikunj Handa [00:23:07]：</strong>我知道它没了，所以。</p>
+<p><strong>Swyx [00:23:08]：</strong>对。你在慢慢干掉所有那些，你知道的，那些</p>
+<p><strong>Nikunj Handa [00:23:11]：</strong>老家伙们，对。</p>
+<p><strong>Swyx [00:23:11]：</strong>老古董。</p>
+<p><strong>Vibhu [00:23:11]：</strong>这是很棒的一周。我是说，这是我们第一次以极速拥有 Frontier Intelligence。</p>
+<p><strong>Nikunj Handa [00:23:17]：</strong>对。</p>
+<p><strong>Vibhu [00:23:18]：</strong>大家真的很喜欢。</p>
+<p><strong>Nikunj Handa [00:23:19]：</strong>对。</p>
+<p><strong>Vibhu [00:23:19]：</strong>所以</p>
+<p><strong>Swyx [00:23:20]：</strong>对</p>
+<p><strong>Vibhu [00:23:20]：</strong>第一次它回来了。</p>
+<p><strong>Swyx [00:23:21]：</strong>是的。5.3 Spark 明确归功于 Cerebras。你们既不确认也不否认，UltraFast 与 Ce- Cerebras 有关，但人们是这么认为的。我只想说，人们确实很关心，也很好奇。而且你们也有自己的芯片。房间里的大象，决策模型。</p>
+<h2>Decisions API：OpenAI 的快速决策模型</h2>
+<p><strong>Nikunj Handa [00:23:38]：</strong>哦，是的。</p>
+<p><strong>Swyx [00:23:38]：</strong>Decisions API。我们是第一个和 Diogo 做大型 Jev 深度探讨的播客，我也在 AI Engineer 上介绍过他。你多快看到 Jev 然后就想</p>
+<p><strong>Nikunj Handa [00:23:49]：</strong>我的天。是的。</p>
+<p><strong>Nikunj Handa [00:23:50]：</strong>是的。首先，要大大赞扬 Diogo 和 Jev 团队，真的启发了</p>
+<p><strong>Swyx [00:23:55]：</strong>是的</p>
+<p><strong>Nikunj Handa [00:23:55]：</strong>市场上整个细分领域。显然 Jev 一出来，大家都为之疯狂。我们的用户来找我们。但我们的内部团队也说：“我们需要一个快得多的分类系统。”我们可以。我不想抢在 Dots 一些即将推出的功能之前透露</p>
+<p><strong>Swyx [00:24:16]：</strong>哇</p>
+<p><strong>Nikunj Handa [00:24:16]：</strong>但你会看到一些很酷、非常敏捷快速的东西构建在 Decisions API 之上。不过，你知道，是的。感谢 Jev 启发了这一切。显然 OpenAI 的一堆人被勾起了兴趣，他们说：“我们怎么才能让这个跑起来？我们不会去——”</p>
+<p><strong>Swyx [00:24:33]：</strong>好的。</p>
+<p><strong>Nikunj Handa [00:24:33]：</strong>“训练一个新模型。”但是</p>
+<p><strong>Swyx [00:24:34]：</strong>比如，四周前，这还不在开发者的视野里，对吧？</p>
+<p><strong>Nikunj Handa [00:24:37]：</strong>不，完全不在。不。</p>
+<p><strong>Swyx [00:24:37]：</strong>好的。</p>
+<p><strong>Nikunj Handa [00:24:37]：</strong>这就像</p>
+<p><strong>Swyx [00:24:38]：</strong>哇</p>
+<p><strong>Nikunj Handa [00:24:38]：</strong>受 Jev 启发，而且就像</p>
+<p><strong>Swyx [00:24:40]：</strong>我觉得你正式成为你们实验室第一个克隆并采用这个的人。</p>
+<p><strong>Nikunj Handa [00:24:44]：</strong>是的。是的。我觉得 OpenAI 有非常浓厚的黑客文化，人们就是会为一些东西感到兴奋。所以，来自推理团队的一位、基础设施团队的一位很棒的同事说：“这太棒了。我们要动手搞它。”他们做了个原型，能跑起来，现在我们只是在延迟上不断爬坡，尽量把它做到最快，我们想在未来几天内发布。所以一旦达到我们的延迟目标，我们就会试着把它推出来。</p>
+<p><strong>Vibhu [00:25:13]：</strong>这很有意思。在黑客文化的同时，正如 Sam 所说，你们也是 99%、最可靠的 API 之一，</p>
+<p><strong>Nikunj Handa [00:25:20]：</strong>嗯哼</p>
+<p><strong>Vibhu [00:25:20]：</strong>我想可能是使用量最大的，而这是你们团队直接负责的。人们应该如何看待 Decisions API？我觉得很多人看到了 Jev，听到了热度，但还没用它构建过。你们正在让它变得非常主流。</p>
+<h2>决策模型适合做什么</h2>
+<p><strong>Nikunj Handa [00:25:32]：</strong>嗯哼。</p>
+<p><strong>Vibhu [00:25:33]：</strong>人们应该把它看作什么？应该怎么用？</p>
+<p><strong>Nikunj Handa [00:25:36]：</strong>是的。我认为我们看到的主要用例就是非常快的分类。所有 Computer Use 的演示都很惊艳、非常酷。当然，我觉得会有局限，比如让 Astra 写一段类似 JavaScript 的脚本来控制你的电脑，和让 Luna 一次只挑一个动作，这两者是不一样的。我认为它的智能水平不会达到同一层次，但也许有些 Computer Use 任务对它来说已经够用了。所以很期待看到它的进展。我在内部看到的另一个很酷的原型，是有人把它和 GPT Live 接了起来。GPT Live 就像是我们那个双向的、实时的，</p>
+<p><strong>Swyx [00:26:14]：</strong>语音</p>
+<p><strong>Nikunj Handa [00:26:14]：</strong>API。它建立在这种前端模型和后端模型的模式之上。所以 GPT Live 就像</p>
+<p><strong>Swyx [00:26:20]：</strong>思考者还是说话者</p>
+<p><strong>Nikunj Handa [00:26:21]：</strong>超快。对，就是思考者或者说说话者那套。GPT Live 是说话者，超快，非常擅长委派任务，然后你有像 Astra 这样的东西坐在后——坐在后面。但在 GPT Live 里，工具调用一直感觉非常慢。所以大家一直在拼凑这些 GPT Live 控制电脑的工具调用演示，感觉就是敏捷、自然得多。所以我挺期待看到大家用 Live 和 Decisions API 上的 Luna 能做出什么。那会相当令人兴奋。是的。</p>
+<p><strong>Swyx [00:26:55]：</strong>所以我想帮大家把这件事理清楚，尤其是从产品侧来看，因为很多人都在推出 Jev 的克隆版。过去两周大概出现了 100 个。</p>
+<h2>决策模型有何不同</h2>
+<p><strong>Nikunj Handa [00:27:01]：</strong>哦，真的吗？太厉害了。</p>
+<p><strong>Vibhu [00:27:03]：</strong>头几天就有。</p>
+<p><strong>Swyx [00:27:04]：</strong>但问题是，他们可以克隆一个 Jev API，说白了就是结构化输出</p>
+<p><strong>Nikunj Handa [00:27:09]：</strong>对</p>
+<p><strong>Swyx [00:27:09]：</strong>而这是 OpenAI 最先做出来的。</p>
+<p><strong>Nikunj Handa [00:27:10]：</strong>对。</p>
+<p><strong>Swyx [00:27:11]：</strong>对吧？所以我觉得，咱们来帮大家理清楚，什么是决策模型，就</p>
+<p><strong>Nikunj Handa [00:27:16]：</strong>对</p>
+<p><strong>Swyx [00:27:17]：</strong>就，什么才是重要的？不只是延迟，也不只是结构化输出，对吧？因为我完全可以把 Luna 拿来——决策模型的定价和 Luna 一样，对吧？</p>
+<p><strong>Nikunj Handa [00:27:26]：</strong>嗯哼。</p>
+<p><strong>Swyx [00:27:27]：</strong>把推理关掉，然后加上结构化输出。这样我就有 Jev 了吗？你知道的，并没有，对吧？而这才是</p>
+<p><strong>Nikunj Handa [00:27:33]：</strong>对</p>
+<p><strong>Swyx [00:27:33]：</strong>这才是真正的</p>
+<p><strong>Vibhu [00:27:34]：</strong>这里面有一种置信度。</p>
+<p><strong>Swyx [00:27:35]：</strong>对。</p>
+<p><strong>Nikunj Handa [00:27:36]：</strong>对，完全同意。我觉得，我们的做法是。我们并没有为此训练一个新模型。</p>
+<p><strong>Swyx [00:27:40]：</strong>对。</p>
+<p><strong>Nikunj Handa [00:27:40]：</strong>我们完全是基于现有的同一套 Luna 权重来构建的。</p>
+<p><strong>Swyx [00:27:44]：</strong>哦。</p>
+<p><strong>Nikunj Handa [00:27:44]：</strong>所以没错。这其实就是 Luna。在此基础上，你要做的是加约束。结构化输出是其中很大一部分。你实际上是在优化推理栈，让 TTFD 变得非常快。而且因为你可以有多个问题，你要做的就是基本上并行运行它们，</p>
+<p><strong>Swyx [00:28:05]：</strong>作为一个批次。</p>
+<p><strong>Nikunj Handa [00:28:06]：</strong>对。你把它们作为一批来运行。你——大家都在研究各种各样的推理技术，想让它尽可能快。但我要说，至少我们最初的实现和这个第一版，就是在 Luna 之上做零样本，看看效果如何。显然，你想把它放出去。这就是 OpenAI 经典的迭代式部署。先放出去，看看大家怎么想，然后我们再按需做更多模型改进。所以没错。这就是 Decisions API。</p>
+<p><strong>Swyx [00:28:38]：</strong>对。而且很明显，一个好处是你有视觉能力。他们没有视觉，对吧？</p>
+<p><strong>Nikunj Handa [00:28:42]：</strong>确实。</p>
+<p><strong>Swyx [00:28:42]：</strong>显然，Jev 自带</p>
+<p><strong>Nikunj Handa [00:28:43]：</strong>对。我们靠 Luna 免费就有了。对。</p>
+<p><strong>Swyx [00:28:45]：</strong>对。我确实觉得，你知道，有些创新听起来还在后头，如果还是同一套 Luna 权重的话，比如置信度那部分，比如校准，这是我们在播客里聊过的话题，关于基准测试的校准。因为基本上，关键在于 RLHF 会让你向用户想听的东西坍缩。</p>
+<h2>校准、架构，以及开放的研究问题</h2>
+<p><strong>Nikunj Handa [00:29:03]：</strong>对。</p>
+<p><strong>Swyx [00:29:03]：</strong>但并不是真正的置信度有多少。</p>
+<p><strong>Nikunj Handa [00:29:06]:</strong> 是的。是的，完全同意。我很想看看它会怎么发展。也许会有，比如。这些可能会是，比如，我们可能不得不，比如，去攻克的关键领域</p>
+<p><strong>Swyx [00:29:15]:</strong> 是的</p>
+<p><strong>Nikunj Handa [00:29:15]:</strong> 随着，随着未来模型的发布。但是，是的。</p>
+<p><strong>Swyx [00:29:18]:</strong> 然后在架构方面，另一个有争议的点是，显然，你——没人知道，因为 Jev 不谈这个，但有两种猜测，一是，也许用扩散模型而不是自回归。</p>
+<p><strong>Nikunj Handa [00:29:28]:</strong> 嗯嗯。</p>
+<p><strong>Swyx [00:29:29]:</strong> 但你能以自己的方式实现并行生成。然后另一个是某种机制可解释性之类的东西</p>
+<p><strong>Nikunj Handa [00:29:37]:</strong> 嗯嗯</p>
+<p><strong>Swyx [00:29:37]:</strong> 就是你，比如，分析激活值然后直接输出</p>
+<p><strong>Nikunj Handa [00:29:40]:</strong> 那会很酷</p>
+<p><strong>Swyx [00:29:41]:</strong> 权重。</p>
+<p><strong>Nikunj Handa [00:29:42]:</strong> 是的。</p>
+<p><strong>Swyx [00:29:42]:</strong> 这个，比如，你们都已经做过这方面的研究了。人们也猜测过。</p>
+<p><strong>Vibhu [00:29:45]:</strong> 这两方面都有过演示</p>
+<p><strong>Swyx [00:29:46]:</strong> 是的</p>
+<p><strong>Vibhu [00:29:46]:</strong> 两者都是。我觉得 Gemini 分享过一个 Gemini diffusion、Gemma diffusion，是 Jev 风格的输出。</p>
+<p><strong>Nikunj Handa [00:29:53]:</strong> 哦，太棒了。</p>
+<p><strong>Vibhu [00:29:53]:</strong> 而且，可解释性的人也已经，你知道，从中间层提取出可解释性，但这都是猜测。</p>
+<p><strong>Swyx [00:29:59]:</strong> 这就像，你到底想追求什么，对吧？因为你可以实现 API。每个人都能实现 API。这其实相当简单。但是，比如，还有速度，还有准确度，还有其他校准特性。</p>
+<p><strong>Nikunj Handa [00:30:11]:</strong> 嗯嗯。</p>
+<p><strong>Swyx [00:30:11]:</strong> 我不知道还有什么。</p>
+<p><strong>Nikunj Handa [00:30:13]:</strong> 是的。是的。不，完全同意。整个领域现在被开启了，这太酷了，人们会做出很多很酷的东西，大家都会互相学习。而且，是的，我对此很兴奋。</p>
+<h2>开发者接下来该构建什么</h2>
+<p><strong>Vibhu [00:30:24]:</strong> 我觉得身处平台团队，你的很多工作就是赋能构建者。</p>
+<p><strong>Nikunj Handa [00:30:27]:</strong> 嗯嗯。</p>
+<p><strong>Vibhu [00:30:28]:</strong> 你觉得人们应该用 Decisions API 以及 Computer Use agents 构建什么？有没有你一直在内部构建、并且认为在新变化之后真正被打开的东西？</p>
+<p><strong>Nikunj Handa [00:30:39]:</strong> 是的。好，让我想想。Decisions API，内部用例一直挺明显的。比如，用户运营团队当时，比如，马上就扑上来了。我们当时想，“我们得把所有支持工单都分类。”还有什么来着？显然，还有，比如，那些非常酷的 GPT Live 演示。我确信，比如，Codex 应用团队可能会，比如，接手这个并试着做点酷的东西。所以，你知道，比如，这整件事大概是一周前开始的，所以，比如，还非常早期，而且</p>
+<p><strong>Swyx [00:31:06]:</strong> 哦，一周。</p>
+<p><strong>Nikunj Handa [00:31:07]:</strong> 我们很兴奋。是的。是的，差不多。</p>
+<p><strong>Vibhu [00:31:08]:</strong> 在评估方面有过很大的推动，LLM 作为评判者，在那里实现非常低的延迟。
+</p><p><strong>Nikunj Handa [00:31:13]:</strong> 对。是的。那会很有意思，值得一看。然后，有了 Agents API，我们基本上就是有一堆第一方产品，比如 OpenAI 内部完全基于它构建的产品。我们刚发布的 Codex 安全相关的东西就完全构建在 Agents API 之上。我们还有那种——我们今天要推出一个类似会议类的产品。</p>
+<h2>Agents API 与 OpenAI 的第一方产品</h2>
+<p><strong>Swyx [00:31:40]:</strong> 嗯嗯。</p>
+<p><strong>Nikunj Handa [00:31:40]:</strong> 我记得好像有个演示。你还记得 Sam 展示的那个插件扩展吗？当时有个演示，比如你在日历里，可以把自己的会议笔记</p>
+<p><strong>Swyx [00:31:51]:</strong> 就像，直接放进一个</p>
+<p><strong>Nikunj Handa [00:31:52]:</strong> 流入你的空间里</p>
+<p><strong>Swyx [00:31:52]:</strong> 就像 Google Docs 那种东西。</p>
+<p><strong>Nikunj Handa [00:31:53]:</strong> 对。</p>
+<p><strong>Swyx [00:31:54]:</strong> 对吧？</p>
+<p><strong>Nikunj Handa [00:31:54]:</strong> 所以那——所有这些东西都完全构建在 Agents API 之上。是的，我就是很期待看到。我们刚把它推出来，看看大家会在上面构建什么。</p>
+<p><strong>Vibhu [00:32:04]:</strong> 我觉得你展示得非常好。整个编辑空间、页面、协作、添加你的点。内容很多，所以</p>
+<p><strong>Nikunj Handa [00:32:12]:</strong> 是的</p>
+<p><strong>Vibhu [00:32:12]:</strong> 人们可以从中获得很多灵感。</p>
+<p><strong>Nikunj Handa [00:32:14]:</strong> 对。用 Astra 都能实现，你知道的。现在事情发展得太快了。就像</p>
+<p><strong>Swyx [00:32:19]:</strong> 是的</p>
+<p><strong>Nikunj Handa [00:32:19]:</strong> 人们从想法到执行的速度快得惊人。</p>
+<p><strong>Swyx [00:32:23]:</strong> 有没有什么是你希望人们重点关注、给你反馈的？比如，什么——你知道，也许你只是把它放出来，然后你希望——就像有个岔路口，你希望开发者帮你决定。</p>
+<h2>Responses API 性能与长时缓存</h2>
+<p><strong>Nikunj Handa [00:32:35]:</strong> 所以我觉得 Agents API 和 Decisions API，它们是我们最新的产品。非常希望得到关于它们的任何反馈，以便确定它们的发展方向。在这里，我们对 Responses API 非常开放，它算是我们这里的主力。现在真的非常专注于性能，性能主要体现在两个方面。第一就是延迟。我们一直在重写整个 Responses API 技术栈，让它从 TTFT 角度、DVD 角度尽可能快。所以这——这仍然是我们关注的主要领域。第二件我们一直在努力做的事，就是真正深入缓存，尤其是针对这些个人 agent，它们基本上就是一个线程一直不停地跑下去。我们一直在努力提升缓存的水平。我们现在提供 30 分钟内缓存命中的保证。实际上，我们——针对其中一个用户，我们刚推出了一个长得多的缓存窗口。所以我们提供 12 小时的缓存保证，让你能获得有保障的缓存命中，用于</p>
+<p><strong>Swyx [00:33:40]:</strong> 那是公开 API 吗？</p>
+<p><strong>Nikunj Handa [00:33:42]:</strong> 还不是。那还在预览阶段。</p>
+<p><strong>Nikunj Handa [00:33:43]:</strong> 我们会尽量尽快把它推给所有人。不过，你只需要为缓存写入多付一点点钱，我们就能保证缓存读取在更长的时间内有效。所以，即使比如你的 instinct 线程，你在上面做了些操作，然后三四个小时后再回来，你仍然能获得缓存的性能优势。而且推出了</p>
+<p><strong>Vibhu [00:34:04]:</strong> 而且你用新模型把成本也降了不少，对吧？</p>
+<p><strong>Nikunj Handa [00:34:07]:</strong> 哦，是的。没错。</p>
+<p><strong>Vibhu [00:34:08]:</strong> 大概便宜了 25%，所以</p>
+<p><strong>Nikunj Handa [00:34:08]:</strong> 是的，通过降低缓存读取成本，没错。</p>
+<h2>缓存预热与高性价比的 Agent 线程</h2>
+<p><strong>Vibhu [00:34:10]:</strong> 对于开发者来说，他们应该实现</p>
+<p><strong>Nikunj Handa [00:34:13]:</strong> 是的</p>
+<p><strong>Vibhu [00:34:13]:</strong> 因为这样会便宜得多。</p>
+<p><strong>Nikunj Handa [00:34:14]:</strong> 是的。是的。就是在构建应用时要非常有缓存意识，并使用我们的 prompt 诊断或缓存诊断工具来弄清楚哪里出了问题。所以缓存这部分真的非常重要。是的，我还想谈谈预热。我们现在在 API 里已经有了。所以，如果你知道，“嘿，我将会得到一个缓存，”——抱歉，“我将会得到这个 prompt。我只想预热缓存，现在就支付缓存写入费用，然后让它在接下来的 30 分钟内随时准备好。”</p>
+<p><strong>Swyx [00:34:49]:</strong> 而且它可以生成该线程的许多实例。</p>
+<p><strong>Nikunj Handa [00:34:51]:</strong> 没错，是的。</p>
+<p><strong>Swyx [00:34:52]:</strong> 是的。</p>
+<p><strong>Nikunj Handa [00:34:52]:</strong> 你可以继续下去，拥有</p>
+<p><strong>Swyx [00:34:54]:</strong> 是的，就继续在那里摆弄 prompt</p>
+<p><strong>Nikunj Handa [00:34:55]:</strong> 大量大量的。所以，是的，我非常期待收到关于底层性能方面的反馈，这样我们可以继续让 Responses API 成为构建在 LLM 之上最高效、最可靠的方式。然后你基本上还有我们的新产品，我只是在寻求任何和所有的反馈。</p>
+<p><strong>Swyx [00:35:15]:</strong> 是的，就用它，对吧？</p>
+<p><strong>Nikunj Handa [00:35:16]:</strong> 所以是的，就用</p>
+<p><strong>Swyx [00:35:16]:</strong> 告诉我们该</p>
+<p><strong>Nikunj Handa [00:35:17]:</strong> 是的。请帮我们定义路线图。所以是的。</p>
+<p><strong>Swyx [00:35:20]:</strong> 对我来说，缓存这件事很棒，对吧？显然非常需要。但归根结底，你仍然会碰到百万 token 上下文的限制</p>
+<h2>压缩与管理百万 token 上下文</h2>
+<p><strong>Nikunj Handa [00:35:28]:</strong> 嗯嗯</p>
+<p><strong>Swyx [00:35:28]:</strong> 而且在可预见的未来这大概不会改变。</p>
+<p><strong>Nikunj Handa [00:35:31]:</strong> 嗯嗯。</p>
+<p><strong>Swyx [00:35:31]:</strong> 你仍然需要好的压缩。</p>
+<p><strong>Nikunj Handa [00:35:33]:</strong> 是的。</p>
+<p><strong>Swyx [00:35:33]:</strong> 那方面最好的实践是什么？</p>
+<p><strong>Nikunj Handa [00:35:34]:</strong> 是的。是的，完全正确。首先，OpenAI 有自己的专有压缩，comp</p>
+<p><strong>Swyx [00:35:40]:</strong> 它在</p>
+<p><strong>Nikunj Handa [00:35:41]:</strong> 压缩。</p>
+<p><strong>Vibhu [00:35:42]:</strong> 压缩。</p>
+<p><strong>Swyx [00:35:42]:</strong> 它在 agents 里。</p>
+<p><strong>Vibhu [00:35:43]:</strong> 它在 API 里。</p>
+<p><strong>Nikunj Handa [00:35:43]:</strong> 是的。</p>
+<p><strong>Vibhu [00:35:43]:</strong> Agents API。</p>
+<p><strong>Nikunj Handa [00:35:44]:</strong> 是的。</p>
+<p><strong>Swyx [00:35:44]:</strong> 你来替我们决定，对吧？</p>
+<p><strong>Nikunj Handa [00:35:45]:</strong> 对，没错。所以在 Agents API 里，它是内置在 harness 里的。而如果你用的是 Responses API，大概有两种做法。一种是我们所说的服务端压缩，就是你直接告诉 Responses API，一旦 token 达到这个阈值，就自动压缩，然后，呃，减少正在使用的上下文。第二种就是 /compact，如果你想完全掌控的话。所以你可以在任何时候 /compact</p>
+<p><strong>Swyx [00:36:15]:</strong> 我明白你的意思</p>
+<p><strong>Nikunj Handa [00:36:15]:</strong> 用你自己的逻辑来决定什么时候，比如</p>
+<p><strong>Swyx [00:36:17]:</strong> 这又不是 AGI。</p>
+<p><strong>Nikunj Handa [00:36:18]:</strong> 它。</p>
+<p><strong>Swyx [00:36:18]:</strong> 这又不是 AGI。</p>
+<p><strong>Nikunj Handa [00:36:19]:</strong> 对。对。</p>
+<p><strong>Swyx [00:36:20]:</strong> 对。但它，我是说</p>
+<p><strong>Nikunj Handa [00:36:20]:</strong> 对</p>
+<p><strong>Swyx [00:36:20]:</strong> 这就是手动接管。</p>
+<p><strong>Nikunj Handa [00:36:21]:</strong> 对，这就是手动的方式。而且，我不知道，但很多大型编程 agent 都喜欢手动来做。我是说，如果你看看 Codex 在开源的 Codex harness 里的实现，你能看到他们用 /compact 来做。而且，顺便说一句，我们还在研究新的压缩技术。其中一些你会在 Codex harness 里看到。比如，它已经在 Codex harness 里实现了。所以，它们是一些基于文件的系统，我们正在试验。所以是的，压缩这块也有很多很酷的东西在推进。</p>
+<p><strong>Swyx [00:36:57]:</strong> 酷。我们快没时间了。</p>
+<p><strong>Nikunj Handa [00:36:59]:</strong> 好的。</p>
+<p><strong>Swyx [00:36:59]:</strong> 我觉得你已经聊了很多关于性能的内容，也聊了很多你们正在推出的新 API。关于这个平台的未来，你还有什么其他感兴趣的方向可以给我们透露一下吗？</p>
+<h2>更高层次的平台原语与 AI 云</h2>
+<p><strong>Nikunj Handa [00:37:13]:</strong> 我们显然是非常底层的。比如，我之前在 Stripe 工作，在 Stripe，很多玩法就是在核心支付原语之上构建这些更高层次的原语和产品。我一直很好奇在 AI 里做这件事的最佳方式是什么。我觉得我们有过几次尝试。我们很早以前推出过 assistance API，但并不是很合适。我们有点沿着这个 Agents API 的方向走，它给你 codex harness，但到底该给多少灵活性才合适？这是个开放的问题。比如我们该如何设置 memory walls，以及所有这些更高层次的 API 对象，来抽象掉更多存储概念。这就像是一整个，有一整个空间，我非常好奇我们该如何设计。我觉得 AI 里很多事情就是有一个底层 API 原语，看一个示例 harness，然后让你的编程 agent 去实现它。但我们要把其中多少构建进 API，这是我一直在思考的问题。</p>
+<p><strong>Swyx [00:38:24]:</strong> 对。</p>
+<p><strong>Nikunj Handa [00:38:24]:</strong> 所以我不知道大家对此有没有想法。如果谁有想法，会非常有意思，我很想听听。</p>
+<p><strong>Swyx [00:38:30]:</strong> 对。我一直会回到的那个类比，我们就以此收尾吧，就是，你在构建一朵 AI 云，对吧？</p>
+<p><strong>Nikunj Handa [00:38:35]:</strong> 嗯哼。</p>
+<p><strong>Swyx [00:38:35]：</strong>就像，这是 Sam 一年前说过的话</p>
+<p><strong>Nikunj Handa [00:38:38]：</strong>嗯嗯</p>
+<p><strong>Swyx [00:38:38]：</strong>在那里，而你，这几乎就像你在做 AWS 的发明，你必须做，好吧，这是 EC2</p>
+<p><strong>Nikunj Handa [00:38:45]：</strong>是的</p>
+<p><strong>Swyx [00:38:45]：</strong>而这是 S3，这就像是。但你在做的是这些东西各自的 AI 原生版本。</p>
+<p><strong>Vibhu [00:38:48]：</strong>有很多类比，所以你在为你已知会用到的东西预热缓存</p>
+<p><strong>Nikunj Handa [00:38:53]：</strong>是的。</p>
+<p><strong>Vibhu [00:38:53]：</strong>而且很好的一点是，这一切都对开发者开放</p>
+<h2>结语</h2>
+<p><strong>Nikunj Handa [00:38:56]：</strong>嗯嗯</p>
+<p><strong>Vibhu [00:38:56]：</strong>因为它开辟了你可以构建新事物的方式。</p>
+<p><strong>Nikunj Handa [00:38:59]：</strong>是的，完全同意。</p>
+<p><strong>Swyx [00:39:00]：</strong>好的。</p>
+<p><strong>Vibhu [00:39:00]：</strong>太棒了。那么</p>
+<p><strong>Swyx [00:39:01]：</strong>就这些了。</p>
+<p><strong>Nikunj Handa [00:39:01]：</strong>谢谢大家。</p>
+<p><strong>Vibhu [00:39:02]：</strong>谢谢。</p>
+<p><strong>Nikunj Handa [00:39:02]：</strong>是的。</p>
+<p><a href="https://www.latent.space/p/devday-2026">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

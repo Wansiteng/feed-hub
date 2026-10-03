@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>硅开始设计硅——AI 如何被用于芯片制造，从 EDA 工具到 OpenAI 的 Jalapeño</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">硅开始设计硅——AI 如何被用于芯片制造，从 EDA 工具到 OpenAI 的 Jalapeño</h1>
+<p><small>Tom&#x27;s Hardware · 评分 7/10：AI 用于芯片设计的深度长文，含 EDA 与 OpenAI 项目<br/>原标题：Silicon is starting to design silicon — how AI is being used in chipmaking, from EDA tools to OpenAI&#x27;s Jalapeño and beyond</small></p>
+<p><strong>要点</strong></p><ul><li>Architect Labs 宣称设计出几乎完全由 AI 开发的芯片</li><li>OpenAI 的 Jalapeño 芯片从设计到流片仅用 9 个月</li><li>AI 辅助设计使 BF16 乘法器性能提升 56%</li></ul>
+<hr/>
+<p>8月下旬，Architect Labs 声称<a href="https://architectlabs.com/blog/redwood">其设计了一款芯片</a>，几乎完全由 AI 开发，这是业界首创的成就。AI 已被用于优化平面布局、布局布线、验证以及半导体开发的其他阶段。生成式 AI 可以帮助工程师处理 RTL 代码，而新兴的 agentic 系统可以操作<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-is-starting-to-out-design-chip-engineers-in-narrow-areas-as-llms-accelerate-software-chip-design-tool-development-there-is-still-a-lot-of-human-guidance-says-berkley-researcher">电子设计自动化（EDA）工具</a>，分析结果、识别问题、修改设计，并以越来越少的人工干预重复这一过程。与此同时，人类工程师仍然定义和开发架构，并做出决定芯片功能和运作方式的基本设计决策。</p>
+<p>这形成了一个奇特的反馈循环。当今的 AI 模型运行在由人类工程师设计的处理器上，而 AI 的辅助日益增多；这些模型随后可以帮助设计更强大的处理器，用于下一代 AI 系统。随着 EDA 供应商和半导体公司让 AI 控制设计过程中越来越大的部分，行业正逐渐从人类使用 AI 工具设计芯片，转向 AI 系统参与设计其继任者将运行的硬件。</p>
+<p>如今机器真的能设计机器吗？大概还不能。但未来它们能做到吗？这是一个具有重要影响的大问题——而工程师们思考这个问题的时间比你想象的要长。</p>
+<h2>AI 在芯片开发中的简史</h2>
+<p>Cadence、Synopsys 和 Siemens EDA，这些 EDA 软件的领先开发者，以及 Ansys——领先的仿真软件设计者——在 2020 年代初就推出了 AI 增强版的工具，那时生成式 AI 热潮还未席卷全球。</p>
+<figure><div><div><p><img alt="Synopsys DSO.ai chip PPA tool" height="576" src="https://cdn.mos.cms.futurecdn.net/uQvoHJZv4SDdRi65A6JHFa-1920-80.jpg" width="1024"></p></div></div><figcaption><span>（图片来源：Synopsys）</span></figcaption></figure>
+<p>第一代 AI 增强的 EDA 软件主要使用机器学习（ML）和强化学习（RL）来解决定义明确的优化问题。给定现有设计、一组约束和特定目标，这些工具可以探索众多实现选项，以优化布局布线和功耗、性能与面积（PPA），同时缩短开发时间。本质上，AI 可以找到更好的方式来实现设计，但设计本身及其目标仍由工程师定义。</p>
+<p>这些工具的关键优势之一是能够从之前的运行中学习，并利用积累的数据指导后续的设计空间探索，这可以减少满足 PPA 目标所需的迭代次数，在某些情况下，还能产生使用传统方法需要更多工程时间才能得到的结果。然而，这些工具的自主性有限，因为工程师定义约束、配置流程、运行单个工具、分析其输出，并决定下一步尝试什么。AI 加速或优化芯片开发的特定阶段，但人类仍然控制着整体设计流程。而随着新一代工具的出现，这种情况正在改变。</p>
+<p>最新的 AI 增强型 EDA 工具雄心要大得多。生成式 AI 可以编写或修改 RTL 与验证代码、分析报告、识别潜在故障点，甚至提出修复建议。与此同时，新兴的 agentic 系统能够操作多种 EDA 工具，并在极少人工干预的情况下执行一系列工程任务。这样的 agent 可以分析结果、修改设计或其参数、启动另一次仿真或实现运行、评估结果，并重复这一过程，直至达到既定目标。因此，AI 正逐渐从优化 EDA 工具内部的单个步骤，转向自动化芯片开发工作流本身的一部分。</p>
+<h2>从大爆炸到架构</h2>
+<p>2023 至 2024 年间，Cadence 和 Synopsys 均宣布，已有数百款芯片设计借助其 AI 增强的 Cadence.ai DSO.ai/VSO.ai/TSO.ai 工具完成。此外，领先的高科技公司也披露了它们如何利用 AI 完成项目的细节。然而，把 Google、Nvidia、OpenAI 和 Architect Labs 归为一类并不恰当，因为它们代表了 AI 参与芯片开发的不同程度。</p>
+<figure><div><div><p><img alt="Google's Alphachip TPU" height="1080" src="https://cdn.mos.cms.futurecdn.net/BmCLctM6aSnQLJTGKsBWRJ-1920-80.jpg" width="2560"></p></div></div><figcaption><span>（图片来源：Google Deepmind）</span></figcaption></figure>
+<p>Google 是最早宣布使用 AI 开发其 AI 加速器的高科技巨头之一，但它的做法似乎最为保守。Google 的 <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-says-ai-cuts-10-month-eight-engineer-gpu-design-task-to-overnight-job-company-is-still-a-long-way-from-ai-designing-chips-without-human-input">AlphaChip 主要将</a>强化学习用于物理布局规划：它负责放置电路模块并优化布局，但并不会发明整个设计或架构本身。Google DeepMind 在 2024 年表示，AlphaChip 已用于此前三代 TPU，这意味着 Google 在工具方面远远领先于整个 EDA 行业。（此后该公司未再详细披露 AlphaChip 的进展。）</p>
+<p>Nvidia 更值得关注，因为其内部 AI 系统倾向于自动化传统上由硬件工程师完成的工作。关键区别在于，Nvidia 基于自家的 RTL、文档和独特积累的工程知识训练专用模型，这是商用 EDA 供应商无法获取的。这使 Nvidia 成为一个典型案例：芯片设计公司将其专有 GPU 以及近期<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-expects-to-sell-usd20-billion-worth-of-vera-rubin-hardware-this-quarter-would-account-for-20-percent-of-data-center-revenue-its-fastest-ramp-in-company-history"> AI 加速器</a>、CPU、DPU 和网卡背后的工程数据转化为 AI 的训练数据。尽管如此，Nvidia 自身在其自动化与自主芯片设计之间划出了明确界限。</p>
+<p><a href="https://www.tomshardware.com/tech-industry/semiconductors/openai-says-its-jalapeno-chip-beats-nvidias-gb300-in-first-published-benchmarks">OpenAI 的 Jalapeño </a>大概是我们目前拥有的最强真实流片案例。OpenAI 表示，AI 直接参与了实现、设计空间探索、验证循环和算术电路优化，使该公司得以在九个月内从初始设计走到流片。在 Hot Chips 上，OpenAI <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/hot-chips-2026-openais-jalapeno-ai-asic-unpacked-accelerator-developed-using-ai-achieves-efficiency-and-throughput-gains-against-power-hungry-blackwell">披露了一些具体的 PPA 优势</a>：与人工基线相比，AI 辅助设计将 BF16 乘法器提升了 56%，FP4 点积模块提升了 21%，FP32 累加器提升了 10%，同时将矩阵和 SIMD 单元的面积分别减少了 10% 和 8%。</p>
+<p>OpenAI 并未声称是 AI 发明了 Jalapeño 的架构，因此人类确实仍对其负责。但 AI 被广泛用于将该架构转化为硅片并进行优化……这就引出了 Architect Labs。</p>
+<p>确实，<a href="https://architectlabs.com/blog/redwood">Architect Labs 的 Redwood</a> 有着本质上的不同。两位人类架构师定义了规格，随后 Architect Labs 表示其 AI 自主生成并验证了逻辑、生成了 RTL、对其进行了验证，并产出了固件。更锦上添花的是，AI 还协助了软件开发，包括驱动程序和内核。与此同时，与 Google、Nvidia 和 OpenAI 不同，该公司明确将其系统描述为执行机器学习协同设计的系统，并表示它可以探索架构，不过并未详细说明。</p>
+<p>Redwood 在不到两周内就被“产出”，并能运行十亿级以上参数的模型，但有一个巨大的前提：它尚未流片。它从未真正作为 ASIC 生产出来；该加速器运行在 FPGA 上，而其所宣称的相比 Nvidia Jetson Orin Nano 的 3.4 倍每瓦性能优势，是基于一个预计采用三星 8LPP 工艺的设计。</p>
+<h2>结语</h2>
+<p>就在几年前，半导体开发中的 AI 在很大程度上还是一种优化技术，帮助工程师找到更好的方式来实现人类创造的设计。如今，它可以生成 RTL、验证设计、操作 EDA 工具，甚至探索架构选择，尽管最终建造什么仍由人类定义。</p>
+<p>因此，我们距离机器设计机器已经近了许多，但还远未达到奇点。目前，芯片<em>确实</em>在帮助设计它们的后继者。但它们还远未到决定这些后继者<em>应该</em>是什么的程度。</p>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://www.tomshardware.com/tech-industry/semiconductors/the-state-of-agentic-ai-in-chip-design-tools-in-2026-cadence-synopsys-and-siemens-all-pitch-autonomous-engineers">2026 年芯片设计工具中的 agentic AI 现状</a><small> · Tom&#x27;s Hardware</small></li></ul>
+<p><a href="https://www.tomshardware.com/tech-industry/semiconductors/silicon-is-starting-to-design-silicon-how-ai-is-being-used-in-chipmaking-from-eda-tools-to-openais-jalapeno-and-beyond">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

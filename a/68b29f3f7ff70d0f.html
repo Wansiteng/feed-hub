@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenAI 为何缺席英伟达终结失控 AI agent 的行业行动</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenAI 为何缺席英伟达终结失控 AI agent 的行业行动</h1>
+<p><small>TechCrunch · AI · 评分 6/10：涉及 agent 安全平台与 OpenAI 立场，有实质信息<br/>原标题：Here’s why OpenAI is absent from Nvidia’s industry-wide effort to end rogue AI agents</small></p>
+<p><strong>要点</strong></p><ul><li>英伟达发起超100家公司的Open Agent Safety Platform联盟，OpenAI缺席</li><li>OpenAI未公开支持，但正与英伟达合作开发沙箱软件OpenShell</li><li>平台硬件监控依赖英伟达专有Sentry和BlueField-4，仅限英伟达硬件</li></ul>
+<hr/>
+<p>周一，Nvidia <a href="https://nvidianews.nvidia.com/news/open-agent-safety-platform">宣布</a><a href="https://techcrunch.com/2026/09/28/nvidia-launches-new-platform-for-reining-in-rogue-ai-agents/">成立一个由100多家公司组成的新联盟</a>，致力于解决失控的AI agent问题，但有一个名字明显缺席：OpenAI。</p>
+<p>虽然OpenAI并不是唯一没有加入的大型科技公司——Amazon、Google和Apple也没有加入——但它是最显眼的缺席者，尤其是因为Anthropic是支持者。</p>
+<p>然而，尽管OpenAI没有公开承诺加入该联盟（这大概意味着每家公司都将使用和销售某种版本的技术，并向项目回馈功能），但OpenAI的一位发言人告诉TechCrunch，该公司支持Nvidia的工作。</p>
+<p>这项新举措被称为Nvidia的Open Agent Safety Platform，是Nvidia试图将其自研且基本开源的AI agent安全技术推广到整个AI生态系统的尝试，直接回应了Anthropic和OpenAI等前沿实验室披露的各类持续发生的失控AI agent事件。</p>
+<p>Nvidia CEO黄仁勋一直称失控AI是<a href="https://techcrunch.com/2026/09/15/we-dont-need-ai-regulation-leave-safety-to-us-nvidias-jensen-huang-says/">一个普通的工程问题</a>，可以像任何其他技术问题一样解决。Open Agent Safety Platform正是黄仁勋言行一致的体现。</p>
+<p>OpenAI正在与Nvidia合作开展agent安全方面的工作，包括该平台关键软件之一：OpenShell。OpenShell是一款开源软件，可创建专门用于防止agent逃逸的沙箱。</p>
+<p>虽然OpenAI没有像其劲敌Anthropic那样直接成为该倡议的支持者仍然令人好奇，但这家前沿AI实验室支持这项努力的事实是个好消息。</p>
+<p>这是因为OpenAI尤其可能从这项技术中受益，至少Hugging Face创始人兼CEO Clem Delangue是这么认为的（他本月早些时候刚以<a href="https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/">129亿美元将公司卖给了Nvidia</a>）。</p>
+<p>“据我们所知（仅供参考，我们需要更多透明度！），如果<a href="https://x.com/OpenAI">@OpenAI</a>在他们攻击我们的自家agent上运行了这个，他们本会在我们之前就抓住它们！”Delangue发帖说。</p>
+<p>Delangue表示，Hugging Face已经为Open Agent Safety Platform贡献了一项功能，可以检测并关闭那些正在以未经授权的方式使用允许访问的网站的AI agent。例如，如果agent绕过其护栏，通过在开源代码托管仓库中互相留言来协调攻击，该功能就会采取行动。</p>
+<p>这正是OpenAI所说的其失控agent群协调攻击Hugging Face的方式之一。</p>
+<p>但包括OpenAI在内的一些大牌公司可能不愿公开承诺支持Nvidia努力的另一个原因是：要使用完整系统，有一个硬件组件并非开源软件，仍属专有，且只能部署在Nvidia的硬件上。</p>
+<p>Open Agent Safety Platform不仅提供沙箱。它还在硬件层强制执行agent行为，agent无法察觉自己正被监视。（一些AI模型和agent在知道自己被监视时会<a href="https://arxiv.org/abs/2605.15034">撒谎并假装遵守规则</a>。）</p>
+<p>硬件监控部分依赖于Nvidia Sentry，这是一项专有功能，运行在名为BlueField-4数据处理单元的Nvidia专用处理器上。Nvidia承诺，Sentry会从这些处理器持续监控agent行为，并能立即关闭agent。</p>
+<p>虽然硬件方案显然是个好主意，但这也意味着 Open Agent Safety Platform 并非纯粹的开放源代码项目。它让 Nvidia 得以确保该方案始终能在自家硬件上运行得最好。事实上，Nvidia 表示，对于那些已经在其最新硬件上运行工作负载的用户来说，部署 Open Agent Safety Platform 只是一次简单的软件更新。</p>
+<p>尽管如此，包括 Arm 和 Intel 在内的 Nvidia 竞争对手都已签约成为 Open Agent Safety Platform 的支持者，因为其沙箱 OpenShell 可以修改以适配其他芯片和硬件。而且 Nvidia 正在分享整套软硬件方案的参考设计。</p>
+<p>这一切都让 OpenAI 的缺席显得更加引人注目。</p>
+<p>显然，OpenAI 将 AI 安全视为摆脱其主要投资者 Nvidia、实现独立的一个机会，也是展示自身领导力的契机。即便正是 OpenAI 的 AI agent 曾因 <a href="https://techcrunch.com/2026/08/26/openai-releases-its-official-report-on-the-hugging-face-breach/">Hugging Face 事件而令业界惊恐</a>，这一点依然成立。</p>
+<p>例如，该公司正在为其研究和产品开发自己的防护措施，并<a href="https://techcrunch.com/2026/09/28/openai-still-doesnt-seem-to-have-a-handle-on-all-of-its-rogue-ai-activity/">对外披露其发现的最严重事件。</a>与此同时，OpenAI 拥有自己的 AI 网络安全联盟用于信息共享，名为 <a href="https://openai.com/the-defense-factory/">Defense Factory</a>。签约支持这一理念的包括 Anthropic、Amazon Web Services 和 Google——其中许多名字都没有签约支持 Nvidia 那种以技术为导向的方案。</p>
+<p>而且，说实话，一定程度的恐惧对生意是有好处的。OpenAI 正忙于将网络安全打造成一项企业级产品，从自家面向网络安全的模型 Daybreak，到不断壮大的合作伙伴网络，企业可以聘请这些合作伙伴来实施 AI 安全。</p>
+<p><a href="https://techcrunch.com/2026/09/29/heres-why-openai-is-absent-from-nvidias-industry-wide-effort-to-end-rogue-ai-agents/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

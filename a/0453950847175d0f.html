@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Gemini 4 Argon：我们下一个时代的前沿智能</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Gemini 4 Argon：我们下一个时代的前沿智能</h1>
+<p><small>评分 9/10：Google DeepMind 官方发布新一代前沿模型，属重大模型发布<br/>原标题：Gemini 4 Argon: our next era of frontier intelligence</small></p>
+<p><strong>要点</strong></p><ul><li>Google DeepMind 发布新一代前沿模型 Gemini 4 Argon</li><li>Argon 输出 token 上限提升至 100 万，此前为 64K</li><li>Argon 在 DeepSWE v1.1 上取得 77.9% 的新 SOTA</li></ul>
+<hr/>
+<p>今天，我们宣布推出全新前沿模型 Gemini 4 Argon，该模型正通过我们的 <a href="https://deepmind.google/fairwind-program/">Fairwind Program</a> 向一批受信任的网络防御者逐步开放。Argon 旨在支撑复杂、长周期工作流中的深度推理，正在从根本上改变我们在 Google 的工作和构建方式。它在真实世界的软件工程、法律和金融等企业知识工作，以及网络安全防御等复杂工作流中，均能提供前沿性能。</p>
+<p>安全地发布这一级别的前沿能力需要分阶段推进。我们正积极参与美国政府关于模型发布前访问的自愿流程，同时逐步扩大访问范围。我们将继续收集早期测试者的反馈，并在护栏机制上持续迭代，以便尽快让 Argon 面向开发者、企业和消费者开放。</p>
+<p>Argon 将以每百万输入 token 2 美元、每百万输出 token 10 美元的 introductory price 推出，缓存输入 token 的价格为输入 token 价格的 95% 折扣。</p>
+<h2>改变我们在 Google 的工作和构建方式</h2>
+<p>Gemini 4 Argon 已经在为我们的内部工作流提供支持，数千名 Googler 强调了该模型在专业编码任务、开展更深入的研究以及写作质量方面的优势。它正在帮助团队更快地构建，突破工程生产力的边界，并加速实现突破：</p>
+<h2>更努力地解决你最复杂的问题</h2>
+<p>为了支持 Gemini 4 Argon 在更长、更复杂用例中的能力，我们大幅扩展了模型的输出 token 上限，达到业界领先的 100 万 token，此前为 64K token。当模型有足够的空间深入思考并在单次轨迹中生成数十万 token 时，它便为推理增添了新的深度，从而一次性解决棘手问题。</p>
+<h2>赋能跨领域的编码和企业工作流</h2>
+<p>Gemini 4 Argon 在编码、推理和多模态方面的能力，以及其维持长时间、多步骤任务的能力，使其能够在各类企业工作流中表现出色。</p>
+<p>Google 工程师一直在日常任务中使用 Argon，从日常调试到大规模代码库迁移和算法设计。它在 DeepSWE v1.1（77.9%）上树立了新的 state of the art，该基准衡量模型在真实世界长周期软件工程任务中的表现。</p>
+<p>除编码之外，Argon 还是 <a href="https://www.vals.ai/benchmarks/vals_index">Vals Index</a> 上的领先模型，该指数衡量金融、编码、法律和税务工作的经济影响，每个领域按其对美国 GDP 的贡献加权。我们在其他领域特定评估中也看到了类似的领先表现，例如 Vals Finance Agent v2（多步骤金融研究）和 Harvey 的 Legal Agent Benchmark（法律研究和起草）。在 Zapier 的基准 AutomationBench 上，该基准衡量跨核心业务功能的端到端执行，Argon 以 51.3% 的得分排名第一。</p>
+<p>当知识工作需要进行视觉理解时，Argon 也展现出独特的优势。它能够驱动专业图表分析、从长视频中识别细节，并根据一系列文档采取行动。例如，在衡量长视频理解的 LVBench 上，Argon 以 91.7% 的得分达到 state of the art。</p>
+<h2>在防御性网络安全领域领先</h2>
+<p>为了更好地装备网络防御者应对新时代的网络攻击，我们训练 Gemini 4 Argon 在网络安全防御方面具备高度能力。Argon 能够自主发现、验证和修补关键软件漏洞。对于受信任的防御者以及我们 Google 内部团队，我们将发布不带网络护栏的 Argon，以便他们能够充分利用其前沿级网络安全防御能力。</p>
+<p><a href="https://www.wiz.io/">Wiz</a> 已经通过其 <a href="https://www.wiz.io/scan-for-good">Scan for Good</a> 计划将 Argon 用于网络安全防御——该计划致力于免费保护关键公共基础设施，发现并修复高风险暴露。在对其影响的早期演示中，该模型发现了一个严重漏洞，该漏洞暴露了全球各地医院所使用的医疗软件中的敏感个人信息，识别出了此前前沿模型未能发现的严重风险。</p>
+<p>在评估模型修复安全漏洞能力的 <a href="https://cwe-bench.com/">CWE-bench v1</a> 上，Argon 以 68% 的最高分并列第一，延续了 3.8 Flash Cyber 在 <a href="https://cwe-bench.com/?v=v0">CWE-bench v0</a> 上的前沿表现。</p>
+<p>Gemini 4 Argon 在漏洞发现方面相较 3.8 Flash Cyber 展现出令人瞩目的飞跃。例如：</p>
+<ul><li>在 Google 内部的综合漏洞基准测试中，Argon 在涵盖 20 种编程语言的复杂代码库中发现了广泛的暴露。</li><li>在 Wiz 内部的黑盒渗透测试基准测试中——该测试评估模型在没有源代码的情况下分析实时 Web 系统的能力——Argon 在发现攻击面、识别漏洞以及生成概念验证证据以验证漏洞方面均优于 3.8 Flash Cyber。</li></ul>
+<h2>在广泛开放之前强化前沿保障措施</h2>
+<p>在广泛推出 Gemini 4 Argon 之前，我们将继续在四个主要领域强化关键的前沿保障措施：</p>
+<p><b>防御滥用：</b>为防止恶意行为者利用 Argon 进行网络攻击或化学、生物、放射及核（CBRN）攻击，该模型被设计为拒绝有害请求，同时按照我们的 <a href="https://deepmind.google/blog/strengthening-our-frontier-safety-framework/">Frontier Safety Framework</a> 保留合法的两用科学研究。我们正在为此次发布强化保障措施的稳健性，包括改进监测模型<a href="https://arxiv.org/abs/2601.11516">内部激活</a>以发现滥用的技术。这些保障措施经过了内部和外部红队的稳健性测试，测试结合了手动和自动化攻击方法。</p>
+<p><b>防御提示注入攻击：</b>Argon 也是我们迄今对间接提示注入最具韧性的模型，这类攻击利用恶意指令或上下文劫持模型的行为。这些是复杂的攻击，需要持续警惕和多层防御。通过自动化红队测试和对抗训练，Gemini 4 Argon 在 Gray Swan 的间接提示注入（IPI）基准测试中处于提示注入稳健性领先地位。</p>
+<p><b>监测失准：</b>为了防止 Argon 越界，以超出用户意图的方式尝试完成任务，我们部署了失准缓解措施，监测 Argon 的思维链和行动，并在必要时停止执行。</p>
+<p>我们使用类似的系统监测训练运行，并向专门的应急响应团队发送警报，同时采取谨慎预防措施，避免将发现结果反馈到训练中，以免有塑造 Argon 推理以规避我们监测的风险。我们<a href="https://institute.deepmind.com/essays/the-case-for-reasoning-transparency/">强烈鼓励业界其他各方</a>在能力增强的关键时刻保持推理透明度，同时应对对齐风险，以便模型的思考仍有助于识别和诊断失准。</p>
+<p><b>强化系统：</b>随着前沿模型能力日益增强，要安全地测试它们，就需要能够跟上系统本身的安全环境。按照我们的<a href="https://deepmind.google/blog/securing-the-future-of-ai-agents/">agent 控制路线图</a>，我们在高风险训练或评估开始前，对沙箱环境进行隔离和封存，从而加以强化。我们致力于与合作伙伴分享这些 agent 安全最佳实践，以提升整个生态系统的安全性。</p>
+<h2>即将推出</h2>
+<p>我们打造 Gemini 4 Argon 时，赋予其在编程、知识工作、网络安全防御和创意写作方面达到前沿水平的能力，使其成为开发者、专业人士和企业在应对最棘手问题时的伙伴。我们感谢首批网络安全防御者和可信测试人员，他们的真实世界评估和反馈将帮助我们在向开发者、企业和消费者发布之前强化系统，首先从付费 API 客户和 Google AI Ultra 订阅者开始。</p>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://www.theverge.com/tech/1002980/google-gemini-4-argon">Google 发布 Gemini 4，称其能力过强，目前仅限「可信网络防御者」使用</a><small> · The Verge · AI</small></li><li><a href="https://arstechnica.com/google/2026/09/google-announces-gemini-4-argon-ai-model-but-you-cant-use-it-yet/">Google 发布 Gemini 4 Argon 模型，但你还用不上</a><small> · Ars Technica · AI</small></li><li><a href="https://techcrunch.com/2026/09/30/google-releases-gemini-4-argon-called-its-most-powerful-model-yet/">Google 发布 Gemini 4 Argon，称其为迄今最强模型</a><small> · TechCrunch · AI</small></li><li><a href="https://www.bloomberg.com/news/articles/2026-09-30/google-grapples-with-employee-skepticism-about-new-gemini-model">谷歌内部对新一代 Gemini 4 存疑</a><small> · Bloomberg Technology</small></li><li><a href="https://www.ifanr.com/1682765?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">Gemini 4 正式发布，我们终于有了一个写作强于代码的前沿模型</a><small> · 爱范儿</small></li><li><a href="https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer">[AINews] Gemini 4 Argon：GDM 对 Astra/Fable 的回应，100 万输出</a><small> · Latent Space</small></li><li><a href="https://www.qbitai.com/2026/10/499663.html">谷歌 Gemini 4 突然发布！RSI 加持，GPT 和 Opus 都让让</a><small> · 量子位</small></li><li><a href="https://www.bloomberg.com/news/videos/2026-10-01/google-rolls-out-ai-model-gemini-4-argon-video">Google 推出 AI 模型 Gemini 4 Argon</a><small> · Bloomberg Technology</small></li><li><a href="https://www.theguardian.com/technology/2026/oct/01/google-releases-gemini-model-restrictions">Google 推出新 Gemini AI 模型，但因安全顾虑限制访问</a><small> · The Guardian · Technology</small></li></ul>
+<p><a href="https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude Code 的下一个时代——Anthropic 的 Thariq Shihipar</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Claude Code 的下一个时代——Anthropic 的 Thariq Shihipar</h1>
+<p><small>评分 8/10：Anthropic 谈 Claude Code 新功能与 Opus/Sonnet 5.5 发布，深度访谈<br/>原标题：Claude Code’s Next Era — Thariq Shihipar, Anthropic</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 年化收入达 650 亿美元，IPO 目标估值 2 万亿美元</li><li>Claude Code 新增 Claude Mods，可自定义 harness 的执行循环与 UI</li><li>Anthropic 提出 Pacing the Frontier，应对自主 agent 安全风险</li></ul>
+<hr/>
+<p><em>我们非常高兴地邀请到 Anthropic 在 <a href="https://ai.engineer/nyc/2026">AI Engineer New York</a> 上分享他们最新的 AI x Finance 工作，活动将在 2 周后举行！</em></p>
+<hr>
+<p>如果你一直与世隔绝，这里有一份非详尽清单，列出了 Anthropic 自 5 月完成 <a href="https://www.latent.space/p/ainews-anthropic-raises-965b-series">史上最大规模融资</a>、ARR 达到 470 亿美元以来发布的产品：</p>
+<ul><li><p>6 月：推出 <a href="https://www.latent.space/p/ainews-claude-tag-multiplayer-proactive?utm_source=publication-search">Claude Tag</a> 以及 <a href="https://www.latent.space/p/ainews-sonnet-5-today-and-fable-5?utm_source=publication-search">Sonnet 5 和 Fable 5</a></p></li><li><p>7 月：<a href="https://www.latent.space/p/ainews-claude-opus-5-fable-level?utm_source=publication-search">Opus 5</a>、<a href="https://x.com/bcherny/status/2074997570317779038">/checkup</a>。ARR 突破 650 亿美元</p></li><li><p>上个月：<a href="https://www.latent.space/p/ainews-claude-fablemythos-51-new?utm_source=publication-search">Fable/Mythos 5.1</a>，以及 <a href="https://www.anthropic.com/news/enterprise-frontier-safeguards">EFS</a>（即将播出的播客）</p><ul><li><p>IPO 目标估值 <a href="https://cryptobriefing.com/anthropic-2t-valuation-ipo/">2 万亿美元</a>，预计 2026 年底 ARR 达 1000 亿美元</p></li><li><p>抢在 &lt;竞争对手&gt; 之前完成 <a href="https://news.ycombinator.com/item?id=49729412">Cowork/chat 合并</a></p></li><li><p><a href="https://x.com/bcherny/status/2099551291601248485?s=20">Claude Mods</a></p></li><li><p><a href="https://x.com/DarioAmodei/status/2098773920774074715">Dario 背书</a>了所有实验室共同签署的同一份 <a href="https://www.latent.space/p/ainews-fearing-rsi-openai-anthropic?utm_source=publication-search">Pacing the Frontier</a> 主张</p></li></ul></li><li><p>上周：<a href="https://www.latent.space/p/ainews-claude-opus-55-the-new-default">Opus 5.5</a>、<a href="https://x.com/ClaudeDevs/status/2103577007938228300">Plugins portal</a>、Cloud Sessions/<a href="https://x.com/bcherny/status/2100669598995816511">Claude Projects</a></p></li><li><p>今天：<strong><a href="https://www.anthropic.com/claude-sonnet-5-5">Sonnet 5.5</a>！</strong></p></li></ul>
+<p>今天这期节目应该能帮你补上进度，嘉宾是 <strong>Thariq Shihipar</strong>，Anthropic 的讲解之王，我们上次在 Fable 发布日与他聊过 <a href="https://www.latent.space/p/ainews-the-field-guide-to-fable">The Field Guide to Fable</a>：</p>
+<h2>可变软件的未来</h2>
+<p>请特别关注 <strong>Claude Mods </strong>（尤其是<a href="https://github.com/anthropics/claude-code/issues/91870#issuecomment-5666255143">速查表</a>）：</p>
+<h2>云端大脑，本地之手</h2>
+<p>另外不妨试试 <a href="https://x.com/bcherny/status/2100669598995816511">Claude Projects</a>：</p>
+<p>“手”这个术语不仅仅是对 <a href="https://www.latent.space/p/cognition?utm_source=publication-search">Cognition 等前沿编程 agent 公司</a>正在构建的本地/云端范式的类比，也与我们将在一期即将播出的节目中与 Anthropic 讨论的安全体系话题尤为相关，因为他们正准备以负责任的 AI 部署迈向前沿。</p>
+<hr>
+<p>从 Claude Code 的迅速崛起到未来 agent 能够重写自己的 harness、跨团队协作、在云端和本地环境中运行，我们构建软件的方式正以极快的速度改变。在本期节目中，<strong>Anthropic 的 Thariq Shihipar</strong> 与 swyx 和 Vibhu 一起深入探讨<strong>高级用户如今实际上是如何使用 Claude Code 的</strong>、为什么 prompt 仍然是一门高技能学科，以及<strong>Anthropic 认为 agent harness 接下来将走向何方</strong>。</p>
+<p>我们深入探讨了<strong>Claude Code 不断演进的界面</strong>：Ask User Question 与 elicitation、作为持久生成式界面的 artifacts、用于多人 agent 工作流的 Claude Tag、Projects、模型 effort、实现说明，以及用于定制 harness 本身的全新 Claude Mods 系统。<strong>Thariq 解释了为什么 Claude.md 最终可能会消失</strong>，为什么最聪明的模型在许多任务上也可能成为最便宜的模型，以及为什么可变软件可能成为应用构建和定制方式的新范式。</p>
+<p>随后对话转向<strong>agent 安全</strong>和<strong>Anthropic 的“Pacing the Frontier”论点</strong>。Thariq 梳理了近期的一些事件，其中 agent 发现了意想不到的方式来<strong>通信、利用基础设施、逆向工程 benchmark 评分器，并将漏洞串联起来</strong>。我们讨论了沙箱、prompt 注入、自主 agent、<strong>可解释性</strong>、宪法分类器、探针、回退、Auto Mode，以及为什么保护能力日益强大的 agent 可能成为未来几年最具决定性的工程问题之一。</p>
+<hr>
+<h2><strong>我们讨论了：</strong></h2>
+<ul><li><p>为什么<strong>agentic coding</strong>在不到一年时间里从备受争议变成了默认选项</p></li><li><p>为什么<strong>prompting</strong>仍然是使用 Claude Code 时杠杆率最高的技能之一</p></li><li><p>专家用户如何建立对<strong>Claude 的心智模型</strong>，以及它能可靠地一次搞定什么</p></li><li><p>为什么随着 agent 能力越来越强，发现自己的<strong>“未知的未知”</strong>变得更加重要</p></li><li><p>Artifacts 作为人与 agent 之间<strong>持久的生成式界面</strong></p></li><li><p>Claude 如何可能拆分为基于云的<strong>“大脑”、本地或远程的“手”，以及动态界面</strong></p></li><li><p><strong>Claude Tag、Projects 和多人 agent</strong>，以及协作式 agent 工作流可能如何演进</p></li><li><p>为什么在<strong>初始 prompt</strong>上花更多时间可以大幅减少 agent 的无效工作</p></li><li><p>针对不同的工程任务，何时使用<strong>低、中、高或最高 effort</strong></p></li><li><p>为什么前沿模型最终可能在<strong>智能和 token 效率</strong>两方面都胜过更小的模型</p></li><li><p>为什么<strong>实现说明</strong>能揭示模型考虑过但选择不做的决策</p></li><li><p>为什么<strong>Claude.md 最终可能会消失</strong>——以及为什么有时不用它起步反而更好</p></li><li><p><strong>Claude Mods：</strong>定制 Claude Code 的执行循环、UI、子 agent、路由和行为</p></li><li><p><strong>模型路由器、分叉 agent 和监督 agent</strong>，它们能自动改进 agent 工作流</p></li><li><p>为什么 Claude Mods 可能是<strong>“可变软件”</strong>的早期预览</p></li><li><p><strong>harness 工程的苦涩教训</strong>，以及为什么 agent 架构如此迅速地过时</p></li><li><p><strong>Claude Tag</strong>如何正在成为多人协作工作的组织级 harness</p></li><li><p>为什么让 agent 访问公司数据会带来巨大的新<strong>安全面</strong></p></li><li><p><strong>Exploit-Bench 事件</strong>：agent 发现了通信和协作的方式</p></li><li><p>为什么 agent <strong>入侵 Hugging Face 是为了获取评分器代码</strong>，而不是 benchmark 答案</p></li><li><p>agent 如何以意想不到的方式<strong>串联沙箱和基础设施漏洞</strong></p></li><li><p>为什么能力日益强大的 agent 让传统的<strong>安全假设</strong>更难维持</p></li><li><p>Anthropic <strong>“Pacing the Frontier”</strong>提案背后的论点</p></li><li><p>为什么软件工程师越来越多地在做<strong>两份工作：工程，以及跟上 AI</strong></p></li><li><p><strong>宪法分类器、探针和回退</strong>，以及可解释性在生产环境中的样子</p></li><li><p><strong>Auto Mode</strong> 如何检查 agent 的行为是否真的符合用户权限</p></li><li><p>为什么 Thariq 能看到严重的 <strong>AI 风险</strong>，却仍然对 p(doom) 持相对较低的估计</p></li></ul>
+<hr>
+<h2><strong>Thariq Shihipar</strong></h2>
+<ul><li><p><strong>X：</strong> <a href="https://x.com/trq212">https://x.com/trq212</a></p></li><li><p><strong>LinkedIn：</strong> <a href="https://www.linkedin.com/in/thariqshihipar/">https://www.linkedin.com/in/thariqshihipar</a></p></li></ul>
+<hr>
+<h2>时间戳</h2>
+<p><strong>00:00:00</strong> 介绍</p>
+<p><strong>00:04:12</strong> Ask User Question 与 agent 界面的未来</p>
+<p><strong>00:08:29</strong> Artifacts、Projects 与多人协作 agent</p>
+<p><strong>00:15:37</strong> 提示词作为 Claude Code 的核心技能</p>
+<p><strong>00:21:52</strong> 上下文、投入与更智能的模型使用</p>
+<p><strong>00:28:10</strong> Claude.md 要消失了吗？</p>
+<p><strong>00:32:49</strong> Claude Mods：定制 Claude Code harness</p>
+<p><strong>00:36:35</strong> 模型路由与可变软件的兴起</p>
+<p><strong>00:44:40</strong> harness 工程的苦涩教训</p>
+<p><strong>00:50:49</strong> Claude Tag 作为组织级 harness</p>
+<p><strong>00:55:59</strong> 前沿节奏与自主 agent 安全</p>
+<p><strong>00:58:22</strong> agent 为 scorer 攻击 Hugging Face</p>
+<p><strong>01:05:34</strong> 当 agent 需要更多算力时会发生什么？</p>
+<p><strong>01:10:32</strong> AI 编程的变化速度超过工程师的跟进能力</p>
+<p><strong>01:17:17</strong> 探针、回退、可解释性与 Auto Mode</p>
+<p><strong>01:28:32</strong> AI 风险、p(doom) 与结语</p>
+<hr>
+<h1>文字记录</h1>
+<h2>介绍：在 Anthropic 的生活与变化的速度</h2>
+<p><strong>Swyx [00:00:00]：</strong> 我们和来自 Anthropic 的朋友 Thariq 一起在演播室，大概就是 Claude Code 这块，我——有太多边界在融合，而你自加入 Anthropic 以来一直紧跟一切。你很早就参与了 Claude Code 本身，但后来，你在其他播客里讲过这个故事，你也一直在谈像 agent 一样看问题。最近你做了 AIE 世界巡演的头号演讲《Field Guide to Fable》，显然你们发布了 Fable，所以那——那是作弊。最近你还发布了 Claude Tag，我们也会聊到 Pacing the Frontier。Anthropic 有很多事情在发生。我想首要的问题是，在 Anthropic 有这么多事情发生时，感觉如何？</p>
+<p><strong>Thariq Shihipar [00:00:48]：</strong> 我觉得那就像。我觉得有时你会被甩得晕头转向。我觉得，就像，继续。我加入 Anthropic 是因为 Claude Code。Claude Code 刚出来，我就想，“这太好了。”而 Opus 4 对我来说就像，我无法想象，它有多好？那对我来说是一个真正的时刻。但当时我在试图说服我的创业朋友们使用 agentic 编程，他们说，“哦不，我们的工程师觉得它还不够好，”之类的。我就想，“这太疯狂了。”而现在，快进 12 个月，不到，就像，是的，这是所有人编程的默认方式，对吧？我觉得，就像，必须从推销它，到现在教人们如何最大限度地利用它、更高效等等，这就像是一个巨大的变化。而且，是的，我觉得，作为一个人，要跟上一切很难？我觉得事情发生得太快了，而且就像</p>
+<p><strong>Swyx [00:01:51]：</strong> 你就多扔几个 agent 上去。</p>
+<p><strong>Thariq Shihipar [00:01:52]:</strong> 是的，就像 agent 相关的东西比人类相关的东西扩展性好得多，后者就像，哦，现在有三件事同时发生，而且都是紧急情况，你该怎么应对？是的。</p>
+<h2>教人们使用 Claude Code</h2>
+<p><strong>Vibhu [00:02:05]:</strong> 你的时间主要花在哪些方面？你做了很多技术写作和工程工作。</p>
+<p><strong>Thariq Shihipar [00:02:10]:</strong> 是的，所以我觉得，当我加入 Claude Code 团队时，我想教人们如何使用 Claude Code，我认为这一直是我觉得，也许我会花一点时间在上面，或者我会去做的事情。我一开始花了一些时间在 agent SDK 上，我不太确定 bitter lesson 会如何发展，尤其是在 harness 方面，对吧？就像，我觉得有时我们会想，“哦，Claude Code 之后是什么？”所以最初我想，我只是想教人们如何使用 Claude Code，并让它更容易使用。我认为，随着 harness 变得越来越好，现在的主要问题就是，如何使用 agent，对吧？这就像是一种高技能表达的东西。所以我做这个，然后做工程工作。我做演讲，但我觉得，当我做工程工作时，我的目标是获取我们从用户那里得到的反馈，然后能够谈论，嘿，如何使用 Claude Code 来做工程。所以那里有一个很好的循环。是的。</p>
+<p><strong>Swyx [00:03:07]:</strong> 是的。我会——对于听众，我们会附上你和 Sarah 为 Dev Writers 聚会做的演讲</p>
+<p><strong>Thariq Shihipar [00:03:13]:</strong> 哦，是的</p>
+<p><strong>Swyx [00:03:13]:</strong> 我们稍微谈过，嗯，首先你做工作，然后谈论工作。</p>
+<p><strong>Thariq Shihipar [00:03:16]:</strong> 对。</p>
+<p><strong>Swyx [00:03:16]:</strong> 差不多是这样。</p>
+<p><strong>Thariq Shihipar [00:03:17]:</strong> 是的。</p>
+<p><strong>Swyx [00:03:17]:</strong> 是播种和收获，或者</p>
+<p><strong>Thariq Shihipar [00:03:19]:</strong> 是的，收获和。播种和收获。</p>
+<p><strong>Swyx [00:03:21]:</strong> 差不多是这样。差不多是这样。是的，所以，然后稍微预览一下，我们要谈谈 harness 的演变。它已经从仅仅是一个 CLI 走了很长一段路。我们要谈谈 Claude Mods，它今天开始泄露，因为你没法保密。</p>
+<p><strong>Thariq Shihipar [00:03:36]:</strong> 是的。是的。</p>
+<p><strong>Swyx [00:03:39]:</strong> 是的，那里有很多东西。我想你一开始是添加了 ask user question 工具，人们又爱又恨。</p>
+<p><strong>Thariq Shihipar [00:03:48]:</strong> 是的。</p>
+<p><strong>Swyx [00:03:48]:</strong> 就像，我觉得它非常创新，然后现在我有我自己的版本。你有你的 Interview Me 版本。</p>
+<p><strong>Thariq Shihipar [00:03:55]:</strong> 是的。</p>
+<p><strong>Swyx [00:03:56]:</strong> 而且，是的，每个人都有自己的东西。而且，这不再重要了，因为现在你应该写 prompt 来创建其他 prompt 和循环以及所有这些事情。</p>
+<h2>Ask User Question 与人机交互</h2>
+<p><strong>Thariq Shihipar [00:04:05]:</strong> 当然，是的。</p>
+<p><strong>Swyx [00:04:06]:</strong> 那么，今天的最新技术水平是什么？比如，人们在做什么。你在告诉人们今天做什么？</p>
+<p><strong>Thariq Shihipar [00:04:12]:</strong> 是的，向用户提问是模型第一次擅长引导需求。我觉得这算是一种涌现行为，我当时就想看看模型能不能做到。我有人机交互的背景，本科和研究生阶段都学这个。所以这对我来说就像是人机交互——或者说人-agent 交互，就是想办法搞清楚 agent 怎么跟你沟通、怎么提取需求，对吧？我觉得 Claude Code 变得越来越宽泛之后，其中一个难点就是每个人都有自己使用它的方式，而改变默认行为非常困难。比如说，如果有人让 Claude Code 做某件事，</p>
+<p><strong>Thariq Shihipar [00:04:59]:</strong> 有时候他们就是想让模型直接干活，因为他们可能很会写 prompt；而有时候他们不擅长写 prompt，就需要 agent 来澄清需求。所以这是一个很好的分界线。向用户提问这个工具就沿着这条线划分——你觉得自己的指令已经足够好了，还是说 agent 需要主动挖掘更多需求、跟你更多协作、真正理解你的偏好？</p>
+<p><strong>Thariq Shihipar [00:05:27]：</strong>总体而言，我相信几乎所有人都更偏向后者而非前者，也就是说，他们面对的问题有更多模糊性，他们知道的比他们想要的少，也比他们自以为知道的少。但让这一切变得简单，其实是个界面设计问题？所以，如果你在设计一个问题，或者你在处理一个问题，像 schema 是什么、调用栈是什么这类东西就非常重要。设计中的细节很重要。理想情况下，你希望在开始实现之前就提前弄清楚其中一些难题。对，这就是为什么它们被称为未知数，对吧？所以我认为，在 agentic coding 中，弄清楚你的未知数将永远是一项技能。因为即使模型超级智能——它也需要知道你想要什么？而且你有自己的偏好。你需要把这些偏好挖掘出来。所以这就是我认为我在推动的方向。那么问题就变成了：agent 如何与你交互？我认为 HTML 一直是实现这一点的主要方式。我们最近还加入了 artifacts，对吧？而 artifacts，我觉得我们在解释如何充分利用它们方面做得不好，或者说，我做得不好。我们有很多强大的能力。它们关联着一个数据库？所以每个 artifact 都可以存储和写入持久化数据。它们可以反馈给 Claude？所以，人们还没在做、而我在试图鼓励的一件事，就是 dashboard artifact 这个想法。比如你让 Claude 长期处理一个项目。也许是个看板之类的。它可以把看板数据存在自己的数据库里。多个 Claude 可以通过 artifact MCP 访问这些数据，而这个 artifact 也可以与那些 Claude 对话。所以，我们正在构建一些原语，让你能够通过 artifacts 拥有这种生成式界面，从而让 agent 展现出更丰富的细节。我认为，现在 agent 的几乎所有问题都是：你以为你想要什么，但你其实并不真正知道你想要什么，而 agent 需要大量细节，在循环中与它们协作非常重要。所以，artifacts 就是我们试图在这方面演进的方式。但还有很多工作要做，因为它比一道选择题复杂得多？对于那个问题，有更多细节，比如图表、代码片段、schema 之类的。但 artifacts 是更 AGI-pilled 的 ask user question 方式。就是这样。</p>
+<h2>Artifacts 作为 Harness 的界面</h2>
+<p><strong>Swyx [00:08:15]：</strong>关于这些 artifact 的东西，有一点我不太清楚，就是哪些反馈应该通过 artifact 进入，哪些反馈应该通过 Claude、通过聊天进入？因为更 AGI-pilled 的做法是把一切都喂给 Claude。</p>
+<p><strong>Thariq Shihipar [00:08:29]：</strong>我认为更 AGI-pilled 的做法是通过 artifact。就像，我想象在极限情况下，artifacts 会成为你进入 harness 的界面？你可以对这份实时的计划文档、工作文档发表评论。你也许能看到多个 agent，不同的 agent 在做这件事，而那个 artifact 是为当前正在进行的工作构建的，对吧？所以每个都略有不同。我认为从基础设施的角度来看，我们还在朝着那个方向前进。但没错，我认为，为你的 harness 提供即时界面，很可能就是未来的方向。</p>
+<p><strong>Vibhu [00:09:03]：</strong>有没有一种版本，是从 CLI 或聊天界面以及你本人中抽象出来的？因为现在很多情况都是这样：好，你在和 Claude Code 交互，它会返回 HTML 给你做原型图。内容相当丰富，有图表。Artifacts 是把这些连接起来的方式。那为什么不干脆全都这么做呢？</p>
+<h2>分离大脑、双手与表层 UI</h2>
+<p><strong>Thariq Shihipar [00:09:22]：</strong>然后它就变成了，把东西拆分开来，比如推理发生在哪里？智能发生在哪里？工作在什么地方进行？我觉得这有点像本地和云端的区别，或者说它们之间的一些区分，对吧？所以我觉得现在，如果你用 Claude Code，它是本地的，比如你可以启动远程控制来获得一些云端行为，或者你可以在云端启动 Claude Code，对吧？我们正在朝着这样一个方向走：不再是 Claude 那种——你给本地 Claude 发消息，它在本地启动一个会话并执行——而是更像你有一个在云端运行的 Claude，你给它发消息。它可以运行本地会话，也可以运行云端会话。Claude Tag 就是这么工作的。但随着时间的推移，我们也会加入本地双手。所谓本地双手，就是这个 agent 能在你的电脑在线时访问它，并能在那里工作。这样它就能启动许多不同的子 agent。这些子 agent 可以相互通信，而 artifact 就是用来展示所有这些工作的。所以你可以想象，你把这些东西拆分开来。有表层 UI 展示，它是一个 artifact，托管在某处，有数据库等等。有推理智能，对吧，发生在云端，你不必担心关掉电脑之类的，对吧？然后还有双手。它可以是本地的，也可以在一个远程沙箱里，或者任何你需要完成工作的地方。这就像是把现在的 Claude Code 体验拆解开来，而现在这一切都发生在同一个地方，对吧？所以。
+</p><h2>多人协作 agent、Claude Tag 与 Projects</h2>
+<p><strong>Vibhu [00:11:00]：</strong>你怎么看这方面的多人协作？比如说团队想以这种方式工作。现在它非常个人化，但你怎么看多人协作的未来？比如现在，我想有 Claude Tag，它是一个版本，但是。</p>
+<p><strong>Thariq Shihipar [00:11:12]：</strong>我们正在推出 projects。projects 就像是这么一种抽象，类似于 Claude Tag，但它是构建在我们的 Claude 产品之上的，对吧？所以你可以给它发消息，它就会做类似 Claude Tag 的事情，比如派生出子 agent。所以我们是从多人协作的角度来思考的。Claude Tag 在某种程度上更原生地支持多人协作，因为它就在你的 Slack 里，权限之类的东西都已经处理好了。但我确实认为多人协作是这件事里很重要的一部分，而且需要更紧密地整合起来。你可以想象这会有多复杂，比如，你有 hands，但现在别人的电脑上也有其他的 hands，你需要给它们授权，或者你有你的 MCP，别人有别人的 MCP，你要怎么搞清楚如何使用它们，对吧？这确实会变得相当复杂。而 Claude Tag 在磨平这些问题上做得很好，对吧？比如，当你有 Google Docs 的时候，它怎么访问 Google Docs 呢？它是通过共享的 Claude MCP 来访问的，或者如果没有访问权限的话，也可以通过你本地的凭证来访问。但总的来说，我认为 Claude Tag 就是我们的多人协作产品，对于那些本质上就是多人协作的事情来说，它真的很有用。比如，on-call，举个例子，事故处理本质上就是多人协作的。你想 @Claude，你想让多个人登录进来，你想让它能够找到上下文。我觉得每当我正在做某件事，而我想要隐私或安全，或者想让别人来审查的时候，这就特别好用。我会为每个项目建一个频道，比如我会 @法务，说：“嘿，我想发布这个。你能不能……”就像这样。Claude 什么都知道，直接跟它聊就行。这样一来，法务就能得到精确的答案，知道到底什么代码要发布出去，而我不需要被牵扯进来，对吧？所以我觉得多人协作正变得越来越……对，每个人都可以和 Claude 一起参与。我认为 Claude Tag 就是那样的产品，而 projects 会从单人使用开始，然后逐步扩展。</p>
+<p><strong>Swyx [00:13:14]：</strong>我觉得这里有个问题，也许是两个问题，关于身份和隔离单元。</p>
+<h2>身份、权限与隔离</h2>
+<p><strong>Thariq Shihipar [00:13:20]：</strong>是的。</p>
+<p><strong>Swyx [00:13:20]：</strong>Claude Tag，你特意选择让它拥有自己的身份</p>
+<p><strong>Thariq Shihipar [00:13:26]：</strong>是的。</p>
+<p><strong>Swyx [00:13:26]：</strong>这是个有争议的选择。还有其他的做法。</p>
+<p><strong>Thariq Shihipar [00:13:30]：</strong>是的。</p>
+<p><strong>Swyx [00:13:30]：</strong>Claude Projects 听起来大概是，如果它跟 ChatGPT Projects 类似的话，隔离单元就是那些 artifacts，那个云端实例，大家都在上面协作。听起来应该是这样，如果你在跟法务协作某件事，那个频道就应该是一个 project，对吧？虽然现在还不是</p>
+<p><strong>Thariq Shihipar [00:13:50]：</strong>是的。</p>
+<p><strong>Swyx [00:13:50]：</strong>但那是自然的下一步。</p>
+<p><strong>Thariq Shihipar [00:13:53]：</strong>是的，我觉得在 Claude Tag 里，实际上……Claude Tag 里你得自己安排。所以 Claude Tag，对，每个频道你都可以随意命名，我会命名</p>
+<p><strong>Swyx [00:14:04]：</strong>是的。</p>
+<p><strong>Thariq Shihipar [00:14:04]：</strong>比如每个功能</p>
+<p><strong>Swyx [00:14:06]：</strong>是的。</p>
+<p><strong>Thariq Shihipar [00:14:07]：</strong>作为一个频道。</p>
+<p><strong>Swyx [00:14:07]：</strong>但是我觉得，有些转移……不清楚什么时候会发生转移，因为假设说，如果你有一个同事</p>
+<p><strong>Thariq Shihipar [00:14:14]：</strong>是的。</p>
+<p><strong>swyx [00:14:14]：</strong>是谁在给这些东西打标签，是的，确实有转移</p>
+<p><strong>Thariq Shihipar [00:14:16]：</strong>是的。</p>
+<p><strong>swyx [00:14:16]：</strong>因为这是同一个人。但用 Claude 的话，就不清楚是不是一定像，嗯，不，你根本不知道。你对其他东西一无所知。你应该只用这些东西。</p>
+<p><strong>Thariq Shihipar [00:14:25]：</strong>这就像冰山一角的梗，对吧，你可以像这样。这就是我们花了这么多时间的地方</p>
+<p><strong>swyx [00:14:31]：</strong>是的。</p>
+<p><strong>Thariq Shihipar [00:14:31]：</strong>就像是有无限的表面区域，比如，好吧，你想让 Claude 去。不是无限，但就像是有表面区域，很多表面区域需要弄清楚，比如权限和可见性，以及你怎样才能让 Claude 尽可能好、尽可能安全地运作？显然，这对我们非常重要，因为我们代码库的安全非常重要。所以我们在这方面投入了大量时间。是的，有太多边缘情况你可以想到，比如，哦，这个频道里的 Claude 有不同的权限，但它可以给另一个频道发消息，它不能通过那种方式窃取数据吗？或者你能不能像。如果它用了你的 MCP，然后给别人发消息呢？就像有太多太多，我们真的投入了大量工作把它打磨好。</p>
+<p><strong>swyx [00:15:14]：</strong>是的。大量的工作。好。Fable？</p>
+<h2>Fable 与提示的元技能</h2>
+<p><strong>Vibhu [00:15:18]：</strong>Fable，你写了两篇好文章。你写过很多好文章</p>
+<p><strong>Thariq Shihipar [00:15:22]：</strong>是的。</p>
+<p><strong>Vibhu [00:15:22]：</strong>但关于《Fable 实战指南》、《构建 Claude Code》。我很好奇，从你看到的情况来看，在 Anthropic 内部和外部的顶级用户身上，你有没有发现什么共同的模式？比如，要最大限度地用好 Claude Code，最佳实践是什么？</p>
+<p><strong>Thariq Shihipar [00:15:37]：</strong>我说的那个元技能，比如 prompt 能力，非常重要？诸如此类。我觉得这话说起来并不简单，因为很多人会说：“哦，prompt 不重要。我随便说一句话，Claude 就能做。”而我认为 prompt 其实就像公开演讲，或者写作之类的，面向特定的受众，而这个受众就是 Claude。你需要建立对 Claude 的心智模型，了解它如何思考、如何运作，对吧？所以，与 Claude Code 协作最重要的技能就是拥有这种对 Claude 的心智模型，知道它擅长什么、能一次搞定什么、不能做什么。很多人你看他们写 prompt，虽然很短，但他们对 Claude、对代码库等有着极好的心智模型，所以看起来毫不费力？但这其实是个高技能上限的活儿。所以花大量时间写 prompt、建立对 agent 如何工作的心智模型和直觉，真的非常重要。然后我觉得下一件事就是我们之前聊过的未知的东西，就是能够发现你不知道的、或者你还没写下来的东西，去学习不同的东西。我认为随着 Claude 能做的事情越来越多，你去做那些对你来说是分布外、而你领域知识又很少的事情的可能性非常高？而你能越多地学习词汇来给 Claude 写 prompt，就变得非常重要。所以我觉得最重要的未知是未知的未知，就是那种你根本不知道它存在的东西，对吧？对，没错。我觉得这就像地图与疆域的比喻，对吧，你说“好，这是我的 prompt”，而疆域就是 agent 实际需要做的工作，对吧？如果你非常精确，你就能给出更精确的东西，对吧？比如在设计方面，我不太精确。我不是设计师，所以我会说“给我八个不同的 mock-up”。但如果我是设计师，也许我会说“哦，嘿，这里有一些参考网站。我想要这种字体、这种风格，这里有几个不同的组件可以可视化。这里有一个 Figma MC 板可以引入”之类的。所以你可以用那种语言精确得多。如果你不是设计师，你就得试着去学习那套语言，或者去学习那些未知的未知。我觉得这对所有事情都成立。你越能和 Claude 一起学习事情如何运作，你的 prompt 就会越好。我觉得另一个好例子是游戏设计，很多人会说“哦，我现在可以 vibe code 一个游戏了。”然后他们说“这不好玩。”而游戏设计的关键在于，每一个这样的选择都包含大量的</p>
+<h2>品味、领域知识与学习词汇</h2>
+<p><strong>Swyx [00:18:25]：</strong>变体。</p>
+<p><strong>Thariq Shihipar [00:18:25]：</strong>大量的匠心。所以就像，哦，好吧，当你在做一个飞行游戏时，飞机的操控感、它对控制的响应方式，都有很多讲究。游戏设计师会在这上面花好几天。对吧？然后就像</p>
+<p><strong>Swyx [00:18:44]：</strong>对我来说，那就是品味，对吧？</p>
+<p><strong>Swyx [00:18:45]：</strong>就像从一千个数学上成立的答案的可能空间里</p>
+<p><strong>Thariq Shihipar [00:18:49]：</strong>对。</p>
+<p><strong>Swyx [00:18:49]：</strong>挑出人类会喜欢的那个。</p>
+<p><strong>Thariq Shihipar [00:18:51]：</strong>是的。对。</p>
+<p><strong>Thariq Shihipar [00:18:52]:</strong> 说到品味这个词，我其实挺纠结的，因为我觉得你说得对，但每个人的定义都不一样，而且它听起来有点像是低技能或者精英主义的感觉，就好像在说，哦，只有某些人才有品味？</p>
+<p><strong>Swyx [00:19:06]:</strong> 就像品味就是我所说的品味。</p>
+<p><strong>Thariq Shihipar [00:19:07]:</strong> 对，没错。</p>
+<p><strong>Swyx [00:19:08]:</strong> 就好像这些家伙没有品味。</p>
+<p><strong>Thariq Shihipar [00:19:09]:</strong> 对，没错。哦，就像工程师没有品味。而我，作为创始人，才有品味。</p>
+<p><strong>Thariq Shihipar [00:19:14]:</strong> ？我觉得这不对。我觉得工程师对某些特定问题其实很有品味？而且我觉得每个人对特定问题都有自己的品味。我觉得就像 Jason Liu 说的，要想有品味，你得先吃？</p>
+<p><strong>Thariq Shihipar [00:19:32]:</strong> 我真的很喜欢这个说法，就是说，好吧，你得做很多事情。你得不断迭代，弄清楚你想要什么、你喜欢什么，然后建立起那种领域</p>
+<p><strong>Swyx [00:19:41]:</strong> 是的</p>
+<p><strong>Thariq Shihipar [00:19:41]:</strong> 领域词汇。然后当你写 prompt 的时候，你就是在为产品综合所有这些。</p>
+<p><strong>Swyx [00:19:46]:</strong> 当别人比你表达得更好时，是不是很烦？</p>
+<p><strong>Swyx [00:19:48]:</strong> 就像，靠，我得永远引用这家伙了。</p>
+<p><strong>Vibhu [00:19:51]:</strong> 得永远引用 Jason Liu 了。</p>
+<p><strong>Vibhu [00:19:53]:</strong> 他会爱死这个的。</p>
+<p><strong>Thariq Shihipar [00:19:55]:</strong> 所以我得到的 prompt，不止于此。</p>
+<p><strong>Vibhu [00:19:57]:</strong> 有时候甚至不是这样。有时候就是直觉，对吧？就像你甚至没意识到自己想要什么，直到模型把它呈现出来，然后你说，'哦，这感觉立刻就更好了，'对吧？</p>
+<h2>语音 Prompt 与信息密度</h2>
+<p><strong>Thariq Shihipar [00:20:07]:</strong> 对，没错。</p>
+<p><strong>Swyx [00:20:09]:</strong> 有一件事我一直反复纠结，就是我觉得我有一半时间写 prompt 的方式，比如说我用语音。</p>
+<p><strong>Swyx [00:20:16]:</strong> 我说语音了吗？别人有语音。那正好相反。那就像我瞎扯两分钟，按下功能键然后松开，然后希望它能自己搞明白。而且很多时候它确实能。</p>
+<p><strong>Thariq Shihipar [00:20:26]:</strong> 是的。</p>
+<p><strong>Swyx [00:20:26]:</strong> 但它不像结构化的 prompt 那样深思熟虑，就像精心组织的沟通，仿佛是一份 PRD 或备忘录。这符合人们的做法吗？好像存在双模态 prompt，有些 prompt 你花很多时间 upfront，其他 prompt 你就随手一写？</p>
+<p><strong>Thariq Shihipar [00:20:43]:</strong> 我不觉得语音就一定是低信息量。我觉得更像是 prompt 里有多少信息。模型可以。你可以加一些句子</p>
+<p><strong>Swyx [00:20:53]:</strong> 对</p>
+<p><strong>Thariq Shihipar [00:20:53]:</strong> 然后说，'哦，我改主意了，'就在 prompt 中间，它也能完美地跟上？所以我觉得文本的实际格式没那么重要，但重要的是能力。就像里面有多少信息，对吧？而且我觉得对于语音，很多时候，回到人机交互，对很多人来说，说话比打字容易多了？而且我。如果那能让你输出更多信息，那就更好。</p>
+<p><strong>Vibhu [00:21:21]:</strong> 在某种程度上，感觉就像是给模型尽可能多的上下文</p>
+<p><strong>Thariq Shihipar [00:21:24]:</strong> 是的</p>
+<p><strong>Vibhu [00:21:24]：</strong>在开始之前先做好 prompt 是最佳实践。我也说不准。很多时候，比如我第一次试用 Fable 的时候，我会花整整 30 分钟去认真打磨一个很长的 prompt。我觉得这是模型运行时间越来越长带来的结果，对吧？当它们进入循环之后，想推动它们还是有点困难，但我就是会凭直觉在启动第一个 prompt 上花更多时间，并且反复打磨它。</p>
+<h2>前期多投入，少迭代</h2>
+<p><strong>Thariq Shihipar [00:21:52]：</strong>我的个人看法是，如果我是一名软件工程师，比如我只是在运营自己的创业公司，我觉得我基本上会坚持最多 20 倍？比如验证和代码审查算是分开的事情。但我经常看到的情况是，人们在做这些事时会撞到速率限制，比如，哦，它做了很多工作，然后你说：“哦，我不喜欢这个。”比如，“你能不能撤销这个然后重做？”然后你就在这个东西上反复迭代，而如果你前期多花点时间，或者给它更好的上下文，模型本来是可以做好的？结果反而是你在说：“不行，我不喜欢那个设计。试试这个。”或者“你把这个搞砸了”之类的话。然后这就消耗掉你多得多的用量。所以我觉得这也许是一个关键技巧，对效率来说也是如此，对吧？而且我觉得，上下文，不只是关于目标是什么的上下文，对吧？比如你是在做原型还是在做生产环境的东西？比如你可以在哪里花算力，或者在哪里不能花算力？我觉得有时候你必须给模型许可，或者不给它许可去做某些事，因为它并不能凭直觉知道你想在这个任务上花多少成本，对吧？你可以用 effort 来控制这个。所以我做了——我正在写一篇关于这个的博客文章，就是如果你想的话。因为我们看到 effort 会随着任务复杂度而扩展。所以对于安全来说，effort 带来的效果要大得多。比如高 effort 相比低 effort，会让 evals 发生很大变化。但对于软件工程来说，它不会带来太大变化，因为 effort 主要花在验证和边缘情况测试之类的事情上。所以，能够给模型这样的指导，比如：“嘿，这个问题我觉得我想让你花大量时间去验证和做边缘情况测试”，这很重要？</p>
+<h2>Effort、模型选择与验证</h2>
+<p><strong>Vibhu [00:23:43]：</strong>那模型组合呢？有 Opus 和 Fable，还带 effort。</p>
+<p><strong>Thariq Shihipar [00:23:47]：</strong>对。</p>
+<p><strong>Vibhu [00:23:48]：</strong>里面还有 Haiku。</p>
+<p><strong>Thariq Shihipar [00:23:49]：</strong> 是的。现在还不完全是这样，但已经非常接近了，我认为前沿模型将在几乎所有方面都占据帕累托优势。大概吧。有时候我觉得 Opus 可能就占据帕累托优势。是吧？我觉得这取决于事情怎么发展，比如如果它是更新版本的 Opus。但我认为，越来越明显的是，那个聪明的模型将能够用比其他模型更少的 token 完成简单的任务，因为有了验证。有了验证，在极限情况下，你的模型不需要验证，对吧？如果它是一个完美的模型，它只做一次工作，然后就像，好吧，我做了？而且随着 Fable 的进步，我越来越觉得，‘哥们，你不需要启动 Chromium 然后给所有东西截图。’我能看到。你做对了，对吧？所以很多……在更高的 effort 下，你会花更多那些 token 去验证。但如果你处理的是更简单的问题，而很多软件工程就像，嗯，在 Fable 里，低和中等稳定性下，它可以花更少的 token 去验证。随着模型越来越聪明，它们就能直接说，‘好了，完成了。’？比如，我可以为了保险跑一下 lint，但我知道它能通过 lint。你甚至不需要做那个。那会比更小的模型在 token 效率上高得多。是的。</p>
+<p><strong>Swyx [00:25:15]：</strong> 我们这边有没有什么好的实践，可以用来看看我们是不是用了太多 effort？我真是</p>
+<p><strong>Thariq Shihipar [00:25:23]：</strong> 是的</p>
+<p><strong>Swyx [00:25:23]：</strong> 讨厌在那上面浪费时间。</p>
+<p><strong>Thariq Shihipar [00:25:24]：</strong> 是的。我懂你的意思。我觉得，就像在这篇博客文章里，我的大致分布是，代码审查和安全应该是高或最高，而软件工程</p>
+<p><strong>Swyx [00:25:37]：</strong> 你说的是按领域推荐混合设置。</p>
+<p><strong>Thariq Shihipar [00:25:37]：</strong> 是的。我觉得，如果你在做 UI 之类的，低和中等就可以了。如果你在构建一个 API，你想确保覆盖足够多的边缘情况？所以我觉得，就像我说的，建立那种关于事情在这些分布中如何运作的心智模型，是工作的一部分。</p>
+<h2>实现说明与决策日志</h2>
+<p><strong>Vibhu [00:25:56]：</strong> 这更多是直觉驱动的还是 eval 驱动的？因为我猜这会随着进展而变化。</p>
+<p><strong>Swyx [00:26:00]：</strong> 他有 eval。</p>
+<p><strong>Thariq Shihipar [00:26:01]：</strong> 是的。所以我在博客文章里做的是，我过了一遍所有 terminal bench 的 eval。大概有 70 个问题，我展示的是，好吧，在安全问题里它做得更多。然后我也看了一些记录，看看它回答了什么、忘记了什么之类的。很多时候，这是我另一个提示技巧，就是让它写决策笔记或实现笔记，因为在它面对的每个 eval 问题里，它都会想到正确的解决方案，然后决定不做。它就像，哦，答案在这里。如果我这样做呢？然后它又想，哦，大概不行？然后继续。而这在更高的 max 级别下，是大多数失败的原因。模型完全不知道怎么做某事的情况非常罕见。如果你有这些实现笔记，你就可以审查，然后说，‘哦，我想让你做这件你没做的事。’模型总体上越来越擅长把这一点呈现出来。比如，我在 Fable 5.1 的记录里看到，当它输出时，它也会指出自己的决策。但在 harness 里把这一点做得更明确会更好。现在我们正在允许你修改 harness 的方式，这样你就可以添加一些</p>
+<p><strong>Vibhu [00:27:23]：</strong> 哦。</p>
+<p><strong>Thariq Shihipar [00:27:24]：</strong> 用那个来算。对。</p>
+<p><strong>swyx [00:27:25]：</strong> 对。所以我想指出你提到的两点，我认为它们存在于 prompting 之外。一个是，我们姑且称之为那种重要到不该放在 prompt 里的 prompt。它在 Claude.md 或 Agents.md 里</p>
+<p><strong>Thariq Shihipar [00:27:38]：</strong> 对</p>
+<p><strong>swyx [00:27:38]：</strong> 也就是目标，对吧？比如你的处境、你的目标、你想要的东西、那个东西。然后第二点是决策日志或实验日志，或者任何你希望跨越当前 session 存续下来的 trace 日志，用来做那些事。这些就像是外部性，没有标准。没有——它不像 skills。它不像 MCP。没有标准。它，它就像是一个 markdown 文件。首先，这是对的吗？Claude.md 会消失吗？你公开表示过不喜欢 Agents.md，但你还是会做？</p>
+<h2>Claude.md、Agents.md 与模型专属指令</h2>
+<p><strong>Thariq Shihipar [00:28:10]:</strong> 是的。好。那么 Agents.md，对，我们，我们会做的。我觉得只是，不同的模型彼此之间差异很大？但我意识到维护不同的版本实在是太痛苦了？而且，随着模型越来越好，它们完成更简单任务的下限也更高了。所以我确实认为，从极限来看，Claude.md 会消失，也许甚至不用等那么久。我觉得，现在也许更适合在没有 Claude.md 的情况下启动一个新项目。</p>
+<p><strong>Swyx [00:28:44]:</strong> 是的。</p>
+<p><strong>Thariq Shihipar [00:28:44]:</strong> 我觉得，也许如果你看到非常反复出现的失败模式，就把它们加到你的 Claude.md 里。真正棘手的是，这会因模型而异。所以，如果你加了一堆失败模式，或者甚至</p>
+<p><strong>Swyx [00:28:57]:</strong> 所以你需要 Fable MD，你需要 Opus MD。</p>
+<p><strong>Thariq Shihipar [00:28:59]:</strong> 或者，甚至 Fable 5.1 和 Fable 5 也不一样。</p>
+<p><strong>Swyx [00:29:03]:</strong> 是的。</p>
+<p><strong>Thariq Shihipar [00:29:03]:</strong> 就是很烦人。我不是说，</p>
+<p><strong>Swyx [00:29:05]:</strong> 是的</p>
+<p><strong>Thariq Shihipar [00:29:05]:</strong> 我们不是故意这么做的？这只是模型运作的方式，对吧？所以，也许 Fable 5 有某种失败模式，而 Fable 5.1 没有。如果你保留这些上下文，这份记录了一堆不同失败模式的运行日志，它们很可能会过度约束 Claude？所以这就像。我们刚刚为 skills 添加了 evals 插件。</p>
+<p><strong>Swyx [00:29:28]:</strong> 是的。</p>
+<p><strong>Thariq Shihipar [00:29:29]:</strong> 所以现在你可以评估一个 skill 是否更好。我想我们团队的 Daisy 做了这个。所以，是的，这就像我们在努力解决这个问题。我们知道，你还是得为此花费 token，而且这并不完美，但我们在努力帮助解决这个问题。</p>
+<p><strong>Swyx [00:29:44]:</strong> 那么，就 prompting 而言，我想提供的一个建议是，我经常告诉别人的一件事：足够高级的 prompting 与足够高级的高管沟通难以区分。所以我提到过——这是 Heavybit 的一个高管沟通工作坊，是我职业生涯中见过最好的。他们教一个叫 SCQA 模型的东西。直接 Google 一下。这是个，是个东西。人们做 prompting 已经几十年了。只是它叫高管沟通。就像当一个人必须向组织架构图下成千上万的人传达信息时，这就是你要做的。情境、冲突、问题和答案，这就是你写备忘录的方式。但显然有时你没有答案，但你至少可以列出 SC 和 Q，然后他们里面有一些例子。所以只是给人们留下一些线索，如果他们想探索的话。</p>
+<h2>被低估的 Prompting 模式与 ELI5</h2>
+<p><strong>Vibhu [00:30:31]:</strong> 在我们继续之前，我想问你，还有其他被低估的技巧吗，人们可以从 Claude Code 中获得很多价值但没用上的方式？</p>
+<p><strong>Thariq Shihipar [00:30:41]：</strong>是的，我觉得其中很多都在那个 unknowns 文档里。比如我给了很多示例 prompt，比如用它来头脑风暴，用它来在事后考你。我们加了这个，像是“用五岁小孩能懂的方式解释”的技能，这是一个非常短的 prompt。它甚至都没说“用五岁小孩能懂的方式解释”。这个 prompt 的关键词是“大图景，少文字”。这大概就是核心。而且它好得惊人？就像，我觉得我发过推文讲这个，就是 /eli5，你可以把它作为插件安装。但没错，它特别擅长直击要害，直接说，对，就是这里。所以那些图表相当清晰。我觉得 artifacts 的一个问题是，它们塞了太多文字，而人们根本不看 artifacts？所以这个把它简化了很多。而且，没错，这个源自 Anthropic 的人在处理非常复杂的事故时，会想“到底发生了什么？”所以，我觉得这个很棒，是的。</p>
+<p><strong>Swyx [00:31:47]：</strong>我的版本是这个，就像是测试你的理解。给你几个选项，然后如果你答错了，就说明你以为正在发生的事和实际发生的事之间存在偏差。</p>
+<p><strong>Thariq Shihipar [00:31:58]：</strong>是的。我觉得这是那种大家都爱谈论、但真正去做的人很少的事情之一。我觉得</p>
+<p><strong>Swyx [00:32:05]：</strong>真的很有帮助。</p>
+<p><strong>Thariq Shihipar [00:32:07]：</strong>是的。但大多数人就是不想被考问？不幸的是，我觉得这是我们需要，那种事情之一。</p>
+<p><strong>Swyx [00:32:16]：</strong>和“问你问题”或者“在事情之前问你问题”相反的是什么？</p>
+<p><strong>Thariq Shihipar [00:32:19]：</strong>是的。</p>
+<p><strong>Swyx [00:32:19]：</strong>这是在事情之后。</p>
+<p><strong>Thariq Shihipar [00:32:20]：</strong>没错。是的。</p>
+<p><strong>Vibhu [00:32:21]：</strong>这是个让你保持脚踏实地的好方法，比如，你到底知不知道自己在干什么，对吧？最糟糕的情况是别人给你发来一堆垃圾，而他们自己都没搞懂自己在要什么、输出是什么，然后就像，“哥们，我不想读这个。你到底知不知道这是什么？”所以，你给自己定个规矩：在把东西发出去之前，你至少应该知道实现了什么。</p>
+<h2>Claude Mods：定制 Harness</h2>
+<p><strong>Thariq Shihipar [00:32:41]：</strong>是的，但你可以把这个做成一个 mod，你可以构建自己的 mod，来确保你测试它。所以是的，你可以这么做。</p>
+<p><strong>Swyx [00:32:49]：</strong>好。我们直接进入正题。什么是 Claude Mod，这张图展示了什么？</p>
+<p><strong>Thariq Shihipar [00:32:54]：</strong>好的。Claude Mods 就是你可以定制整个 Claude Code harness，我们会。如果你有需求，我们会，请告诉我们。我们会不断增加。这适用于 CLI，也适用于桌面端。也许未来会适用于 Claude Tag。我不知道。我们在努力让它非常可扩展。你可以看这张参考表。我不想让人们被它淹没？从高层来说，你可以定制 harness 的执行，也可以定制 harness 的 UI。所以，比如 Boris 那个俄罗斯方块例子，那就是定制 UI，对吧？比如在游戏里显示俄罗斯方块。</p>
+<p><strong>Thariq Shihipar [00:33:35]：</strong>但是，比如说，你想做这样一件事：你在每个项目之后都测试你的假设，或者说测试你的理解，对吧？你要做的是让 Claude 做一个插件。它会在每次 prompt 之后启动一个分类器。所以，在每一轮结束时，你会启动一个 sub-agent，或者说一个分叉 agent。分叉 agent 会保留 prompt cache，对吧？所以这就像那种反直觉的事情：你可以分叉出去发一个小请求，而且会非常便宜，因为整个 prompt cache 都已经建好了。于是你就可以问：“这个任务完成了吗？”就像</p>
+<p><strong>swyx [00:34:18]：</strong>顺便说一句，BTW 那些就是这么做的。</p>
+<p><strong>Thariq Shihipar [00:34:20]：</strong>对。底层的分叉 agent，是的。所以你可以在这个分叉 sub-agent 里说：“这个任务完成了吗？如果完成了，返回 true。”然后在你的 hook 里，或者在你的插件 mod 里，或者抱歉，应该是在 sub-agent 里，你会说：“如果为 true，给我出个测验。”给我问题和答案，用 JSON 格式，然后你解析它，再把它显示在 prompt 输入框上方，就是这一串问题，对吧？所以这个东西会稍微费一点 token，因为你必须在助手每一轮结束时都做一次。但它是一个轻量级的分类，然后你就能拿到这个测验，然后你会看到 Claude 总是会替你去做。你不需要记得去做。我们聊过很多这类小技巧，对吧，比如实现笔记。你现在也可以为实现笔记加一个工具。所以我要加的这个工具，就是 register，我想我把它叫做 assumption，不过也许我会改个名字。这是一个 mod。所以你给它一个 register assumption 工具，然后它就会维护一个列表。它每次都会往列表里加，最后它会把这些假设显示出来？我在做的另一个 mod 是模型路由器。就是内部的 Claude 模型路由，对吧？所以这就是——我想说，我们默认不做模型路由的原因是，这是个难题？而且</p>
+<h2>分叉 Agent、假设追踪与模型路由</h2>
+<p><strong>swyx [00:35:51]：</strong>你会搞错的。</p>
+<p><strong>Thariq Shihipar [00:35:52]：</strong>对，你会，对，你会不小心把 Fable 用在难题上，或者把 Sonnet 用在</p>
+<p><strong>swyx [00:35:57]：</strong>对，如果你有自动批准，但没有自动模式的话。</p>
+<p><strong>Thariq Shihipar [00:36:01]：</strong>嗯，你会有自动的。就像你没有自动路由之类的。</p>
+<p><strong>Vibhu [00:36:04]：</strong>模型选择器没有自动模式。</p>
+<p><strong>Thariq Shihipar [00:36:06]：</strong>对，没错。所以</p>
+<p><strong>Vibhu [00:36:07]：</strong>我想到的粗略问题是，这个东西要开放到什么程度，人们又得为此思考多少？比如你谈到 prompt caching 和构建路由器时，似乎很容易就能做一个按查询路由的 mod，而我很快就会把自己的计划搞砸，对吧？我想我的问题更多是，像这样的产品讨论到底是什么样的，对吧？它是给谁用的？是给高级用户用的吗？还是每个人都应该能上手</p>
+<p><strong>swyx [00:36:33]：</strong>哦，绝对是高级用户，对吧？</p>
+<p><strong>Thariq Shihipar [00:36:35]：</strong>是的，我认为是高级用户，但Claude Code的本质就是有太多人是高级用户了？因为分享东西很容易，你可以。比如，一个人可以做一个好的模型路由器，不会总是破坏prompt缓存，然后你可以像组合它们一样。插件的另一个酷炫之处在于它们可以相互挂钩和组合。所以我有一个mod，会在顶部创建一个模式选择器，任何插件都可以注册为一个模式。所以，自动路由器可以是一个模式，对吧？或者，你可以有一个模式，比如artifact模式，它主要通过artifacts与你交流。比如，你可以在计划模式之间切换？所以，你可以创建越来越多的这些模式。但创建模式的能力本身就是一个mod？所以这里有很多丰富性，但我们确实想让它相当容易。我们想让它变得——让你可以只是安装别人的。你可以和Claude聊天，我们会确保它理解prompt缓存等细微差别，这样它就可以警告你。我认为这对Claude来说不是极其复杂的行为，但我们应该有一个好的技能来制作mods。是的，我们会看看进展如何。但我确实认为这是可变软件的一个预览，以及生成式软件如何，就像你可以安全地自定义。如果启用，你可以自定义任何软件。我认为越来越多的应用理想情况下会做类似的事情？</p>
+<h2>高级用户、模式与可变软件</h2>
+<p><strong>Swyx [00:38:13]：</strong>顺便说一下，你，我们，你有另一条很酷的推文，关于有一个无限金钱按钮，就像是让你的SaaS可以被agents消费。我认为可变软件很有趣，其他人也尝试过。我认为障碍在于当你可以做一切时，人们，用户往往会感到困惑。所以通常有效的东西就像一个有主见的流程。这属于较少主见的一面。就像，好吧，给高级用户更多权力。我认为这可能是由AI解锁的，比如，你可以直接prompt任何东西。</p>
+<p><strong>Thariq Shihipar [00:38:47]：</strong>是的，或者可以有一个技能来提供这些主见？</p>
+<h2>Mods vs. Hooks vs. Artifacts</h2>
+<p><strong>Swyx [00:38:50]：</strong>是的。</p>
+<p><strong>Thariq Shihipar [00:38:50]：</strong>然后，是的。</p>
+<p><strong>Swyx [00:38:51]：</strong>所以了解一点TypeScript和构建系统以及所有这些事情，最接近的——我非常好奇，这个团队，如果，我不知道你与他们有多近，如果他们从像Babel、Webpack这些老派东西的构建系统中汲取了任何灵感。因为听起来非常相似，就像那些东西的插件生态系统，它们可以相互组合。</p>
+<p><strong>Thariq Shihipar [00:39:11]：</strong>是的，我没有深入技术细节，但我知道这是与Bun团队和Claude Code团队的某个人合作完成的。</p>
+<p><strong>Swyx [00:39:17]：</strong>是的，这是构建系统的圣地。</p>
+<p><strong>Thariq Shihipar [00:39:19]：</strong>是的。没错。这非常令人兴奋。但是的，就像，agents现在可以直接为你的软件做这种非常复杂的可扩展性。所以，是的，另一个理由，比如。如果你经营一家初创公司，你可以直接prompt Claude，说：“嘿，我们能不能做一个扩展系统？那会是什么样子？”</p>
+<p><strong>Swyx [00:39:37]：</strong>是的。</p>
+<p><strong>Swyx [00:39:38]：</strong>我只是真的想知道，你过去有hooks和plug-ins，所有这些。那么mods具体能做什么那些东西做不到的事？</p>
+<p><strong>Thariq Shihipar [00:39:47]:</strong> 在内部，我们最初把这个功能叫做 hooks。所以，这能让你大致了解，hooks 会注册一个事件，然后注册一个要调用的脚本。而在 TypeScript 运行时内部，它正在运行各种东西。所以，你能获得一些好处，比如，它在 Scope 里有一堆东西，例如，这个对话里有多少轮？用了多少 token？等等。有哪些消息？诸如此类。所以它有一堆可以使用的消息。然后，它还有更多 hooks。所以，我们有很多、更多可以注册的东西。然后你可以做，因为，因为这一切都在进程内发生，你可以生成带有四个 contests 和 contexts 之类的子 agent。而且，那会返回。你可以解析这些结果。你可以使用结构化输出来返回它们。然后你可以修改 UI，这是你在 hooks 里永远做不到的。所以，是的。</p>
+<p><strong>Swyx [00:40:50]:</strong> 是的。是的。所以修改 UI，这就是你展示俄罗斯方块例子的原因。它是否也扩展到 artifacts？我猜是的。</p>
+<p><strong>Thariq Shihipar [00:40:57]:</strong> 你——就像，artifacts 是一种不同的定制方式。比如，你绝对可以。我正在做的其中一个 mod 是，比如，这个 dashboard mod，它会提示 Claude 维护一个 dashboard，那是一个 artifact。但它们有点正交，或者不是正交。它们以不同的方式相互组合。比如，mods 更像是，在你的 Claude Code harness 里，改变 agent 循环？而且，UI 是一个额外的好处。然后 artifacts 就像是你想在高层次上看到东西，非常交互式。比如，可供性可以比 TUI 甚至我们的桌面端大得多。</p>
+<h2>下一步、监督者和持久指导</h2>
+<p><strong>Vibhu [00:41:40]:</strong> 我猜你会有一篇很好的博客文章来讨论这些差异，因为现在你也可以做一个循环，输出到一个交互式 dashboard 的 artifact，但你也可以用 mod 来做。只是有一些关于在我们不太了解 harness 的情况下，对 harness 进行 hacking 的思考，对吧？</p>
+<p><strong>Thariq Shihipar [00:42:00]:</strong> 嗯，我对 mods 感到兴奋的一点是，Claude Code 有太多东西你只需要记住？你会说，“哦，让我做这个，然后让我调用那个做循环的 dashboard skill，”之类的。或者，“让我之后测试我的假设。”我认为，如果你用这些小分类器之类的东西做所有这些事情，你说，“这些是我关心的事情。这是我想做的事情，”你就可以，你不必记住那么多。我正在做的另一个 mod 是一个下一步 mod，它</p>
+<p><strong>Swyx [00:42:28]:</strong> 我有——我正要说，我有一个下一步 skill。我总是运行下一步。</p>
+<p><strong>Thariq Shihipar [00:42:32]:</strong> 它能访问你的 skills 吗？就像，这是那种我会说的事情。</p>
+<p><strong>Swyx [00:42:37]:</strong> 我想是的。</p>
+<p><strong>Thariq Shihipar [00:42:38]:</strong> 好的。是的，可能吧</p>
+<p><strong>Vibhu [00:42:39]:</strong> skills 需要特定的访问权限吗</p>
+<p><strong>Thariq Shihipar [00:42:41]:</strong> 嗯，我认为有</p>
+<p><strong>Swyx [00:42:41]:</strong> 它们不是一直都有吗</p>
+<p><strong>Thariq Shihipar [00:42:42]:</strong> 我觉得，大概是有一些特定的 prompting，用来，比如，了解你的 skills。就像我觉得 Claude 有时候会在整个过程中把它们忘掉。但不管怎样，这个想法，就是，对，下一步行动也可以像是，“哦，嘿，发生了这件事。用 explain skill 来向你解释发生了什么，因为这看起来，挺复杂的”？或者，对，“用你的 unknown skill。看起来你像是在，让模型去，对这些小改动进行迭代。看起来你可以 prompt 得更好。”就像，“如果你这样做会怎样？”对吧？所以，我觉得，对，就是在那上面花更多的 compute。对。</p>
+<p><strong>Swyx [00:43:20]:</strong> 而且它应该总是以多选题的形式出现。我们有，我有</p>
+<p><strong>Vibhu [00:43:23]:</strong> 我们有他的 skill。</p>
+<p><strong>Swyx [00:43:24]:</strong> 我的 next step skill 就是这样的。</p>
+<p><strong>Thariq Shihipar [00:43:26]:</strong> 好，完美。对。</p>
+<p><strong>Swyx [00:43:27]:</strong> 你可以把它偷走。</p>
+<p><strong>Thariq Shihipar [00:43:28]:</strong> 对。</p>
+<p><strong>Swyx [00:43:29]:</strong> 就像，但对我来说，全都是——我觉得模型真的总是需要被提醒，你在这里想做什么？</p>
+<p><strong>Thariq Shihipar [00:43:35]:</strong> 对。</p>
+<p><strong>Swyx [00:43:35]:</strong> 看整个 transcript，然后想，哦，这是最初的目标吗？你的解决方案解决它了吗？你偷懒了吗？如果你偷懒了，也许是有原因的。也许你需要我的批准。也许你需要，有两件事你想建议。所以它，它有点像是 ask user question 或 interview me skill 的变体。所以它就是 next steps。</p>
+<p><strong>Thariq Shihipar [00:43:55]:</strong> 对，没错。而且再说一次，用 mods 来做这件事的好处是你可以把它作为一个 fork sub-agent 来做，这样它之后就不会留在 context 里。所以你有了这个，就像，想法，就是，好，模型在做它的执行，而你有了这个几乎像是 supervisor 的东西，就像，在确保你能把下一步做好。所以，对。</p>
+<p><strong>Swyx [00:44:15]:</strong> 是的。我确实有两个 panel，而且我经常试着弄一个 supervisor 的东西，保持高层级的 context，然后实现</p>
+<p><strong>Thariq Shihipar [00:44:21]:</strong> 对</p>
+<p><strong>Swyx [00:44:22]:</strong> 细节放在另一个 agent 里。</p>
+<p><strong>Vibhu [00:44:23]:</strong> 我觉得随着模型变化，这里面很多东西都会被抽象掉？就，半小时前你说过 harness engineering 的 bitter lesson</p>
+<h2>Harness Engineering 的 Bitter Lesson</h2>
+<p><strong>Thariq Shihipar [00:44:31]:</strong> 对</p>
+<p><strong>Vibhu [00:44:31]:</strong> 而我们现在处在另一个极端，我感觉。</p>
+<p><strong>Swyx [00:44:33]:</strong> 嗯，所以对，没错。如果一切都是可定制的，那 Claude Code 是什么，对吧？</p>
+<p><strong>Thariq Shihipar [00:44:37]:</strong> 对。</p>
+<p><strong>Swyx [00:44:37]:</strong> 这个我昨晚跟你聊过。</p>
+<p><strong>Thariq Shihipar [00:44:40]:</strong> 是的，我觉得这就是。我觉得这个苦涩的教训是反直觉的？从某种角度来说。而且，我们在这里有点误用了苦涩的教训，它更多是关于扩展和算力之类的。但我觉得确实有某种东西，就像。我觉得我在这里用它作为一个近似说法，来说明 harness 会很快过时？以及它们如何变化是反直觉的？所以最明显的例子就是从聊天到 agent，你必须给它们全新的工具，对吧？但我觉得这个新版本，哦，它可以修改自己的 harness，对吧？这就像一个自己的 harness 循环，是一种利用其能力的方式，对吧？或者它可以构建一个 artifact。我觉得我的思考方式是，模型拥有越来越多的智能，它们现在比一般的软件工程任务要智能得多。比如你看 terminal bench 的那些，它们就像在解决雅可比猜想。不完全是，但确实，它们相当复杂。作为一个软件工程师，我可能真的做不了这个。</p>
+<p><strong>Swyx [00:45:42]:</strong> 你说的是 TB4 还是 TB2？</p>
+<p><strong>Thariq Shihipar [00:45:43]:</strong> TB3。TB3。</p>
+<p><strong>Swyx [00:45:44]:</strong> TB3。</p>
+<p><strong>Thariq Shihipar [00:45:44]:</strong> 是的。它们相当复杂，但目标仍然是交付用户价值，对吧？就像你说的，有无限的事情可做。所以你花费算力的方式就是让用户保持在循环中，确保你最终做出正确的决定，得到正确的输出。而 artifacts 和 mods 就是花费这种智能的方式。我觉得这就是，是的，下一步。所以，是的，我觉得 Claude Code 拥有 agent 循环的核心要素，这些要素已经变得更复杂了。它需要一个沙箱来安全运行。它需要自动模式来确保权限</p>
+<p><strong>Vibhu [00:46:21]:</strong> 批准。</p>
+<p><em>（原文较长，只翻译了前面部分，<a href="https://www.latent.space/p/thariq">阅读全文</a>）</em></p>
+<p><a href="https://www.latent.space/p/thariq">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

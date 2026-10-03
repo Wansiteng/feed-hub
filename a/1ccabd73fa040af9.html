@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>可扩展BMS测试的路径</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">可扩展BMS测试的路径</h1>
+<p><small>评分 6/10：BMS测试规模化长文，与读者本职直接相关<br/>原标题：The path to scalable BMS testing</small></p>
+<p><strong>要点</strong></p><ul><li>dSPACE 推出 SCALEXIO Battery HIL – Essential，面向约 200V 级小型 BMS 应用</li><li>该入门配置支持最多 64 个电芯电压通道、200V 系统电压和可配置温度传感器通道</li><li>小型 BMS 项目同样需要 HIL 测试，以覆盖故障注入、回归测试和动态电池行为</li></ul>
+<hr/>
+<a href="https://chargedevs.com/whitepapers/the-path-to-scalable-bms-testing/"><img alt="" height="100" src="https://chargedevs.com/wp-content/uploads/2026/09/Charged-EV-Magazine_dSPACE_BMS-Article_03_260811-300x100.jpg" width="300"></a>
+<br>
+<div>由 dSPACE 赞助。</div>
+<p><a href="https://www.dspace.com/en/inc/home/applicationfields/ind-appl/automotive-industry/emobility/battery-management-systems.cfm">电池管理系统（BMS）</a>正走出大批量电动汽车领域。如今，它们为轻型电动车、自动导引车、移动机器人、叉车、无人机、电动工具、固定式储能及其他应用提供动力。共同的挑战在于，即便是更小的电池包，也仍然需要可靠的电池管理系统，而该 BMS 必须先在真实、可重复且安全的条件下经过测试，才能在现场获得信任。</p>
+<p>在这个多样化的 BMS 市场中，团队如今面对的是中低压系统、更小的电池包、更紧的进度安排，以及更少的专职测试工程师。他们并不总是需要在第一天就拥有一套完全定制的大规模 BMS Hardware-In-the-Loop（HIL）系统。他们需要一个可信的起点：紧凑、经济高效、实施快速，同时仍建立在可扩展的路径之上。</p>
+<p>dSPACE 为开发互联、自动驾驶和电动系统提供仿真与验证解决方案。在电池领域，这包括实时仿真、电芯电压仿真、温度传感器仿真、通信接口、测试自动化，以及可扩展 HIL 环境中的电池模型。目标是让 BMS 在真实的电池环境下接受测试，而无需每个验证步骤都依赖物理电池包。</p>
+<p><strong>为什么规模较小的 BMS 项目仍需要严格的测试</strong></p>
+<p>更小的 BMS 并不自动等于简单的 BMS。它仍然要监测电芯电压和温度、估算荷电状态和健康状态、控制均衡、管理接触器或继电器、监控电流和绝缘状况，并对故障做出反应。缺少验证可能导致可用性问题、过早老化或不安全运行。</p>
+<p>传统的电池包台架测试能覆盖部分问题，但在可重复性、故障注入、回归测试和动态电池行为方面力不从心。真实电池包速度慢、成本高、故障场景有限，且边缘情况测试风险大。HIL 测试用可控的实时仿真替代物理电池系统，同时保留真实的 BMS 控制器作为被测对象。</p>
+<p>对于规模较小的项目，实际问题不是 HIL 测试是否有用。真正的问题是如何在不引入复杂性的情况下开始 HIL 测试。这正是 dSPACE SCALEXIO Battery HIL – Essential 的用武之地。</p>
+<p><strong>SCALEXIO Battery HIL – Essential：实用的入门选择</strong></p>
+<p><a href="https://www.dspace.com/en/inc/home/applicationfields/ind-appl/automotive-industry/emobility/battery-management-systems/bms-testing-solution.cfm">SCALEXIO Battery HIL –</a> Essential 被设计为面向较小 BMS 应用的起始配置。它面向约 200 V 级别的系统，包括轻型电动车、电动工具、移动机器人、叉车、工业运输系统、电动自行车、无人机及类似平台。与完全定制的 HIL 系统相比，该方案注重紧凑设计、标准化配置、更短的报价周期、更短的交货时间以及经济高效的架构。</p>
+<p>SCALEXIO Battery HIL – Essential 的主要价值在于它消除了入门门槛。较小的团队往往需要先验证核心 BMS 行为：电芯电压测量、温度输入、状态估算、均衡、继电器逻辑、通信、诊断以及选定的故障反应。他们可能从一开始并不需要数百个电芯通道、多路高压电源或高度定制的机架。</p>
+<figure><a href="https://chargedevs.com/wp-content/uploads/2026/09/Charged-EV-Magazine_dSPACE_BMS-Article_02_260811.jpg"><img alt="" height="563" src="https://chargedevs.com/wp-content/uploads/2026/09/Charged-EV-Magazine_dSPACE_BMS-Article_02_260811.jpg" width="1000"></a></figure>
+<p>SCALEXIO Battery HIL – Essential 提供了一种结构化的入门方式。该配置支持多达 64 个电芯电压通道、最高 200 V 系统电压、可配置的温度传感器通道，并可与外部 dSPACE 实时处理器配合运行。它还可以与 dSPACE Automotive Simulation Models (ASM) 套件中的 ASM Battery 模型结合使用，从而在验证过程之初就能实现真实且可重复的电池行为。</p>
+<p><strong>从入门级到预定义和定制化电池 HIL</strong></p>
+<p>随着电池系统的发展，测试系统也在不断扩展。大型 BMS 项目通常需要更高的系统电压、更多的电芯通道、更多的温度仿真、额外的电流和隔离接口、高压源、故障注入、安全基础设施以及多种通信网络。这正是 dSPACE 预定义和定制化 SCALEXIO Battery HIL 系统发挥作用的地方。</p>
+<p>dSPACE SCALEXIO Battery HIL 系统将 ASM Battery 模型与高精度电池电芯仿真相结合。该仿真器可以在闭环环境中模拟电芯电压、温度传感器、堆叠电压、电流传感器行为、继电器控制、隔离相关信号以及通信接口。工程师无需为每次测试都准备真实的电池包，即可针对真实的电芯行为验证 BMS。</p>
+<p>预定义和完全定制化的配置适用于包括发布测试、系统集成、安全相关验证、回归测试以及复杂电池包架构在内的测试范围。预配置系统可以支持更高的通道数和电压等级，而定制化系统则可以根据客户特定的电池拓扑、安全概念、电气接口、诊断和自动化需求进行量身定制。</p>
+<p>这一点很重要，因为 BMS 验证很少停滞不前。一个项目可能从基础算法开始，进入硬件集成，扩展到故障处理，增加自动化，然后跨 software-in-the-loop (SIL) 和 hardware-in-the-loop (HIL) 工作流连接验证产物。可扩展的方法使团队能够在项目成熟过程中复用模型、测试用例、自动化资产和工程知识。</p>
+<figure><a href="https://chargedevs.com/wp-content/uploads/2026/09/Charged-EV-Magazine_dSPACE_BMS-Article_01_260811.jpg"><img alt="" height="395" src="https://chargedevs.com/wp-content/uploads/2026/09/Charged-EV-Magazine_dSPACE_BMS-Article_01_260811.jpg" width="1000"></a></figure>
+<p><strong>电芯控制器虚拟化：在信号层面进行测试</strong></p>
+<p><a href="https://www.dspace.com/en/inc/home/applicationfields/ind-appl/automotive-industry/emobility/battery-management-systems/signal-level-bms-test.cfm">Cell Controller Virtualization (CCV)</a> 将全部或部分电芯控制器功能移入 HIL 仿真中。仿真器不是将每个电芯输入物理仿真到真实的电芯控制器硬件中，而是提供 BMS 控制器所期望的隔离通信接口。当电芯控制器不可用、BMS 控制器是主要测试焦点，或者完整的高压电芯仿真会增加不必要的复杂性时，这种方法非常有用。因此，它有助于加速早期的 BMS 控制器测试，同时减少对硬件可用性的依赖。</p>
+<p><strong>ASM Battery 与测试自动化的作用</strong></p>
+<p>仅有硬件是不够的。一个强大的 BMS 测试环境需要一个在变化的荷电状态、温度、电流、均衡和拓扑条件下表现可信的电池模型。<a href="https://www.dspace.com/en/inc/home/products/sw/automotive_simulation_models.cfm">Automotive Simulation Models (ASM)</a> Battery 提供用于电芯特定电压和热行为、电池包/模组/堆叠结构以及参数化电池拓扑的实时模型。BMS 算法会对趋势、不平衡、时序、通信和故障做出反应——而不仅仅是静态值。由于这些模型集成在 dSPACE 测试环境中，工程师可以在不同的测试阶段和系统配置中使用相同的建模和验证基础。</p>
+<p>借助测试自动化，工程师可以将这些场景转化为可重复使用的验证资产。他们能够一致地运行欠压和过压测试、均衡测试、预充电测试、通信检查、温度场景以及故障反应测试。其商业价值远不止于在实验室中发现单个 bug；它关乎捕获回归问题、记录结果并减少手动台架工作。</p>
+<p><strong>可扩展的测试策略，而非一次性采购</strong></p>
+<p>选择 SCALEXIO Battery HIL – Essential 系统的理由并不仅仅在于它更小。它为团队提供了一个实用的起点。对于新兴的电池应用，风险往往在于构建的测试环境要么过于有限而无法发挥作用，要么过于庞大而难以证明其合理性。SCALEXIO Battery HIL – Essential 解决了这一中间地带的问题：具备足够的能力进行有意义的 BMS 验证，具备足够的标准化以减少摩擦，并且与 dSPACE 生态系统有足够的连接以避免走入死胡同。</p>
+<p>在此基础上，随着电压等级、电芯数量、安全要求、自动化深度和集成范围的提升，团队可以扩展到预定义或定制化的 SCALEXIO Battery HIL 系统。当信号级测试是更明智的选择时，他们还可以使用 Cell Controller Virtualization，尤其是在早期 BMS 控制器验证阶段，或者在物理电芯控制器集成会带来不必要复杂性的架构中。 </p>
+<p>这才是可扩展 BMS 测试的真正含义。它不仅仅是增加通道数。它关乎为开发的每个阶段选择合适的抽象层级、硬件深度、仿真保真度和自动化策略。SCALEXIO Battery HIL – Essential 是起点。预定义和定制化的 SCALEXIO Battery HIL 系统提供了扩展路径。CCV 为信号级验证增加了灵活性。它们共同为工程团队提供了一种实用的方法来测试电池管理系统，从最初的紧凑型实验室设置到全面的验证。</p>
+<p><a href="https://chargedevs.com/whitepapers/the-path-to-scalable-bms-testing/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NVIDIA GPU 如何加速 OpenAI 的 GPT-6 Astra Ultrafast</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">NVIDIA GPU 如何加速 OpenAI 的 GPT-6 Astra Ultrafast</h1>
+<p><small>NVIDIA Newsroom · 评分 8/10：重要模型发布，含推理加速与 API 可用信息<br/>原标题：How NVIDIA GPUs Help Accelerate OpenAI’s GPT-6 Astra Ultrafast</small></p>
+<p><strong>要点</strong></p><ul><li>GPT-6 Astra Ultrafast 在 NVIDIA Blackwell GPU 上运行，现已通过 OpenAI API 和 ChatGPT Work、</li><li>Ultrafast 模式比 Astra Standard 模式 token 生成速度最高快 8 倍。</li><li>OpenAI 利用内部模型优化 NVIDIA GPU 上的推理，NVIDIA 的可编程性帮助实现加速。</li></ul>
+<hr/>
+<p><span>GPT-6 Astra Ultrafast, running on </span><a href="https://www.nvidia.com/en-us/data-center/technologies/blackwell-architecture/"><span>NVIDIA Blackwell GPUs</span></a><span>, is available now in the OpenAI API and to eligible ChatGPT Work and Codex users. </span></p>
+<div lang="zh-CN"><p><span>GPT-6 Astra Ultrafast 现已通过 OpenAI API 向符合条件的 ChatGPT Work 和 Codex 用户开放，运行于 </span><a href="https://www.nvidia.com/en-us/data-center/technologies/blackwell-architecture/"><span>NVIDIA Blackwell GPU</span></a><span> 之上。</span></p></div>
+<p><span>Accelerated by inference optimizations through OpenAI’s models that tap into the capabilities of the NVIDIA Blackwell architecture, Ultrafast offers up to 8x faster token generation than the Astra Standard mode. For developers, faster generation can shorten coding agents’ edit-test-debug cycles, reduce the time spent generating responses between tool calls and make interactive applications feel more responsive. </span></p>
+<div lang="zh-CN"><p><span>借助 OpenAI 模型针对 NVIDIA Blackwell 架构能力的推理优化加速，Ultrafast 的 token 生成速度最高可达 Astra Standard 模式的 8 倍。对开发者而言，更快的生成速度可以缩短编码 agent 的编辑—测试—调试循环，减少工具调用之间生成响应所花费的时间，并让交互式应用响应更灵敏。</span></p></div>
+<p><span>A faster response matters most when it’s repeated across a workflow: an agent writes code, uses a tool, checks the result and decides what to do next. Ultrafast brings Astra’s capabilities into these time-sensitive loops. NVIDIA AI infrastructure helps OpenAI serve more useful model outputs when developers need it. </span></p>
+<div lang="zh-CN"><p><span>当快速响应在整个工作流中反复出现时，它的价值最为突出：agent 编写代码、调用工具、检查结果并决定下一步做什么。Ultrafast 将 Astra 的能力带入这些对时间敏感的循环中。NVIDIA AI 基础设施帮助 OpenAI 在开发者需要时提供更多有用的模型输出。</span></p></div>
+<p><span>“NVIDIA’s deep investment in tooling and documentation has enabled us to make our models exceptionally good at programming Blackwell and Rubin GPUs,” said Philippe Tillet, inference lead at OpenAI. “Astra can turn that knowledge into high-performance kernels that make NVIDIA hardware compelling across the full frontier of latency, throughput and cost. With Astra Ultrafast, that means faster model responses as agents write code, use tools and work through complex tasks.”</span></p>
+<div lang="zh-CN"><p><span>“NVIDIA 在工具和文档上的深度投入，使我们能够让模型极其擅长为 Blackwell 和 Rubin GPU 编程，”OpenAI 推理负责人 Philippe Tillet 表示。“Astra 可以将这些知识转化为高性能 kernel，让 NVIDIA 硬件在延迟、吞吐量和成本的全前沿范围内都极具吸引力。借助 Astra Ultrafast，这意味着当 agent 编写代码、使用工具并处理复杂任务时，模型响应更快。”</span></p></div>
+<h2><b>Continually Improving Performance</b></h2>
+<div lang="zh-CN"><h2><b>持续提升性能</b></h2></div>
+<p><span>Performance gains don’t stop when a model is deployed. OpenAI is using its own models to help refine the inference software running on NVIDIA GPUs, taking advantage of the platform’s programmability to test and implement improvements. That ongoing work can make model responses faster and deployed infrastructure more productive over time. </span></p>
+<div lang="zh-CN"><p><span>性能提升不会在模型部署后就停止。OpenAI 正在利用自身模型帮助改进运行在 NVIDIA GPU 上的推理软件，借助该平台的可编程性来测试和实施改进。这项持续进行的工作可以让模型响应更快，并让已部署的基础设施随时间推移更具生产力。</span></p></div>
+<p><span>“Our work with NVIDIA is helping us make AI faster and more useful,” said Uday Ruddarraju, chief technology officer of compute at OpenAI. “We used our internal models to optimize inference on NVIDIA GPUs, and NVIDIA’s programmability helped us deliver the acceleration behind Astra Ultrafast.”</span></p>
+<div lang="zh-CN"><p><span>“我们与 NVIDIA 的合作正在帮助我们让 AI 更快、更有用，”OpenAI 计算首席技术官 Uday Ruddarraju 表示。“我们使用内部模型优化了 NVIDIA GPU 上的推理，而 NVIDIA 的可编程性帮助我们实现了 Astra Ultrafast 背后的加速。”</span></p></div>
+<p><span>A programmable NVIDIA platform allows developers and researchers to reuse infrastructure across training, inference and reinforcement learning as models evolve. That flexibility helps teams repurpose compute resources as demand changes, improving utilization and avoiding overprovision for each workload.</span></p>
+<div lang="zh-CN"><p><span>可编程的 NVIDIA 平台让开发者和研究人员能够随着模型演进，在训练、推理和强化学习之间复用基础设施。这种灵活性帮助团队在需求变化时重新调配计算资源，提高利用率，并避免为每种工作负载过度配置。</span></p></div>
+<p><i><span>Developers can use GPT-6 Astra Ultrafast through the API today. See the </span></i><a href="https://developers.openai.com/api/docs/guides/ultrafast-mode"><i><span>Ultrafast guide</span></i></a><i><span> for access, pricing and implementation details.</span></i></p>
+<div lang="zh-CN"><p><i><span>开发者现在即可通过 API 使用 GPT-6 Astra Ultrafast。有关访问、定价和实施细节，请参阅 </span></i><a href="https://developers.openai.com/api/docs/guides/ultrafast-mode"><i><span>Ultrafast 指南</span></i></a><i><span>。</span></i></p></div>
+<p><a href="https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

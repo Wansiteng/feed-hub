@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="2.0">
+ <head>
+  <title>Feed Hub</title>
+ </head>
+ <body>
+  <outline text="Feed Hub" title="Feed Hub">
+   <outline type="rss" text="Feed Hub · 简报与重磅" title="Feed Hub · 简报与重磅" xmlUrl="https://wansiteng.github.io/feed-hub/feeds/all.xml" />
+   <outline type="rss" text="Feed Hub · 重磅" title="Feed Hub · 重磅" xmlUrl="https://wansiteng.github.io/feed-hub/feeds/important.xml" />
+   <outline type="rss" text="Feed Hub · 简报" title="Feed Hub · 简报" xmlUrl="https://wansiteng.github.io/feed-hub/feeds/digest.xml" />
+  </outline>
+ </body>
+</opml>

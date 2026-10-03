@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AutoSynthData：为企业级 Agent 生成训练数据</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">AutoSynthData：为企业级 Agent 生成训练数据</h1>
+<p><small>评分 6/10：企业 Agent 训练数据合成，与 agent 工具链相关，值得一看<br/>原标题：AutoSynthData: Generating Training Data for Enterprise Agents</small></p>
+<p><strong>要点</strong></p><ul><li>ServiceNow CoreAI 推出 AutoSynthData，把企业 agent 的能力短板转化为训练数据</li><li>该方法用更强 teacher 模型的成功轨迹，指导生成并验证新任务</li><li>有用任务需同时满足可行性、真实性和难度三个条件</li></ul>
+<hr/>
+<a href="https://cdn-uploads.huggingface.co/production/uploads/68642da9885da181fde1ad70/mlI168havBLGXY2qbd4ud.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/68642da9885da181fde1ad70/mlI168havBLGXY2qbd4ud.png" alt="AutoSynthData_thumbnail_1200x648 (2)"></a>
+<p>企业需要能在自身环境中良好运作的 agent。它们要求这些 agent 完成的工作，受到其所用系统、所遵循规则以及数据状态的塑造。一个模型可能具备广泛的能力，却仍在特定环境中举步维艰：某个它处理不佳的工作流、某组它误用的工具组合，或某项它未能遵守的约束。这些正是企业需要改进的弱点。</p>
+<p>难点在于如何把这些弱点转化为训练数据。单次失败能告诉我们一些信息，但训练模型需要大量新任务，在不同情境下锻炼同一项能力。这些任务还必须能在该环境中完成，类似于有人真会提出的工作请求，并且要有可靠的方法来检验 agent 是否成功。</p>
+<p>在 ServiceNow CoreAI，我们构建了 AutoSynthData，将这些能力缺口转化为训练数据。它利用目标模型的失败和更强 teacher 的成功，来决定模型接下来应该学习什么，然后生成并验证锻炼这些能力的新任务。随着模型不断改进，课程会转向它仍然觉得困难的内容。我们以 EnterpriseOps Gym（<a href="https://arxiv.org/abs/2603.13594">Malay et al., 2026</a>）为例，使用<a href="https://huggingface.co/datasets/ServiceNow-AI/EnterpriseOps-Gym">已发布的数据集</a>来展示这一流程。我们首先描述 agent 运行的环境，以及什么样的任务对训练有用。</p>
+<h2>
+	
+		
+	
+	<span>
+		什么是有用的 agentic 任务？
+	</span>
+</h2>
+<p>agentic 环境定义了 agent 运行的世界：它可以观察和修改的状态、可以调用的工具和 API，以及其动作产生的状态转换。</p>
+<p>任务在此环境中实例化。我们使用以下抽象：</p>
+<pre><code>task = (system specification, user prompt, verifier)
+</code></pre>
+<h3>
+	
+		
+	
+	<span>
+		系统规范
+	</span>
+</h3>
+<p>系统规范定义了 agent 运行所遵循的约束，包括系统指令、环境策略，以及在适用情况下任务特定的初始化，例如预置的数据库状态或一组知识文章。</p>
+<p>该规范必须与环境中的工具、状态和所支持的动作兼容。其指令应清晰明确，避免仅为制造难度而引入的任意约束。</p>
+<h3>
+	
+		
+	
+	<span>
+		面向 agent 的任务
+	</span>
+</h3>
+<p>用户 prompt 指定了用户希望 agent 完成什么，以及任何用户层面的约束。生成的任务应满足三个属性。</p>
+<p><strong>可行性。</strong>在当前环境中，应至少存在一条轨迹，既能满足用户 prompt，又遵守系统规范。这排除了依赖不可用工具、无法访问的知识、不可能的状态转换或策略禁止的动作的任务。</p>
+<p><strong>真实性。</strong>用户 prompt 应类似于用户在目标环境中可能提出的请求。可执行行为的空间通常远大于真实工作流的空间。</p>
+<p><strong>难度。</strong>对于训练而言，任务应暴露当前 agent 的弱点。已经能可靠解决的任务提供的训练信号很少。因此，有用的区域是那些可行且真实、但尚未能稳定解决的任务。</p>
+<h3>
+	
+		
+	
+	<span>
+		verifier
+	</span>
+</h3>
+<p>verifier 判断最终轨迹是否成功完成任务。它应满足三个属性。</p>
+<p><strong>一致性。</strong>它应与用户 prompt、系统规范以及任务特定的环境状态保持一致。</p>
+<p><strong>可靠性。</strong>它应拒绝未能满足任务或违反相关约束的轨迹。</p>
+<p><strong>完整性。</strong>它应当接受有效的解决方案，而不是编码某一条特定的参考轨迹。</p>
+<p>这些属性在训练过程中直接起作用。宽松的 verifier 可能奖励错误行为，而过于严格的 verifier 可能惩罚有效解决方案。</p>
+<h2>
+	
+		
+	
+	<span>
+		概述
+	</span>
+</h2>
+<p>给定一个环境和目标模型，AutoSynthData 生成由系统规范、用户 prompt 和 verifier 组成的训练任务。生成的任务以环境为基础，并被挑选出来为当前模型提供有用的训练信号。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/sM50frTSx9Q7Yyh6UNcGz.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/sM50frTSx9Q7Yyh6UNcGz.png" alt="figure-01"></a></p>
+<p>AutoSynthData 首先使用诊断任务在环境中评估目标模型，并识别出它难以完成的任务中的模式。一个更强的 teacher 帮助刻画哪些任务是可解的，以及成功的行为是什么样子。AutoSynthData 将由此得到的能力差距转化为新的可执行任务，在环境中检查每个任务，并使用被接受的样本进行后训练。评估更新后的模型可以揭示哪些差距仍然存在，并指导下一轮生成。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/huMlVCBcc-IseCIk5uEIJ.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/huMlVCBcc-IseCIk5uEIJ.png" alt="figure-02"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		从模型失败到课程
+	</span>
+</h2>
+<p>AutoSynthData 利用目标环境中的评估运行来识别模型接下来需要学习什么。在我们的 EnterpriseOps Gym 实验中，我们在评估任务上同时运行目标模型和一个更强的 teacher。我们检查这些运行以识别：</p>
+<ul>
+<li>所测试的能力；</li>
+<li>所涉及的工具和工作流结构；</li>
+<li>目标模型在哪里失败，以及 teacher 如何成功；</li>
+<li>正确的最终状态必须满足的属性；</li>
+<li>在保持所测试能力的同时可以变化的维度。</li>
+</ul>
+<p>我们将这些发现提炼为经过脱敏的能力规范卡片。评估任务指导模型应该学习什么，但生成器不会收到它们的原始 prompt、实体、轨迹或 verifier 细节。它收到的是这些卡片，并用它们来创建具有不同 prompt、状态和解决路径的新任务。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/ZwShYC2FDYFXU9yR9yz1t.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/ZwShYC2FDYFXU9yR9yz1t.png" alt="figure-03"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		生成和扩展任务
+	</span>
+</h2>
+<p>识别出能力差距告诉我们该教什么，但训练需要许多不同的任务来锻炼它。AutoSynthData 使用规范卡片来生成这些任务。</p>
+<p>假设目标模型在需要以下工作流的任务上表现不佳：</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/UCTRFFZ7ttq6JEXZr5_Qi.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/UCTRFFZ7ttq6JEXZr5_Qi.png" alt="figure-04"></a></p>
+<p>生成器创建锻炼此工作流的新任务，改变实体、初始环境状态、工作流组成、工具组合、措辞和难度。然后，更强的 teacher 为每个任务演示一条成功的轨迹。对于监督微调（SFT），这些演示教目标模型如何在新情境中应用该能力。</p>
+<p>AutoSynthData 分两个阶段构建数据集：首先生成并验证核心样本，然后将它们扩展为新的变体。</p>
+<h3>
+	
+		
+	
+	<span>
+		Target
+	</span>
+</h3>
+<p>Target 阶段根据能力规范创建核心训练样本集。工作器并行生成独立任务，完成一个后就开始一个新的目标。每个候选样本在被接受前都要经过验证、执行、求解器评估和修复。结果是一批围绕目标模型需要学习的内容构建的经过审查的示例。</p>
+<h3>
+	
+		
+	
+	<span>
+		Multiply
+	</span>
+</h3>
+<p>Multiply 阶段通过为被接受的 target 样本创建新的变体来扩展数据集。每个变体都有自己的用户请求、环境状态、实体配置、参考轨迹和 verifier，并且必须通过相同的验证和执行检查。一个 multiplied 样本不能作为另一个 multiplied 样本的种子。这将扩展锚定在经过审查的 target 集上，并限制跨代漂移。</p>
+<h3>
+	
+		
+	
+	<span>
+		实现细节
+	</span>
+</h3>
+<p>为支持这两个阶段，AutoSynthData 将生成控制与环境特定执行分离。共享控制器负责协调生成、质量控制、覆盖率和数据集构建，而适配器负责环境执行、任务与状态管理、参考轨迹回放、确定性验证、求解器执行和任务画像。</p>
+<p>并行目标生成与倍增相结合，为达到训练规模的数据集提供了一条路径。它们的有效性取决于对每个候选样本施加的检查：任务必须可执行，解决方案必须有效，verifier 必须能区分成功与失败。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/zUTtl1ILl-fTtA-0RZdgV.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/zUTtl1ILl-fTtA-0RZdgV.png" alt="figure-05"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		高质量的合成数据需要的不仅仅是生成
+	</span>
+</h2>
+<p>生成一个看似合理的请求并不足以产生有用的训练数据。任务在目标环境中可能无法完成，其参考解决方案在执行时可能失败，或者其 verifier 可能奖励错误的最终状态。AutoSynthData 在接受任务用于训练之前会检查这些属性。</p>
+<p>AutoSynthData 在两个层面审查质量：单个候选样本必须通过验证，批次必须提供有用的覆盖率和多样性。</p>
+<h3>
+	
+		
+	
+	<span>
+		样本级验证与修复
+	</span>
+</h3>
+<p>每个候选样本在进入训练数据集之前都必须通过质量控制循环。我们首先通过求解器评估来衡量难度。在此处使用的配置中，我们偏好目标模型在三次尝试中最多成功一次、而更强的求解器在三次尝试中至少成功两次的任务。候选样本还要经过正向和负向验证以及有界修复过程。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/r3nXamYF6OEI2ezj7MX78.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/r3nXamYF6OEI2ezj7MX78.png" alt="figure-06"></a></p>
+<h4>
+	
+		
+	
+	<span>
+		正向验证
+	</span>
+</h4>
+<p>正向门控问的是：预期解决方案能否解决生成的任务？</p>
+<p>该流水线在目标环境中执行参考轨迹，并根据候选样本的 verifier 检查最终状态。这能揭示 prompt、初始状态、解决方案和成功标准之间的不匹配。</p>
+<h4>
+	
+		
+	
+	<span>
+		负向验证
+	</span>
+</h4>
+<p>负向门控问的是：相关的错误结果是否会失败？</p>
+<p>例如，它可以改变预期结果的部分内容，并确认这些状态不再通过验证。这能捕获那些不要求预期行为就给予成功的弱 verifier。</p>
+<h4>
+	
+		
+	
+	<span>
+		批评与修复
+	</span>
+</h4>
+<p>失败的候选样本在被丢弃之前会先交给批评者。批评者检查样本及其失败原因，寻找不一致的状态、不可能的工作流、错误的任务构建、糟糕的参考轨迹、薄弱的 verifier 逻辑，或与预期能力不匹配之处。批评者的发现指导修复，重试次数有固定上限：</p>
+<pre><code>candidate
+↓
+failure
+↓
+critique / diagnosis
+↓
+targeted repair
+↓
+run the gates again
+↓
+accept or retry
+</code></pre>
+<p>修复后的任务必须再次通过相关检查。诊断指导对现有候选样本进行修复，而不是要求重新开始生成。</p>
+<p>通过这些检查使样本有资格用于训练，但单独有效的样本仍可能形成重复或不平衡的数据集。因此，AutoSynthData 还会在批次层面审查生成情况。</p>
+<h3>
+	
+		
+	
+	<span>
+		批次级审查
+	</span>
+</h3>
+<p>一个批次可能过度代表少数简单的任务族，遗漏某种能力，或反映出在低产出模式上花费了过多生成精力。</p>
+<p>元审查会检查每个批次中接受的样本、拒绝的样本以及生成行为。它问：</p>
+<ul>
+<li>哪些任务族被过度代表，哪些能力维度缺失？</li>
+<li>是否反复出现相同类型的示例？</li>
+<li>某些目标是否持续生成失败？</li>
+<li>批评中是否出现系统性问题？</li>
+<li>下一批次应改变哪些指导？</li>
+</ul>
+<p>控制器会跟踪已接受数据集中的覆盖情况，减少在过度覆盖区域上的生成，并将更多工作导向空白区域。当某个区域反复产生质量不佳的候选样本时，critique 和 meta-review 会指导对生成策略的调整。这些调整在可用的生成预算和数据集规模要求内，平衡了有用的学习信号、任务质量、覆盖范围、多样性以及低冗余度。</p>
+<p>这些反馈循环共同改进了单个任务以及它们所构成的数据集：样本级检查指导候选样本的修复，而批次级审查则指导未来的生成。</p>
+<h2>
+	
+		
+	
+	<span>
+		推动训练前沿
+	</span>
+</h2>
+<p>有用的训练分布会随着模型的改进而变化。AutoSynthData 将合成数据生成视为对接近目标模型能力边界的任务的搜索：难度足以暴露弱点，但又足够可解，以便 teacher 提供可靠的示范。</p>
+<p>后训练之后，我们在同一环境中评估更新后的模型。它现在能可靠解决的任务对下一轮训练用处较小；持续失败的任务则指向仍需关注的能力。这些结果可以指导下一轮生成。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/ONKQXJ1u9buDLEa-AuXMo.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/ONKQXJ1u9buDLEa-AuXMo.png" alt="figure-07"></a></p>
+<p>我们的实验聚焦于 SFT，但同样的机制也可以支持强化学习（RL）：生成能挑战当前策略并提供可靠学习信号的任务，进行训练，然后随着策略更新而移动生成目标。我们计划在 SFT 之外测试这种移动的、按难度校准的前沿。</p>
+<h2>
+	
+		
+	
+	<span>
+		EnterpriseOps Gym 实验
+	</span>
+</h2>
+<p>我们使用 EnterpriseOps Gym 来测试这种方法能否在有状态的企业环境中提升模型在任务上的表现。我们在 Gym 的 Hybrid 和 ITSM 环境中生成训练任务，在已接受的样本上微调目标模型，并评估得到的 checkpoint。</p>
+<h3>
+	
+		
+	
+	<span>
+		Hybrid
+	</span>
+</h3>
+<p>我们在 EnterpriseOps Gym 的 Hybrid 领域测试了该流水线，使用 <a href="https://huggingface.co/google/gemma-4-26B-A4B-it">Gemma-4-26B-A4B-it</a> 作为目标模型，<a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8-27B</a> 作为 teacher。</p>
+<p>AutoSynthData 在大约 18 小时内生成了 2,000 个合成训练样本。我们在这个数据集上微调了 Gemma，并在 benchmark 上评估得到的 checkpoint。最佳 checkpoint 是第 5 个 epoch。</p>
+<h3>
+	
+		
+	
+	<span>
+		Hybrid 结果
+	</span>
+</h3>
+<p>合成 SFT checkpoint 将平均 Pass@1 提升了 7.2 个百分点，相对提升 35%，并将 verifier 成功率从 63.01% 提高到 68.55%。它弥合了 Gemma 与参考模型之间原始 Pass@1 差距的 59%。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/D2CdcykJInh82mYAMGz3I.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/D2CdcykJInh82mYAMGz3I.png" alt="figure-08"></a></p>
+<p>训练任务是根据能力规格新生成的；生成器没有收到原始评估任务。该结果证明了在 EnterpriseOps Gym Hybrid（本实验所用环境）中的改进。</p>
+<h3>
+	
+		
+	
+	<span>
+		ITSM
+	</span>
+</h3>
+<p>我们还将 AutoSynthData 应用于 EnterpriseOps Gym 的 ITSM 领域，使用 Gemma-4-26B-A4B-it 作为目标模型，<a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">DeepSeek-V4.1-Flash</a> 作为 teacher。AutoSynthData 在 66 小时内生成了 1,994 个合成训练样本。生成耗时比上述后续的 Hybrid 运行更长，主要是因为 ITSM 运行使用了更大的 teacher 模型，并且早于提升吞吐量的流水线优化。</p>
+<p>在 ITSM 上，合成 SFT 将平均 Pass@1 从 18.77% 提升到 27.18%，表明该方法在第二个领域也能提升性能。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/3G6bJhA0JKZMJdiwfeHYs.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/66a41f3c1d52bffc13c285a5/3G6bJhA0JKZMJdiwfeHYs.png" alt="figure-09"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		闭环
+	</span>
+</h2>
+<p>对训练最有用的任务取决于环境以及在其中运行的模型。AutoSynthData 利用模型的失败来决定生成什么内容，针对环境验证新任务，并让这些任务可用于后训练。我们的 EnterpriseOps Gym 结果展示了这种方法在受控环境中的价值。随着模型变化，同一流程可以聚焦于仍然存在的差距。</p>
+<p><a href="https://huggingface.co/blog/ServiceNow-AI/autosynthdata">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

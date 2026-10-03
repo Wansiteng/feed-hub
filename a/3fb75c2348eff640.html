@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>v4.1.22</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">v4.1.22</h1>
+<p><small>Cline Releases · 评分 6/10：Cline新增provider与模型目录更新，含GPT-6.1 Sol默认</small></p>
+<p><strong>要点</strong></p><ul><li>Cline v4.1.22 新增 Bee 和 Pareto Inference 两个 provider</li><li>GPT-6.1 Sol 成为 OpenAI、OpenRouter、GitHub Copilot 等多家 provider 的默认模型</li><li>Anthropic 请求改用服务端拒绝回退，被内容过滤拦截时会提示改写</li></ul>
+<hr/>
+<h3>新增</h3>
+<ul>
+<li>新增提供商：Bee（由 HEOSSI 提供）和 Pareto Inference（<code>PARETO_API_KEY</code>）。</li>
+</ul>
+<h3>变更</h3>
+<ul>
+<li>直接发往 Anthropic 的请求现在使用 Anthropic 服务端的拒绝回退机制。在 OpenRouter 和 Cline 上，Anthropic 模型可以故障转移到另一个上游提供商，而不是让请求失败。</li>
+<li>当响应被内容过滤器拦截时，Cline 现在会明确说明并建议改写，而不再显示“模型返回空响应”。</li>
+<li>刷新了模型目录。GPT-6.1 Sol 成为 OpenAI、OpenRouter、GitHub Copilot、Cortecs、Eden AI、Kilo Gateway、两个 LLM Gateway 提供商、NanoGPT、OpenCode Zen 和 Requesty 的默认模型。Vercel AI Gateway 切换到 Ling 3.1 Flash，Tempr Gateway 切换到 MiMo V2.6 Flash，CrossModel 和 Ofox 切换到 Claude Sonnet 5.5，Pioneer 切换到 GLiNER 2.5 Decide，Scaleway 切换到 Qwen 3.8 27B。Cline 推荐列表新增 Claude Sonnet 5.5 和 Claude Opus 5.5。如果你使用上述提供商但没有固定模型，默认模型会发生变化。</li>
+</ul>
+<h3>修复</h3>
+<ul>
+<li>API 报错后，你可以直接输入并发送新消息，而不必只能使用重试。在恢复期间输入的 <code>/compact</code>（或 <code>/smol</code>、<code>/newtask</code>）会保留在输入框中，而不会被当作文本发送给模型。</li>
+<li>如果新任务因 Cline 登录失败，现在登录并提交修改后的 prompt 会以该 prompt 启动任务。此前则毫无反应。</li>
+<li>当消息没有检查点时，<strong>重置代码</strong>现在会被禁用；而对于检查点确实存在的消息，它不再一直处于禁用状态（在慢速磁盘上曾出现）。更改检查点设置现在会应用到当前活动任务，在此期间输入的后续消息会按顺序保留。</li>
+<li>发送消息后立即取消，现在会停止任务。此前在回合仍在准备阶段时触发的取消会被忽略，任务会继续运行。</li>
+<li>推理 token 不再在 token 用量中被重复计算。费用不变。</li>
+<li>Amazon Bedrock：GPT-6 和 GPT-5.6 通过推理配置文件路由，印度区域（<code>ap-south-1</code>、<code>ap-south-2</code>）解析为 <code>in.</code> 配置文件。位于推理配置文件之后的 OpenAI 模型会获得其支持的推理强度设置。高推理强度的 Nova 2 Lite、应用推理配置文件 ARN 以及 Nova Micro 不再收到 Bedrock 拒绝的请求。保存时未勾选“使用配置文件”标志的旧版 AWS 配置文件设置，现在会作为配置文件认证沿用，而不再被丢弃。</li>
+<li>在混合端点的提供商上，网关模型会保留自己的 API 协议，而不会回退到提供商级别的默认协议。</li>
+</ul>
+<p><strong>完整更新日志</strong>：<a href="https://github.com/cline/cline/compare/v4.1.21...v4.1.22"><tt>v4.1.21...v4.1.22</tt></a></p>
+<p><a href="https://github.com/cline/cline/releases/tag/v4.1.22">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

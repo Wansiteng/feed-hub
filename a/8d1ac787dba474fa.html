@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>由内而外的 AI：Airbnb 如何在幕后与房客体验中重建 AI</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">由内而外的 AI：Airbnb 如何在幕后与房客体验中重建 AI</h1>
+<p><small>Latent Space · 评分 7/10：前 Meta Llama 负责人谈 Airbnb 的 AI 落地，长文有实质内容<br/>原标题：Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience</small></p>
+<p><strong>要点</strong></p><ul><li>Airbnb 约 60% 的代码由 AI 编写，工程师 PR 吞吐量提升约 1.6 倍</li><li>Airbnb 约一半客服工单由 AI 独立解决，Q2 财报数据为近 45%</li><li>Airbnb 用内部上下文图谱 Everest 加速新品开发，机场接送仅用约六周</li></ul>
+<hr/>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!-kaR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1ac92b22-c007-487c-b80f-f031f36596db_2560x1440.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!-kaR!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1ac92b22-c007-487c-b80f-f031f36596db_2560x1440.png" width="1456"></div></a></figure>
+<p>在1月加入Airbnb担任CTO之前，<a href="https://www.linkedin.com/in/ahmad-al-dahle/">Ahmad Al-Dahle</a>是Meta的生成式AI负责人，并在2023至2025年间主导了其开源Llama模型的发布。如今，Al-Dahle负责将Airbnb转变为一家“AI原生公司”。</p>
+<p>实践中的含义是<strong>在内部使用AI</strong>来加速产品开发，然后利用这些相同的能力来<strong>转变客户体验</strong>。我们将此称为<strong>“由内而外的AI”方法</strong>，在本文中我们将深入探讨细节。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!WCQ3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff41a8dc3-28da-4dbb-9c8c-bc893cb1dada_2048x1152.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!WCQ3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff41a8dc3-28da-4dbb-9c8c-bc893cb1dada_2048x1152.png" width="1456"></div></a><figcaption>由内而外AI的一个例子：Airbnb使用了一个名为Everest的内部定制工具来帮助加速一项新外部服务的发布。（图表由Latent Space制作）</figcaption></figure>
+<p>Al-Dahle与Latent Space谈论了Airbnb的AI转型。我们首先问他为何从在Meta构建前沿模型转向<strong>在Airbnb部署它们</strong>。</p>
+<p>“从根本上说，我喜欢追逐我认为<strong>艰难前沿所在之处</strong>，”他回答道，或许双关意在。“我们（在Meta）大致知道飞轮是什么样子，我们了解如何一代代提升模型能力。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!pLmd!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F50e450f9-640f-4bfc-9b3c-0af6d1c30dfc_1236x850.png"><div><img alt="" height="850" src="https://substackcdn.com/image/fetch/$s_!pLmd!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F50e450f9-640f-4bfc-9b3c-0af6d1c30dfc_1236x850.png" width="1236"></div></a><figcaption><em><a href="https://x.com/Ahmad_Al_Dahle/status/2011440460821320056">Al-Dahle在1月发布的推文</a>，关于从Meta加入Airbnb</em></figcaption></figure>
+<p>Al-Dahle认为，下一个挑战是大规模部署模型。在Airbnb，他的目标是“<strong>推动人们以不同方式工作</strong>，因为这些工具正在改变你的工作方式”，以及“<strong>将这些系统投入生产</strong>，以创造性的方式真正为核心用户体验增加价值。”</p>
+<h2>跳到原型，代码即产物</h2>
+<p>自2008年成立以来，Airbnb一直被视为一家在酒店业运营的<strong>科技公司</strong>。该公司于2020年上市，目前市值约为<strong>930亿美元</strong>（截至撰写时）。因此，尝试使其“AI原生”是一项庞大的工程。</p>
+<p>Al-Dahle列举了一些统计数据来表明Airbnb现在已深度拥抱AI：<strong>其60%的代码现在由AI编写</strong>，<strong>同比发布的功能和改进增加了近80%</strong>，<strong>普通工程师的拉取请求吞吐量提高了约1.6倍</strong>。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!gXcz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fee64deb7-9d81-44ad-8e75-aeace18bf231_2048x1152.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!gXcz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fee64deb7-9d81-44ad-8e75-aeace18bf231_2048x1152.png" width="1456"></div></a></figure>
+<p>但Airbnb究竟是如何做到这一切的？</p>
+<p>首先，他说这关乎<strong>改变软件工程的组织流程</strong>。传统上，你可能先做产品需求，然后在Figma中进行设计工作，接着是工程实现，最后是生产测试。过去，这些都需要从一个团队交接给另一个团队。但现在，<strong>Airbnb让其产品、设计和工程团队直接转向使用原型</strong>。</p>
+<p>“打破这种时间分割实际上是许多传统软件公司必须实现飞跃的最大节省之一，”Al-Dahle说。“因此我们实现了这一飞跃，它实际上为我们的产品开发过程增添了巨大的顺风。”</p>
+<p>这种变化的一个副产品是<strong>团队直接处理代码</strong>，而不是处理像产品需求文档这样的“产物”。</p>
+<p>“我们从过度生成产物转向<strong>代码成为我们推理的产物，以及原型</strong>，”他说。</p>
+<h2>AI解决了大约一半的支持工单</h2>
+<p>Al-Dahle告诉我们，客户支持是其引入AI的第一个面向用户的领域。他将其描述为“最难部署的问题”，因为“错误的代价和后果非常高”。</p>
+<p><strong>Airbnb 现在有大约一半的客服工单完全由 AI 解决</strong>，Al-Dahle 表示（这与该公司 <a href="https://news.airbnb.com/airbnb-q2-2026-financial-results">Q2 财报</a>一致，财报中这一数字接近 45%）。</p>
+<p>他表示，关键在于使用<strong>合成数据</strong>在投入生产之前对系统进行全面测试。</p>
+<p>“我们从这里开始：构建模型、构建 agent，并在投入生产之前就开始<strong>生成大量合成数据</strong>。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!vKa3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbe1c02ab-913c-4018-9bde-96ea30606a5e_2048x1256.png"><div><img alt="" height="893" src="https://substackcdn.com/image/fetch/$s_!vKa3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbe1c02ab-913c-4018-9bde-96ea30606a5e_2048x1256.png" width="1456"></div></a></figure>
+<p>他指出，尽管 agent 处理了大约一半的客服咨询，但他们在<strong>哪些情况需要人工协助</strong>方面非常谨慎——例如安全问题。</p>
+<p>“因此，虽然我们解决了 50% 的工单，但对于那些我们尚未选择[用 agent]解决的工单，我们实际上是刻意为之的。”</p>
+<h2>Everest，Airbnb 的 AI 上下文图谱</h2>
+<p>你可能还不太熟悉的两个 <a href="https://www.airbnb.co.uk/services">Airbnb Services</a> 项目是<strong>杂货配送和机场接送</strong>（杂货服务刚刚<a href="https://news.airbnb.com/airbnb-expands-groceries-with-instacart-across-us-and-canada">扩展到更多城市</a>）。两者都在今年早些时候推出，部分得益于 Airbnb 由内而外的 AI 方法。</p>
+<p>正是<strong>一个名为 Everest 的内部组织上下文图谱</strong>帮助这些产品快速推向市场。Al-Dahle 表示，Everest 使用 LLM、embedding 和基于 AI 的检索等技术来构建和查询该图谱。</p>
+<p>他解释说，杂货配送和机场接送服务是“类似的服务——与合作伙伴服务[外部公司]的 API 集成，这些服务集成到了我们的平台上。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!2bdG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff8288bd1-6727-4e33-b777-0d61ac37cbe2_1498x988.png"><div><img alt="" height="960" src="https://substackcdn.com/image/fetch/$s_!2bdG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff8288bd1-6727-4e33-b777-0d61ac37cbe2_1498x988.png" title="" width="1456"></div></a><figcaption>Airbnb 的新杂货配送服务</figcaption></figure>
+<p>杂货服务最先构建，其经验教训在 Everest 中可供使用。这使得机场接送团队能够更快地完成项目。在其 <a href="https://s26.q4cdn.com/656283129/files/doc_financials/2026/q2/Airbnb-Q2-2026-Earnings-Call-Transcript.pdf">Q2 财报</a>中，Airbnb 表示<strong>“杂货服务花了八个月、九个月，而机场接送大约花了六周时间开发。”</strong></p>
+<p>此外，使用 Everest 意味着其开发人员不一定需要专业知识就能参与项目。</p>
+<p>“由于这个上下文图谱存在于整个代码库中，”Al-Dahle 说，<strong>“我们能够让通才在代码中非常专业的领域工作</strong>。”</p>
+<p>这两项新服务都在 5 月 Airbnb 的 <a href="https://www.youtube.com/watch?v=bFHdNb74YDo">2026 夏季发布会</a>上被 CEO Brian Chesky 重点提及。</p>
+<h2>选择使用哪些模型以及定制开源模型</h2>
+<p>为了更直观地说明 Airbnb 内部的 AI 使用情况，Al-Dahle 将其描述为<strong>一家“多模型公司”</strong>，并表示其生产系统中部署了“许多不同的模型”。</p>
+<p>Airbnb 混合使用前沿模型和开源模型，但<strong>大部分自己的后训练和强化学习都是在开源模型上进行的</strong>。Al-Dahle 表示，该公司至少部署了 10 个定制模型用于生产用例。</p>
+<p>它还沿着<strong>成本、性能和延迟的帕累托前沿</strong>评估模型，为每个应用选择不同的权衡。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!bN7d!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9ddbeb0b-9402-4914-b491-02f6e3f6a9e2_2048x1152.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!bN7d!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9ddbeb0b-9402-4914-b491-02f6e3f6a9e2_2048x1152.png" width="1456"></div></a></figure>
+<p><strong>“我们针对每个用例专门运行评估，”</strong>他解释说。“因此，如果我们使用模型进行搜索，我们有一组从生产环境中采样的搜索查询作为衡量标准。如果我们做客服，我们也会采样所有我们最关心的生产查询——包括边缘情况。”</p>
+<p>“我们尽量为合适的任务选用合适的工具，”他补充道。例如，编码可以容忍更高的延迟，但错误的代价高昂。因此，他们倾向于在编码任务中使用最强大的前沿模型。</p>
+<p><strong>“使用绝对最前沿的编码模型是合理的</strong>，因为模型每产生一个缺陷，都可能让我们付出大得多的代价。”</p>
+<p>另一方面，搜索被 Airbnb 用户大规模使用，因此对延迟非常敏感。<strong>所以对于这项任务，他们更倾向于使用更小的专用模型。</strong>Al-Dahle 声称，经过后训练的小模型有时会胜过前沿模型。</p>
+<p>“对于狭窄的用例，我们能够采用非常小、非常灵活、速度极快且成本低廉的模型，并<strong>对它们进行超越前沿的后训练。”</strong></p>
+<h2>异步 agent：下一个重大转变</h2>
+<p><strong><a href="https://www.latent.space/p/lovable-future-of-saas">与其他 AI 原生公司一样</a></strong>，Airbnb 也创建了<strong>一个内部 agent</strong>——在它这里叫做 <strong>AirChat</strong>。</p>
+<p>“我们有自己的内部 agent，我们称之为 AirChat，它基本上[包含]所有必要的 MCP 组织上下文，”Al-Dahle 说。</p>
+<p>但 Airbnb 也开始实施 Al-Dahle 眼中 agent 的下一个发展方向：<strong>在容器中运行、由事件激活的异步 agent。</strong></p>
+<p>“我们的许多团队开始基本上将他们的 on-call 自动化，”他解释道。“所以如果有什么触发了，如果 Grafana 限制或你使用的任何监控系统触发了，<strong>agent 就会启动，然后进行分诊并运行你的 on-call</strong>，你的初始 on-call。”</p>
+<p>人类工程师可以审查 agent 提出的 PR，而如果 agent 判定该警报是偶发性的，它可能会自行关闭该事件。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!j-Gn!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F996d4acc-4b70-42bd-aa50-1c912c9ee9da_2048x1152.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!j-Gn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F996d4acc-4b70-42bd-aa50-1c912c9ee9da_2048x1152.png" width="1456"></div></a></figure>
+<p>这个过程让我们想起 Vercel 的 AI SDK、Astro、Flue 和 tldraw 等开源项目<strong><a href="https://www.latent.space/p/pr-not-welcome">如何使用软件工厂——agent 团队——来应用修复和功能</a>。</strong></p>
+<p>Al-Dahle 认为这种方法最终会被用于其整个市场平台；例如监控欺诈、“信任违规”、市场质量和软件缺陷。</p>
+<p>“我的愿景是<strong>大量异步 agent 帮助自动化和管理市场。”</strong></p>
+<h2>保持软件工程的手艺</h2>
+<p>Al-Dahle 认为，<strong>围绕成果而非功能来组织团队</strong>是成为 AI 原生公司的关键。</p>
+<p>“如果你是一家按功能开发来组织的公司，你将在 AI 时代举步维艰，”他说。“如果你是一家<strong>按目标、使命和你要实现的结果来组织的公司，你就会没事。”</strong></p>
+<p>话虽如此，在这次 AI 原生转型期间，有一件事让 Al-Dahle 担忧：<strong>初级工程师是否在培养他们的手艺和判断力</strong>，因为 AI 现在能替他们完成如此多的工作。</p>
+<p>他说，资深工程师是通过多年交付系统和在生产环境中运维软件——包括一路走来犯下的错误——才获得了判断力。</p>
+<p>Al-Dahle 说，解决方案的一部分是<strong>确保他们所有工程师都能解释 AI 为他们所做的工作。</strong></p>
+<p>“我极力推动的一件事是，每个工程师都必须能够解释，即使 PR 是 AI 生成的，也必须能够解释他们构建了什么。我认为如果这个基本前提仍然成立，那么更多初级工程师将学到界面设计和架构的手艺，以及测试、单元测试和集成测试的重要性。<strong>所以我们正努力让我们的手艺保持高水平。”</strong></p>
+<p><a href="https://www.latent.space/p/airbnb">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

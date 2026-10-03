@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dukosi 开放 DK-NFLNK 送样：电池 AFE 与 BMS 间的非接触式连接</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Dukosi 开放 DK-NFLNK 送样：电池 AFE 与 BMS 间的非接触式连接</h1>
+<p><small>Charged EVs · 评分 7/10：BMS 相关新技术，与读者本职工作直接相关<br/>原标题：Dukosi opens sampling of DK-NFLNK, a contactless link between battery AFEs and the BMS</small></p>
+<p><strong>要点</strong></p><ul><li>Dukosi 的 DK-NFLNK 无接触通信方案开始向关键客户送样</li><li>方案由 DK8503 Node 和 DK8203 System Hub 两颗芯片组成，采用单总线天线</li><li>DK-NFLNK 与 AFE 无关，无需改动电池架构，可用于 EV、储能和 AI 数据中心</li></ul>
+<hr/>
+<a href="https://chargedevs.com/newswire/dukosi-opens-sampling-of-dk-nflnk-a-contactless-link-between-battery-afes-and-the-bms/"><img alt="" height="100" src="https://chargedevs.com/wp-content/uploads/2026/10/DK-NFLNK_PR_Featured_Image_September_2026-copy-300x100.jpg" width="300"></a>
+<br>
+<p><span><a href="https://chargedevs.com/tag/dukosi/">Dukosi</a> 已将其 <a href="https://www.dukosi.com/dukosi-dk-nflnk">DK-NFLNK</a> 非接触式通信解决方案开放给主要客户进行送样</span>。该方案专为基于传统多通道模拟前端（AFE）设计的电池而打造，Dukosi 表示 DK-NFLNK 通过使用单一总线天线，消除了传统的线缆和连接器。</p>
+<p>该解决方案由两颗芯片组成，即 DK8503 Node 和 DK8203 System Hub，外加 Dukosi API 以及基于该公司 C-SynQ 的专有近场协议。每个 DK8503 Node 通过标准 SPI 接口连接到一个 AFE，产品页面列明每个 AFE 对应一个 Node。DK-NFLNK 将来自 AFE 的模块级同步测量数据提供给 BMS 主机，并通过总线天线和 DK8203 System Hub 在每个 AFE 之间传递数据，System Hub 则通过 SPI 连接到主机。该公司表示，该非接触式网络采用星型拓扑结构，并提供固有的电气隔离。</p>
+<p>Dukosi 表示，同一个 BMS 主机处理器和 System Hub 可以在多种电池包设计中重复使用，并且通用的 DK-NFLNK 库和 API 支持所有配置，从而最大限度地减少软件开发与维护工作。</p>
+<p>据该公司称，近场实现方式最大限度地降低了射频功率水平，并简化了机械集成。</p>
+<p>DK-NFLNK 不依赖于特定 AFE，且无需改变电池架构，为设计人员提供了从有线或远场无线 BMS 设计升级的路径。</p>
+<p>据 Dukosi 称，DK8503 和 DK8203 已通过 AEC-Q100 认证，并设计为符合 ASIL C 标准。</p>
+<p>预期用途包括电动汽车、工业和船舶应用、机器人技术，以及用于公用事业和电网规模项目的电池储能系统（BESS）、电信基础设施和 AI 数据中心。</p>
+<p>评估套件包括一块 Node 板、一个 System Hub 单元、一个可选的分压电阻板以及 USB、SPI、总线天线和同轴电缆。它还附带基于 Windows 的图形用户界面（GUI）、PCB 设计指南以及 DK-NFLNK 和 Dukosi 软件的用户指南。Dukosi 表示，该套件支持在一系列 BMS 主机处理器和 AFE 器件上进行技术评估和初步概念验证开发。</p>
+<p><em>Charged</em> 曾在 <a href="https://chargedevs.com/newswire/dukosi-a123-and-nuvation-combine-chip-on-cell-contactless-monitoring-with-lfp-cells-in-bess-proof-of-concept/">与 A123 Systems 和 Nuvation Energy 合作的 BESS 概念验证</a>中报道过该公司的电芯上芯片监测系统。</p>
+<p>“DK-NFLNK 和 Dukosi 电芯监测系统（DKCMS）共享一个通用的通信基础 C-SynQ，为电池设计人员提供了一条轻松的迁移路径，可转向完全支持 DKCMS 的 Smart Cell 电池设计，”Dukosi 总裁 Joseph Notaro 表示。</p>
+<p><em>来源：<a href="https://www.dukosi.com/press-release/dukosi-dk-nflnk-brings-safety-reliability-and-scalability-to-traditional-modular-battery-architectures">Dukosi</a></em></p>
+<p><a href="https://chargedevs.com/newswire/dukosi-opens-sampling-of-dk-nflnk-a-contactless-link-between-battery-afes-and-the-bms/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

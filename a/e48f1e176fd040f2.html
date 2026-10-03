@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>学术是为了雄心——MIT 的 Alex Zhang</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">学术是为了雄心——MIT 的 Alex Zhang</h1>
+<p><small>评分 7/10：RLM 一作谈 harness 未来，深度长文<br/>原标题：Academia is for Ambition — Alex Zhang, MIT</small></p>
+<p><strong>要点</strong></p><ul><li>MIT 的 Alex Zhang 因 RLMs 研究走红，此前曾参与 GPU Mode 和 KernelBench</li><li>基于 RLM 的 harness 成为首个接近解决 ARC-AGI-3 的系统，早于 OpenAI 的 Astra</li><li>OpenAI 曾进行 1 万个 agent 的实验，输出 1300 亿 token，成本约 4000 万美元</li></ul>
+<hr/>
+<p><em>Last call for regular tickets for <a href="https://ai.engineer/nyc">AI Engineer NYC</a>! As an exclusive for Latent Space subscribers, the first 30 of you can <a href="https://app.ai.engineer/e/ai-engineer-new-york-2026?discount=LS-NYC26">take a 30% off code</a> if it helps - for new tickets only, no refunds! See you in 2 weeks!</em></p>
+<hr>
+<p>虽然我们倾向于在播客中报道行业动态，但偶尔也会庆祝一位明显正在崛起的超级明星博士生。在 <strong>2024</strong> 年，我们介绍了 <a href="https://www.latent.space/p/shunyu?utm_source=publication-search">Shunyu Yao</a>，他后来在 OpenAI 构建了 Operator，现在是<a href="https://www.scmp.com/tech/big-tech/article/3356090/tencents-chief-ai-scientist-dismisses-lag-concerns-says-race-long-term-game">腾讯的首席 AI 科学家</a>。在 <strong>2025</strong> 年，我们介绍了 <a href="https://www.latent.space/p/information-theory-for-language-models?utm_source=publication-search">Jack Morris</a>，他后来联合创立了 <a href="https://www.youtube.com/watch?v=jhpmMTus5a0">Engram</a>，估值达 <a href="https://www.calcalistech.com/ctechnews/article/skoqbrumze">6 亿美元</a>，现在是<a href="https://www.youtube.com/watch?v=WiqDvX6isc4">持续学习</a>领域的领军人物。</p>
+<p>今年，我们很荣幸介绍 MIT 的 <strong><a href="https://x.com/a1zhang">Alex Zhang</a></strong> 的工作。</p>
+<p>从 GPU kernel 和 <a href="https://www.alphaxiv.org/abs/2502.10517">KernelBench</a> 到 <a href="https://arxiv.org/abs/2512.24601">Recursive Language Models</a>、<a href="https://alexzhang13.github.io/blog/2026/mgh/">Mismanaged Geniuses</a> 以及大规模多 agent 集群，<strong>Alex Zhang</strong> 正在探索：将越来越强大的模型包裹在原始系统中，我们究竟浪费了多少能力。</p>
+<p>RLMs 在今年年初刷屏了时间线：</p>
+<p>而一个基于 RLM 的 harness 是第一个在 <a href="https://www.latent.space/p/ainews-gpt-6-astra-openais-biggest">OpenAI 的 Astra</a> 之前近乎解决 ARC-AGI-3 的：</p>
+<p>甚至到今天，它还在影响新的研究，这些研究具有比 RLMs <a href="https://x.com/a1zhang/status/2105409935936782708">更极端</a>的影响：</p>
+<p>我们深入探讨了 GPU Mode 和 AI 编写的 kernel、研究品味以及为什么学者应该押注工业实验室不会做的方向、GEV 以及标准自回归语言模型的替代方案，还有将 harness 视为组合泛化器的理念。Alex 解释了 RLMs、上下文卸载、程序化 subagent 调用、Prime Agent、持久化 subagent，以及为什么未来的“语言模型”实际上可能是一个隐藏在简单界面之下的无形 agent 集群。我们还讨论了 OpenAI 的大规模 agent 实验、Kimi 集群、Sakana AI 的开放式研究、推测性程序化工具调用、能力悬置、Neuralese，以及 Alex 认为下一个重大研究机会可能在哪里。</p>
+<hr>
+<h2>我们讨论：</h2>
+<ul><li><p>为什么 <strong>AI 生成的 GPU kernel</strong> 仍然为人类专业知识留出了大量空间</p></li><li><p>一个专家洞见如何可能取代大量<strong>暴力 token 搜索</strong></p></li><li><p>为什么博士生应该押注那些最初看起来微不足道、奇怪或毫无意义的<strong>研究赌注</strong></p></li><li><p><strong>SWE-bench、RLMs、ReAct 和 Quiet-STaR</strong> 揭示了怎样的研究品味</p></li><li><p>GEV 以及为什么<strong>语言模型</strong>不一定意味着自回归的文本到文本解码器</p></li><li><p>为什么 <strong>Claude Code、Codex 和 Pi</strong> 在结构上比看起来更相似</p></li><li><p><strong>harness 设计</strong>如何改善跨任务和跨领域的组合泛化</p></li><li><p>RLMs：<strong>上下文卸载、代码执行、递归 subagent 和共享内存</strong></p></li><li><p>Prime Agent、持续 harness 以及<strong>持久的 agent 间通信</strong></p></li><li><p>为什么你未来查询的模型可能暗中是一个<strong>完整的集群或脚手架</strong></p></li><li><p>OpenAI 的 <strong>10,000 个 agent 实验、130B 输出 token，以及约 4000 万美元等值</strong>的问题求解</p></li><li><p>为什么 agent 集群的很大一部分可能是<strong>无效搜索</strong>——以及为什么收敛仍然困难</p></li><li><p><strong>Kimi 与 OpenAI</strong>，以及多 agent 系统的不同路径</p></li><li><p>开放性、<strong>Sakana AI</strong>，以及在海量生成工作中寻找隐藏的珍宝</p></li><li><p>为什么当前的前沿模型可能已经存在巨大的<strong>能力过剩</strong></p></li><li><p><strong>推测性程序化工具调用</strong>，以及工具执行与生成的并行重叠</p></li><li><p>英语、代码，还是全新的<strong>“Neuralese”</strong>，是否限制了模型的推理方式</p></li><li><p><strong>AI for science</strong>、快速迭代的 benchmark，以及 Alex 如何选择押注哪些研究问题</p></li></ul>
+<hr>
+<h2>Alex Zhang</h2>
+<ul><li><p>网站：alexzhang13.github.io</p></li><li><p>X：@a1zhang</p></li></ul>
+<hr>
+<h2>时间戳</h2>
+<p><strong>00:00:00</strong> 介绍</p>
+<p><strong>00:00:49</strong> GPU Mode、KernelBench 与 AI 编写的 kernel</p>
+<p><strong>00:07:38</strong> 人类专业知识 vs. 暴力 AI 搜索</p>
+<p><strong>00:13:20</strong> 研究品味与下大注</p>
+<p><strong>00:19:28</strong> GEV 与重新思考语言模型</p>
+<p><strong>00:29:03</strong> 电子游戏 agent 与 harness 问题</p>
+<p><strong>00:31:01</strong> 为什么 Claude Code、Codex 和 Pi 如此相似</p>
+<p><strong>00:36:42</strong> 作为组合泛化器的 harness</p>
+<p><strong>00:44:24</strong> RLM 详解</p>
+<p><strong>00:52:01</strong> Prime Agent 与持久化 subagent</p>
+<p><strong>00:57:41</strong> 真实场景中的 RLM</p>
+<p><strong>01:00:30</strong> OpenAI 集群与语言模型的未来</p>
+<p><strong>01:07:26</strong> 开放性与 Sakana AI</p>
+<p><strong>01:15:52</strong> Kimi vs. OpenAI agent 集群</p>
+<p><strong>01:20:06</strong> 能力过剩与推测性工具调用</p>
+<p><strong>01:28:19</strong> Neuralese、未来研究与 AI for science</p>
+<h1>文字记录</h1>
+<h2>介绍：Alex Zhang、RLM 与 GPU Mode</h2>
+<p><strong>Swyx [00:00:00]：</strong> 好的，我们和 Alex Zhang 在演播室，我想他最出名的是 RLM，但你还有几个其他身份。欢迎来到节目。</p>
+<p><strong>Alex Zhang [00:00:12]：</strong> 是的。谢谢邀请我。</p>
+<p><strong>Swyx [00:00:13]：</strong> 是的。我想还有 GPU Mode？</p>
+<p><strong>Alex Zhang [00:00:15]：</strong> 对，还有 GPU Mode。</p>
+<p><strong>Swyx [00:00:16]：</strong> 你是被 Mark Saroufim 引荐进来的。不是每个人都能得到这种欢迎。</p>
+<p><strong>Alex Zhang [00:00:19]：</strong> 是的。对。对。我和 GPU Mode 里的所有人都很熟，所以是的</p>
+<p><strong>Swyx [00:00:23]：</strong> 是的</p>
+<p><strong>Alex Zhang [00:00:23]：</strong> 我们经常以各种身份一起工作，甚至超出 GPU Mode 本身，所以。</p>
+<p><strong>Swyx [00:00:29]：</strong> 是的。我们能解释一下吗，这样不太了解的人也能知道。它只是一个——它是一个 Discord。它过去专注于，我想是 CUDA Mode，然后稍微泛化了一些。它是由 Mark 发起的。</p>
+<p><strong>Alex Zhang [00:00:41]：</strong> 是的。</p>
+<p><strong>Swyx [00:00:42]：</strong> 它基本上就像。对我来说，它就像 PyTorch 团队的招聘管道。</p>
+<p><strong>Swyx [00:00:45]：</strong> 然后你离开了 PyTorch。</p>
+<p><strong>Alex Zhang [00:00:47]：</strong> 是的。</p>
+<p><strong>Alex Zhang [00:00:49]:</strong> 是的。所以它以前是，我想，实际上大概是在我上大学的时候开始的，大概在2023年。我认为它是由Mark、Andreas和Jeremy Howard发起的。最初的设想就是，它是一个GPU——或者说是一个专门用于学习如何编写GPU内核的Discord，他们会有讲座之类的。基本上就是这些。我之所以对它感兴趣，是因为我当时在写GPU内核。实际上这完全是出于偶然。我当时在Snapchat实习，然后</p>
+<h2>从CUDA Mode到GPU Mode</h2>
+<p><strong>Swyx [00:01:22]:</strong> Rexis。</p>
+<p><strong>Alex Zhang [00:01:23]:</strong> 是的，我对Rexis非常厌倦。所以，他们有一个项目，他们有兴趣写。是一篇叫Infinite Attention的论文。是谷歌的一篇论文。</p>
+<p><strong>Swyx [00:01:35]:</strong> 是的，我们在Paper Club上讨论过它。</p>
+<p><strong>Alex Zhang [00:01:36]:</strong> 是的，没错。所以我很感兴趣，在Snapchat是否能为它编写专门的内核。结果没有。没什么成果，但我加入了GPU Mode。当时它叫CUDA Mode，我想是出于法律原因之类的，他们改了名字。但我遇到了Mark，遇到了Matei，遇到了很多非常积极参与这个社区的人。然后Mark提出了一个叫Popcorn的想法，就是你们今天看到的排行榜。但总体思路是，我想我们所有人都有这种直觉，GPU编程非常类似于——如果你们做过竞技编程的话。它并不是——我不是说它们是可迁移的技能。</p>
+<h2>Popcorn、KernelBench与自动化GPU内核</h2>
+<p><strong>Swyx [00:02:17]:</strong> 你有约束条件。你稍微做点代码高尔夫。</p>
+<p><strong>Alex Zhang [00:02:19]:</strong> 是的。</p>
+<p><strong>Swyx [00:02:19]:</strong> 是的。</p>
+<p><strong>Alex Zhang [00:02:19]:</strong> 是的。而且有——实际上人们做的优化空间小得惊人。而且实际上人们有兴趣优化的内核本身并没有那么多。所以我们有了这样一个想法，如果你有足够的数据，就像Codeforces有数百万道题一样。如果你能用GPU代码做到这一点，你就可以扩展和自动化GPU内核开发，这对研究人员来说是件大事。因为我认为最大的瓶颈之一——比如，如果你看Mamba，他们发布论文时附带内核，因为否则你无法以任何有意义的方式使用它？而且不是每个人团队里都有一个Tri Dao。所以我们对此非常感兴趣。KernelBench也是由此诞生的，就是，我们能否让LLM自动化GPU内核代码？我认为那是一段非常有趣的时光。那是在大学和我的博士之间，是的，我在GPU Mode做事情非常愉快。现在我只是有时帮忙做讲座。我没有那么参与了，而且总的来说，我想我们没有以前那么多比赛了。但是，是的，我仍然和那里的每个人保持很多联系。</p>
+<p><strong>Swyx [00:03:27]:</strong> 有友好的竞争吗？因为我认为以前做这个的社区是MLSys、MLPerf</p>
+<p><strong>Alex Zhang [00:03:32]:</strong> 是的</p>
+<p><strong>Swyx [00:03:32]:</strong> 之类的。有友好的竞争吗？这就像是新一代的MLPerf，还是怎么回事？</p>
+<p><strong>Alex Zhang [00:03:38]:</strong> GPU Mode 的好处在于，它某种意义上也是一个社区，很多讲座对初学者来说都很容易跟上，可以提问之类的。而且那些比赛，怎么说呢，不算次要，但你可以通过参与它们来学习。我觉得像很多 MLSys、MLPerf 这类 benchmark，大部分情况下只有正经的实验室和公司才会参与，至少是认真参与。这是我理解的情况，也可能我错了。但我觉得现在除了 GPU Mode 之外，还有一件很令人兴奋的事，就是有更多网站，还有更多人在做主办比赛这件事。我觉得有这么一个。</p>
+<p><strong>Alex Zhang [00:04:21]:</strong> 我记得有个网站叫 LeetGPU 之类的，就像是 GPU 题目的 leetcode。</p>
+<p><strong>Swyx [00:04:26]:</strong> 哇。</p>
+<p><strong>Alex Zhang [00:04:26]:</strong> 还有别的我见过的。我们见过不少。有很多这样的东西冒出来，还在 GPU Mode 上聊过，这非常令人兴奋，因为我觉得 GPU 编程以前超级小众，至少我感兴趣那会儿是这样。我之所以对它感兴趣，唯一的原因是 Tri Dao 在普林斯顿做了一场讲座，因为他当时在申请教职。他现在是那里的教职了，但我在 2023 年左右听了他那场关于 FlashAttention 的讲座，我当时就想：“哇，这是有史以来最酷的东西。”</p>
+<p><strong>Alex Zhang [00:04:56]:</strong> 我当时就想：“这就是，这就是所有人都该去做的事。”我猜当时 vLLM 之类的东西也出来了，大家就想：“哦，我们应该写 kernel。”但现在是人人都写 kernel。真的是人人。我觉得从某种意义上说，这个领域其实几乎已经饱和了。</p>
+<h2>AI 编写的 kernel 与验证缺口</h2>
+<p><strong>Vibhu [00:05:11]:</strong> 对想入行的人有什么有意思的看法吗？我觉得最大的新闻之一是 GPT-5.6 写出了更高效的 kernel，所以 Terra 和 Luna 可能便宜 80%。</p>
+<p><strong>Alex Zhang [00:05:24]:</strong> 是的。</p>
+<p><strong>Vibhu [00:05:25]:</strong> 然后我们还看到其他比赛里有人创下纪录，他们说“我们在跑某种自动研究循环”，而这些人并没有任何背景</p>
+<p><strong>Alex Zhang [00:05:34]:</strong> 对</p>
+<p><strong>Vibhu [00:05:34]:</strong> 任何写 kernel 的背景，对吧？</p>
+<p><strong>Alex Zhang [00:05:36]:</strong> 是的。所以即使在 GPU Mode 的排行榜上，如果你看很多最近的问题，几乎所有解法都是 AI 生成的。不过你会注意到，在排行榜上。有个叫 Gauners 的人，他是 GPU Mode 的常客。我们早就知道他是个超级厉害的 GPU kernel 作者。我们在这个排行榜上发现的一件事是，几乎——他也用 AI 来帮他做这些解法，但大部分时候是他来提示、把它往某些方向推。我们发现，他的 kernel 基本上是前 10 名里唯一一个在实际的端到端系统里真正稳定的。这就引出一个问题，这不是。GPU kernel 存在验证问题。我们其实早就知道这一点。从 KernelBench 发布以来这就一直是个问题。有很多 reward hacking 在发生。但你也会——是的，你也会注意到，代码行数少了很多，但</p>
+<p><strong>Vibhu [00:06:33]:</strong> 是的，我正想问，这很明显吗，还是只是</p>
+<p><strong>Alex Zhang [00:06:36]:</strong> 是的，不，这，这</p>
+<p><strong>Vibhu [00:06:36]:</strong> 好吧</p>
+<p><strong>Alex Zhang [00:06:36]：</strong>这绝对非常重要，而且我觉得很有意思的是，擅长写 GPU kernel 这件事本身仍然存在很大的 alpha。</p>
+<p><strong>Vibhu [00:06:44]：</strong>好，所以从验证到这里是存在一个缺口的</p>
+<p><strong>Alex Zhang [00:06:45]：</strong>确实存在，没错。我觉得，这也适用于很多 AI 系统。比如，我觉得即便是最近的数学证明之类的，也并不意味着数学家就过时了。这些公司仍然会雇佣数学家，去做数据标注之类的工作，甚至只是引导模型去解决问题。所以，在这些事情上有知识储备，仍然存在很大的 alpha，所以。</p>
+<p><strong>Swyx [00:07:12]：</strong>这只是知识的问题，还是说也存在更多规划的成分，是否存在一种效果更好的、新兴的规划风格？</p>
+<p><strong>Alex Zhang [00:07:22]：</strong>我觉得这是多种因素的混合。也许这就是你的意思，就是对……的直觉</p>
+<p><strong>Swyx [00:07:27]：</strong>差不多是那个意思</p>
+<p><strong>Alex Zhang [00:07:28]：</strong>如何解决这些问题。</p>
+<p><strong>Swyx [00:07:29]：</strong>比如，我总是会给我的代码画图。</p>
+<p><strong>Alex Zhang [00:07:31]：</strong>对。</p>
+<p><strong>Swyx [00:07:31]：</strong>对吧？</p>
+<p><strong>Alex Zhang [00:07:31]：</strong>对。</p>
+<p><strong>Swyx [00:07:31]：</strong>然后，如果图里有哪部分我不理解，我就会一直琢磨直到弄懂为止。否则，就不允许。</p>
+<p><strong>Alex Zhang [00:07:37]：</strong>对。</p>
+<p><strong>Swyx [00:07:38]：</strong>对。</p>
+<p><strong>Alex Zhang [00:07:38]：</strong>所以我觉得这是这些因素的混合，就是那些工作的人。那些懂得如何看待这些问题、如何解决这些问题的人，也知道如何用 AI 来做这些事。因为，你实际上是在充当一个非常强的验证者。如果你有知识——或者如果你知道该做什么，而且你也……我觉得我们从所有这些 agent swarm 之类的东西里发现的是，当你把足够的算力投入到某个问题上时，你就能充分地探索这个问题的解法。但很多时候，也许你可以在某件事上烧掉 1000 亿甚至一万亿 token，但如果引入一个对这个问题有所了解的人，他们就能为模型揭示出某些东西，从而抹掉那一万亿 token 的开销。这里面的趋势到底是什么，还不是很清楚。但我觉得，现在现实中仍然有太多我们想解决的问题，而我们没法总是尽可能多地往上面堆算力。所有这些东西仍然有一个效率层面，这一点非常重要。</p>
+<h2>光速极限、内存与 Megakernel</h2>
+<p><strong>Swyx [00:08:41]：</strong>是否存在一个理论上的正确答案，你根据物理就能算出来，然后你只要逼近物理极限就行？</p>
+<p><strong>Alex Zhang [00:08:49]：</strong>是的。对于 GPU kernel，你可以计算。实际上有时候并不那么容易算，取决于问题有多复杂。比如矩阵乘法，就很容易计算出最快的 kernel 能达到什么程度，这种类似光速的估算。而且，这也取决于假设，比如你所有的数据都从 CPU 开始，或者从 GPU 上的 DRAM 开始，等等。这会让这些数字略有变化，但</p>
+<p><strong>Swyx [00:09:18]：</strong>传输之类的，对。</p>
+<p><strong>Alex Zhang [00:09:20]:</strong> 是的。但我要说，不过在很多情况下，是否能达到这个理论数值并不清楚，如果这么说能理解的话。这就好比假设数据完美重叠和传输，而且可能存在一些无法绕过的瓶颈。但通常，内核甚至都差得远。比如我们写的那些，离这个数值还差得远，根本谈不上有什么意义。</p>
+<p><strong>Swyx [00:09:43]:</strong> 是的。那速度重要吗？你显然也关心内存吧，这</p>
+<p><strong>Alex Zhang [00:09:48]:</strong> 嗯</p>
+<p><strong>Swyx [00:09:48]:</strong> 会影响速度？你关心功耗吗？我们今年最受欢迎的播客之一请到了 Geoff Dean，他说：“其实我只是追踪微焦耳，或者纳焦耳、皮焦耳。”</p>
+<p><strong>Alex Zhang [00:09:59]:</strong> 是的，如今通常是皮焦耳。</p>
+<p><strong>Swyx [00:10:01]:</strong> 皮焦耳。</p>
+<p><strong>Alex Zhang [00:10:01]:</strong> 是的。</p>
+<p><strong>Swyx [00:10:01]:</strong> 你关心这个吗？</p>
+<p><strong>Alex Zhang [00:10:03]:</strong> 我不关心。</p>
+<p><strong>Alex Zhang [00:10:04]:</strong> 是的。我想我可能没那么</p>
+<p><strong>Swyx [00:10:06]:</strong> 但这里的一切都是速度，对吧？就像</p>
+<p><strong>Alex Zhang [00:10:07]:</strong> 这里的一切都是速度</p>
+<p><strong>Swyx [00:10:08]:</strong> 没人在数皮焦耳。</p>
+<p><strong>Alex Zhang [00:10:09]:</strong> 但我——这里有个前提，我认为，单个内核的语境下有速度，更大问题的语境下也有速度，比如 N10 模型。因为要考虑的一点是，这就是为什么讨论光速指的是什么很重要，因为在这些内核的情况下，我们总是从数据都在 HBM 里开始，对吧？但你可以想象，一个端到端的模型，你可能想在两层之间做的是，牺牲第一个操作的速度，把东西留在缓存里供第二个操作使用。而这些事情，你没法真正孤立地通过这些内核来实现。人们把这叫做融合，或者</p>
+<p><strong>Swyx [00:11:01]:</strong> 巨型内核</p>
+<p><strong>Alex Zhang [00:11:02]:</strong> 内核融合问题。是的，或者类似巨型内核的东西。它通常只适用于大多数情况下你受限于内存的时候。但这也是个问题，随着这些模型变得更好，我们是不是应该直接生成巨型内核？那是我们想要的吗？</p>
+<p><strong>Vibhu [00:11:20]:</strong> 你怎么看？</p>
+<p><strong>Alex Zhang [00:11:21]：</strong>我觉得这真的很难，因为你需要数据才能做到这一点。而且我觉得，我还没有在实际中见过这样的例子，就是在没有任何示例的情况下，我们能够自主引导出解决某一类非常困难问题的能力。我认为这可能没那么有趣的另一个原因是，在单个 kernel 的层面上，第一，它们没那么复杂，第二，你多少可以确信单个 kernel 里没有那么多结构。但是，在 megakernel 里，我会更倾向于相信编译器在这里会做得更好。比如，某种针对更高层 Ops 的编译器是合理的，因为总的来说，实际上我认为 megakernel 非常……各个部分非常可组合，就像单个 kernel 一样。有些地方你可能想做些奇怪的融合之类的，但总的来说，我认为这些情况编译器大概能处理。据我所知，有一家公司正在做这个，他们也在 GPU Mode 上做过一些分享。</p>
+<p><strong>Swyx [00:12:28]：</strong>对，我想把这里所有关于 GPU Mode 的讨论都归到一起，因为显然还有其他部分</p>
+<p><strong>Alex Zhang [00:12:32]：</strong>没错。</p>
+<p><strong>Swyx [00:12:32]：</strong>我们需要继续推进。</p>
+<p><strong>Vibhu [00:12:33]：</strong>我觉得有件事值得提一下。你们确实办了很多非常好的讲座。它们都在 YouTube 上。大家可以关注。而且你</p>
+<p><strong>Alex Zhang [00:12:39]：</strong>是的</p>
+<p><strong>Vibhu [00:12:39]：</strong>主导了其中相当一部分。你仍然参与很多。</p>
+<p><strong>Alex Zhang [00:12:41]：</strong>我以前是。有时候我还会做。我觉得现在主要是 Mark。通常是 Mark 来做这些。Matei 有时候也会做，不过，是的，我强烈推荐它们。它们是非常好的资源。我觉得人们在那里分享的内容之多，简直有点不可思议，所以是的。</p>
+<p><strong>Swyx [00:12:59]：</strong>因为如果你在那里，你就是非常……你就是完全对口的受众？</p>
+<p><strong>Alex Zhang [00:13:03]：</strong>对，没错。</p>
+<p><strong>Swyx [00:13:03]：</strong>这不会触达主流人群。</p>
+<p><strong>Alex Zhang [00:13:04]：</strong>而且我们也放了很多入门材料，我觉得对人们很有用。</p>
+<h2>Benchmark、普林斯顿与研究品味</h2>
+<p><strong>Swyx [00:13:10]:</strong> KernelBench 还挺有影响力的。我就想看看，那是去年的了。</p>
+<p><strong>Alex Zhang [00:13:13]:</strong> 对。</p>
+<p><strong>Swyx [00:13:14]:</strong> 还有哪些正在进行的工作你想推荐一下，让大家关注？因为显然你也参与了这个</p>
+<p><strong>Alex Zhang [00:13:20]:</strong> 对</p>
+<p><strong>Swyx [00:13:20]:</strong> 领域。</p>
+<p><strong>Alex Zhang [00:13:20]:</strong> 嗯。我大概讲一下背景故事吧，其实我参与过很多 benchmark，或者说以前参与过，可能是在我读博之前。这始于我在普林斯顿的时候。我在那里和 SWE-bench 团队合作过。</p>
+<p><strong>Swyx [00:13:33]:</strong> John、Carlos</p>
+<p><strong>Alex Zhang [00:13:33]:</strong> John、Carlos</p>
+<p><strong>Swyx [00:13:34]:</strong> Ofir</p>
+<p><strong>Alex Zhang [00:13:34]:</strong> 还有 Ofir。他们都很棒。就像</p>
+<p><strong>Swyx [00:13:36]:</strong> Karthik</p>
+<p><strong>Alex Zhang [00:13:36]:</strong> 我很喜欢他们。是的。</p>
+<p><strong>Swyx [00:13:37]:</strong> 基本上就是，我觉得人们没有意识到有多少 benchmark 都出自同一个团队</p>
+<p><strong>Alex Zhang [00:13:42]:</strong> 是的</p>
+<p><strong>Swyx [00:13:42]:</strong> 在普林斯顿。</p>
+<p><strong>Alex Zhang [00:13:44]:</strong> 太疯狂了。</p>
+<p><strong>Swyx [00:13:45]:</strong> 那 Xun Yu 呢？</p>
+<p><strong>Alex Zhang [00:13:45]:</strong> 对。是的。</p>
+<p><strong>Swyx [00:13:46]:</strong> 我们之前请他上过播客。现在他好像在执掌腾讯。</p>
+<p><strong>Alex Zhang [00:13:48]:</strong> 是的，现在他就像个超级明星。我认识他的时候，他在给我朋友 Michael Tang 做指导，Michael Tang 现在在 Anthropic，但他们合作很多。我们俩当时是 Karthik 实验室里的两个本科生。我——后来也有些人陆续加入。不过是的，Xun Yu 很棒。我直到后来，大概是我离开之后，才知道他这么厉害，不过</p>
+<p><strong>Swyx [00:14:12]:</strong> 是的。就像，好吧，所以博士生很少。你这样的就是下一个。大概一年一次，我们会介绍某个人，基本上整个博士生涯都走得很准。</p>
+<p><strong>Swyx [00:14:25]:</strong> 这样的人并不多。Xun Yu 显然就是其中之一。还有 Jack Morris 也是一个。而且，我们在节目开始前聊过研究品味。</p>
+<p><strong>Swyx [00:14:33]:</strong> 对吧？就好像有些研究生就是有着非常受眷顾的职业生涯，基本上就是，对，这个会一直有影响力、有相关性，大家都该知道。</p>
+<p><strong>Alex Zhang [00:14:42]:</strong> 是的。</p>
+<p><strong>Swyx [00:14:42]:</strong> 而其他人，就什么都没有。</p>
+<p><strong>Alex Zhang [00:14:44]:</strong> 我觉得这在业界实验室里的人身上也一样。我觉得只是研究生更显眼一些。所以你就看到，就像你看到的，有些人</p>
+<p><strong>Swyx [00:14:56]:</strong> 是的，你可以发表</p>
+<p><strong>Alex Zhang [00:14:57]:</strong> 真正喜欢碰运气的人，或者说，这是运气和非常聪明的混合体之类的东西。我觉得研究品味也是如此，至少在我看来，它是通过机会培养出来的。比如我——我非常幸运地走上了我走的这条路，比如在普林斯顿工作，然后后来，比如在 MIT 找到了我的 Omar。他是一位非常出色的导师。不过我要说，我发现研究生或学术界最成功的研究，往往出现在人们关心那些工业界大多数人可能没有关注的问题时。我认为这就是问题所在，很多研究生做的东西是对工业实验室有利的、看起来不错的。比如，他们会研究某个现在非常流行的 benchmark。我觉得 2023 年的 benchmark 和现在的 benchmark 是完全不同的情况。有很多人研究 harness、meta-harness，以及针对 XYZ 任务的特定 harness。当你真正思考时，一个人研究这个的原因可能是，围绕我们今天拥有的模型有一个明确的目标，比如，这就是我想看到的。但比如，我举 RLM，也就是递归语言模型那篇论文为例，因为我觉得它是一个超级简单的想法。我觉得它刚出来的时候，很多人看到这样的东西时会说：“这到底有什么意义？”</p>
+<p><strong>Swyx [00:16:27]:</strong> 或者太酷了。</p>
+<p><strong>Alex Zhang [00:16:28]:</strong> 是的。比如为什么，比如什么？这不就是 subagents 之类的吗，对吧？</p>
+<p><strong>Alex Zhang [00:16:32]：</strong>我觉得当你得到这样的反应时，这几乎是一个好迹象，因为它清楚地表明人们没有在思考这件事的目的是什么。我再举一个 SWE-bench 的例子。当 SWE-bench 刚出来时，Ofir 喜欢讲这个故事。它刚出来时，没人在意。大家都说：“这是一个不可能完成的任务。我们为什么要把它当作 benchmark 来考虑？”直到 Devin 出现，大家才说：“哇，这是我们要去攀登的东西。”我认为这适用于很多想法。我最喜欢的例子大概是 Eric Seligman 的工作，比如 STaR 和 Quiet-STaR。我觉得当你读那篇论文时，至少我第一次读的时候，我想：“这难道不是显而易见的想法吗？”或者也许不是。我不知道。我想：“哦，这看起来真的很简单。”或者像 chain of thought，也是一样。或者像 Xun Yu 的 react。就是，好吧，当然。但当你真正思考时，就会问为什么。论文的价值是什么？我认为它来自于它讲述了一个关于你希望这个领域变成什么样的故事。而在学术界很难做到这一点，因为如果你看所有这些论文，Quiet-STaR、ReAct、RLMs、SWE-bench，这些论文都不是。它不是像 GPT-6 Astro 发布那样？不是每个人都像：“天哪，我现在要用这个，这是世界上最好的东西。”学术界就是负担不起这样做，至少现在不行。我认为这应该改变，原因有很多，但我觉得就像。如果你没有。作为博士生，我认为你处于一个独特的位置，基本上你可以研究任何你想研究的东西。如果你不利用这一点，去做那些没人关心或人们视为琐碎的事情，比如，“哦，我想过这个，但我不使用它”，我只是觉得，最终，研究永远不会那么有趣，因为如果你想留在学术界，你就需要下大赌注。否则，我认为，就去工业实验室吧。他们有大量的资源，大量的人才。为什么要在一个你没有很多资源、甚至周围没有多少人的领域限制自己？我认为这真的就归结为，大赌注。就像，你只需要下大赌注，而且很多会失败？就像，那是自然的。但我认为</p>
+<p><strong>Alex Zhang [00:18:55]：</strong>也就是说，作为博士生，这是你相对于其他实验室任何一个人的最大优势，因为你不需要处理官僚主义和其他这些事情。</p>
+<p><strong>Swyx [00:19:07]：</strong>有道理。</p>
+<p><strong>Alex Zhang [00:19:07]：</strong>是的。</p>
+<p><strong>Swyx [00:19:08]：</strong>我问过很多人这个问题，通常他们都会敷衍过去。所以我觉得。我很感激你实际上给出了一个深思熟虑的回答，就像，不，这是你的不公平优势，因为其他一切基本上都对你不利。</p>
+<h2>Jev 与打破自回归解码器范式</h2>
+<p><strong>Alex Zhang [00:19:20]：</strong>是的，没错。所以，老实说。我会举 Jev 作为例子，因为它不是一个学术</p>
+<p><strong>Swyx [00:19:26]：</strong>哇，好吧。</p>
+<p><strong>Alex Zhang [00:19:27]：</strong>这不是一个学术项目。</p>
+<p><strong>Swyx [00:19:28]：</strong>是的。</p>
+<p><strong>Alex Zhang [00:19:28]:</strong> 我想提这一点，因为RLMs也遇到过这种情况，很多其他工作也一样。就是，东西会被过度炒作，对吧？某种程度上，某个东西被过度炒作，然后人们就说：“为什么这个被过度炒作了？”“这很琐碎。这很愚蠢。”我在Jev身上也看到了同样的情况，因为我觉得发布的时候就是这样。关于学术界，或者说他们不是学术团体，但有这么一整套东西，就是人们得做品牌，得某种程度上营销自己的研究。所以，我理解，但我觉得有很多讨论说Jev不过是我们多年来早就知道的东西。我觉得这有点没抓住重点，就是为什么这样一个系统如此有趣？为什么它不只是我们在机器学习入门课上做的那种愚蠢的NLP分类器？我觉得Jev真正有趣的地方在于，它开启了这样一个问题：语言模型是正确的吗？就它们现在的形式而言，我们能否考虑文本到文本之外的不同设计空间？因为他们所做的基本上是，他们会说：“我会利用这个语言模型骨干。我知道它捕捉了大量关于语言的信息，但我要改变模型的输出空间，给你一个权衡，就是我会在上面做非常快的推理。”比如，如果你对这个问题有某种先验，假设我只需要做二元分类。我会让我的语言模型来做这个并付出400倍的成本吗？不会。那太傻了，对吧？而且我觉得在很长一段时间里，因为实验室是唯一控制这些东西的地方，你永远不会用GPT-4或GPT-6或Fable之外的东西，因为它们是最好的模型。但正因为如此，人们已经有点习惯于这种观念：语言模型就是一个自回归解码器。我们已经接受了这一点。我觉得当RLMs出来的时候，也是一样。比如，我收到的一个非常常见的批评是：“这不是语言模型。”或者“当我看到这个时，我以为是一个新架构，但实际上不是。”我的回应是：“嗯，语言模型只是对语言建模。它不一定是这个transformer解码器。”而Jev真的很有趣，因为我们现在有了一个新的</p>
+<p><strong>Alex Zhang [00:21:49]：</strong>需要调优的东西，比如输出空间是什么，以及这如何影响推理延迟？我觉得我们其实可以开始就语言模型本身的各个部分提出这个问题。我们在 loop transformers 上也看到了这一点。思路类似，围绕它的很多关注都是这样的：“这是个愚蠢的想法。”“为什么？谁在乎这个？”但它是这样的，这是个简单的想法，但它实际上开辟了一整套全新的问题，我认为，尤其是如果你是博士生，这些就是你想回答的问题。因为我觉得我们并不知道。比如对 Jev 来说，我们不知道我们能把它推进到多远。对 loop transformers 来说，我们也不知道我们能把它推进到多远。如果你只循环模型的一个子集呢？如果你路由到，比如，只有……比如你有一个路由器指向模型的不同部分呢？比如，你能在模型内部模仿你在 harness 里做的事情吗？在 harness 的选择和模型架构的选择之间，你能架起什么桥梁？我认为这些都是像这样的工作所开辟的问题，而这真的非常令人兴奋。尤其是 Jev，当我看到它的时候，我就想：“这对 RLMs 来说其实真的很有用。”我觉得它，它……这很合理，因为 RLMs 或 swarms 或这类系统最大的瓶颈就是它们很慢。当你一直在做多次语言模型调用时，你并没有正确地分配你的算力，因为，比如，也许有某件琐碎的事你只想让一个简单的模型去做，但你做不到，因为你的语言模型就是这么个笨重的东西？所以我非常兴奋。我认为我们将开始看到超越那种标准前沿模型的新型模型出现，而这就像……用这些新的权衡，你能做的事情太多了。</p>
+<p><strong>Swyx [00:23:34]：</strong>我也要提一下 Thinky 以及他们的 interaction models。</p>
+<p><strong>Alex Zhang [00:23:36]：</strong>是的。对。又一个很好的例子。</p>
+<p><strong>Swyx [00:23:38]：</strong>对。所以，基本上就是试着打破从序列到序列、仅解码器的范式，就真的去做点别的什么。</p>
+<p><strong>Alex Zhang [00:23:46]：</strong>对。</p>
+<p><strong>Vibhu [00:23:46]：</strong>我觉得有这么一种程度，如果你试图竞争，你是不会去和一个做自回归的前沿实验室竞争的</p>
+<p><strong>Alex Zhang [00:23:54]：</strong>不。</p>
+<p><strong>Vibhu [00:23:54]：</strong>解码器。比如，他们投入的算力扩展资源……就连 Thinky 也不会。好吧，也许有少数几个能做到，但至少在那方面你其实做不了太多。</p>
+<p><strong>Alex Zhang [00:24:06]：</strong>我对 Thinky 了解不太多，或者我也不想说什么，但就像，如果他们的策略只是复制 OpenAI 或 Anthropic，那是个糟糕的策略。</p>
+<p><strong>Alex Zhang [00:24:15]：</strong>因为，嗯，因为，他们就是没有。你得从这样的角度去想，比如，你有什么优势？如果你要用同样的配置。我确信他们不是，但就像，如果你要用同样的配置，你基本上就是在你能控制的东西上竞争，也就是数据和算力，而显然他们在那方面无法与前沿实验室竞争。所以是的，这很合理，如果你是一家 neo lab，比如……其实，我不知道你会不会把他们视为 neo lab，但我猜，就像</p>
+<p><strong>Vibhu [00:24:40]：</strong>对。这就是为什么他们，他们在那里。</p>
+<p><strong>Alex Zhang [00:24:42]：</strong>我猜他们算是有点奇怪的一个，对。</p>
+<p><strong>Vibhu [00:24:43]：</strong>他们在他们的名单上。他们发布了 Inkling。比如，他们不能。</p>
+<p><strong>Alex Zhang [00:24:46]:</strong> 除了 OpenAI 或 Anthropic 之外，也许像 Meta 和 GDM 这样的，你就得做点别的？就只是。这是令人遗憾的现实，但我觉得。我其实觉得这是件好事。我很高兴，规模化确实有效，这些公司会一直这么做下去，因为这可能会带来新的玩家，比如如果他们发现了什么真正有趣的东西。因为我有点怀疑这种事是否真的在 Frontier Labs 发生，因为你会想，你为什么要那么做？比如，当旧的赌注已经奏效时，你为什么要冒着把大量算力分配给新赌注的风险？所以</p>
+<p><strong>Vibhu [00:25:24]:</strong> 我觉得这就是催生很多新实验室的原因，对吧？</p>
+<p><strong>Alex Zhang [00:25:27]:</strong> 是的。</p>
+<p><strong>Vibhu [00:25:27]:</strong> 你有一个副线赌注，却拿不到算力，然后你就想</p>
+<p><strong>Alex Zhang [00:25:30]:</strong> 是的</p>
+<p><strong>Vibhu [00:25:30]:</strong> “好吧，我去，我去做那个。”</p>
+<p><strong>Alex Zhang [00:25:31]:</strong> 没错。</p>
+<p><strong>Vibhu [00:25:31]:</strong> 而你说的潜在上行空间的例子，就像 Jev 那样，便宜了几百倍，然后出来了，也许它就是个语言模型。</p>
+<h2>校准、快速分类与新模型的权衡</h2>
+<p><strong>Alex Zhang [00:25:41]:</strong> 是的。</p>
+<p><strong>Vibhu [00:25:41]:</strong> 在这种情况下，它就是不一样。</p>
+<p><strong>Alex Zhang [00:25:42]:</strong> 是的。</p>
+<p><strong>Swyx [00:25:43]:</strong> 是的。</p>
+<p><strong>Swyx [00:25:44]:</strong> 所以不猜一下 Jev 到底是什么吗？</p>
+<p><strong>Alex Zhang [00:25:46]:</strong> 我想我对它可能是什么有一些猜测。我看到有人说，“哦，它像是扩散类的东西。”我猜那</p>
+<p><strong>Swyx [00:25:56]:</strong> 也就是并行解码，对吧？</p>
+<p><strong>Alex Zhang [00:25:58]:</strong> 是的，并行解码。老实说，我觉得不管它实际上是什么，因为我觉得你可以。我看到过一些开源的复现。他们所做之事真正让我兴奋的是，我不完全确定他们的优化目标是什么，以及他们是如何训练的。而且我觉得，这对 RLMs 来说也是一样，我们一直在思考这个问题，就是，好吧，RLMs 是个非常简单的想法。如果我发表这篇论文，现在任何人都能用它。但 RLM 的真正价值在于你是否能正确地训练它，以及你是否能围绕这个系统塑造某种架构，让它变得非常出色。而这正是我，我想，正在积极研究的事情。但我觉得对他们来说，他们找到了训练这个系统的方法，这完全不简单。我其实真的不知道他们是怎么做到的。我在网上看到过一些比较，有人声称他们用了 Qwen，或者在 Qwen 基础上做了后训练，但你用的任何开源 Qwen 都会更差，因为他们训练它所做的任何事显然效果非常好。所以这，这非常令人兴奋。</p>
+<p><strong>Swyx [00:27:04]:</strong> 有一个校准的要素，这是一个罕见的话题，我觉得人们甚至都不知道或理解。我们在与 Hugging Face 的 Clementine Foley 的对话中讨论过，她曾经负责 Hugging Face 的评估，基本上就是模型倾向于给出最可能的下一个 token。但当你问它们“你有多自信？”时，它们会对你撒谎，因为它们只会给出最可能的下一个答案，而不是真正地校准。比如，我实际上有百分之五十的把握，或者我有百分之二十的把握，让我们试着校准一下。我想说，如果有的话，我认为实际上围绕这个生成合成数据相当容易，因为你可以看到真相，然后合成生成一堆答案，让 Jev 分类，然后与真实情况比较。</p>
+<p><strong>Alex Zhang [00:27:52]:</strong> 哦，我明白了。</p>
+<p><strong>Swyx [00:27:52]:</strong> 那将是我对此的反向工程。</p>
+<p><strong>Alex Zhang [00:27:54]:</strong> 是的。</p>
+<p><strong>Swyx [00:27:54]:</strong> 我实际上。我认为校准可能是被低估的。就像，人们只是把它当作一个非常快的分类器，但他们实际上甚至没有使用概率或校准估计。</p>
+<p><strong>Alex Zhang [00:28:04]:</strong> 是的。</p>
+<p><strong>Vibhu [00:28:04]:</strong> 我认为它仍然被误解了，再重申一下。当你问模型“你有多自信？”时，它会吐出什么，百分之四十三。最大的区别是这是一个有根据的分类，对吧？</p>
+<p><strong>Alex Zhang [00:28:16]:</strong> 是的。是的，我非常兴奋地看到人们用这个模型做什么。它能解决一切吗？不，当然不能。但我认为它解决了一类我们传统上难以解决的问题，那就是低延迟的事情。所以我喜欢游戏方面的例子。那实际上就像。我</p>
+<p><strong>Swyx [00:28:34]:</strong> 是的，Doom 的例子</p>
+<p><strong>Alex Zhang [00:28:35]:</strong> 是的</p>
+<p><strong>Swyx [00:28:35]:</strong> 非常好。</p>
+<p><strong>Alex Zhang [00:28:35]:</strong> 我有一个关于语言模型玩电子游戏的基准测试。我一直着迷于你是否能让一个智能系统玩新游戏以及类似的事情。所以我认为他们有一种独特的方式来做这件事，以捕捉语言和理解，在一个快速的、非常快的模型中，这真的很酷。</p>
+<h2>语言模型玩电子游戏</h2>
+<p><strong>Vibhu [00:28:59]:</strong> 哦，既然你在谈论这个话题，关于电子游戏你有什么想指出的吗？</p>
+<p><strong>Alex Zhang [00:29:02]:</strong> 哦，是的。</p>
+<p><strong>Vibhu [00:29:03]:</strong> 这是。你确实在任何项目上做了一个基准测试，对吧？</p>
+<p><strong>Alex Zhang [00:29:05]:</strong> 所以，是的。我想这些数字非常过时了</p>
+<p><strong>Vibhu [00:29:08]:</strong> 是的。</p>
+<p><strong>Alex Zhang [00:29:08]:</strong> 因为很多模型非常不同。我实际上看到有人在运行。有一些人在这些游戏上运行更新的模型，这真的很酷。我想这个基准测试的一般前提是我们只是想看看视觉语言模型是否足够好，比如，在包含延迟约束的情况下接入游戏。因为这实际上。我是在 Claude Plays Pokémon 出来之后马上提出这个的。</p>
+<p><strong>Alex Zhang [00:29:33]:</strong> 这大概是两年前的事了，放到现在估计已经算上古时期了。但我觉得这套任务真正酷的地方在于，游戏种类非常多样。而且我认为大多数游戏都是人们知道或者以前见过的。我看到 Jeff 在玩 Doom。我得说我不太确定。我觉得他们只是在玩一些非常简单的关卡之类的。但说实话，大多数模型还是做不到。或者我其实不认为有任何模型能真正有意义地通关这些游戏。有些游戏它们确实能通关。我记得我见过 Astra 能通关 Kirby 那款游戏。而且针对这个 benchmark，我们特意设计了一个非常精简的 harness。我接下来会讲到 harness 这一点，因为我觉得关于 harness 的价值有一整场讨论可以展开。比如，harness 对模型来说到底有什么意义？但总的来说，我觉得是的，我希望很快或者不久就能看到所有这些游戏被更新的模型攻克。</p>
+<p><strong>Vibhu [00:30:35]:</strong> 是的，这挺有意思的。就像当年 Cloud Place Pokemon 那样，他们从 RAM 里读取状态，看看哪些地块可以走之类的。我们很久以前跟他们做过一期播客。</p>
+<p><strong>Alex Zhang [00:30:45]:</strong> 明白了。</p>
+<p><strong>Vibhu [00:30:46]:</strong> 是的。就是好玩。</p>
+<p><strong>Swyx [00:30:46]:</strong> 是的，而且类似。比如 Jeff 没有视觉能力</p>
+<p><strong>Alex Zhang [00:30:48]:</strong> 对</p>
+<p><strong>Swyx [00:30:48]:</strong> 所以你得把</p>
+<h2>Harness 作为组合式泛化器</h2>
+<p><strong>Alex Zhang [00:30:50]:</strong> 对</p>
+<p><strong>Swyx [00:30:50]:</strong> 这些游戏状态之类的东西喂进去。我们直接进入 harness 的部分吧</p>
+<p><strong>Alex Zhang [00:30:54]:</strong> 太好了</p>
+<p><strong>Swyx [00:30:54]:</strong> 因为是你提起的。语言模型 harness 是组合式泛化器。</p>
+<p><strong>Alex Zhang [00:30:59]:</strong> 对。</p>
+<p><strong>Vibhu [00:31:00]:</strong> 你读那句读得好费劲。</p>
+<p><strong>Alex Zhang [00:31:01]：</strong>解释一下。好。所以，我对人们看待 harness 的方式可能一直有点不满意，因为大家会这样比较：“哦，我喜欢 Claude Code，我喜欢 Codex，我喜欢 Pi。”或者说：“不，我喜欢 Oh My Pi，我喜欢 Prime Agent。”说实话，我觉得它们全都一样。这些 harness 的大多数设计决策，或者说设计选择，都是一样的。也许 Prime Agent 稍微有点不同，因为它本质上就是一个 RLM。但总的来说，我觉得我们可以在 harness 上发挥多得多的创造力。我的意思是，如果我们从 harness 到底为模型做了什么这个角度来看的话。基本上，当你试图解决一个问题，想用一个语言模型来解决它，比如一个非常困难的任务时，我们发现的一件事是，next token prediction 对于完成很多这类任务来说是一种非常别扭的形式。举个例子，拿 SWE-bench 来说。当你在浏览一个代码库时，你能靠单次语言模型调用就搞定这一切吗？比如你只说一句“解决代码”，或者“在这个代码库上解决我的查询”。不行。所以我们依赖 harness 来帮你做这类事情。我觉得有意思的是，harness 是一个非常带有主观倾向的程序，它规定了你想让语言模型如何被塑形以适配某个问题。我提这个是因为，当我们思考 harness 在做什么时，我们真的应该想想，harness 里的哪些选择让语言模型能够解决这个任务？以及我能不能干脆就让一个语言模型自己来做这件事？因为如果你想想 harness，既然现在 loop transformer 已经出现了，我觉得真正有意思的是，你在某些方面也可以用 harness 来对 looped transformer 建模，对吧？你只是在模型上循环而已。当然你可以说“哦，我不是在解码”，所以有点不一样。但总的来说，我们不知为何一直固守着同样的模型架构选择，从未改变。关于原因有很多论据，但很明显，我们现在是围绕 harness rollout 来训练模型的。所以就有了这种非常别扭的基于 harness 做训练的方式，就是我们训练一个语言模型在某个 harness 内行动，但现在这变成了一个非常长的、也许是多 agent 的 rollout。而做这件事的方式又非常别扭、非常 hacky。所以这篇博客讲的是，嗯，你可以这样理解这里发生的事：如果 harness 基本上是在帮模型解决某个特定任务，那么不同的 harness 设计选择能不能做出一些更有意义的事情，而不只是“这里有一些能帮到你的工具调用，这里有一种在你的代码库里 grep 的方式”。所以这实际上——这篇博客的想法也是随着 RLM 的想法一起出现的。我们只是没有那样包装它。我觉得这其实是对的。围绕 RLM 还有很多其他想法，我们会陆续发布，但它们从一开始就都在那里了。这些都是围绕设计决策的。我觉得 RLM 让我喜欢的一点是，我当时感兴趣的不同抽象有过很多次迭代和版本，最终 RLM 是最合理的。但之所以如此，有很多原因没有公开。你们会看到的。所以在这个例子里，我们在 RLM 上看到的一件事是，如果你充分地把上下文卸载出去，并让模型在这个上下文之上写代码，你会得到一个非常奇怪但有用的性质，那就是当模型在训练中认识到如何解决一个任务时，结果发现很多任务的解法非常相似，甚至是在那些你根本——你甚至都不清楚解法相似的任务之间。所以在这个例子里，我们有一个检索任务，还有一个聚合任务，它们的查询非常不同。领域完全不一样。当你在这两个任务上训练一个常规语言模型时，轨迹看起来非常不同。所以当你——比如说你用 Pi 或 Claude Code 之类的，这个不在博客里，但我们确实有这些结果——你会发现，这些 harness 在这些问题之间区分得太多，尽管解法是一样的。所以我们在训练 RLM 时发现的一件事是，当它看到这些问题时，是一样的。它之所以把这些看成一样，是因为 sub-agent 看到的是不同的问题，但 sub-agent 解决的是一个更简单的子任务，所以你有信心它足够聪明能搞定。但对于底层的整体策略来说，它们最终看起来是一样的。所以当你训练左边的任务时，比如，它能立刻解决右边的任务。所以如果你往下看我们有的那些图，你会观察到的一件事是，当你只是朴素地在这些任务上训练你的 RLM 时，它们会自然地学会泛化，比如泛化到更长的任务，因为策略基本上是一样的。你只是在修改一个长度变量。而这实际上也适用于不同的任务，而且它们甚至——它们不是长度上的不同。它们是完全不同的任务，数学任务对写作任务。但解法，那个元层面的高层解法是一样的。所以当你把 RLM 在其中一个上训练后，它会把这种行为泛化到第二个上。这里没有什么魔法。我想这也许就是我想强调的一点。就像</p>
+<p><strong>Vibhu [00:36:38]：</strong>你会怎么描述它们学到的东西？我记得你在这里提到，你用短任务训练它，它们能泛化到长 8–30 倍的任务上。</p>
+<p><strong>Alex Zhang [00:36:47]：</strong>是的。</p>
+<p><strong>Vibhu [00:36:48]：</strong>它们是在学习如何解决这类问题，还是说，它们真正学到的核心东西是什么？</p>
+<p><strong>Alex Zhang [00:36:52]：</strong>是的。它们学的是如何在某个特定长度下解决这类问题。而事实证明，当你把它们学到的策略拿来用时，它可以直接迁移到更长的长度上。就像，它们</p>
+<p><strong>Vibhu [00:37:05]：</strong>是的。</p>
+<p><strong>Alex Zhang [00:37:05]：</strong>实际上就是同一个程序。这一点非常令人兴奋，因为它所暗示的是，当你有一个用于训练模型的数据或环境语料库时，希望在于：第一，你可以用更少的环境进行训练，并泛化到比现有模型通过现有那种朴素训练所能做到的更多场景；第二，你仍然希望用上你拥有的所有数据。所以当你在这些任务上训练时，希望它能泛化到更广泛的一类问题上。而这件事之所以更令人兴奋，至少在对 RLMs 或任何递归调用系统而言的语境下，是因为这个论证可以归纳地成立。举个例子，因为我说过，我主张竞赛编程和 GPU 优化使用的是非常相似的技能组合。模型可以——harness 可能得往某个方向推它一把——但它可以学会：“好吧，我解决这个 GPU 编程任务的方式，和我为竞赛编程学到的东西非常相似。所以我要列出一组解法。我会生成子 agent 来列出有希望的解法，然后我会写这个循环去逐一检查这些解法，也许对它们进行演化，并针对一个验证器来演化它们。”在这两个任务之间，这看起来是一样的。但子 agent 在做的事情也许是独特的、有所不同的。可就连子 agent 所解决的问题，实际上也可能具有相同的形式，对吧？因为这是一个递归的论证。所以我在这整篇博文里想表达的就是：我们应该重新思考 harness 的角色，因为 harness 实际上可以极大地提升模型的泛化能力，以及它所获得的数据量。而这并不局限于 RLMs。我认为还有一大类尚未被发现的 harness，它们实际上可以产生类似的特性。把这个论证再延伸一点，我认为你还可以从中推断出：如果我看一个 RLM，一个 RLM 中哪些组件实际上是必要的，我能不能直接训练一个模型来做这件事？我能不能训练一个模型，让它在自己的前向传播中隐式地充当一个 RLM？这是个想起来很怪的事，因为你可能会说：“哦，代码是不可微的，等等。”但我们会开始发现许多对这种行为的近似。而且我认为，我们将看到的会超越仅仅像“我要设计一个新的编码 harness，它使用某种特殊形式的压缩”之类的东西。我认为我们可以在这里更有创造力。比如，用这些语言模型我们能做的事情太多了，而我认为我们就是没在做。我对此非常兴奋，因为我认为我们可以从非常有主见、设计良好、更适合规模化的 harness 设计中获得可观的收益。这里的意思是，比如说，RLM 就是一种非常原始的归纳偏置。除了它和我们目前所做的非常不同之外，这个设计并没有什么特别之处。但它也许能随着我们可用的数据和环境更好地扩展。</p>
+<p><strong>Vibhu [00:40:20]：</strong>我想，人们大概会问的反面问题是：当前的 harness 都非常偏向编码，而人们看到这在很多领域都行得通。Cloud code 被用于设计、演示文稿</p>
+<p><strong>Alex Zhang [00:40:33]：</strong>是的。</p>
+<p><strong>Vibhu [00:40:33]：</strong>一切。MuseSpark、Grokbot。</p>
+<p><strong>Vibhu [00:40:36]：</strong>这些都是非常简单、没有主见的 harness，它们擅长代码，而且这也在扩展。我想，我们如何改进它们的例子是什么？</p>
+<p><strong>Alex Zhang [00:40:48]：</strong> 是的。让我再提一篇论文，是最近刚出来的。就是那篇 harness tax 论文。我记得是 Arena 写的。我非常喜欢这篇论文，因为它提出了一个我早就有的先验，基本上就是，大多数</p>
+<p><strong>Vibhu [00:41:07]：</strong> 所以它印证了这个先验。</p>
+<p><strong>Alex Zhang [00:41:08]：</strong> 是的。就是，大多数 harness 的选择其实并不重要，因为</p>
+<p><strong>Vibhu [00:41:12]：</strong> 是的。</p>
+<p><strong>Alex Zhang [00:41:13]：</strong> 所有这些 harness 都是一样的。但我要说，比如 Grokbot，据我了解，它实际上和这些其他 harness 的设计方式相当不同，我很喜欢这一点。而且我觉得至少从这里可以清楚地看出，我相当确定，Anthropic 或 OpenAI 只在自己的 harness 上训练。他们大概不会在竞争对手的 harness 上训练。我猜不会，因为我不知道他们为什么要那么做。但是</p>
+<p><strong>Vibhu [00:41:38]：</strong> 但这是你在开源模型上能看到的现象，对吧？比如 Qwen 非常擅长使用 open code。</p>
+<p><strong>Alex Zhang [00:41:43]：</strong> 是的。</p>
+<p><strong>Vibhu [00:41:43]：</strong> 他们需要在 harness 中训练。旧的 Gemma 在这方面是出了名的差。</p>
+<p><strong>Alex Zhang [00:41:47]：</strong> 是的。</p>
+<p><strong>Vibhu [00:41:48]：</strong> 模型本身很好，但你需要在 harness 中训练。</p>
+<p><strong>Alex Zhang [00:41:50]：</strong> 不过我觉得，随着模型变得更聪明，或者说随着它们变得更好，这种区分就没那么重要了，因为比如你把 Astra 放进 open code 里，它不会发疯，因为我觉得它已经足够好了。我这么说是因为这些不同 harness 之间唯一的优势，大部分情况下只是成本。我觉得，Sugru，我想说的是，如果你把这些模型接入 RLMs，它们仍然没那么好。它们还行。我认为这主要是因为，我们围绕训练的那类 harness 就是这一类 harness，这种 pi loop，这种我喜欢称之为“轨迹即 prompt”的东西，意思就是，你把整个 rollout 的轨迹都保留下来，作为你主模型使用的上下文。即使你使用子 agent，它基本上还是这种形式。我觉得我们将会……如果我们想探索新的 harness，就需要有专门的团队真正去运行有意义的实验，比如对新的 harness 设计进行后训练扩展。我觉得我们实际上可以从这类事情中获得非常有意义的知识或收益，无论是 RLM 还是别的什么。这很令人兴奋，因为我觉得，比如，如果你在……Fable 在很长一段时间里都是最适合 RLMs 的模型，因为他们有动态工作流，而且很明显，这是一种某种程度上被训练出来的能力。即使模型在 RLM harness 里还有点笨，它的表现仍然比其他模型好得多。Astra 现在做这些事情也足够好了。但是</p>
+<p><strong>Swyx [00:43:33]：</strong> 等等，这是我们看到 Fable 最适合 RLMs 的地方，还是有别的</p>
+<p><strong>Alex Zhang [00:43:38]：</strong> 哦，不，这些我想都是内部结果。</p>
+<p><strong>Alex Zhang [00:43:40]：</strong> 是的，我没有，我现在没有</p>
+<p><strong>Swyx [00:43:41]：</strong> 好吧</p>
+<p><strong>Alex Zhang [00:43:42]：</strong> 公开的。但总的来说，我觉得你可以，你可以很容易地看出我们还没有针对 RLM 这类工作流进行优化。我觉得如果我们得到能正确做这件事的模型，它们也会高效得多。你可以自己想一想，为什么会是这样，对吧？</p>
+<p><strong>Vibhu [00:44:03]：</strong>我觉得到了这个节点，你得用十秒钟说说什么是 RLMs。</p>
+<h2>什么是 RLM？</h2>
+<p><strong>Alex Zhang [00:44:07]：</strong>哦，对。</p>
+<p><strong>Vibhu [00:44:07]：</strong>因为这里有很多听众</p>
+<p><strong>Swyx [00:44:09]：</strong>对。我们，我们预设了太多背景知识。</p>
+<p><strong>Alex Zhang [00:44:10]：</strong>是的。</p>
+<p><strong>Swyx [00:44:11]：</strong>而且，我觉得你。但你已经铺垫了一些背景</p>
+<p><strong>Vibhu [00:44:13]：</strong>对</p>
+<p><strong>Swyx [00:44:13]：</strong>所以你可以。就像，结合我们刚才说的一切</p>
+<p><strong>Vibhu [00:44:15]：</strong>对</p>
+<p><strong>Swyx [00:44:15]：</strong>我们能不能给 RLMs 一个干净、清晰的定义？</p>
+<p><strong>Alex Zhang [00:44:18]：</strong>可以。好。我想回到那篇博客，那篇</p>
+<p><strong>Vibhu [00:44:21]：</strong>对</p>
+<p><strong>Alex Zhang [00:44:21]：</strong>那篇 compositional generalizers 博客。就是这篇。好。</p>
+<p><strong>Swyx [00:44:24]：</strong>好。</p>
+<p><strong>Alex Zhang [00:44:24]：</strong>这算是，最好的。我希望我原论文里就有这个。RLM 基本上就是一种 harness 设计，其中 harness 里唯一的工具就是代码，也就是这种程序化的子 agent 调用机制，它可以选择把自身作为工具来调用，同时还有其他工具。但所有这些东西都是代码里的函数，而它处理的上下文始终存储在这个代码环境内部的某个内存中。所以这可以是一个文件系统。比如，这可以是，我举个例子，Prime Agent。Prime Agent 的轨迹，也就是上下文，甚至当你压缩并做所有这些事情时，都存储在磁盘上。所以模型始终可以引用它原始的上下文，即使它被压缩了，而它所有的工具都在，比如说，一个 Python REPL 或 Bash REPL 里运行。所以这，它就像一种非常原始的抽象。我想说，大多数 harness 的不同之处在于，第一，上下文卸载不是那样做的。顺便说一句，如果你看 Prime Agent，Prime Agent 确实做上下文卸载，但不是完全那样。所以，它仍然维持着标准的 Codex 循环，也就是把轨迹当作 prompt，然后你压缩，但它额外有那种，上下文被卸载了，而且它只有。Prime Agent 的独特之处在于它唯一的工具是 IPython。所以这就像是围绕 RLMs 的那种非常通用的抽象。是的。</p>
+<p><strong>Vibhu [00:45:59]：</strong>具体来说，RLMs 试图解决的核心问题是什么？</p>
+<h2>长上下文、组合与局部同分布任务</h2>
+<p><strong>Alex Zhang [00:46:02]：</strong>对。</p>
+<p><strong>Vibhu [00:46:02]：</strong>在某个时候，我觉得它刚出来的时候，是上下文。</p>
+<p><strong>Vibhu [00:46:06]：</strong>我把问题转给你。</p>
+<p><strong>Alex Zhang [00:46:06]:</strong> 是的。所以最初的问题是，harness 在处理长上下文时表现非常糟糕。它们通常只被用来处理特定的事情，比如代码。它们能处理你的代码库，因为它们是针对代码训练的。但现在更多是围绕这篇博客所讨论的内容，也就是组合性，以及我认为 harness 的现状。我们想要拥有能在每一步对自己的行动有更多控制权的语言模型系统。这里的含义是，工具调用非常受限，因为你必须在每一轮都调用它们。比如，你必须先调用工具 A，再调用工具 B，然后调用工具 C，而且没有一个你可以随时回溯的中心化上下文。而 RLMs 正是围绕组合性设计的，拥有一个你可以随时取用的中心化上下文。而且这个上下文是围绕现有的语言模型设计的。另一个在设计上非常相似的例子是 agent swarms，比如 Hugging Face 那次事件。这些 agent swarms 有一个消息板，它们学会在上面通信。这个消息板在某种意义上就是它们行动所依托的共享上下文。而 RLMs 基本上是在说，通过它进行通信的最佳方式就是用代码。你写代码来实现这件事，因为这类模型非常擅长写代码，我们想利用这一点。</p>
+<p><strong>Swyx [00:47:37]:</strong> 然后对于这种组合性的东西，甚至包括为特定任务生成你自己的 harness。</p>
+<p><strong>Alex Zhang [00:47:44]:</strong> 正是如此。</p>
+<p><strong>Swyx [00:47:45]:</strong> 对吧？</p>
+<p><em>（有 1 段翻译失败，保留了原文）</em></p>
+<p><em>（原文较长，只翻译了前面部分，<a href="https://www.latent.space/p/rlm">阅读全文</a>）</em></p>
+<p><a href="https://www.latent.space/p/rlm">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>
