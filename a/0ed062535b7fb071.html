@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI agent 的下一个障碍：让网站放它们进去</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">AI agent 的下一个障碍：让网站放它们进去</h1>
+<p><small>TechCrunch · AI · 评分 7/10：agent 访问网站与反爬对抗，涉及 agent 生态标准，相关且有实质信息<br/>原标题：The next hurdle for AI agents: getting websites to let them in</small></p>
+<p><strong>要点</strong></p><ul><li>亚马逊开始屏蔽Meta的Muse AI agent访问其零售网站</li><li>沃尔玛与Muse合作，但用户仍因人机验证失败无法完成购买</li><li>Meta、沃尔玛、Stripe等公司正合作制定AI agent通信开放标准</li></ul>
+<hr/>
+<p>像 Meta 的 Muse、Instinct、ChatGPT 的 Dots 等个人 AI agent，正在掀起一波新的消费级 AI 浪潮，其功能远不止回答查询。这些 AI agent 实际上可以代表用户完成任务，比如预订机票、预订晚餐、订购杂货等，而用户无需具备足够的技术能力，在自己电脑上设置 OpenClaw 或其他 agent。</p>
+<p>但采用这些 agent 的消费者常常遇到问题：请求另一端的网站会阻止 AI 完成任务。</p>
+<p>最近，<a href="https://www.bloomberg.com/news/articles/2026-09-21/amazon-blocks-meta-s-muse-ai-agent-from-its-retail-site">亚马逊开始在其零售网站上屏蔽 Meta 的 Muse AI agent</a>，这意味着该 agent 无法再浏览其产品目录或进行购买。</p>
+<p>然而，问题不仅限于亚马逊或 Muse。社交媒体上的用户投诉表明，他们的 agent 经常遇到类似的屏蔽。其中一些是有意为之，比如亚马逊的；另一些则是网站传统的反机器人措施所致，这些措施旨在防范垃圾信息和恶意活动。</p>
+<p>最终用户不清楚屏蔽是否是网站所有者的无意之举，这让他们既对服务提供商或零售商感到沮丧，也对试图促成交易的 agent 感到不满。</p>
+<p>例如，TechCrunch 在社交媒体上看到<a href="https://x.com/BohuangMars/status/2107188842969362649">一</a><a href="https://x.com/BohuangMars/status/2107188842969362649">些</a><a href="https://x.com/BohuangMars/status/2107188842969362649">投</a><a href="https://x.com/buzaza/status/2107143801504731436">诉</a>，声称 Muse 无法在沃尔玛的零售网站上完成购买。（<a href="https://www.nbcnews.com/tech/tech-news/ai-agent-muse-shop-e-commerce-amazon-wal-mart-wayfair-buy-rcna599069">NBC 也报道</a>称，这是沃尔玛在测试该 AI agent 时遇到的问题。）</p>
+<p>但沃尔玛的一位发言人告诉我们，这些并非有意为之。事实上，沃尔玛与 Muse 有合作，正如<a href="https://techcrunch.com/2026/09/23/everything-new-coming-to-metas-ai-agent-muse/">9 月在 Meta 的 Connect 开发者大会上宣布</a>的那样。该公司表示，它希望出现在客户所在的地方，而现在这包括通过 AI agent 体验提供服务。</p>
+<p>沃尔玛客户经常遇到的问题（见下文）似乎是，网站会显示一个必须点击的按钮，以验证访客是人类。如果这一过程被打断，验证可能会失败，agent 就会被踢出。</p>
+<p>这表明，我们目前用于验证人类身份、保护网站免受垃圾信息和机器人侵扰的技术，可能并不最适合我们正在迈入的 agent 优先的 web 时代。</p>
+<p>为了解决这个问题，包括 Meta、沃尔玛、Stripe、Sierra、Genesys、Rocket、NiCE 和 Decagon 在内的行业合作伙伴已开始<a href="https://www.facebook.com/business/news/a-new-way-for-businesses-and-personal-agents-to-work-together">制定一项开放标准</a>，该标准将规定 AI agent 如何与企业沟通，帮助区分代表用户行事的良性机器人和恶意机器人。Meta 在一篇<a href="https://www.facebook.com/business/news/a-new-way-for-businesses-and-personal-agents-to-work-together">博客文章</a>中表示，该协议将特别关注出于在线商务目的的 agent 对 agent 通信。</p>
+<p>与此同时，消费者的困惑比比皆是。</p>
+<p>尽管沃尔玛至少试图通过 AI agent 提供服务，但其他公司对此想法并不那么热衷，或者尚未完全接受这项技术。</p>
+<p>例如，机票预订目前是 agent 的主要应用场景之一，但许多人反映，航空公司会拒绝其 agent 的请求。</p>
+<p>以达美航空为例，该公司告诉我们，正在采取措施保护客户免受未经授权的自动化活动影响，如果要向 AI agent 开放，必须“兼顾安全与客户体验”。</p>
+<p>达美航空全球传播总经理 Heena Chavda 在回应我们关于该公司是否如一些用户抱怨的那样在封堵 agent 的提问时表示：“虽然达美航空目前没有建立任何合作或集成，让第三方 AI agent 能在我们的数字平台上代客户搜索或预订达美航班，但我们正在持续评估包括外部 AI agent 在内的新技术如何改善客户与达美航空互动的方式。”</p>
+<p>美联航没有达美航空那么直接，但一位发言人向我们指出了其使用条款政策中的相关内容，其中写道，用户同意“未经美联航事先书面许可，不使用任何机器人、爬虫、其他自动设备或人工流程来监控或复制本网站或其包含的内容，或用于任何其他未经授权的目的”。（对于是否在封堵 Muse 等特定个人 AI agent 的追问，美联航未予回应。）</p>
+<p>早期采用者在<a href="https://x.com/rjchint/status/2104405141130789271">社交</a><a href="https://x.com/timothyfcook/status/2107174688459784435">媒体</a><a href="https://x.com/maulik_sh/status/2107156908356329501">上</a><a href="https://x.com/jbillow/status/2104244311256887697">的抱怨</a>提到了多个据称<a href="https://x.com/ryanfoxeth/status/2102023108974506154">封堵</a> AI agent 的品牌，<a href="https://x.com/NanjuanS/status/2104323028058513756">包括</a> <a href="https://x.com/RameshUtta83629/status/2105820595963531657">Yelp</a>、<a href="https://x.com/kallasmaa/status/2107071034486849541">eBay</a>、<a href="https://x.com/Aerocles/status/2106904960768291204">Zillow</a>、<a href="https://x.com/JoshExile82/status/2106949262252941461">Pizza Hut</a>、<a href="https://x.com/kesslerIO/status/2104397316673462339">Adidas</a> <a href="https://x.com/michelleoconnor/status/2107446501605838977">以及</a><a href="https://x.com/akash_bhatia/status/2106527240737480719">多家</a><a href="https://x.com/DVallota/status/2107487367984758846">航空公司</a>。一些人认为，封堵行为似乎最近有所<a href="https://x.com/Jessicalessin/status/2106844211773595663">增加</a>。</p>
+<p>还有几个人表示，eBay <a href="https://x.com/kallasmaa/status/2107071034486849541">暂停</a>了他们的<a href="https://x.com/kallasmaa/status/2107071034486849541">账户</a>，原因是他们使用了 agentic AI。另有人抱怨，<a href="https://x.com/jyothiwrites/status/2107493883584421973">Google 在 Instinct 帮他们清理 Gmail 收件箱时将其踢出</a>。</p>
+<p>尽管人们力推让 agent 在餐厅订位以及完成其他繁琐任务，Yelp 却告诉我们，该平台不允许非人类流量，除非 agent 已付费通过其<a href="https://business.yelp.com/data/">数据授权计划</a>获取 Yelp 的内容和数据。这意味着，如果 agent 没有与 Yelp 建立正式合作，试图利用其网站获取报价、将用户加入等候名单或为其订位，很可能会失败。</p>
+<p>eBay 向 TechCrunch 表示，其做法并非禁止所有第三方购物 agent 完成购买，而是通过政策限制未经授权的 agent 和行为，例如自动抓取和模型训练。</p>
+<p>截至发稿时，Adidas、Zillow 和 Pizza Hut 要么未予回应，要么拒绝置评。</p>
+<p>Cloudflare 是这一领域的重要参与者，它为网站提供保护，抵御可能利用其数据进行训练的 AI agent，并管理其他自动化活动。一些人<a href="https://www.threads.com/@karelbaloun/post/DdjwBeeGvR4">怀疑</a><a href="https://x.com/TheJordude/status/2106417869764354260">正是</a>Cloudflare 及其他类似的内容分发网络（CDN）目前正在干扰 Muse 的流量。这被<a href="https://blog.cloudflare.com/accountable-mixed-use-ai-crawlers/">归因于</a>9 月 15 日对爬虫默认设置的更改，该更改允许网站所有者阻止 AI 训练，同时放行其他类型的机器人。此前出于安全原因被设置为阻止 AI 机器人的现有网站，随后被调整为在任何带有广告的页面上阻止 AI agent。</p>
+<p>然而，当我们询问 Cloudflare 是否了解这些个人 AI agent（如 Muse 及其他）被阻止的情况时，该公司表示目前没有具体数据可以分享。它转而向我们推荐了其免费的公共数据平台 <a href="https://radar.cloudflare.com/">Cloudflare Radar</a>。该网站显示了机器人活动的增加（Cloudflare 此前也曾对此发表过评论），但无法帮助区分好机器人和坏机器人。</p>
+<p>Cloudflare 在减少网站 AI 流量方面也有既得利益，因为它<a href="https://techcrunch.com/2025/07/01/cloudflare-launches-a-marketplace-that-lets-websites-charge-ai-bots-for-scraping/">现在运营着一个市场</a>，AI 机器人必须为其访问的数据付费。它最近开始测试<a href="https://techcrunch.com/2026/08/07/cloudflare-launches-kitesurf-a-browser-built-for-ai-agents/">一款专为 AI agent 打造的新型网络浏览器。</a></p>
+<p>鉴于这一领域发展迅速，Meta 决定为 Muse 访问建立特定的品牌合作关系似乎是正确的做法，其专注于新标准的决定也是如此。这样做可以向客户保证，至少其 agent 在这些合作伙伴的网站上是受欢迎的——因此任何访问问题都可以作为 bug 上报。</p>
+<p>Meta 还在 Muse 应用内维护着一份“连接器”（即合作伙伴）列表，该列表持续增长。Meta 许多<a href="https://techcrunch.com/2026/09/23/everything-new-coming-to-metas-ai-agent-muse/">新宣布的合作伙伴</a>尚未出现在这份列表中。但鉴于 Muse 的快速<a href="https://www.cnbc.com/2026/10/03/meta-muse-shopping-ai-agent.html">扩张</a>，如今已包括<a href="https://about.fb.com/news/2026/09/introducing-muse-small-business/">面向小企业的合作工具</a>，Muse 连接器列表很可能即将进行更大规模的重组。</p>
+<p>Meta 在关于新宣布的标准制定计划的公告中表示：“拒绝一个个人 agent 就意味着拒绝其背后的客户。我们宁愿与企业合作解决根本问题，也不愿看到它们失去那个客户。存在一条对用户和企业都有利的路径。它始于明确的规范，赋予企业更可预测的控制权，并朝着 agent 更高效协作的方向演进。” </p>
+<p><a href="https://techcrunch.com/2026/10/06/the-next-hurdle-for-ai-agents-getting-websites-to-let-them-in/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

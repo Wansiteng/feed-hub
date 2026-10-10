@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>苹果突发收紧 Mac 权限，全是 AI 惹的祸</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">苹果突发收紧 Mac 权限，全是 AI 惹的祸</h1>
+<p><small>爱范儿 · 评分 7/10：苹果 Mac 与 AI 权限政策变化，与读者关注高度相关</small></p>
+<hr/>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252202198-1.png"></p>
+<p>macOS，开始对 Personal Agent「关门」了。</p>
+<p>10 月 2 日，苹果发出一则简短的公告，宣布将会在后续版本收紧在 macOS 上存在多年的「完全磁盘访问」（Full Disk Access, FDA）高级权限：</p>
+<blockquote><p>一些开发者正以可能使用户面临风险的方式使用「完全磁盘访问」，在用户并不完全知情或理解的情况下暴露其系统中的所有内容……今后，我们将引入额外的控制措施，以确保那些确实希望授予应用如此高级别访问权限的用户，只有通过非常明确的用户操作才能完成授权。随着人工智能代理的能力和自主性不断增强，与这种级别访问权限相关的风险也将大幅增加。</p></blockquote>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252204658-2.png"></p>
+<p>一项自 2018 年 macOS Mojave 10.14 开始加入的权限，为什么到了 AI 时代，突然就变得不安全了？</p>
+<h3>Personal Agent，把 macOS 的「君子协议」玩坏了</h3>
+<p>要搞清楚这件事的始末，首先要知道「完全磁盘访问」是一种怎样的功能。</p>
+<p>在 10.14 版本之前，macOS 的文件系统权限管理和今天的 Windows / Linux 没什么两样：只要运行程序，它就可以访问当前账户身份能读取的任何文件。</p>
+<p>但后来，macOS 逐步引进了更细致、更现代的额外隐私管理机制。以现在的版本为例，<strong>程序默认不再能访问邮件、聊天信息、浏览器记录、Time Machine 备份和第三方软件用户数据等高敏感信息，除非用户为某个程序手动授予「完全磁盘访问」权限。</strong></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252205978-3.png"></p>
+<p>之所以要留下这个「后门」，是因为杀毒、文件备份、企业 IT 管理等少数软件天然要求遍历整个文件系统才能正常工作。如果它们访问每个敏感数据都需要用户手动授权，那结果只会是弹窗无数，根本无法使用。</p>
+<p>但允许这些软件使用「完全磁盘访问」，前提是一种心照不宣的「君子协议」：macOS 相信备份软件访问全盘只是为了原样复制每个文件，杀毒软件访问全盘只是为了监控文件修改和恶意行为……理论上，它们一心只为工作，对用户的隐私数据本身不感兴趣，也不会侵害用户的权益。</p>
+<p>这是 macOS 内部的「宙斯法则」。长期以来，这套机制都运行得很好，一切相安无事。</p>
+<p><strong>直到 AI Agent 破门而入。</strong></p>
+<p>尤其是以 Muse 为代表的 Personal Agent 们，全然没有老派软件的客气。为了更好地理解你的目标和偏好，去「管理个人生活」，它们不仅申请「完全磁盘访问」权限，还要通过这个渠道大量读取用户的个人隐私信息，比如日程、邮件沟通对象、聊天主题等，并将这些信息转化成用户画像和个人上下文，以此决定下一步的行动。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252208061-4.png"></p>
+<p>即使我们信任 Meta 本身不会将我们的隐私数据用于别处（其实连这点都很难保证），<strong>也不能排除， Personal Agent 可能因为错误理解或者攻击者的故意诱导，而将隐私数据和盘托出。</strong></p>
+<p>实际上，这一点已经超出思想实验的范畴，成为了现实世界里的真实风险。</p>
+<p>不久前，安全研究机构 Salt Security 披露了一个邮件注入漏洞。通过发送包含攻击代码的邮件，攻击者可以让受害者的 Manus Agent 执行代码，以此接触到 Manus 连接的 Gmail 和 Google Drive 等第三方凭证。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252210474-5.png"></p>
+<p>在另一个案例中，科技博主 Matt Robb 让 Muse 代管二手交易服务，结果 Muse 直接在他不知情的情况下，将家庭地址发给买家，让对方来「线下交易」。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252211477-6.png"></p>
+<p>没错，大多数 Personal Agent 都标榜要成为你的「全能助理」，但这样做的代价是让这个助理了解你的一切，而这个助理的口风是出了名的不严实——更别说挖掘漏洞攻击 AI Agent 并非难事。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252212222-7.png"></p>
+<p>打破法则、滥用权限的是 Personal Agent 这些「门口外的野蛮人」，可如果信息泄露，不明就里的用户可能把 macOS 也连着一起控诉。由此就不难理解，为什么苹果会筹备进一步收紧「完全磁盘访问」权限。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252212961-8.png"></p>
+<h3>开放与安全，无法兼得的两难</h3>
+<p>在资深开发者和科技评论者 John Gruber 看来，更危险的是，大多数年轻人被 iPhone 和 iPad「照顾」得太好了。</p>
+<p>通常来说，我们和手机、平板朝夕相对，用移动设备的时间和场合要多于使用 Mac，这就导致大众普遍更习惯前者的功能逻辑。</p>
+<p>而偏偏苹果在 iOS 和 iPadOS 上使用了一种比 macOS 严格得多的沙盒机制——即使我们闭着眼在各种权限申请弹窗中一概允许，系统底层机制也决定了 Agent 们无法直接访问邮件和聊天，关键隐私依然得到保护。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252215019-9.png"></p>
+<p>但如果把这种习惯延续到 Mac 上，风险就会指数级上升。</p>
+<p>小白用户很难注意到，<strong>Mac 其实是一台「全功能」工作站，这代表它可以开放和定制的深度远超 iPhone / iPad。</strong>如果说同意全部权限申请在手机上还算风险可控，那在 macOS 上允许 Agent 启用「完全磁盘访问」，就相当于同意 Agent 在未来的某天将你的身份地址信息都悉数交出。</p>
+<p>而 Agent 的「亲和力掩饰」，更加剧了这种风险。</p>
+<p>为了减轻用户的戒备心，让 Agent 显得「人畜无害」，市面上几乎一切 Agent 产品都专门设计了萌化形象。比如 Grok Bot 的大眼圆球、Muse 的微笑树懒毛绒玩偶 Jolly，还有 OpenAI dots 的彩色卡通角色。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252217691-10.png"></p>
+<p>从设计的角度上看，它们无疑是很成功的——人对可爱的东西天然会放松警惕。</p>
+<p>但「萌化」的成功何尝不是一种危险？</p>
+<p>在更早的博文里，John Gruber 警告说，<strong>Muse 实际上是把一个非常强大、甚至是危险的 Agent 包装成了人人都会用的可爱消费产品</strong>：传统电锯一眼就能看出它可能把手指切掉，但给它装上彩色塑料壳，孩子们说不定就会忘记它本质上还是一台电锯。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252219622-11.png"></p>
+<div>图｜一只钠制的泡澡小鸭玩具</div>
+<p>这正是当今 Personal Agent 所处的位置。</p>
+<p>面对这一处境，由系统提前收拢权限以绝后患，看上去是很合理的解决方案；但任何改变都有牺牲者，在这里，牺牲的是开发者们的乐趣。</p>
+<p>权限和能力总是相伴相生的。早期 iOS 社区热衷于「越狱」，是因为 root 权限意味着几乎无限的自定义能力；后来 Android 存在像「李跳跳」这样可以跳过开屏广告的软件，则是由于 Android 的无障碍服务（Accessibility Service）权限允许软件读取用户界面，从而模拟点击「跳过广告」按钮——尽管代价是你要让软件看见你的一切屏幕内容。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252221091-12.png"></p>
+<p><strong>换句话说，很多好用的软件，都建立在相信它「不作恶」的高度信任和权限开放之上。</strong></p>
+<p>一旦有人利用这些权限「作恶」，就会导致秩序崩坏，进而促使系统收紧权限，原来的功能就此作废——例如，得益于开屏广告「摇一摇」，一些系统已经开始默认关闭陀螺仪和加速度计权限了。</p>
+<p>所以，在看见苹果的公告之后，John Gruber 首先担心的是自己开发的软件：</p>
+<blockquote><p>我真的很担心苹果究竟会把「完全磁盘访问」限制到什么程度。我在几个应用中使用了这一权限，如果没有它，这些应用就无法正常运行；而如果每次它们执行某项操作时都需要我手动授权，它们的功能将会受到严重影响。</p></blockquote>
+<p><strong>如果 macOS 真的变得更封闭、更像 iOS，对普通用户来说固然是一种安全利好，但这同时会危及 macOS 原本已摇摇欲坠的自由度。</strong>这种苦涩的心情，有如 John Gruber 在博客中的感叹：「这就是为什么我们没法拥有好东西」（this is why we can’t have nice things.）</p>
+<h3>我们真的需要这么多 Agent 吗？</h3>
+<p>说到这里，我们就不得不谈论一下推动多米诺骨牌的 Personal Agent 了。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252221835-13.png"></p>
+<p>随着 Muse 登顶美区 App Store，个人助理式的 Personal Agent 一时成为显学。但这个业态，其实建立在一套环环相扣的逻辑上：</p>
+<p>索取系统最高权限，是为了获取个人隐私信息；获取个人隐私信息，是要用于建立完整的个人上下文；建立个人上下文，则是因为要帮人解决订票、网购、退货和制作报表等问题……</p>
+<p>这套逻辑看起来天衣无缝，但想要它成立，我们还需要证成几个前提：<strong>首先，要证明所有这些事务都是需要被「解决」的「问题」；其次，要证明 Personal Agent 是解决这些问题的最佳方案。</strong></p>
+<p>至少在我看来，这两个前提都不那么稳固。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252222788-14.png"></p>
+<p>之所以说 Personal Agent 是典型的硅谷式「发明」，是因为它处处体现着硅谷的工程师价值观，亦即把一切事务浓缩为只有起点和终点的单调问题——</p>
+<ul>
+<li>选择午饭太困难，于是生产出 Soylent 这样的「流体食品」，一瓶灌下肚解决热量和营养问题；</li>
+</ul>
+<ul>
+<li>购物也很麻烦，最好固定为黄仁勋的皮衣和扎克伯格的圆领 T 恤，定期下单送到家门口；</li>
+</ul>
+<ul>
+<li>喜欢的歌手很久出一张专辑，不如用 AI 批量生成符合喜好的「自定义音乐」。</li>
+</ul>
+<p>关于这种想法，大概可以用拼多多黄峥的那句话来回应：「购物不全都是目的型的，本身是娱乐和生活的一部分。」</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252223695-15.png"></p>
+<p>不能否认世界上存在目的性消费和定期消费，但很明显，大多数人还是更偏爱漫无目的的浏览。一件商品组合另一件商品、一张机票连接更多旅游计划，随机游走、发现新事物的兴奋，不能也不应该被 Agent 给出的固定答案锁死。</p>
+<p>考虑到在发现方面，网页和 app 已经是足够好的方案，也许 AI 主导的订票与购物，只适合特定的商旅场景。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252225054-16.png"></p>
+<p>至于搜集数据、制作报表和 PPT 等工作，固然可以交给 Personal Agent，但在 ChatGPT 和 Workbuddy 的受限空间里完成同样的工作也不存在什么阻碍。「如无必要，勿增实体」，我们为什么要特地养一个了解自己一切隐私信息的「电子室友」，而不是调用普通的办公 Agent？</p>
+<p>如果个人事务不全是需要「解决」的「问题」，如果 Personal Agent 不总是处理任务的最佳方案，那我们谈论的助理式 Agent 的存在价值就相当可疑了。</p>
+<p>就此而言，我更愿意将 Personal Agent 称为「智能 Soylent」。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791252225779-17.png"></p>
+<p>假设吃饭的目的只是为了获取能量和营养素，那 Soylent 确实不错，但它满足不了真正喜爱「吃饭」这件事的人；同理，<strong>当我们的生活全是「任务」时，一个事先掌握个人信息的 Personal Agent 会是好主意，但生活中不总是「任务」。</strong></p>
+<p>最终，新鲜感过去后，我们将重回「体验生活」的轨道。</p>
+<p>Soylent 依然活着，但收缩为了每年营收数百万美元、品牌价值已经计提为零的小众品牌；而随着热潮消退，Personal Agent 的版图恐怕也将大幅萎缩。</p>
+<p>但因为它们而收紧的系统权限，却再也不会回来了。</p>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><a href="https://www.ifanr.com/1682953?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

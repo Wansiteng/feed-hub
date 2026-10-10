@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>云原生 harness 能让 agent 在桌面之外可靠运行吗？</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">云原生 harness 能让 agent 在桌面之外可靠运行吗？</h1>
+<p><small>Latent Space · 评分 8/10：K8s 创始人谈 agent harness 云端化，深度长文<br/>原标题：Can a Cloud-Native Harness Make Agents Reliable Beyond the Desktop?</small></p>
+<p><strong>要点</strong></p><ul><li>Kubernetes 两位创造者 Craig McLuckie 和 Joe Beda 创办的 Stacklok 转向 agent 基础设施</li><li>Stacklok 推出开源云原生 harness 项目 Mecatl，将 agent loop 与执行环境解耦</li><li>Stacklok 此前已推出管理 MCP server 的开源平台 ToolHive</li></ul>
+<hr/>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!r55R!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1c3cd3d-2682-47cb-9be6-74302c1ca8ea_2560x1440.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!r55R!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1c3cd3d-2682-47cb-9be6-74302c1ca8ea_2560x1440.png" width="1456"></div></a></figure>
+<p>从宏观上看，编码 agent 有一个基本架构：LLM 在循环中调用工具，同时携带所需的上下文。由于这在本地<strong>最容易实现</strong>，许多编码 agent 最初都是终端工具，后来才发展为桌面应用（Claude Code 最初就是一个著名的 CLI 工具）。但正如<em>打开笔记本电脑的梗</em>所表明的那样，现代 agent harness 如果<strong>无法在云端管理，就会受到令人沮丧的限制</strong>。</p>
+<p>自 2025 年以来，OpenAI 和 Anthropic 都在尝试<strong>将它们的 harness 更多地转向云端</strong>——但成功程度各不相同。挑战包括保持会话可靠、隔离工具执行以及保留上下文。</p>
+<p>这听起来很像<strong>2010 年代初的容器编排</strong>，由此在 2014 年诞生了开源项目 <strong>Kubernetes</strong>。由 Google 开发的 Kubernetes 成为大规模部署和管理云应用的主导开源系统——它开启了<strong>计算的“云原生”时代</strong>。</p>
+<p>Kubernetes 使用控制循环来保持应用运行、从故障中恢复并在需要时扩展。<strong>如果编码 agent 能以同样的方式管理呢？</strong></p>
+<p>这正是两位 Kubernetes 创造者 <a href="https://www.linkedin.com/in/craigmcluckie/">Craig McLuckie</a> 和 <a href="https://www.linkedin.com/in/jbeda/">Joe Beda</a> 在 <a href="https://stacklok.com/">Stacklok</a> 上所下的赌注。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!Fyku!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30a90d0-b71c-423b-8276-121270e8a1f2_2048x1009.png"><div><img alt="" height="717" src="https://substackcdn.com/image/fetch/$s_!Fyku!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc30a90d0-b71c-423b-8276-121270e8a1f2_2048x1009.png" width="1456"></div></a><figcaption><em>Stacklok 架构；图表来自 Stacklok</em></figcaption></figure>
+<p>Stacklok 曾在 2023 年从 Accel、Madrona 和 Bain Capital 处<a href="https://stacklok.com/company/">筹集了 1750 万美元的 A 轮融资</a>。该公司最初专注于<a href="https://techcrunch.com/2023/05/17/kubernetes-and-sigstore-founders-raise-17-5m-to-launch-software-supply-chain-startup-stacklok/">软件供应链安全</a>，最近<strong>转向基于 Kubernetes 的 agentic 解决方案</strong>。</p>
+<h2>Mecatl：为云构建的 harness</h2>
+<p>Stacklok 最有趣的产品是 Mecatl，这是一个<strong>“云原生 harness”</strong>，于 6 月作为<a href="https://github.com/stacklok/mecatl">GitHub 上的开源项目</a>启动。起初，我以为这个名字读作“me-cattle”——一个双关语，指 Kubernetes 的“牛与宠物”概念，即把服务器、pod 和集群当作牛而不是宠物来对待。但不对，这个名字实际上读作“MEH-kah-tl”，是一个<strong>阿兹特克词，意为绳索或绳子</strong>！</p>
+<p>无论如何，在 harness 的语境下，云原生意味着什么？</p>
+<p>McLuckie 说，这主要是关于<strong>“将价值中心从桌面转移到云端”</strong>。他从企业角度谈论“价值”——代码和上下文通常来自本地环境。“知识产权就在那里，”Beda 插话道。“而如果你真的想将其纳入管理，<strong>当它位于桌面上时，难度要大得多。”</strong></p>
+<p>McLuckie 补充说，云原生方法还让 Stacklok 能够就 agentic 编码提出一些更深层次的问题。</p>
+<p>“为什么 agent 循环与工具调用子系统如此紧密地耦合？为什么 agent 身份要通过人类身份系统的视角来考量？”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!S0cr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc06dd164-5a59-474b-bae7-886e6b4b06bf_1600x922.png"><div><img alt="" height="839" src="https://substackcdn.com/image/fetch/$s_!S0cr!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc06dd164-5a59-474b-bae7-886e6b4b06bf_1600x922.png" width="1456"></div></a><figcaption><em>图表<a href="https://github.com/stacklok/mecatl?tab=readme-ov-file">来自 Mecatl GitHub</a></em></figcaption></figure>
+<p>在开源 agent harness 方面，已经有备受推崇的解决方案——例如 <strong><a href="https://pi.dev/">Pi</a>，一个“极简 agent harness”</strong>，<a href="https://www.latent.space/p/flue-2">Flue 等项目已在其之上构建</a>。我们问 Stacklok 的两位，他们的 harness 有何不同？</p>
+<p>Beda 没有具体提到 Pi，但他确实说过，在桌面优先的 harness 中，循环、本地执行和会话状态通常始于同一个进程。</p>
+<p>“这个领域有大量的解决方案，但它们基本上都专注于在桌面上运行，”他说。“所以即使它们具有可插拔性，架构仍然是一个进程，或一组紧密耦合的进程，<strong>专为在桌面上运行而构建。</strong>”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!kI_1!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6743fa62-62b0-4915-942c-bc81f3d537ff_1339x820.png"><div><img alt="" height="820" src="https://substackcdn.com/image/fetch/$s_!kI_1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6743fa62-62b0-4915-942c-bc81f3d537ff_1339x820.png" width="1339"></div></a><figcaption><em>Mecatl 的 Kubernetes 部署；<a href="https://mecatl.dev/docs/building/deployment/mecak8s">来自 GitHub</a></em></figcaption></figure>
+<p>但企业难道不能使用虚拟机、容器或众多不同的沙箱产品之一，将他们的 harness 迁移到云端吗？</p>
+<p>Beda 表示，这种<strong>“直接迁移”</strong>的方法往往会在 agent 的生命周期或使其静默（在等待人工输入时安全暂停）方面产生问题。</p>
+<p>“我们的想法是，如果我们<strong>从头重新思考 harness</strong>，让它真正在云端运行，会怎么样？”</p>
+<h2>将 agent 循环与执行分离</h2>
+<p>Mecatl 的一个有趣方法是，它使 agent 循环<strong>独立于客户端、模型提供商、状态存储和执行环境</strong>。</p>
+<p>“这是一个我们知道如何在云端良好运行的应用程序，”Beda 在谈到循环应用程序时说。“如果我们把它拿出来，<strong>将其与更敏感的操作</strong>（如工具调用和 bash）<strong>分离</strong>，然后再分离出会话管理和内存等东西，这样这些东西就不再作为 JSONL 文件存储在磁盘上，而是可以原生地放入可管理的系统中”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!Veeq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75525a15-e747-469e-b269-6f591f949ab2_1600x1044.png"><div><img alt="" height="950" src="https://substackcdn.com/image/fetch/$s_!Veeq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75525a15-e747-469e-b269-6f591f949ab2_1600x1044.png" width="1456"></div></a><figcaption><em>Mecatl 架构；图表<a href="https://github.com/stacklok/mecatl?tab=readme-ov-file">来自项目 GitHub</a></em></figcaption></figure>
+<p>很多读者可能拥有非常有主见的 harness，根据自己的需求定制。但 Mecatl 的设计超越了单用户、本地 harness，成为<strong>企业可以集中运营的基础设施。</strong>Beda 将其比作企业管理电子邮件的方式。</p>
+<p>“我们认为，未来你在为企业工作时与 agent 的交互<strong>属于该企业；</strong>他们会希望像管理电子邮件一样管理和治理这些交互。”</p>
+<h2>将 AI agent 与前沿实验室解耦</h2>
+<p>Stacklok 的主要动机之一是<strong>帮助大型企业减少对前沿实验室和超大规模云服务商的依赖</strong>，例如 Codex、Claude Code 和 GitHub Copilot。McLuckie 认为，这类似于 Kubernetes 如何帮助企业减少对大型云提供商的依赖。</p>
+<p>对于 McLuckie 来说，“云原生”一词代表了一种<strong>“在与云提供商的具体细节解耦的云中运行”</strong>的方式。因此，我们在 Stacklok 尝试做的很多事情，或多或少就是我们在 Kubernetes 时代所做的。”</p>
+<p>在转向 agent 基础设施后，Stacklok 构建了 <strong>ToolHive</strong>——一个用于运行和治理 MCP 服务器的开源平台。它最初是为了管理在桌面 Docker 容器中运行的 MCP 服务器。然后，Beda 说，他们将其扩展为一个“<strong>基于 Kubernetes 的网关</strong>和其他相关服务——一个注册表和一个操作器助手，用于运行和管理 MCP 服务器，并正确处理这些事物的输入输出认证问题。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!UJLX!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc24b3c85-0c18-4e93-91f3-4ba6b178319f_1544x910.png"><div><img alt="" height="858" src="https://substackcdn.com/image/fetch/$s_!UJLX!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc24b3c85-0c18-4e93-91f3-4ba6b178319f_1544x910.png" width="1456"></div></a><figcaption><em>图表<a href="https://github.com/stacklok/toolhive?tab=readme-ov-file">来自项目 GitHub</a></em></figcaption></figure>
+<p>正如 McLuckie 所说，这个想法是为了让已经在 Kubernetes 上运行的企业能够“<strong>开始将 agent 工作负载带入这些环境</strong>”。</p>
+<p>Beda 声称，许多其他 agent 工具是为个人或小型初创团队设计的，这对于企业级公司来说行不通。</p>
+<p>“我们与规模较大的组织交流时，他们正面临这样的困境：如何将原本为六人团队打造的东西，部署到成千上万人的工程团队中。”</p>
+<h2>Stacklok 的 LLM 网关</h2>
+<p>MCP 是第一步。下一步是<strong>构建 LLM 网关</strong>，在 Stacklok 网站上被称为“AI Gateway”，旨在帮助企业控制访问和成本。</p>
+<p>“我们的大多数客户是银行、半导体公司、电信运营商……你知道，都是在相对受监管行业运营的企业，”McLuckie 说。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!Kh-g!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1dbf73d9-fb87-4891-9e96-a0b84fb3adc2_1634x1058.png"><div><img alt="" height="943" src="https://substackcdn.com/image/fetch/$s_!Kh-g!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1dbf73d9-fb87-4891-9e96-a0b84fb3adc2_1634x1058.png" width="1456"></div></a><figcaption><em><a href="https://stacklok.com/solutions/ai-gateway/">Stacklok 的“AI Gateway”</a>，即 LLM 网关</em></figcaption></figure>
+<p>AI Gateway 是 Stacklok 尚未开源的主要产品，但 Beda 表示它“在我们的路线图上，我们很快就会实现。”</p>
+<p>与 <a href="https://www.latent.space/p/glean-model-routing">Glean 的解决方案</a>不同，Stacklok 的 AI Gateway 目前不会根据任务选择模型。相反，它专注于<strong>访问控制、预算、报告和提供商路由。</strong></p>
+<p>“我们更倾向于让语义路由模型选择发生在一个<strong>在 harness 中打磨过的</strong>智能系统里，因为那里有更多的上下文，”McLuckie 解释道。</p>
+<h2>企业脊柱</h2>
+<p>既然 ToolHive（MCP 平台）和 Mecatl（harness）都是开源的，Stacklok 的商业模式是什么？</p>
+<p>McLuckie 回答说，ToolHive 和 Mecatl 都旨在独立发挥作用，但公司提供跨开源部分的<strong>一致身份、授权、策略和审计</strong>等功能。</p>
+<p>“我们的商业产品是<strong>企业脊柱</strong>，即将它们全部连接在一起的<strong>控制平面</strong>，”他说。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!swTE!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5b0fb44a-1aaa-4845-b738-339c74b6c6ab_1588x716.png"><div><img alt="" height="656" src="https://substackcdn.com/image/fetch/$s_!swTE!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5b0fb44a-1aaa-4845-b738-339c74b6c6ab_1588x716.png" width="1456"></div></a><figcaption><em>来自 <a href="https://stacklok.com/resources/state-of-ai-architecture-2026/">Stacklok 的一项调查</a>，调查对象是“520 位负责其组织使用大型语言模型和/或 AI agent 的领导者”。</em></figcaption></figure>
+<p>“开源项目对于小团队来说相对容易启动和运行，”Beda 补充道。“但一旦你开始将这些扩展到多个集群、多个云，[...] 各种新问题就会涌现。而这正是我们专注于解决的。”</p>
+<h2>AI 的云原生时代？</h2>
+<p>亚马逊在 <a href="https://cybercultural.com/p/018-birth-of-cloud-computing/#amazon-web-services-and-the-birth-of-cloud-computing">2006 年</a>推出了 S3 和 EC2——云时代的开端——但起初这些产品主要被初创公司和个人使用。几年后，<strong>像 Windows Azure 这样的企业级解决方案</strong>才出现，然后在 2014 年，<strong>Kubernetes 问世，用于大规模管理容器化应用</strong>。</p>
+<p>我们开始看到同样的模式在 agent 技术中上演。企业不一定希望允许员工自定义开源 harness，甚至不希望他们使用在个人电脑上运行的前沿实验室 harness。Stacklok——由两位云原生领域的王者打造——旨在通过<strong>将 agent harness 完全带入云端</strong>来解决这些问题。</p>
+<p><a href="https://www.latent.space/p/stacklok">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

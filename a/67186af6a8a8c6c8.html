@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ChatGPT-6 Astra 仅用六小时破解 217 年前的拿破仑密码</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">ChatGPT-6 Astra 仅用六小时破解 217 年前的拿破仑密码</h1>
+<p><small>Tom&#x27;s Hardware · 评分 6/10：前沿模型实际能力展示，有具体案例<br/>原标题：ChatGPT-6 Astra cracks 217-year-old Napoleonic code in just six hours</small></p>
+<p><strong>要点</strong></p><ul><li>工程师用 GPT-6 Astra 六小时破解 217 年未解的拿破仑时期密码</li><li>破译内容为 1809 年发给法军将领 Marmont 的部队简报，转达拿破仑命令</li><li>新破译文本补全了拿破仑 1865 年回忆录中中断的句子</li></ul>
+<hr/>
+<p>一位 AI 工程师使用 <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/openais-gpt-6-astra-model-autonomously-completes-portal-in-24-hours-feat-cost-just-usd571-in-tokens">GPT-6 Astra</a> 破解了一份自拿破仑战争以来从未被读过的密码内容。网络安全公司 SentinelOne 的工程师 Carter Church 利用 Astra 破解了这段隐藏在 217 年前密码中的信息，该密码在 Cryptiana 未解历史密码列表中悬置了数十年之久。Church 表示，OpenAI 的 <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/apple-intelligence-siri-gets-an-llm-brain-transplant-chatgpt-integration-and-genmojis">LLM</a> 在仅输入一张图片和一条 prompt 的情况下，六小时内就将其破解。你可以直接从 <a href="https://carter.church/writeups/the-letter-to-marmont/">Carter Church 的博客</a>下载“完整解答包，内含可重新生成解读结果的脚本”（下载链接在文章第一段）。</p>
+<figure><blockquote cite="https://twitter.com/cantworkitout/status/2105167567706816690"><p dir="ltr" lang="en">我用 GPT-6 Astra 破解了一份发给拿破仑一位将军的未解密码，它已 217 年无人读懂。真正令人印象深刻的其实不是破译本身，而是 Astra 仅凭一张图片和一个目标，就在约 6 小时内完成了整个多模态工作流程。1/6🧵 https://t.co/vyiGKOsrHq<a href="https://twitter.com/cantworkitout/status/2105167567706816690">2026年9月30日</a></p></blockquote></figure>
+<p>被破译的这条信息并非直接来自拿破仑。它实际上来自意大利总督欧仁·德·博阿尔内（拿破仑的继子）的司令部，但没有任何具体个人的署名。它可以概括为一份发给法国将军奥古斯特·德·马尔蒙的军情简报，转达了拿破仑的命令。马尔蒙当时应该是用那个年代的某本官方军事密码本来解读它的，但自 1809 年那天之后，这条信息很可能再无人读过。</p>
+<p>有趣的是，Church 注意到这段新破译的文本填补了拿破仑 1865 年回忆录中一些缺失的上下文。那本书记录了拿破仑关于准备入侵奥地利的部分命令，但在一句话中间戛然而止，称不能让马尔蒙被“一小撮……”拖住。Cryptiana 未解历史密码中的这一页用“一群乌合之众”补全了这句话。</p>
+<p>根据 Church 对那封写给马尔蒙元帅的密码信的解读，该页开头是一行明文引言（当然是法语），随后是 24 行数字、字母和自创符号。Astra 迅速攻克了这个 19 世纪的军事机密，大约六小时内一切真相大白。它用来破解密码的线索之一，是一个此前与这封信毫无关联的部分密钥。Church 表示，最终它的多模态处理“用自己的模拟退火求解器破解了其余部分”。</p>
+<p>如果你对 Astra 成果的真实性存有疑虑，这封来自 Cryptiana 未解历史密码的新近破译信件现已被该在线数据库的维护者 Satoshi Tomokiyo 标记为已解。此外，Carter 解释说，该解答“可以针对密文进行机械验证”，你可以使用导言中链接的已发布解答包来核查。</p>
+<p><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chatgpt-6-astra-cracks-217-year-old-napoleonic-code-in-just-six-hours-single-prompt-ai-run-solves-24-rows-of-custom-symbols-from-a-single-image-reveals-lost-troop-orders">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

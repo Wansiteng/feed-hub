@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>网络安全风险讨论已经失焦</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">网络安全风险讨论已经失焦</h1>
+<p><small>Interconnects · 评分 7/10：开放权重与政策深度分析长文，值得一读<br/>原标题：The Cyber Risk Discourse is Broken</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 发布 GLM-5.3 作为攻击性网络工具的风险报告</li><li>作者认为若因网络风险禁止开放权重模型，也应禁止前沿闭源模型的公开 API</li><li>目前多数已记录的网络攻击由闭源模型造成，而非开放权重模型</li></ul>
+<hr/>
+<p>关于开放模型的网络风险，我已经讨论过太多次了——有人要么认为封禁开放模型可以孤立地进行（而且坏人不知怎的就真会被拦住），要么认为中国是个威胁、根本不在乎 AI 安全——我觉得我们最终会做出既限制美国 AI 竞争力、又增加长期网络风险的政策决定。我感觉我们正被困在一条双输的道路上，除非人们愿意接受其中的微妙之处、权衡取舍和那些令人不安的现实。</p>
+<p>关于这场辩论中各方的观点，已有大量文章论述，我将其总结如下：</p>
+<ol><li><p><strong>开放权重模型对社会运转构成难以承受的风险</strong>，持此观点的是美国前沿实验室的领导层和国家安全界。</p></li><li><p><strong>西方有声音认为开放权重模型对防御必不可少，封禁它们会让世界更不安全</strong>，持此观点的是程度不一的 AI 风险温和派。我把自己也归入这一类，还包括 OpenAI 事件后 Hugging Face 的<a href="https://huggingface.co/blog/security-incident-july-2026">观点</a>，以及像 <a href="https://joshuasaxe181906.substack.com/">Joshua Saxe</a> 这样的人。</p></li><li><p><strong>中国公司继续发布具备强大网络能力的开放权重模型</strong>，它们是基于本国社会和政府的风险评估来做决策的。</p></li></ol>
+<p>这份清单也按其在西方 AI 生态中的声量或信息清晰度排列。聚焦风险的讨论获得了不成比例的曝光，其中包括一些我认为极不利于在这一问题上跨越预设阵营开展对话的作品。此外，几乎没有实质性的交流去试图理解中国公司如何评估风险——相反，大多是近乎人身攻击的论点，比如“中国实验室不在乎安全”。</p>
+<p>Interconnects AI 是一份由读者支持的出版物。欢迎考虑成为订阅者。</p>
+<h3>反开放权重联盟的错觉</h3>
+<p>“开放权重很危险”这一阵营最新的出版物，是 Anthropic 关于 GLM-5.3 作为进攻性网络工具风险的<a href="https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities">报告</a>。问题不在于他们所做的技术研究，那大体上是合理的，而在于未能回应更具交叉性的问题，比如：如果我们因网络风险而封禁开放模型会怎样，或者为什么中国公司认为这些模型可以安全发布？</p>
+<p>这些问题——我稍后会再谈——正是我们理解当前 AI 风险的<em>生态</em>视角所必须回答的。所有政策行动都发生在一个多块拼图之中，风险的形态可以被改变，但你很少能得到一个普遍更优的结果。它们全都是权衡取舍。</p>
+<p>Anthropic 这种唯我式的写作，与我经常听到的另一种正在决定开放模型乃至整个 AI 命运的话语高度吻合——机密简报。<strong>我曾与</strong><strong>许多人讨论过，他们会说类似这样的话：“听着，我是支持开放模型的，但如果你看到我所看到的，就会知道由于 [XYZ 中国开放权重模型]，外面已是洪水猛兽，我们必须采取行动。”</strong></p>
+<p>这种观点与公开信息相悖，迄今为止，有记录显示封闭模型才是大多数现有网络攻击的成因。作为一个试图做出有依据预测的人，来自 OpenAI 模型的众多攻击证据，是我关于网络风险形态的唯一数据（或者，你可以把范围扩大到整个 <a href="https://www.felonybench.com/">FelonyBench</a>）。有几种可能的解释，而要得到真正的答案需要数年时间：</p>
+<ul><li><p>也许开放模型权重和封闭模型API（带有一些安全防护）都更接近于容易被滥用，而不是API模型更接近安全。"开放危险，封闭安全"的说法可能更接近"开放不安全，封闭也不安全"。</p></li><li><p>也许愿意使用AI模型对美国关键基础设施或强大但准备不足的机构进行"高调"网络攻击的恶意行为者要少得多。封闭模型具有更强的能力和更强的防护（理论上），但如果两者的防护都是漏洞百出，那么更强的能力部分在净危害方面可能更重要。</p></li><li><p>关于网络安全生态系统如何运作，我还有很多要学习的地方，所以我不会全心全意地支持这一点作为我目前的建议之一，但我认为至少有一个合理的论点：开放权重模型作为网络防御的扩散工具，可能是我们在未来几年防止危害的最佳工具。在许多领域，例如敏感的政府机构，开放权重模型是短期内唯一可以部署在气隙网络上的工具。</p></li></ul>
+<p>这种情况的许多方面似乎都是混乱的现实难以确定，而逻辑极限则更为清晰。我可能同意一个简单的现实：封闭模型在极限情况下要安全得多，作为一种具有更多层保护的技术工具，但由于模型API的易获取性，它们实际上可能在短期内造成更多危害。尽管如此，这些工具的大部分影响归结于它们的使用和控制方式。对如此关键工具的双头垄断可能是决定性的、有风险的部分。这就是我们正在进行的辩论，随着时间的推移，随着智能的扩散，许多事情可能会改变。</p>
+<p>这些共同让我得出结论：如果你认为需要禁止最新的开放权重模型以减缓网络风险的扩散，你可能也需要将面向公众的前沿封闭模型API定为非法。目前封闭模型的安全防护栈比开放权重模型<em>更强</em>，但远非完美。封闭模型的网络能力很可能比护栏性能增长得快得多，而一个禁止开放模型同时封闭模型继续进步的世界将扩大攻防网络差距。如果我们移除对强大开放权重模型的访问，那么构建允许防御者在其私有基础设施上使用强大AI模型的缓解措施将需要大量时间。</p>
+<p><a href="https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken?utm_source=substack&amp;utm_medium=email&amp;utm_content=share&amp;action=share"><span>分享</span></a></p>
+<h3>解释中国的AI风险态势</h3>
+<p>中国关心AI安全。他们以一种与中国文化和权力结构相关的完全内生的方式进入这一讨论。这个谜题有一些大局面的部分以其他方式反映出来，例如中国社会的技术乐观主义延伸到AI，以及中国政府完全专注于政治稳定。当然，这些事情与网络安全等新兴AI风险相互交织。</p>
+<p>他们处于自己的AI风险动态中，这种动态尚未上升到我们在美国跟随了几个月的白宫与前沿实验室之间政治舞蹈的突出地位。我的理解是，中国公司必须向中国政府注册每一个主要模型发布。这包括评估，这些评估最初是为了控制被禁政府信息的信息控制。目前尚不清楚这一框架是否已有意义地扩展到网络或生物等任何风险。中国政府非常分散，来自实验室的信息需要通过现有结构才能到达顶层。</p>
+<p>与此同时，中国存在一种强烈得多的社会风险氛围：顶尖 AI 研究人员不被允许出国，整个行业也在对外国投资关上大门。总的来说，我猜在中国，因释放任何国内危害而让个人承担的风险，会远高于美国——在美国，最坏的情况无非是你的公司被删掉。</p>
+<p>总体而言，中国的政治监管似乎比美国来得早得多。西方 AI 公司的核心原则大致是“阻止坏人用 AI 的最好办法，就是让好人用 AI”。在中国，这些公司则务实得多，专注于打造一个好用的工具，而且在很多情况下，是打造一个能与自身现有业务互补的工具。</p>
+<p>我确实认为这些公司会考虑自身工作的全球影响。这些实验室显然也有动力去尽可能竞争，而且往往受到政府的推动（至少在公开表态上是如此）。对 Kimi K3 这样的前沿模型做全面的安全评估，光算力成本就可能高达数千万美元。这些实验室更愿意把这部分算力留给训练。</p>
+<p>真正该讨论的是：“在发布每个模型之前，一个实验室在安全测试上应投入的最低算力是多少？” 当然可以论证这个最低值应该高于中国实验室目前的投入，或者至少它们应该对自己做了什么更加透明；但如果你说这个最低算力应当与 Anthropic 或 OpenAI 相当，我很难认同。Anthropic 和 OpenAI 花了那么多力气去建立一个以理解风险为优先的机构，但很难说它们真的把这件事排在了商业价值和经济成功之前。从 HuggingFace—OpenAI 事件这类事故中透出的这种“撒手不管”的气息，<a href="https://www.interconnects.ai/i/210408487/4-frontier-labs-do-not-seem-like-theyre-watching-the-models-closely-enough-due-to-a-general-frenetic-competitive-environment-and-current-sf-culture">是我挥之不去的几点印象之一</a>。<a href="https://www.hacktron.ai/blog/hacking-openai">Hacktron 对 OpenAI 的黑客攻击</a>就是典型例子——如果你自己家里漏洞百出，就很难当全世界可信赖的网络伙伴。我相信这些实验室里的许多个人会努力确保安全，但我对整体机构并不信任。</p>
+<h3>四月的开放权重 Mythos 本来也没问题？</h3>
+<p>Claude Mythos 发布时，被宣传得仿佛是一类全新的网络武器，一旦落入坏人手中，就会引发大规模的社会动荡。</p>
+<p>现在看来，这种说法是错的。</p>
+<p>从各项指标看，GLM-5.3 才是跨过那道能力门槛的模型，而公开证据几乎没有显示情况发生了什么变化，况且该模型权重发布已经过去一个多月了。</p>
+<p>事实上，我想更进一步说：如果 Claude Mythos 当初意外以开放权重形式发布，世界大概也基本没事。是的，网络安全事件会明显增多，模型泄露对社会也不是好事，但那更像是一种加速，而不是风险上的阶跃式变化。</p>
+<p>这波新的开放权重恐慌论的主要鼓吹者，实际上是在做出一个可证伪的预测——当前的开放权重模型会通过瘫痪我们的网络基础设施，造成前所未见的重大 AI 危害。</p>
+<p>根据我掌握的全部证据——我在上文已逐一剖析——他们注定会错。至少现在，在争论开放权重风险这么多年之后，我们终于要开始得到一些真正的答案了。</p>
+<p><em>感谢 Rohit Krishnan 和 Joshua Saxe 对本文的反馈。</em></p>
+<p><a href="https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

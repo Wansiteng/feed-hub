@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>独立开发者用 Claude 在 Rust 中重建 Adobe Creative Suite，免费开源发布</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">独立开发者用 Claude 在 Rust 中重建 Adobe Creative Suite，免费开源发布</h1>
+<p><small>Tom&#x27;s Hardware · 评分 7/10：编码 agent 实际能力的完整案例，一人重建整套创意工具，值得读<br/>原标题：Solo developer rebuilds Adobe Creative Suite in Rust using Claude, releases it free to all</small></p>
+<p><strong>要点</strong></p><ul><li>开发者用 Claude 在 Rust 中重建 Adobe 套件并免费发布</li><li>项目包含 PhotoCraft、LightCraft 等 Adobe 产品替代品</li><li>软件为 agent-native，通过 JSON 和 MCP server 让 AI 直接操作</li></ul>
+<hr/>
+<p>一位颇具争议、名为 u/ai_art_is_art 的 Reddit 用户在 r/creativecloud 上发帖，介绍了他用 Claude 复刻的一系列最常用 Adobe 产品的替代品。他的帖子随后被删除，但带有其 GitHub 页面链接的评论仍然保留。PhotoCraft、LightCraft、ImageCraft、FilmCraft 等对应多款 Adobe 产品，均可下载，但评论者对其安全性和实际功能提出了警告。</p>
+<p>Adobe 在创意工具领域的统治地位早已不是新鲜事；几十年来它一直是行业标准，整个工作流程都依赖它。这位 Reddit 用户希望打造一个开源版本，为每款产品提供熟悉的布局和功能，并计划在一个月内实现 100% 对齐。这些项目全部用 Rust 构建，创作者在其 GitHub 仓库中多次强调了这一点。</p>
+<p>Adobe 产品的<a href="https://www.tomshardware.com/software/video-editing-graphic-design/five-best-photoshop-alternatives-tested-image-editing-for-free">免费替代品</a>并不少见；然而，这些替代品的布局和工作流程往往大不相同。Affinity 尽力与 Photoshop 竞争，而且并不逊色；但 Affinity 仍有学习曲线，而且它不像 Adobe 那样提供一套集成的产品。这位开发者的目标似乎是统一体验，而不是让多款由不同开发者打造的免费创意产品各自为政。开发者还专注于 AI 集成，并让这款创意软件成为 agent 原生，允许 AI 通过 JSON 控制通道和 MCP server 轻松使用工具和菜单，本质上就是想让用户直接让 AI 用这款软件创作艺术。</p>
+<p>这个项目反响不一，有人说它是在窃取 Adobe 的东西，并警告开发者可能面临诉讼；对这些警告的回应则称，这是净室重新实现，在软件开发过程中没有使用或复制任何 Adobe 源代码。一位评论者讽刺地回应了 X 上分享开发者 Reddit 评论的帖子：“‘真正酷的事情正在发生：’盗版，”而其他人则表示支持，称 Adobe 因其不光彩的商业行为活该如此。</p>
+<p>怀疑者还警告了 vibecoded 软件的安全隐患；一个人能在极短时间内为多款软件生成可能数十万行代码，而对于没有团队的开发者来说，验证这些代码成了一座大山；Sonar 在 2026 年对 1,100 名专业人士进行的 State of Code Developer Survey 显示，96% 的开发者并不完全信任 AI 生成的代码。隐私问题、恶意代码、<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-opus-5-mistakenly-deletes-devs-entire-profile-directory-ai-tool-mistakes-users-home-directory-as-temporary-backup-proceeds-to-wipe-everything-to-undo-error"><u>不安全的文件处理</u></a>等都在担忧之列。</p>
+<p>兴奋的测试者表示，这可能是一个真正可用的 Adobe 替代品，但也有人声称，这可能只是更多由 vibecoded 生成的 AI 垃圾。会有多少人协作改进这个项目、补齐它计划复刻的缺失功能，仍有待观察。</p>
+<p><em>在</em><a href="https://news.google.com/publications/CAAqLAgKIiZDQklTRmdnTWFoSUtFSFJ2YlhOb1lYSmtkMkZ5WlM1amIyMG9BQVAB"><em> Google News 上关注 Tom's Hardware</em></a><em>，或</em><a href="https://google.com/preferences/source?q="><em>将我们添加为首选来源</em></a><em>，即可在你的信息流中获取我们的最新新闻、分析和评测。</em></p>
+<p><a href="https://www.tomshardware.com/software/video-editing-graphic-design/solo-developer-rebuilds-adobe-creative-suite-in-rust-using-claude-releases-it-free-to-all-targets-100-percent-parity-in-one-month-despite-piracy-claims-and-safety-warnings">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

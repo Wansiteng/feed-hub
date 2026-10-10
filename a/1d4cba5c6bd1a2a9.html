@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>用语音为我的博客构建了一个新功能</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">用语音为我的博客构建了一个新功能</h1>
+<p><small>评分 7/10：用 Codex 语音模式实测构建功能，agent 工具链实战长文<br/>原标题：A new feature for my blog, built using my voice</small></p>
+<p><strong>要点</strong></p><ul><li>Simon Willison 用 Codex 语音模式在做饭时开发博客 Newsletters 页面</li><li>半小时语音对话完成 Django 模型、迁移、模板和四个导入脚本</li><li>语音模式适合多任务处理，但细节仍需切换回键盘输入</li></ul>
+<hr/>
+<p>今天我为我的博客上线了一个新功能：<a href="https://simonwillison.net/newsletters/">Newsletters</a> 页面，它提供了我发出的所有 newsletter 的索引，既包括我免费的<a href="https://simonw.substack.com/">每周 Substack</a>，也包括我<a href="https://github.com/sponsors/simonw/">每月仅限赞助者</a>的更新。我几乎完全是用语音构建这个功能的，一边做晚饭一边对着笔记本电脑聊天。</p>
+<h4>Codex 语音模式</h4>
+<p>我使用的是 ChatGPT 桌面应用，在 Codex 标签页中，使用语音对话模式，运行在本地开发环境上。效果是这样的：</p>
+<p><img alt="Three columns of the ChatGPT app. The left hand column shows my recent conversations. The middle column is a transcript of the conversation, with a throbbing black blob representing voice mode. The right hand column shows a local dev server version of my blog, with the Newsletters page visible." src="https://static.simonwillison.net/static/2026/codex-voice.webp"></p>
+<p>我通过输入以下内容，在本地 <a href="https://github.com/simonw/simonwillisonblog">simonwillisonblog</a> 检出目录上启动了会话：</p>
+<blockquote>
+<p><code>启动开发服务器并在浏览器中打开</code></p>
+</blockquote>
+<p>这让我预览到了它将要处理的网站，也意味着我之后可以让它展示新页面，以便我直观地跟踪它的进展。</p>
+<p>然后我点击了“Start new voice chat”按钮——那<em>不是</em>麦克风按钮，而是它右边的那个——并把笔记本电脑架在厨房里，这样我做饭时就能和它说话。</p>
+<h4>和我的电脑对话</h4>
+<p>我很清楚自己想构建什么，而且这是一个足够简单的 Django 功能，我确信模型（这次是 GPT-6 Astra High）能够完成。一个新模型、一次迁移、一些视图代码、模板，以及几个用于从外部来源填充数据库的导入函数。</p>
+<p>以下是 Codex 捕获的我的语音转录片段：</p>
+<blockquote>
+<p>嗯，它们不会。嗯，这会是一种新的内容类型。嗯，它不会显示……哦，等等。对，不——我不想让它出现在我的，嗯，标签页和日期归档页面上，还有……其实，不，我想……我不想让它出现在标签页上。我不想让它出现在，嗯，博客索引页面上。但我想我确实想让它出现在基于日期的页面上。你知道，如果你导航到 9 月 19 日，而我在那天发了一份 newsletter，我想让它显示出来。所以……这——所以我想我们可能需要一个新模型。另一件事是我希望它们可搜索，呃，Substack 的那些不可搜索，因为那些实际上只是我博客上其他内容的副本。这些每月的确实包含独特内容，而且——一旦它们……发布，比如在发出一个月后公开，我希望它们出现在我的搜索结果中。</p>
+</blockquote>
+<p>显然这已经足够清楚，模型知道我想构建什么了！你可以<a href="https://gist.github.com/simonw/a65a22204f6f7228cc59b4bc34d7c7c8">在这个 Gist 中</a>阅读完整转录，包括所有<a href="https://en.wikipedia.org/wiki/Speech_disfluency">不流畅之处</a>。</p>
+<p>我们就这样进行了大约半小时（也就是做晚饭所需的时间）。模型会回复，偶尔提出澄清性问题，然后开始修改代码。</p>
+<h4>我们构建了什么</h4>
+<p>我们完全通过语音取得了令人惊讶的进展：</p>
+<ul>
+<li>在 Django 中新增一个模型和迁移，用于表示导入的 newsletter，并为其配置 Django Admin</li>
+<li>四个可用的导入：
+<ul>
+<li>通过 RSS 导入最新的 Substack 条目</li>
+<li>通过它们未公开的 API 导入所有其他 Substack 条目，GPT-6 Astra 知道这个 API（它直接尝试了 <code>/api/v1/archive</code>），然后进行搜索以弄清楚如何分页，并找到了 Karen Spinner 的<a href="https://wonderingaboutai.substack.com/p/i-connected-my-newsletter-archive">这篇文章</a></li>
+<li>从我 <a href="https://github.com/simonw/monthly-newsletter-archive">simonw/monthly-newsletter-archive</a> GitHub 仓库导入我所有已发布的每月 newsletter</li>
+<li>从私有仓库导入我最近一份仅限赞助者的私密 newsletter</li>
+</ul></li>
+<li><a href="https://simonwillison.net/newsletters/">/newsletters/</a> 和 <a href="https://simonwillison.net/newsletters/2026/">/newsletters/2026/</a> 这两个公开归档页面</li>
+<li>Newsletters 也出现在按日和按月归档的页面上，但没有出现在标签页或我的主页上</li>
+<li>每周的 Substack Newsletters 链接到 Substack；归档的每月 Newsletters 有各自的页面</li>
+<li>与我的网站搜索引擎集成</li>
+</ul>
+<p>它<em>几乎</em>可以发布了。问题出在导入上：Astra 提出可以从我的本地副本导出数据，让我导入到生产环境，但我希望它能像我其他的导入脚本一样工作。由于部分数据存放在一个私有的 GitHub 仓库里，这需要创建一个新的 API key，而为此我知道自己得在键盘前坐上一阵子。</p>
+<h4>通过一次 review 收尾</h4>
+<p>等我做完并判断它基本功能齐全后，我让 Codex 创建了一个分支并开了一个 pull request。</p>
+<p>我在 GitHub 的 PR 界面里 review 了代码。它几乎就是我需要的，只是其中一个导入脚本选择了在子进程里使用 Git。我需要其中一个导入从私有 Git 仓库拉取，所以我觉得用 API 会更靠谱。我切换成打字，让 Codex 把它换成基于 API 的导入。</p>
+<p>你可以在 <a href="https://github.com/simonw/simonwillisonblog/pull/719">PR 上额外的 commit 里</a>看到我在 review 期间做的改动。我修复了导入机制，并对那些公开页面的展示做了几处微调。又花了半小时用打字的方式写 prompt，才达到让我满意、可以合并 PR 部署到生产环境的程度。</p>
+<h4>最终成果</h4>
+<p>你可以在新的 <a href="https://simonwillison.net/newsletters/">Newsletters 索引页</a>看到最终成果，或者查看<a href="https://simonwillison.net/newsletters/monthly-2026-08-august/">之前某期每月 Newsletter 的页面</a>。</p>
+<p><img alt="Newsletters page. It shows two Substack posts (with thumbnails) and one LLM digest Sponsors-only newsletter with a list of headings. On the right is a CTA to subscribe to my Substack and another one for my $10/month monthly briefing newsletter." src="https://static.simonwillison.net/static/2026/newsletters-page.webp"></p>
+<p>索引页把我最近的 Substack 每周 Newsletters 和 GitHub sponsors 每月 Newsletters 混在一起，按时间倒序排列。页面往下是我的按年份归档页面的链接。</p>
+<p>GPT-6 Astra 设计了页面，然后根据我在厨房里瞥一眼本地预览时口头给出的反馈对设计做了调整。</p>
+<h4>更适合多任务处理，而非日常主力</h4>
+<p>OpenAI <em>很爱</em>在<a href="https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/#live-update-504">像 DevDay 这样的场合</a>用这种语音驱动的演示——而且它们在那样的环境里确实效果很好。不过我觉得这不会成为我的日常主力。</p>
+<p>我<a href="https://simonwillison.net/search/?q=walking+dog">之前写过</a>，我在遛狗时用手机上的 ChatGPT 语音模式能完成多少“工作”——主要是调研和头脑风暴，但偶尔也会让 ChatGPT 编写并测试代码片段，从而做点实际的开发工作。</p>
+<p>这次感觉不一样。加上可视化预览，再加上在需要表达某些用语音说不清楚的东西时可以用键盘打字或粘贴，这让与 coding agent 交互的方式强大得多。</p>
+<p>不过一旦深入到细节，我还是会切回打字。能粘贴示例和错误信息，或者直接高亮需要修改的代码或功能，仍然比试图用语言描述更高效。</p>
+<p>我主要在家工作，这挺好，因为在共享办公空间里我绝不想这样跟电脑说话！</p>
+<p>对我来说最杀手级的功能是多任务处理能力。我做饭时通常会放着播客或刷 TikTok；现在我可以真正做点东西了。</p>
+<p>标签：<a href="https://simonwillison.net/tags/text-to-speech">text-to-speech</a>、<a href="https://simonwillison.net/tags/ai">ai</a>、<a href="https://simonwillison.net/tags/openai">openai</a>、<a href="https://simonwillison.net/tags/generative-ai">generative-ai</a>、<a href="https://simonwillison.net/tags/llms">llms</a>、<a href="https://simonwillison.net/tags/newsletter">newsletter</a>、<a href="https://simonwillison.net/tags/coding-agents">coding-agents</a>、<a href="https://simonwillison.net/tags/codex">codex</a>、<a href="https://simonwillison.net/tags/speech-to-text">speech-to-text</a>、<a href="https://simonwillison.net/tags/site-upgrades">site-upgrades</a></p>
+<p><a href="https://simonwillison.net/2026/Oct/9/built-using-my-voice/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

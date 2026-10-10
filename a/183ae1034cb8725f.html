@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>我们需要给几乎所有东西都加上默认的硬性预算上限</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">我们需要给几乎所有东西都加上默认的硬性预算上限</h1>
+<p><small>评分 7/10：Simon Willison 谈 agent 成本硬上限，与 agent 工具链成本优化直接相关<br/>原标题：We&#x27;re going to need default hard budget caps on pretty much everything</small></p>
+<p><strong>要点</strong></p><ul><li>按量付费服务需要默认硬性预算上限，超支即断服务并报错</li><li>软性上限只发警告邮件不够，用户可能睡醒发现多花数千美元</li><li>AWS 9 月推出月度支出上限，项目超限当月暂停</li></ul>
+<hr/>
+<p>未来几个月乃至几年，全世界都将迫切需要这样一项产品功能：<strong>默认硬性预算上限</strong>。我指的是按用量付费的服务和 API 所具备的功能，让你可以设定“每月超过 X 美元后，就切断这项服务并返回错误”。这些必须是<strong>硬性</strong>限制。软性上限，也就是“每月超过 X 美元后，给我发一封警告邮件”，是不够的。</p>
+<p>编程 agent，以及个人 agent（用不那么吓人的 UI 包装起来的编程 agent），大大降低了快速写出能派上用场的代码的门槛。有时候这些东西是要花钱的——调用付费 API，或者托管 Web 应用，或者那些会按额外存储和计算量计费的系统。</p>
+<p>没人想一觉醒来，看到一封午夜发来的预算超限警告邮件，然后发现就在自己睡觉的时候，那个失控的服务又消耗了几百（甚至几千）美元的使用量。</p>
+<p>反对这一点的理由是，企业不希望自己的托管应用因为超出某个预算就开始抛错误。但我估计，大多数企业和个人宁愿看到错误，也不愿收到一张 1 万美元以上的意外账单。</p>
+<p>我认为硬性预算上限应该成为默认设置。如果有人想铤而走险，那也应该可以，但必须基于主动选择。在某个显眼的位置放一个清晰明了的复选框：</p>
+<blockquote>
+<p>移除预算上限。如果我超出配置的预算限额，我的应用不会被关停，后续费用由我自行承担。</p>
+</blockquote>
+<p>我最希望看到提供这项功能的服务是 AWS。我听过不少人说，他们拒绝在个人项目中使用 AWS，就是因为（有理由地）担心某个失控的服务可能让他们破产。我也听过一些人<em>没有</em>预料到这一点，结果被狠狠坑了一把。</p>
+<p>……结果发现 AWS 几周前终于推出了支出限额！在他们 9 月 16 日的公告 <a href="https://aws.amazon.com/about-aws/whats-new/2026/09/New-AWS-Builder-Experience/">New AWS experience helps builders get started and ship faster</a> 中写道：</p>
+<blockquote>
+<p>当你准备升级到付费计划时，可以根据自己的使用模式为项目设置每月支出限额，从而将开销控制在预算之内。如果某个项目的用量达到其支出限额，该项目将在当月被暂停。</p>
+</blockquote>
+<p>另见 <a href="https://docs.aws.amazon.com/accounts/latest/reference/create-spend-limit.html">Create a spend limit in AWS Settings</a>，不过该页面警告称“我们目前正在向有限数量的客户逐步推出这一新体验”。希望它能尽快向现有账户全面开放。</p>
+<p>Google Cloud 在 7 月<a href="https://cloud.google.com/blog/topics/cost-management/new-early-anomalies-and-spend-caps-on-google-cloud-budgets">推出了类似功能</a>，名为 Spend Caps，让你可以“为项目内特定服务设置每月财务上限”。看来这正在成为一种趋势！</p>
+<p>在理想的世界里，我们的 agent 可以在这方面帮上忙。如果 agent 开始倾向于推荐提供硬性预算上限的供应商，并警告新手和缺乏经验的开发者不要使用可能给他们带来麻烦的无上限服务来部署应用，那就太好了。</p>
+<p>标签：<a href="https://simonwillison.net/tags/amazon-web-services">amazon-web-services</a>、<a href="https://simonwillison.net/tags/ai">ai</a>、<a href="https://simonwillison.net/tags/coding-agents">coding-agents</a></p>
+<p><a href="https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

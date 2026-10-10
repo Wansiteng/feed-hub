@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Falcon-Emirati：当 LLM 学会方言、文化与细微差别</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Falcon-Emirati：当 LLM 学会方言、文化与细微差别</h1>
+<p><small>评分 6/10：Falcon 系列开放权重模型新作，聚焦方言与文化适配，值得关注<br/>原标题：Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance</small></p>
+<p><strong>要点</strong></p><ul><li>Falcon-Emirati-7B 基于 Falcon-H1-Arabic，专攻阿联酋方言理解与生成</li><li>Falcon-H1 采用 Mamba 与 Transformer 注意力并行的混合架构，支持 128K 至 256K token 上下文</li><li>训练数据来自阿联酋方言网页、MSA 文化资料和受术语表约束的合成数据</li></ul>
+<hr/>
+<a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Wq7IUqy86uY6JcIpgCwJx.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Wq7IUqy86uY6JcIpgCwJx.png" alt="image"></a>
+<p> <a href="https://chat.falconllm.tii.ae/?model=Falcon-Emirati-7B">试试 Falcon Emirati →</a> </p>
+<p>阿拉伯语实际上是一个名字下的一整个语族。现代标准阿拉伯语是你在新闻或教科书里读到的，但人们日常交谈时很少这么说话。在阿联酋，日常对话、幽默、谈判和讲故事用的都是阿联酋阿拉伯语——一种海湾方言，有自己的词汇、自己的节奏，以及紧紧包裹着它的文化。阿联酋诗歌，尤其是纳巴提诗歌，连同谚语和短篇轶事，所承载的意义是逐字直译无法保留的。一个只懂 MSA 的模型可以翻译阿联酋语句子里的每一个词，却仍然抓不住它真正的意思。</p>
+<p>这正是 Falcon-Emirati-7B 要填补的空白。它是在 Falcon-H1-Arabic 之上构建的方言专用模型，目标是像母语者那样理解和生成阿联酋阿拉伯语：词汇、语气，以及背后的文化语境。</p>
+<h2>
+	
+		
+	
+	<span>
+		基于 Falcon-H1-Arabic 构建
+	</span>
+</h2>
+<p>我们并非从零开始。Falcon-Emirati-7B 基于 Falcon-H1-Arabic 构建，这是我们今年早些时候已经为该语言创下新 benchmark 的阿拉伯语模型系列。Falcon-H1-Arabic 采用 Falcon-H1 混合架构：状态空间模型（Mamba）和 Transformer 注意力在每个 block 内并行运行，它们的输出在每个 block 的投影之前融合。这种组合在长序列上带来了 Mamba 的线性时间效率，同时保留了注意力对长距离依赖的精度，这对阿拉伯语这样形态丰富的语言至关重要。该系列涵盖三种规模（3B、7B 和 34B 参数），上下文窗口最高可达 128K 和 256K token，并且已经在一个广泛的混合数据上训练过，包括 MSA 和方言阿拉伯语（海湾、黎凡特方言、埃及方言、马格里布方言）以及英语和多语言数据。</p>
+<p>这给了我们一个很强的起点：一个已经广泛理解阿拉伯语、能很好地处理长上下文、并且内置了一些方言接触的模型。Falcon-Emirati-7B 在这个基础上，专门向阿联酋方言推进——那些通用阿拉伯语模型无论多有能力，都无法自行掌握的词汇、语法和文化知识。</p>
+<p>我们特意在 7B 版本上构建 Falcon-Emirati-7B。它是这个系列里的最佳平衡点：大到足以保留方言适配所需的细微差别，又小到让训练和推理都保持可行。34B 模型可能会把质量再推高一点，但训练和服务的成本对一款方言专用聊天模型来说并不划算，而 3B 模型又没有留下足够的空间来承载我们想要的文化和语言理解深度。7B 在质量与训练、推理成本之间给了我们最好的平衡。</p>
+<h2>
+	
+		
+	
+	<span>
+		为什么方言适配很难
+	</span>
+</h2>
+<p>把一个通用阿拉伯语模型变成阿联酋方言专家，听起来比从头构建基础模型要简单。事实并非如此。有几件事让它真正变得困难：</p>
+<ul>
+<li><strong>阿联酋阿拉伯语主要是一种口语方言。</strong>它在网上的书面出现频率远低于 MSA，甚至低于其他海湾和黎凡特方言，所以可供学习的原始文本就是没那么多。</li>
+<li><strong>含义往往是非字面的。</strong>习语、谚语和诗歌典故依赖的是共享的文化语境，而不是表面词汇。</li>
+<li><strong>没有现成的套路。</strong>关于多少方言数据才够、如何将其与 MSA 和通用阿拉伯语混合、或者哪个训练阶段（继续预训练、SFT 还是偏好优化）对掌握一种方言最重要，都没有记录完善的配方。</li>
+</ul>
+<p>最后这一点决定了我们的工作方式。构建 Falcon-Emirati-7B 的很大一部分工作都归结为反复试验：测试不同的数据配比、训练阶段和监督策略，并结合人工判断与 benchmark 分数，找出真正起作用的因素。</p>
+<h2>
+	
+		
+	
+	<span>
+		我们的数据方法
+	</span>
+</h2>
+<p>我们在 Falcon-H1-Arabic 预训练的基础上构建了一条专门的阿联酋数据流水线，数据来自三个互补的来源。</p>
+<h3>
+	
+		
+	
+	<span>
+		1. 真实的阿联酋方言网络数据
+	</span>
+</h3>
+<p>我们从阿联酋本土网站和论坛抓取并筛选了以该方言原生撰写的内容，而非从 MSA 翻译或音译而来。我们的事实依据正来源于此：阿联酋人在网上实际如何书写和表达，日常的措辞、口语化的说法，以及真实使用中阿联酋方言与 MSA 之间自然的来回切换。</p>
+<h3>
+	
+		
+	
+	<span>
+		2. 关于阿联酋文化与身份的 MSA 数据
+	</span>
+</h3>
+<p>除了方言文本，我们还引入了专门讲述阿联酋文化、传统和语言的 MSA 语料：关于当地习俗、价值观、历史和社会规范的文章与参考资料，包括外界如何看待和刻板印象化阿联酋人。这并不能教会模型用方言写作，但能让模型在涉及阿联酋话题时知道自己在谈什么，比如传统、礼仪，以及母语者自然而然就懂的那些背景。</p>
+<h3>
+	
+		
+	
+	<span>
+		3. 由词汇表和风格规则引导的合成数据
+	</span>
+</h3>
+<p>仅靠真实的方言文本不足以覆盖聊天模型日常实际需要处理的各类话题。因此我们生成了大量合成阿联酋方言数据来填补空白。我们并没有放任生成模型用“海湾味”阿拉伯语随意发挥，而是用专为阿联酋词汇和语法构建的严格规则、词汇表和词典加以约束。这些护栏决定了合成输出是读起来地道的阿联酋语，还是语法上没问题、但任何真正说这种方言的人一听就觉得不对劲。</p>
+<h2>
+	
+		
+	
+	<span>
+		找到合适的适配配方
+	</span>
+</h2>
+<p>由于 MSA 到方言的适配并没有标准配方，我们把训练策略本身也当作需要实验摸索的对象。我们做了消融实验，考察注入多少方言数据、在训练的哪个阶段注入，如何平衡真实抓取数据与合成数据而不让模型过拟合合成模式，以及究竟需要多少 MSA 文化背景才能让模型真正扎根于文化，而不只是表面上说得流利。每一步我们都结合自动评分和母语者评审，因为仅靠自动指标不足以可靠地捕捉自然度、语气和文化契合度。</p>
+<h2>
+	
+		
+	
+	<span>
+		评估方法
+	</span>
+</h2>
+<p>我们在整个训练过程中用两种互补的方法跟踪进展：</p>
+<h3>
+	
+		
+	
+	<span>
+		母语者人工评估
+	</span>
+</h3>
+<p>阿联酋母语者直接审阅模型输出，不仅判断答案是否正确，还判断它听起来是否对味：自然度、语气、文化得体性。这些是 benchmark 分数不会告诉你、但母语者的耳朵能立刻察觉的东西。</p>
+<h3>
+	
+		
+	
+	<span>
+		在 Alyah 上的自动评估
+	</span>
+</h3>
+<p>为了进行量化追踪，我们使用了 <a href="https://huggingface.co/datasets/tiiuae/alyah-emirati-benchmark"><strong>Alyah</strong></a>（الياه，意为“北极星”），这是我们与社区专门为评估阿拉伯语 LLM 的阿联酋方言能力而发布的 benchmark。Alyah 是一个完全原生的多项选择 benchmark，包含 1,173 个样本，由阿联酋母语者人工收集，涵盖从日常问候与礼仪到比喻性语言、文化遗产知识和阿联酋诗歌等类别：这些正是方言和文化最为重要、而通用阿拉伯语模型往往表现吃力的领域。关于 Alyah 构建方式和类别划分的完整细节，请参见我们的 <a href="https://huggingface.co/blog/tiiuae/emirati-benchmarks">benchmark 博客文章</a>，基础模型系列的背景信息请参见 <a href="https://huggingface.co/blog/tiiuae/falcon-h1-arabic">Falcon-H1-Arabic 发布公告</a>。</p>
+<h2>
+	
+		
+	
+	<span>
+		结果
+	</span>
+</h2>
+<p>Falcon-Emirati-7B 在 Alyah 上得分 <strong>84.83%</strong>，领先于我们对比过的所有其他阿拉伯语和多语言模型，其中包括若干规模是其数倍的模型。下图展示了它在 Alyah 排行榜上与一组具有代表性的领先指令微调模型的对比位置。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/UL3Uy6LFKWEj5fALZ0Sg4.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/UL3Uy6LFKWEj5fALZ0Sg4.png" alt="Falcon-Emirati-7B vs. leading Arabic and multilingual models on Alyah"></a></p>
+<p><em>Alyah 准确率（%），指令微调模型。Falcon-H1-Arabic 系列模型未纳入此对比，因为 Falcon-Emirati-7B 正是基于它们构建的。</em></p>
+<h2>
+	
+		
+	
+	<span>
+		结果告诉我们什么
+	</span>
+</h2>
+<p>从这一对比中可以明显看出几点。仅靠规模并不能换来方言能力。这里一些最大的多语言模型得分远低于更小、但更具方言意识的模型，这说明阿联酋方言的熟练度必须专门训练，而不会作为规模扩大的副作用自然获得。表现最好的模型往往本身就是阿拉伯语原生或以阿拉伯语为重点的，这与我们在自身消融实验中的观察一致：通用阿拉伯语和方言覆盖是必要的起点，但仍需针对性的、方言特定的工作来弥合剩余差距，尤其是在 Alyah 最难的部分，如诗歌、文化遗产知识以及语言与方言类别本身。</p>
+<p>这也与 Alyah benchmark 发布时更广泛的发现相符：即便是强大的模型，一旦进入真正方言化、深度嵌入文化的内容，也会出现明显退化。这一差距不会随着模型变大而自行缩小。它需要专门为该方言构建的数据和评估。</p>
+<h2>
+	
+		
+	
+	<span>
+		超越多项选择：LLM-as-Judge 评估
+	</span>
+</h2>
+<p>多项选择准确率只能说明模型能否在四个选项中识别出正确答案，并不能说明当有人直接与模型对话时，它是否真的会产出阿联酋阿拉伯语。因此，在 Alyah 之外，我们还进行了第二项评估：针对同样的 1,173 个 Alyah 问题进行开放式生成，由 LLM judge（Gemini 3.7 Flash）对五个模型进行评分，即 Falcon-Emirati-7B、ALLaM-7B-Instruct-preview、gemma-3-27b-it、Jais-2-8B-Chat 和 Fanar-2-27B-Instruct，这些是选自 Alyah 排行榜的最强竞争模型。</p>
+<p>Judge 从两个独立维度对每个答案评分：内容是否正确，以及答案是否确实以阿联酋方言而非 MSA 返回。我们同时报告部分得分（judge 的分级评估）和更严格的通过/不通过版本，以及每个模型弃答而非作答的频率。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/uc4Lj0T23SxjZVaV1w5bU.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/uc4Lj0T23SxjZVaV1w5bU.png" alt="LLM-judged correctness on open-ended Emirati questions"></a></p>
+<p><em>针对 1,173 个 Alyah 问题的 LLM 评判正确性，开放式生成，Gemini 3.7 作为 judge。</em></p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Q1ArWubn7hwUco5ldt7Xo.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Q1ArWubn7hwUco5ldt7Xo.png" alt="LLM-judged dialect fidelity"></a></p>
+<p><em>针对同样问题的 LLM 评判方言保真度：答案是否确实以阿联酋方言返回，还是模型默认使用 MSA？</em></p>
+<p>Falcon-Emirati-7B 在正确性上领先，但真正的差距体现在第二张图上。在方言保真度方面，Falcon-Emirati-7B 得分为 0.52（部分得分），而 ALLaM 为 0.05，gemma-3-27b-it 为 0.03，Jais-2-8B-Chat 为 0.02，Fanar-2-27B-Instruct 实际上为 0.00。这可不是小幅领先，在低端几乎相差两个数量级。在实践中，这意味着其他模型往往知道正确答案，却默认用现代标准阿拉伯语作答，即便被直接用阿联酋方言提问也是如此。Falcon-Emirati-7B 是五者中唯一能可靠地用提问所用方言作答的模型。</p>
+<p>Fanar-2-27B-Instruct 还因第二个原因而引人注目：它的拒答率远高于其他任何模型，有 26.2% 的时候拒绝作答，而对比中其他每个模型都低于 5%。再加上其 0.27 的正确性得分（部分得分）——五者中最低——这表明该模型既不太愿意、也不太有能力处理阿联酋方言特有的内容，而不只是用错了语体来作答。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/sklbQUT3s8CXmcse-BPln.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/sklbQUT3s8CXmcse-BPln.png" alt="Dialect fidelity by category"></a></p>
+<p><em>按 Alyah 类别划分的方言保真度，部分得分。Falcon-Emirati-7B 是唯一能持续切换到阿联酋方言的模型；其他模型在几乎每个类别中都停留在 MSA。</em></p>
+<p>按类别细分方言保真度，会让这一模式更加清晰。它在 Alyah 的每一个类别中都成立，从日常问候到诗歌，这表明它并非为少数几类问题学来的狭窄技巧，而是模型在预期语体为阿联酋方言时默认采用何种语体的普遍转变。竞争模型表现相对较好的唯一领域——问候与日常表达——也正是阿联酋方言与 MSA 重叠最多的类别，因此这是通用阿拉伯语模型最容易碰巧听起来正确的领域。</p>
+<h3>
+	
+		
+	
+	<span>
+		逐类别两两对比
+	</span>
+</h3>
+<p>作为对同一问题的第三个观察角度，我们进行了正面两两评判：对于每个 Alyah 问题，评判者（Gemini 3.7 Flash）会看到 Falcon-Emirati-7B 的答案与某个竞争模型的答案并排呈现，且不知道哪个是哪个，然后被要求选出更好的一个。下面的雷达图展示了按类别划分的、针对三个竞争模型——Jais-2-8B-Chat、ALLaM-7B-Instruct-preview 和 Fanar-2-27B-Instruct——的胜率结果。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/ruWwB7xCdfiETIgD4wmyy.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/ruWwB7xCdfiETIgD4wmyy.png" alt="pairwise_combined"></a></p>
+<p><em>按类别划分的两两胜率，Falcon-Emirati-7B 对比 Jais-2-8B-Chat、ALLaM-7B-Instruct-preview 和 Fanar-2-27B-Instruct，由 Gemini 3.7 进行正面两两评判。</em></p>
+<p>Falcon-Emirati-7B 在对阵全部三个竞争对手时都赢下了大多数类别，并且在对语体和文化流畅度依赖最强的类别中优势明显。对阵 Jais-2-8B-Chat 时，差距最大的是诗歌与创意表达（0.69 对 0.31）以及语言与方言（0.62 对 0.38）。对阵 ALLaM-7B-Instruct-preview 时，同样是这两个类别差距最大：诗歌与创意表达（0.66 对 0.34）以及语言与方言（0.58 对 0.42）。对阵 Fanar-2-27B-Instruct 时，差距在三组对决中最大，Falcon-Emirati-7B 赢下了每一个类别，最高的是诗歌与创意表达（0.88 对 0.12）以及宗教与社会敏感性（0.80 对 0.20）。</p>
+<p>竞争模型唯一能与之抗衡的类别是问候语与日常表达：Falcon-Emirati-7B 以微弱劣势输给 Jais-2-8B-Chat（0.46 对 0.54），并与 ALLaM-7B-Instruct-preview 打成 0.50 平手，不过它仍明显胜过 Fanar-2-27B-Instruct（0.70 对 0.30）。这与我们在上文方言保真度细分中看到的情况大体一致，问候语是阿联酋阿拉伯语与 MSA 重叠最多的类别，因此即便没有专门的方言训练，通用阿拉伯语模型也最容易在这里听起来像母语者。而在方言特色更鲜明的领域，诗歌、比喻性语言、文化遗产知识，Falcon-Emirati-7B 的优势在我们测试过的每一个竞争模型面前都清晰保持。</p>
+<h2>
+	
+		
+	
+	<span>
+		了解阿联酋文化
+	</span>
+</h2>
+<p>语言也关乎理解对话背后的文化。我们在 <a href="https://huggingface.co/datasets/Almheiri/ArabCulture-Dialogue">ArabCulture-Dialogue</a> 的阿联酋部分上评估了 Falcon-Emirati-7B，这是一个衡量阿拉伯语文化理解的 benchmark。在其多项选择任务中，模型从三个选项中选出最符合文化习惯的回复。更多内容请阅读<a href="https://aclanthology.org/2026.acl-long.963/">研究论文</a>。</p>
+<p>我们在相同的 <strong>283 个阿联酋场景</strong>上测试了全部四个模型，分别使用阿联酋阿拉伯语和现代标准阿拉伯语，并改变位置信息的数量。</p>
+<p><a href="https://cdn-uploads.huggingface.co/production/uploads/65b79f63d919aa79555d17e1/78dgJaRrFACpGTBJkSuTE.png"><img src="https://cdn-uploads.huggingface.co/production/uploads/65b79f63d919aa79555d17e1/78dgJaRrFACpGTBJkSuTE.png" alt="Cultural understanding accuracy: Falcon-Emirati-7B 85.57%, ALLaM 83.39%, Jais-2 73.79%, Fanar-2 71.50%."></a></p>
+<p><em>阿联酋多项选择任务的总体准确率，在两种语言变体和所有位置设置上取平均。这些是我们的评估结果。</em></p>
+<p><strong>Falcon-Emirati-7B 得分 85.57%，在测试的四个模型中最高</strong>，领先于 ALLaM-7B（83.39%）、Jais-2-8B（73.79%）和 Fanar-2-27B（71.50%）。这些结果凸显了它在阿联酋对话中识别符合文化习惯的回复的能力。</p>
+<h2>
+	
+		
+	
+	<span>
+		实际效果展示
+	</span>
+</h2>
+<p>数字只能说明部分情况，因此下面是一个实时交互式对比：五个真实的阿联酋 prompt，分别通过 Falcon-Emirati-7B 与 Fanar-2-27B-Instruct 和 ALLaM-7B-Instruct-preview 并排运行。滑动或使用箭头在 prompt 之间切换，展开任意回复即可阅读全文。</p>
+<p><em>交互式对比：Falcon-Emirati-7B 与 Fanar-2-27B-Instruct 和 ALLaM-7B-Instruct-preview 在五个阿联酋 prompt 上的表现，涵盖开斋节问候、本地历史、诗歌和文化遗产知识。输出为模型生成的原样内容，可能包含错误；高亮标识的是我们的模型，而非事实性评级。</em></p>
+<h2>
+	
+		
+	
+	<span>
+		试用 Falcon-Emirati-7B
+	</span>
+</h2>
+<p>Falcon-Emirati-7B 已在我们的聊天平台上线。🚀 <strong>立即试用：</strong> <a href="https://chat.falconllm.tii.ae/?model=Falcon-Emirati-7B">https://chat.falconllm.tii.ae/?model=Falcon-Emirati-7B</a></p>
+<h2>
+	
+		
+	
+	<span>
+		负责任 AI 与局限性
+	</span>
+</h2>
+<p>与任何语言模型一样，Falcon-Emirati-7B 可能反映其训练数据中的偏见，有时也会出错，尤其是在罕见表达、高度本地化的指代，或我们数据不多的边缘情况上。方言和文化细微差别在某些地方是主观的，即便是母语者也不总能就“正确”答案达成一致。我们建议在将其用于任何敏感、官方或高风险场景之前，先针对你的具体用例评估该模型，我们也真诚欢迎阿联酋社区提供反馈，帮助我们今后改进模型和 Alyah。</p>
+<h2>
+	
+		
+	
+	<span>
+		致谢
+	</span>
+</h2>
+<p>我们衷心感谢 Mikhail Lubinets 和 Matthieu Berjon 在计算基础设施方面给予的持续支持，也感谢 Jatin Mittal 帮助让该模型通过 Falcon Chat 应用供用户使用。</p>
+<h2>
+	
+		
+	
+	<span>
+		引用
+	</span>
+</h2>
+<pre><code>@misc{falcon_emirati_7b_2026,
+  title = {Falcon-Emirati-7B: A Dialect-Specialized Arabic LLM for the Emirati Dialect},
+  author = {Shaikha Alsuwaidi, Omar Alkaabi, Maitha Alhammadi, Hamza Alobeidli, Ahmed Alzubaidi, Mohammed Alyafeai, Leen AlQadi, Basma Boussaha, Hakim Hacid}, 
+  organization = {Technology Innovation Institute},
+  year = {2026}
+}
+</code></pre>
+<p><a href="https://huggingface.co/blog/tiiuae/falcon-emirati">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

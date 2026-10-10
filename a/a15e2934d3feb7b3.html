@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>马斯克解释特斯拉 Robotaxi 为何夜间不运营，激光雷达才是答案</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">马斯克解释特斯拉 Robotaxi 为何夜间不运营，激光雷达才是答案</h1>
+<p><small>Electrek · 评分 6/10：特斯拉自动驾驶传感器路线的重要表态，含技术细节<br/>原标题：Musk explains why Tesla Robotaxi is not running at night, and lidar is the answer</small></p>
+<p><strong>要点</strong></p><ul><li>特斯拉 Robotaxi 在奥斯汀的服务时间延长至晚上 11 点，此前为 10 点结束。</li><li>马斯克称夜间运营的主要障碍是摄像头难以在黑暗中识别宠物，例如灰色小猫在灰色柏油路上。</li><li>Waymo 第六代系统配备 13 个摄像头、4 个激光雷达和 6 个雷达，约 4000 辆无人车全天候运行。</li></ul>
+<hr/>
+<figure>
+
+	<img src="https://electrek.co/wp-content/uploads/sites/3/2026/10/Night-Street_-Camera-vs-Lidar.png?w=1600" alt="Night Street_ Camera vs Lidar">
+	</figure>
+<p>埃隆·马斯克表示，阻碍特斯拉 Robotaxi 夜间运营的主要问题是车辆在黑暗中很难看清宠物。他举的例子是“灰色沥青上的灰色小猫”。</p>
+<p>这是一个低光照、低对比度的检测问题，正是摄像头教科书式的弱点，也正是激光雷达和雷达擅长处理的场景。马斯克多年来一直称这些传感器是“拐杖”和“徒劳之举”。</p>
+<h2>Robotaxi 又多了一小时，马斯克解释为何只多一小时</h2>
+<p>上周五深夜，特斯拉的 Robotaxi 账号宣布，奥斯汀服务“现在可用至晚上 11 点”。此前，该服务在晚上 10 点就结束运营。</p>
+<p>马斯克转发了这一公告，并解释了是什么让车辆无法在更晚的时间上路：</p>
+<blockquote>
+<p>“我们试图解决的主要问题，是确保不会在夜间难以看清时碾到宠物。说白了，就是要在黑暗中避免压到灰色沥青上的灰色小猫。”</p>
+</blockquote>
+<p>关于这多出来的一小时，补充一些背景。特斯拉<a href="https://electrek.co/2025/06/20/tesla-releases-details-robotaxi-launch-safety-monitor-front-seat/">于 2025 年 6 月在奥斯汀推出 Robotaxi</a>时，应用接受从早上 6 点到午夜的打车请求。十五个月后，该服务的结束时间反而比上线第一天还早了一小时。</p>
+<p>而且这是一个小规模服务。即便上个月加入了 Cybercab，特斯拉自推出以来几乎没有扩大规模。</p>
+<h2>摄像头需要光和对比度，激光雷达和雷达不需要</h2>
+<p>摄像头是一种被动传感器。它依靠物体反射的光线工作，并根据物体与背景的差异程度来识别它。夜间灰色路面上的一只灰色动物，在这两方面能提供的信息都极少。</p>
+<p>激光雷达是一种主动传感器。它发射自己的激光脉冲，并计算脉冲返回所需的时间，从而为路面上的任何物体提供距离和 3D 形状。它在午夜和正午的表现完全一样，也不需要小猫与沥青颜色不同。它只需要小猫从路面上凸起，而小猫作为 3D 物体，往往正是如此。</p>
+<p>雷达用无线电波完成类似的工作，还能提供速度信息。它对这么小的物体探测能力较弱，但在雾、尘和眩光让摄像头失明时，它仍能继续工作。</p>
+<p>每一家规模化运营无人驾驶汽车的公司都会同时使用这三种传感器。Waymo 的第六代系统配备了 13 个摄像头、4 个激光雷达和 6 个雷达。今年 8 月，<a href="https://electrek.co/2026/08/04/waymo-co-ceo-camera-only-self-driving-tesla/">Waymo 联合首席执行官德米特里·多尔戈夫展示了孩子们在漆黑街道上追逐狗的画面</a>，其中摄像头画面几乎毫无用处，而激光雷达视图则清晰干净。Waymo 约 4000 辆无人驾驶车辆全天 24 小时运行。</p>
+<p>特斯拉则走了另一条路。它在<a href="https://electrek.co/2021/05/25/tesla-vision-without-radar-warns-limitations-first/">2021 年 5 月从车辆中移除了雷达</a>，2022 年又去掉了超声波传感器，并且从未交付过配备激光雷达的汽车。</p>
+<h2>马斯克在激光雷达和夜视问题上的过往言论</h2>
+<p>马斯克 2019 年 4 月：“激光雷达是徒劳之举。任何依赖激光雷达的人都注定失败。”</p>
+<p>2022 年 2 月，他称激光雷达是“一个诱人的局部最优解”，并表示自动驾驶的通用解决方案“必然需要硅神经网络和摄像头”。</p>
+<p>2025 年 8 月，他更进一步，声称“激光雷达和雷达会因传感器冲突而降低安全性”。</p>
+<p>今年 5 月，他发布了一张来自特斯拉摄像头的“光子计数重建”图像，并写道：“这就是为什么特斯拉 FSD 在夜间或极端眩光下也能看得这么清楚。”</p>
+<p>那是五个月前的事，而现在夜间视物成了特斯拉试图解决的“主要问题”。</p>
+<p>他一直清楚其中的取舍。2021年特斯拉移除雷达时，<a href="https://electrek.co/2025/08/28/elon-musk-lying-tesla-self-driving-dms-prove-it/">马斯克在直接消息中告诉Electrek，“高分辨率雷达加视觉会比纯视觉更好。”</a>而NHTSA目前正<a href="https://electrek.co/2026/07/21/nhtsa-tesla-radar-saves-us-document-fsd-probe/">调查320万辆特斯拉在低能见度条件下发生的FSD碰撞事故</a>，调查中要求特斯拉提供一份名为“雷达拯救我们”的内部文件。</p>
+<h2>Electrek的观点</h2>
+<p>马斯克写那篇帖子，好像特斯拉刚发现了一个新问题。其实并没有。摄像头在夜间丢失暗色、低对比度物体是众所周知的老问题，这也是为什么其他所有厂商都在车上装了激光雷达和雷达。十年前的这个时候，特斯拉说它生产的每一辆车都具备完全自动驾驶的硬件。而它的CEO在2026年10月才意识到，灰色的东西在黑暗中很难看清。</p>
+<p>而且马斯克挑了个最可爱的例子。同样的物理原理也适用于高速公路上的轮胎胎面或穿黑色连帽衫的孩子。那些目标更大、更容易发现，但没人应该希望安全余量仅仅是“比小猫大一点”。</p>
+<p>平心而论，没有哪套传感器组合能把这做到零。去年10月，一辆Waymo在旧金山碾过一只杂货店猫，Waymo称车驶离时猫突然窜到车下。但特斯拉是唯一一家其CEO说车辆一开始就看不清这只动物的公司。</p>
+<p>成本借口也不成立了。Rivian<a href="https://electrek.co/2026/09/30/rivian-lidar-r2-customers-2027-autonomy-update/">本周表示，激光雷达现在每辆车的成本仅为“几百美元”</a>。</p>
+<p>最让我们不安的是马斯克略过的那部分。现在奥斯汀的日落时间刚过晚上7点，所以特斯拉的Robotaxi每晚已经在黑暗中行驶，而这个问题他说尚未解决。而客户的特斯拉在任何时段都用同样的摄像头运行“完全自动驾驶”，没有宵禁。</p>
+<p>特斯拉现在只差一次更新就能恢复到发布日的午夜关闭时间。Waymo每辆车都装有激光雷达和雷达，从不关闭。还要多少次一小时的更新，特斯拉才会承认需要一种对应的传感器？</p>
+<p><em>利用屋顶太阳能板在家为你的电动汽车充电。在<a href="https://www.energysage.com/p/electrek/">EnergySage</a>上免费找到附近可靠且价格有竞争力的太阳能安装商。他们预先审核过的安装商会竞相为你服务，确保高质量解决方案并节省20-30%。免费使用，在你选择安装商之前不会有推销电话。在线比较个性化太阳能报价，并获得公正的能源顾问指导。从<a href="https://www.energysage.com/p/electrek/">这里</a>开始。</em></p>
+<p><em>FTC：我们使用可赚取收入的自动联盟链接。</em><a href="https://electrek.co/about/#affiliate">更多。</a></p>
+<p><a href="https://electrek.co/2026/10/03/tesla-robotaxi-pets-night-musk-lidar/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

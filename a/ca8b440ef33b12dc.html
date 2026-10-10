@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude Haiku 5.5</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Claude Haiku 5.5</h1>
+<p><small>评分 8/10：Anthropic 新模型发布，价格与性能有实质变化</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 发布 Claude Haiku 5.5，定价与 GPT-6 Luna 相同</li><li>Haiku 5.5 采用新 tokenizer，同样 prompt 消耗约 1.25 倍 token</li><li>Anthropic 为 Max 和 Team 订阅用户提供每月 API 额度</li></ul>
+<hr/>
+<p>正如之前<a href="https://simonwillison.net/2026/Sep/28/claude-sonnet-5-5/">承诺</a>的那样，这是 Anthropic 全新快速、低成本模型：<a href="https://www.anthropic.com/claude-haiku-5-5">Introducing Claude Haiku 5.5</a>。</p>
+<p>之前的 Haiku 4.5 已经明显老态龙钟。它发布于<a href="https://simonwillison.net/2025/Oct/15/claude-haiku-45/">将近一年前</a>，定价为每百万输入 $1、每百万输出 $5——即便在当时也算相对昂贵，是 OpenAI 上个月发布的 <a href="https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/#gpt-6-sol-and-luna-are-half-the-price-of-their-gpt-5-6-equivalents">GPT-6 Luna</a> 价格的整整 10 倍。</p>
+<p>新的 Haiku 定价与 GPT-6 Luna 完全一致——$0.10/$0.50——最高 100,000 tokens。超过 100,000 tokens 后价格涨 5 倍，达到 $0.50/$2.50。Luna 本身在 272,000 tokens 时涨价，但只涨到 $0.20/$0.75。</p>
+<p>Haiku 5.5 还使用了新的、更不慷慨的 tokenizer。我的 <a href="https://tools.simonwillison.net/claude-token-counter">Claude Token Counter</a> 工具显示，同样的长 prompt 在 Haiku 5.5 下使用的 tokens 大约是 Haiku 4.5 的 1.25 倍，所以这里存在隐性涨价。</p>
+<p>如果你的工作负载在 100,000 tokens 以内，Haiku 与 Luna 价格相同，且 benchmark 得分更高。超过 100,000 tokens 后，Luna 看起来划算得多。</p>
+<p><a href="https://github.com/simonw/llm-anthropic/releases/tag/0.30">llm-anthropic 的最新版本</a>终于修复了这个问题，我不再需要为每个新模型发布新版本的插件。我这样测试了新模型：</p>
+<pre><code>llm install -U llm-anthropic
+llm anthropic refresh
+llm -m claude-haiku-5.5 "Generate an SVG of a pelican riding a bicycle" -o thinking_effort low
+</code></pre>
+<h4>鹈鹕</h4>
+<p>这里是 <a href="https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F485dfa24b4efa1267ee2d0911594fb81">low、medium、high、xhigh 和 max 的鹈鹕</a>。新的 Haiku 不允许禁用推理，默认是 <code>medium</code>。除了 <code>low</code> 之外，其他都给了我一个不错的自行车车架。<a href="https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F485dfa24b4efa1267ee2d0911594fb81#response">low effort 的鹈鹕</a>花费 0.0936 美分，耗时 7 秒。</p>
+<p>这个 <code>max</code> effort 的鹈鹕生成耗时 5 分 9 秒，但只花了我 <a href="https://www.llm-prices.com/#it=27&amp;ot=67647&amp;sel=claude-haiku-5.5">3.3826 美分</a>：</p>
+<p><img alt="Flat vector illustration: a white pelican wearing a red cap rides a dark grey bicycle from left to right across a green grassy strip, its long orange legs reaching down to the orange pedals, a grey wing stretched forward to grip the curved handlebars, and its large yellow-orange beak with a bulging orange throat pouch pointing ahead; behind it, white speed lines show motion, and above, a yellow sun with a pale halo and two white clouds sit in a gradient blue sky." src="https://static.simonwillison.net/static/2026-10-07/haiku-5.5-max.webp"></p>
+<p>作为对比，这是我<a href="https://simonwillison.net/2025/Oct/15/claude-haiku-45/">一年前</a>从 Haiku 4.5 得到的鹈鹕（花费 <a href="https://www.llm-prices.com/#it=18&amp;ot=1513&amp;ic=1&amp;oc=5">0.7583 美分</a>——Haiku 4.5 不支持推理等级）。它画鹈鹕<em>烂透了</em>：</p>
+<img alt="Described by Haiku 4.5: A whimsical illustration of a bird with a round tan body, pink beak, and orange legs riding a bicycle against a blue sky and green grass background." src="https://static.simonwillison.net/static/2025/claude-haiku-4.5-pelican.jpg">
+<h4>以及面向订阅者的慷慨 API 额度方案</h4>
+<p>除了 Haiku 5.5，Anthropic 今天还宣布将 Sonnet 5.5 的缓存读取价格减半。他们还为订阅计划增加了 API 额度：</p>
+<blockquote>
+<p>其次，本周我们将<strong>向所有 Max 和 Team 订阅者推出每月 API 额度，用于 Claude Platform</strong>。Max 5x 用户每月将获得 $100 额度，Max 20x 用户将获得 $200，Team 订阅者将获得最高 $500，在其用户之间共享。</p>
+</blockquote>
+<p>领取这个非常轻松：前往 <a href="https://claude.ai/new#settings/billing">Settings -&gt; Billing</a>，选择每月应享受额度的 API 组织：</p>
+<p><img alt='Screenshot of a Settings dialog with a close X button at top right and a row of tabs reading "General", "Account", "Privacy", "Billing" (selected), "Usage", "Capabilities", "Memory" and "Design sys" (cut off at the edge). Beside a line-drawn icon of a branching plant with circular buds, the panel reads "Max plan", "20x more usage than Pro" and "Your subscription will auto renew on Nov 2, 2026." with an "Adjust plan" button on the right. Below is a section headed "API credits" with a blue "New" badge, reading "Your Max 20x plan includes $200 USD in API credits each month." followed by grey text "Link an API organization to start receiving credits." with a "Link organization" button on the right.' src="https://static.simonwillison.net/static/2026-10-07/claude-credits.webp"></p>
+<p>API 额度与订阅本身的费用完全一致。这确实非常慷慨——让订阅者使用 API 变得容易得多。Anthropic 还允许你为 API 关闭自动续费，其结果是“余额用尽时 API 请求将停止”——如果你打算把那些 API 额度用光，又不想<a href="https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/">遭遇令人头疼的账单意外</a>，这正是你想要的。</p>
+<p>请注意，每月额度<a href="https://support.claude.com/en/articles/17154008-monthly-api-credits-for-max-and-team-plans#h_dfc1659cee">不会结转</a>——不用就作废。</p>
+<p>OpenAI 仍然允许你将 Codex 订阅用于个人 API 用途，对 API 重度用户来说这更划算。这一新的额度方案至少在一定程度上缩小了这一差距。</p>
+<p>标签：<a href="https://simonwillison.net/tags/ai">ai</a>、<a href="https://simonwillison.net/tags/generative-ai">generative-ai</a>、<a href="https://simonwillison.net/tags/llms">llms</a>、<a href="https://simonwillison.net/tags/anthropic">anthropic</a>、<a href="https://simonwillison.net/tags/claude">claude</a>、<a href="https://simonwillison.net/tags/llm-pricing">llm-pricing</a>、<a href="https://simonwillison.net/tags/pelican-riding-a-bicycle">pelican-riding-a-bicycle</a>、<a href="https://simonwillison.net/tags/llm-release">llm-release</a></p>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://9to5mac.com/2026/10/07/anthropic-upgrades-claude-with-new-haiku-5-5-model-details-here/">Anthropic 用新模型 Claude Haiku 5.5 升级 Claude</a><small> · 9to5Mac</small></li><li><a href="https://www.qbitai.com/2026/10/501832.html">Claude新模型发布！跑分暴击GPT-6 Luna，价格比梁文谷还便宜，OpenAI只能送重置卡挽尊</a><small> · 量子位</small></li><li><a href="https://www.latent.space/p/ainews-claude-haiku-55-better-than">[AINews] Claude Haiku 5.5——同价位下强于 GPT-6 Luna</a><small> · Latent Space</small></li></ul>
+<p><a href="https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>
