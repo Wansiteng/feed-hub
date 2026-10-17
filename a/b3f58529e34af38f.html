@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>无需直流充电桩实现 50 kW：为何电动车队应重新审视交流充电</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">无需直流充电桩实现 50 kW：为何电动车队应重新审视交流充电</h1>
+<p><small>Charged EVs · 评分 6/10：J3068 交流充电标准技术长文，有实质工程内容<br/>原标题：50 kW without a DC charger: Why EV fleets should take another look at AC charging</small></p>
+<p><strong>要点</strong></p><ul><li>J3068 标准支持三相交流充电，480V/63A 配置可输出约 52 kW</li><li>该标准最高可在 480V 下实现 131 kW 充电，基础设施成本远低于 DC 充电</li><li>北美车队目前受限于 J1772/NACS 约 10-15 kW 的交流充电功率</li></ul>
+<hr/>
+<a href="https://chargedevs.com/features/fleet-ev-charging-enters-a-new-phase/"><img alt="" height="100" src="https://chargedevs.com/wp-content/uploads/2026/10/50-kW-without-a-DC-charger.-Why-EV-fleets-should-take-another-look-at-AC-charging-300x100.jpg" width="300"></a>
+<br>
+<h2>EVSE 工程师 Ned Funnell 解释 J3068 充电标准的优势。</h2>
+<p>这或许是个老生常谈，但确实如此：在电动汽车充电领域，没有一种方案能包打天下。对于商用电动汽车车队而言，根据其工作周期部署最合适的充电系统不仅能节省资金，还可能让他们部署更多电动汽车，和/或避开公用事业升级的瓶颈。</p>
+<p>中型和重型电动汽车需要比乘用车更高的功率水平，但它们未必需要现有最快的充电硬件。例如，如果你有一支卡车车队，你知道它们每晚都会停在车场过夜，你就不需要在两小时内为它们充满电。</p>
+<p>如今，直流充电通常被认为是给卡车或公交车充电的唯一可行选择，因为北美的大多数交流充电（J1772 和 J3400/NACS）的功率大约在 10-15 kW 或更低。然而，直流充电站的成本远高于二级交流充电站，而且根据现场现有的电力服务情况，可能还需要变压器，这既费钱又占空间，还可能面临漫长的安装等待。</p>
+<p>许多基础设施规划者可能没有意识到，还有另一种选择，可以让车队找到充电功率的最佳平衡点。J3068 标准支持在广泛的功率范围内进行三相交流充电。常见的 480 伏、63 安培配置可提供约 52 kW 的功率，而更高功率的配置也是可能的。利用 LIN-CP 通信和主动冷却，该规范 160 A 的限制将能实现 480 V 交流充电，功率达 131 kW，且基础设施成本可能远低于直流充电。</p>
+<p>在美国，使用三相交流充电很少见，但这是在欧洲、亚洲和其他地区经过验证的方法，并且有成熟的硬件供应链。</p>
+<p>我们第一次联系 Ned Funnell 时，他正在 EVSE 制造商 Lincoln Electric 工作。现在他是 Zaptec 的产品经理，这是一家生产交流充电器和相关硬件的挪威公司。他已成为 <a href="https://en.wikipedia.org/wiki/SAE_J3068">J3068 标准</a>的某种 EVangelist。他的口号是：车队停车场不必永远忍受 J1772/NACS 的功率限制。</p>
+<p>SAE J3068 标准，又称“使用三相耦合器的电动汽车电力传输系统”，定义了一种使用能够传输单相、三相交流电以及直流电的充电连接器的系统，并定义了用于控制的数字通信协议。</p>
+<figure><a href="https://chargedevs.com/wp-content/uploads/2026/10/50-kW-without-a-DC-charger.-Why-EV-fleets-should-take-another-look-at-AC-charging-1.jpg"><img alt="" height="673" src="https://chargedevs.com/wp-content/uploads/2026/10/50-kW-without-a-DC-charger.-Why-EV-fleets-should-take-another-look-at-AC-charging-1-1024x673.jpg" width="1024"></a><figcaption>直流连接器（左）和连接器（右）。图片由 <a href="https://en.wikipedia.org/wiki/SAE_J3068#/media/File:Iec-type2-ccs-combo2-and-iec-type2-charging-connectors-side-by-side.jpg">Paul Sladen</a> 提供。</figcaption></figure>
+<p>正如 Funnell 先生所解释的，在三相电中，不是仅两根导线之间有一个电压，而是三根导线之间有三个电压。物理定律（或者魔法——反正一样？）告诉我们，增加一根导线可以让你在相同电流和相同电压下将功率提高 73%。转向更高的电压——J3068 允许但不要求——则会再增加一个乘数。</p>
+<p>实施 J3068 充电是否需要昂贵的公用事业服务升级？恰恰相反——美国许多工业场所提供的电力是 480 V 三相交流电。使用 J1772 需要降压变压器，但 J3068 可以让你将 480 V 三相电直接输送到车辆，提供超过 50 kW 的充电功率，同时节省大量铜材。</p>
+<figure><blockquote><p><strong>J3068 标准支持在广泛的功率范围内进行三相交流充电。常见的 480 伏、63 安培配置可提供约 52 kW 的功率，而更高功率的配置也是可能的。</strong></p></blockquote></figure>
+<p><strong><em>Charged</em>：您最初对 J3068 标准产生兴趣是什么时候？</strong></p>
+<p><strong>Ned Funnell：</strong>在加入 Lincoln Electric 之前，我曾在一家名为 <a href="https://chargedevs.com/?s=Electrada">Electrada</a> 的公司担任充电解决方案架构师，该公司专注于车队充电基础设施开发。在那个职位上，我面临着不同充电等级之间的艰难权衡。</p>
+<p>例如，如果你想为厢式货车之类的车辆使用交流充电，你只能使用单相电，而且在商业场所几乎总是使用 208 伏电源，因此你实际上不能指望超过约 15 千瓦的功率。你以 80 安培的电流运行，设备会变得非常热——连接器无法承受。但是，要升级到直流充电，即使你只需要 25 千瓦，通常也会带来成本的大幅增加，而且你必须拥有 480 伏电源。[编者注：大多数直流快速充电器需要 480 伏输入，但 <a href="https://chargedevs.com/features/clearing-the-electrical-service-bottleneck-for-ev-charger-installation/">Power Innovations International</a> 制造的充电器可以接受一定范围的输入电压。]</p>
+<p>我了解了 J3068，它基于欧洲和全球使用的 Type 2 充电标准，我看到了它的许多优势。我并不认为它会在私人车辆市场上与 J1772 或 CCS1 竞争，但对于依赖自有车库充电基础设施的车队来说，这似乎会是一个巨大的胜利。</p>
+<p><strong><em>Charged</em>：我们怎么称呼这个？</strong></p>
+<p><strong>Ned Funnell：</strong>我就叫它 J3068，或者三相 Level 2 充电。我不知道它还有其他有趣的名字。</p>
+<p><strong><em>Charged</em>：嗯，也许你应该发明一个有趣、朗朗上口的名字。我怀疑我们会听到更多关于它的消息，因为它似乎是车队提高充电性价比的好方法。</strong></p>
+<p><strong>Ned Funnell：</strong>是的。举个例子，假设一个车队车库将引入额外电力，他们可以得到他们想要的任何规格。如果你要投入，比如说，100 辆电动配送车，并且必须为这些车安装 100 个直流充电器，那将非常昂贵。但你不需要这样做，因为你有所有这些非轮班时间。那些卡车至少会停放过夜八个小时。</p>
+<p>然而，交流充电存在问题。Level 2 充电器在 208 伏电源下标称可提供 9.9 千瓦，大约需要 9 到 10 小时才能充满。这足够了。但一直以 48 安培运行，那些连接器不会持久，而且更换电缆通常不太实际，所以如果任何部件损坏，你就得更换整个 Level 2 EVSE。</p>
+<p>通过采用中等功率等级并使用合理的电力传输方式——对于任何两位数千瓦的功率，就是三相交流电——你可以避开所有这些问题。你无需为直流充电器付费，也不会遇到试图通过单相电源挤入超过 10 千瓦功率的弊端。这就是欧洲和亚洲的做法。这是一种常见且合理的方法。</p>
+<figure><blockquote><p><strong>通过采用中等功率等级并使用合理的电力传输方式——对于任何两位数千瓦的功率，就是三相交流电——你可以避开所有这些问题。</strong></p></blockquote></figure>
+<p>不幸的是，在美国，早在 2009 年，加州空气资源委员会（CARB）基于郊区家庭购买电动汽车的概念选择了一个充电标准。这就是我们最终采用 J1772 的原因，它对车队充电有着极大的限制。</p>
+<p><strong><em>Charged</em>：所以商用车队行业正在努力应对一个最初为住宅充电开发的标准？</strong></p>
+<p><strong>Ned Funnell：</strong>是的。CARB 当年与几家不同的制造商合作，一家名为 Yazaki 的日本公司提出了我们现在称之为 J1772 的标准。当时并没有考虑三相电，因为北美电网通常不会将三相电引入独栋住宅。与此同时，在欧洲，他们复用了已经普遍使用的现有 Type 2 Mennekes 连接器。他们那里到处都是三相电，所以默认采用三相，而我们没有，现在正在为此付出代价。</p>
+<p><strong><em>Charged</em>：那么，在欧洲，所有交流电都是三相的吗？</strong></p>
+<p><strong>Ned Funnell：</strong>澄清一下，我们说的是向站点配电，而不是建筑物内部。更准确的说法是，三相电在欧洲配电网中渗透的深度远超美国。任何需要长距离输电的地方，都是三相电。但到了住宅层面，当年在美国，为了节省铜，他们只送出三相中的一相。而在欧洲，距离更短，所以将三相电送到终端用户更有意义。并非所有地方都是这样，但普遍得多。</p>
+<p>我认为 J3068 有用的应用几乎全是车队。车队运营的场地，95% 的情况下已经有三相电。如果他们运营任何规模的车队，都需要电力公司升级以满足所需电量。但现场已有三相电意味着这只需要电力公司更换变压器、承包商安装更大的配电盘，而不是昂贵的线路延伸。</p>
+<figure><blockquote><p><strong>我认为 J3068 有用的应用几乎全是车队。车队运营的场地，95% 的情况下已经有三相电。</strong></p></blockquote></figure>
+<p><strong><em>Charged</em>：这需要更换充电器吗？还是变压器？</strong></p>
+<p><strong>Ned Funnell：</strong>你可能不需要更换一直到配电盘的所有电力基础设施。在现在的传统车队停车场，这些配电盘由三相电供电，电压为 208 伏。但每个单独的 Level 2 充电器只由三相中的一相供电。A 车位接 A 相，下一个车位接 B 相，以此类推。需要改变的主要是车辆。车辆上的端口需要是 J3068 连接器，车载充电器需要准备好接受高功率三相电。</p>
+<p>充电行业基本上已经这样做了，欧洲的汽车行业也是如此。如果你在欧洲买一辆保时捷或宝马，你会得到同样的常见 11 kW 车载充电规格。但他们在欧洲实现的方式不是 240 伏 48 安培，而是 400 伏三相仅 16 安培。欧洲电网运行在 400/230 伏（线电压和相电压）。在美国，我们通常是 208/120 伏，所以起步电压就只有一半。然后当你增加那根额外的导线时，即使不提高电压，也能传输多 73% 的功率。你还可以提高电压，获得更大的功率。</p>
+<p>车队卡车可以保留 CCS1 端口用于直流充电——只需在旁边加一个 J3068 端口，就像 <a href="https://chargedevs.com/?s=Range%20Energy">Range Energy</a> 在他们的电动挂车上所做的那样，然后你就可以以最高 43 千瓦的交流电充电。实际上，在美国，将 480 伏直接馈入车辆可以获得 50 千瓦。</p>
+<p>现在，一个常见的批评是，如果你想要 50 kW 充电，车辆上必须有一个巨大的车载充电器。在短期到中期内，这个批评是合理的，因为如果一家 OEM 想走这条路，他们会去找他们的 OBC 供应商说：“你能给我们你在欧洲销售的那种支持三相电的 OBC 吗？”</p>
+<p>市面上有一些产品能做到这一点，但成本会更高。一些中国制造商正在将车载充电器、驱动逆变器、DC/DC 转换器和其他电力电子设备集成到一个总成中，有些设计还能在充电时复用逆变器或电机硬件。</p>
+<p>动能回收也会将三相电机电力通过逆变器输送到电池，这就是为什么其中一些硬件可以复用于交流充电。</p>
+<p><strong><em>Charged</em>：如果逆变器可以充当 OBC，那为什么还需要 OBC？</strong></p>
+<p><strong>Ned Funnell：</strong>确实不需要。<a href="https://carnewschina.com/2024/05/14/byds-e-platform-3-0-evo-has-five-major-tech-clusters/">比亚迪有一个十二合一单元</a>，包含了驱动逆变器、OBC、DC/DC 转换器和其他几个组件。基本上所有改变电流的部件都发生在那一个盒子里，而且是用最小可行的共享电力电子器件组来实现的。美国一直坚持采用久经考验、虽低效但成熟的方法，但取消独立的 OBC 在技术上完全可行。</p>
+<p><strong><em>Charged</em>：我们来谈谈今天正在实施 J3068 的一些公司。其中一家是 Range Energy，电动半挂车的制造商，<a href="https://chargedevs.com/features/vehicle-features/electrifying-the-box-a-new-path-to-trucking-electrification/">我们在 2025 年 7 月至 9 月刊中报道过</a>。</strong></p>
+<p><strong>Ned Funnell：</strong>它在他们的情况下效果特别好的主要原因是，冷藏挂车也需要电力。目前绝大多数靠柴油供电，但他们也可以将三相电源引入挂车。这些停放冷藏挂车的场站通常已经有一个大配电盘，可以提供三相 480 伏电源，通常是 30 安培。</p>
+<p>他们需要以某种方式将电源连接到挂车，以保持箱体低温。默认的方式是在场站使用三相电源，而 J3068 实际上解决了那里的一个大问题，因为行业尚未就标准连接器达成一致。没有一种插头能适用于所有冷藏挂车。我有个朋友，Thermo King 的 Matt Srnec，他正在倡导冷藏挂车行业采用 J3068 作为所有使用三相电源的冷藏挂车的标准。</p>
+<p><strong><em>Charged</em>：我了解到路边充电先驱 it's electric，<a href="https://chargedevs.com/features/no-garage-no-driveway-no-problem-itselectric-is-bringing-curbside-ev-charging-to-the-us/">我们在 2024 年 7 月至 9 月刊中报道过</a>，使用 J3068 是出于不同的原因。</strong></p>
+<p><strong>Ned Funnell：</strong>是的。另一方面是你可以获得可拆卸电缆充电。在欧洲，街上或停车场的许多 Level 2 充电器没有附带电缆——充电器有一个带 J3068 连接器的插座。有些公司看到了插座式自带电缆安排的足够优势，以至于他们在美国仅仅为了这个目的就使用 J3068，甚至无意通过它传输三相电源。</p>
+<p><strong><em>Charged</em>：那么，你用于 it's electric 的电缆在充电器端有 J3068，在车辆端有 J1772 或 NACS。但对于三相车队充电，你还需要在车辆侧有 J3068 插头，对吗？</strong></p>
+<p><strong>Ned Funnell：</strong>是的。你会在车队场站看到这种两端都配有可拆卸 J3068 的安装方式。你不必这样做——你可以把电缆固定在充电桩上。但对车队来说，可拆卸电缆仍有优势。即使是在“围栏之内”，他们不太担心人为破坏，但 J1772 标准下的电缆和连接器磨损得相当快，而通常的解决办法是更换整个 EVSE。如果两端都是可拆卸电缆，你只需让司机拿一根新电缆换上就行。</p>
+<p><strong><em>Charged</em>：还有其他公司使用三相 Level 2 充电吗？</strong></p>
+<p><strong>Ned Funnell：</strong>我不能谈论此事，但我听说一家大型农业设备制造商正在为其非公路设备试用 J3068。同样，这也会是在已经有三相电的地方。直流充电器有更多取舍，因为你要么需要永久安装这个设备，要么把它装在某个东西上拖着走。而一种轻便得多的 Level 2 EVSE，无论你在哪里都能直接插到插座上，这种想法对他们会很有吸引力。</p>
+<p>Harbinger Motors 能真正从中受益——他们几乎就是这项技术的完美应用场景。</p>
+<p><strong><em>Charged</em>：我是 <a href="https://chargedevs.com/features/harbingers-plan-to-conquer-an-underserved-segment-of-the-electric-truck-market/">Harbinger 的忠实粉丝，我们在 1 月份报道过它</a>。商用电动车初创公司一直在纷纷倒下，但 CEO John Harris 告诉我他们的销量持续增长。为什么三相 Level 2 充电对 Harbinger 来说完美契合？</strong></p>
+<p><strong>Ned Funnell：</strong>嗯，他们的能源需求恰到好处。这对雪佛兰 Bolt 来说会性能过剩，但功率水平又不足以满足 Class 8 卡车。你想要的是中间范围——Class 3 到 Class 5 车辆，它们在场站里停留几个小时，所以 50 kW 充电就能补充所需的所有能量。这正是 Harbinger 的细分市场，他们只向车队销售，而且他们的车辆正进入三相电已经普及的地点。</p>
+<p><strong><em>Charged</em>：这引出了一个更大的问题，即充电容量的合理配置。公司说：“我们想要能获得的最快充电，”但他们可能花了超过所需的钱，因为他们的工作循环并不需要真正快速的充电。</strong></p>
+<p><strong>Ned Funnell：</strong>是的。尤其是当他们处于必须使用直流电的情况时，因为目前通过 J1772 插头实际能获得的 10-15 kW 并不够用。于是他们可能购买 50 或 60 kW 的充电器，并且必须向电力公司申请相应容量，乘以他们拥有的卡车数量，无论他们是否真的需要那么多，仅仅因为这是可用的直流充电器的尺寸。即使他们的运营只需要 25 千瓦，即使他们打算为了需量电费而将这些充电器限制在 25 千瓦，他们仍然必须按满足需求的最小尺寸直流充电器来做规划。因此，存在很大的风险，会为并不需要的容量超支，尤其是在这种混乱的中低端区间。</p>
+<p>还有一个问题。当你向电力公司申请一定量的电力时，并不总能按你想要的电压获得。在美国，有208伏和480伏两种电压。对于充电站来说，你可能想要208伏的电力，因为你的卡车需要这个电压进行Level 2充电。但如果电力公司因为这是他们为你这种规模站点提供的标准电压，并且他们手头只有这种变压器，而倾向于让你使用480伏，你就必须额外安装降压变压器，这会产生巨大的额外成本，而且通常还有交货期的限制，才能获得车辆实际需要的208伏或240伏电力。在这些充电站中，如果可以选择为车辆提供480伏电力，那么很多铜材都是不必要的。而且市场上已经有公司可以从欧洲市场购买到车载充电机（OBC），这些产品已经为这里的480伏市场做好了准备。</p>
+<figure><blockquote><p><strong>在这些充电站中，如果可以选择为车辆提供480伏电力，那么很多铜材都是不必要的。</strong></p></blockquote></figure>
+<p><strong><em>Charged</em>：如果你不介意我问的话，你推动这件事是出于职业兴趣吗？还是说这只是你希望为了公共利益而看到它发生？</strong></p>
+<p><strong>Ned Funnell：</strong>基本上是后者。如果我把自己塑造成J3068的预言家，然后这件事真的发生了，我可能会以某种方式从中获利。可能会得到一些赞扬。但我与任何推动此事的组织都没有经济利益关系。</p>
+<p><strong><em>Charged</em>：恭喜你在欧洲电动汽车之都挪威的新工作。你能告诉我们一些你在Zaptec做什么吗？</strong></p>
+<p><strong>Ned Funnell：</strong>我是安装和调试产品经理。Zaptec是交流充电硬件及生态系统其他部分的制造商。我加入Zaptec对这个话题来说非常及时——我现在为欧洲领先的三相交流充电站制造商工作。Zaptec拥有一种相位平衡技术，允许你使用所有三相，并享受更高功率、更低电流的优势。但有些车辆只能接受单相输入。在这种情况下，这些车辆总是从三相中的一相取电，这会带来一个大问题，因为如果在一个地点有几辆这样的车，你最终会使某一相过载，并达到整个供电服务的极限。</p>
+<p>因此，Zaptec拥有一种技术，使充电器本身能够在内部进行切换，让单相充电的电动汽车连接到其他两相之一，并在整个站点主动平衡，这样无论你的三相或单相车辆如何混合，你都能最大化利用该供电服务，而不会使某一相过载。</p>
+<p>他们实际上已经这样做了很长时间，并且已经安装了数万个使用这种技术的充电器。</p>
+<p><strong><strong>本文最初发表于<a href="https://chargedevs.com/issues/issue-76-april-june-2026/">第76期</a> – <a href="https://chargedevs.com/subscribe/">立即订阅</a>。</strong></strong></p>
+<p><a href="https://chargedevs.com/features/fleet-ev-charging-enters-a-new-phase/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

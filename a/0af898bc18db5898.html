@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>为可靠执行构建 AI：来自工业机器人的经验</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">为可靠执行构建 AI：来自工业机器人的经验</h1>
+<p><small>Latent Space · 评分 7/10：Latent Space 长文，讲预训练模型从演示学习工厂任务，工程价值高<br/>原标题：Building AI for Reliable Execution: Lessons From Industrial Robotics</small></p>
+<p><strong>要点</strong></p><ul><li>Standard Bots 完成 2 亿美元 C 轮融资，估值 10 亿美元</li><li>其工业机械臂用于上下料、焊接和装配等任务</li><li>最大模型参数量仅数十亿，靠数据质量而非规模</li></ul>
+<hr/>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!yzyh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe58f7268-94a0-42f5-b0fc-9ecf300bb03d_2560x1440.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!yzyh!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe58f7268-94a0-42f5-b0fc-9ecf300bb03d_2560x1440.png" width="1456"></div></a></figure>
+<p>提到机器人和 AI，你首先想到的可能是像 Figure 的<a href="https://www.figure.ai/helix">AI 驱动机器人</a>和 1X 的<a href="https://www.1x.tech/neo">NEO 家用机器人</a>这样的<strong>全人形机器人</strong>。它们或许代表着未来，但到了 2026 年，可能更重要的是<strong>工业机器人</strong>——它们通常<em>不是</em>人形机器人。</p>
+<p><a href="https://standardbots.com/">Standard Bots</a> 自称是“美国最大的 AI 原生工业机器人制造商”。该公司最近在由 General Catalyst 和专注机器人领域的基金 RoboStrategy 领投的 C 轮融资中<a href="https://www.bloomberg.com/news/articles/2026-06-09/standard-bots-raises-200-million-to-manufacture-robots-in-us">筹集了 2 亿美元</a>，估值达到 10 亿美元。其客户包括 <strong>NASA、Amazon 和 Lockheed Martin。</strong></p>
+<p>我们采访了联合创始人兼 CEO <strong><a href="https://www.linkedin.com/in/evanbeard/">Evan Beard</a></strong> 和 AI 负责人 <strong><a href="https://www.linkedin.com/in/leifjentoft/">Leif Jentoft</a></strong>，以了解更多关于 Standard Bots 的 AI 技术栈及其模型如何运作的信息。</p>
+<p>先交代一下背景：Standard Bots 的工业机械臂专为机器看护、焊接和装配等任务而设计。以下是 Jentoft 的快速演示：</p>
+<h2>预训练模型与任务特定适配</h2>
+<p>据 Beard 介绍，Standard Bots 拥有一个<strong>共享基础模型</strong>，客户通过演示和微调对其进行适配。Jentoft 补充说，Standard Bots 运行着<strong>一系列模型</strong>，包括用于机器看护的零样本感知系统。</p>
+<p>Beard 表示，其最大的模型参数量在<strong>数十亿的低位</strong>——所以按前沿实验室的标准来看并不算大。</p>
+<p>“我们相信数据质量远比原始数据量重要，”Jentoft 说，“我们专注于<strong>从针对性数据中获取最大价值</strong>，而不是追求尽可能大的数据集。”（这与 <a href="https://www.latent.space/p/jev">Jev 创造者 Diogo Almeida 的“最苦涩的教训”</a>相符，他最近告诉我们，正确的任务和正确的数据可能比算力更重要。）</p>
+<p>“我们的市场渠道让我们能独特地获取最高价值的数据，”他补充道。“<strong>通过现场干预，只需几十个样本就能修复边缘案例</strong>。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!J3By!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0db1b551-c180-466f-b9e7-687852e84d1d_2048x1035.png"><div><img alt="" height="736" src="https://substackcdn.com/image/fetch/$s_!J3By!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0db1b551-c180-466f-b9e7-687852e84d1d_2048x1035.png" width="1456"></div></a><figcaption><em>使用 ClickFind 设置零件识别。</em></figcaption></figure>
+<p>Beard 指出，Standard Bots <strong>专注于短时程任务</strong>，以满足生产对周期时间和可靠性的要求。对于工作流程中不需要学习行为的部分，公司使用传统编程。</p>
+<p>Beard 表示，模型训练在云端进行，但<strong>推理在本地运行</strong>。</p>
+<h2>模型具体做什么？</h2>
+<p>我问 Jentoft，在典型的机器人例程中，学习模型做什么，工作流程的哪些部分使用传统编程？</p>
+<p>他以其面向高混合制造的机器看护解决方案为例。</p>
+<p>“我们构建了一个零样本系统，让用户告诉机器人在给定任务中要寻找哪些零件。<strong>模型负责感知——定位和识别零件</strong>——而传统编程则处理运动及其周围的单元逻辑。”</p>
+<p>以下是机器看护的演示：</p>
+<p>“我们用于此任务的主干网络<strong>在超过十亿张图像上训练</strong>，这使机器人能够区分光照条件、材料类型以及物体与其背景，”Jentoft 说。</p>
+<h2>完整的 AI 技术栈</h2>
+<p>今年4月，我们曾邀请<a href="https://www.latent.space/p/appliedintuition">Applied Intuition做客播客</a>，探讨<strong>“物理AI”</strong>及其与屏幕AI的区别。其中一个收获是，物理AI不仅受限于模型智能：<strong>真正的难点在于将模型部署到真实硬件上</strong>，同时要满足安全、延迟、功耗、成本和可靠性等约束。</p>
+<p>但对Standard Bots而言，这也可以成为一项优势，因为它掌控了从软件到硬件的“全栈”。Jentoft指出，公司控制着机械臂、末端执行器、控制系统和AI。</p>
+<p>“这让我们能够<strong>对模型和控制策略进行协同优化</strong>，”他说。“尽管其他地方有不同说法，但当今没有哪个模型真正做到了硬件无关，而协同优化底层控制与高层功能，<strong>对性能和迭代速度都是重大优势。”</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!Z9hh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F66302fb5-239d-453b-af14-483b003b5b8a_1584x1068.png"><div><img alt="" height="982" src="https://substackcdn.com/image/fetch/$s_!Z9hh!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F66302fb5-239d-453b-af14-483b003b5b8a_1584x1068.png" width="1456"></div></a></figure>
+<p>致力于构建<strong>“通用机器人智能”</strong>的<strong>Skild</strong>公司，可能对硬件无关的说法有异议——其目标是实现<a href="https://www.skild.ai/blogs/building-the-general-purpose-robotic-brain">跨硬件泛化</a>。</p>
+<h2>本地推理：传感器、边缘GPU与“动作块”</h2>
+<p>Beard曾提到推理是在本地完成的，这对它的核心客户——工厂来说尤为重要。</p>
+<p>“对于工厂，也就是我们目前大部分业务所在——当然我们也看到了大量机会——这是<strong>需要在本地进行推理</strong>的场景，”他说。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!R8pK!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6cfd90ff-b106-45f5-9789-771ee2196595_1814x1280.png"><div><img alt="" height="1027" src="https://substackcdn.com/image/fetch/$s_!R8pK!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6cfd90ff-b106-45f5-9789-771ee2196595_1814x1280.png" width="1456"></div></a><figcaption><em>一个AI agent正在构建机器看护例程。</em></figcaption></figure>
+<p>在机器看护中，模型负责识别零件，而传统编程负责运动控制。Jentoft还描述了模型如何生成动作并输入机器人的控制系统。</p>
+<p>“腕部摄像头和其他<strong>传感器</strong>通过<strong>内部千兆以太网</strong>将原始像素和信号馈入系统，内部路由以避免线缆缠绕，”他解释道。“<strong>边缘GPU</strong>处理这些数据以生成<strong>动作块</strong>，再流式传输至底层控制。”</p>
+<p>他重申，推理是有意放在本地运行的。</p>
+<p>“用于机器人的云计算在运营上极其困难——<strong>大多数工厂和仓库没有可靠的互联网</strong>，对移动机器人来说更是如此。正常运行时间对客户接受度至关重要，所以我们让闭环保持在本地。”</p>
+<h2>生产故障与集群学习</h2>
+<p>Standard Bots在可能的情况下会使用仿真，但Beard表示，一些生产任务——包括涉及液体、吸力或切割柔性材料的任务——<strong>在当前仿真器中难以复现。</strong></p>
+<p>真实世界的演示是学习过程的另一部分。以下是一个使用手持触控设备示教机器人的演示：</p>
+<p>那么，它如何处理机器人任务中的失败，这类学习成果会回流到模型中吗？</p>
+<p>“我们从部署中捕获<strong>失败信号和人工纠正</strong>，如何使用这些数据取决于客户，”Jentoft回答道。</p>
+<p>他指出，许多国防客户“部署在气隙环境中，没有任何数据回传。”但对于非气隙环境的客户，“集群学习为他们自己的应用带来了足够的好处，因此我们通常不会遇到阻力，他们愿意用数据贡献来换取这种性能。”</p>
+<h2>StandardOS：AI机器人开发平台</h2>
+<p>Standard Bots已经扩展了其平台，使外部开发者也能使用。通过<a href="https://standardbots.com/developers">StandardOS</a>，它提供了<strong>一套API和SDK。</strong></p>
+<p>据 Beard 介绍，开发者可以使用 Standard Bots 的 API，根据需要选用其技术栈中的任意部分来构建机器人应用，包括接入自己的模型。他以 <a href="https://www.nvidia.com/en-eu/ai/cosmos/">NVIDIA Cosmos</a> 为例——这是一个面向物理 AI 的开放全模态世界模型系列（<a href="https://www.latent.space/p/ainews-nvidia-cosmos-3-nemotron-3">其第 3 版已于 5 月底发布</a>）。</p>
+<p>目前，这需要开发者自行编写集成代码。但 Standard Bots 计划让数据采集、模型训练以及将模型部署到其机器人上变得更加容易。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!iute!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff90bb80-df6a-481a-b149-782ecefa9f6d_2048x1216.png"><div><img alt="" height="864" src="https://substackcdn.com/image/fetch/$s_!iute!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff90bb80-df6a-481a-b149-782ecefa9f6d_2048x1216.png" width="1456"></div></a><figcaption><em>使用 NVIDIA 软件的 AI 机器人学习工作流；来自 Standard Bots。</em></figcaption></figure>
+<h2>聚焦有针对性的数据</h2>
+<p>Standard Bots 并不是最吸引眼球的机器人公司，但它已经被 NASA、Amazon、Lockheed Martin 等用于工业自动化部署。</p>
+<p>对 AI 工程师来说，或许最有用的经验是 Standard Bots 如何让 AI 适配特定任务。它让<strong>模型的角色保持聚焦</strong>，并利用<strong>来自真实部署的修正</strong>来解决边缘情况。当然，你也可以把同样的方法应用到软件 agent 上。</p>
+<p>正如 Jentoft 所说——这也是 Jev 最近的一个教训——关键在于“充分利用有针对性的数据，而不是一味追求尽可能大的数据集”。</p>
+<p><a href="https://www.latent.space/p/standard-bots">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

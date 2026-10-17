@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>GlobalFoundries 发布 7nm 级 FDX Fusion 工艺</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">GlobalFoundries 发布 7nm 级 FDX Fusion 工艺</h1>
+<p><small>Tom&#x27;s Hardware · 评分 6/10：芯片代工重要进展，有实质信息量<br/>原标题：GlobalFoundries unveils 7nm-class FDX Fusion node — comes 7 years after firm abandoned FinFET</small></p>
+<p><strong>要点</strong></p><ul><li>GlobalFoundries发布FDX Fusion工艺，号称7nm级数字性能</li><li>晶体管密度是2015年22FDX的两倍以上，采用FD-SOI平面晶体管</li><li>计划2028年在德国德累斯顿工厂量产，2027年初提供演示芯片</li></ul>
+<hr/>
+<p>2018年，GlobalFoundries放弃开发先进制程节点时，也取消了与<a href="https://www.tomshardware.com/tag/ibm">IBM</a>共同开发的7nm级FinFET制造技术。几乎整整八年后，GlobalFoundries带着7nm级制造工艺回归，只不过这一次该节点依赖的是平面晶体管和全耗尽绝缘体上硅（FD-SOI）。它面向汽车、边缘AI、工业、机器人、传感器以及其他优先考虑低功耗、高集成度和成本效益而非极致性能的设备。<br><br>“我们很高兴GlobalFoundries宣布了其下一代‘个位数FD-SOI’节点，这建立在CEA-Leti数十年来不断推进的技术之上，”CEA-Leti首席执行官Sébastien Dauvé表示。“通过FAMES中试线，CEA-Leti继续塑造FD-SOI未来的欧洲路线图，并每天努力推动其在广泛应用中的采用。”</p>
+<h2>FDX Fusion登场</h2>
+<p>GlobalFoundries的新制造技术名为FDX Fusion，它承诺提供7nm级“数字性能”（这一说法含糊不清；我们稍后会尝试解读），并且晶体管密度是其约2015年推出的初代22FDX工艺的两倍以上。为实现目标，第一代FDX Fusion将结合SOI衬底、晶体管结构和后端互连方面的创新，不过请记住，GF尚未披露晶体管尺寸、接触栅极间距、最小金属间距或实际晶体管密度。GF计划于2028年在其德国德累斯顿工厂启动FDX Fusion芯片生产，这将标志着该公司在多年努力提升其现有22nm级平台之后，重返开发更先进的FD-SOI制造工艺。</p>
+<p>除了改进的“数字性能”，FDX Fusion还将支持fT/fmax高达0.5 THz的RF晶体管、模拟和混合信号电路、嵌入式非易失性存储器以及存内计算能力。这种组合旨在实现高度集成的芯片，能够处理来自传感器的信息、执行AI推理工作负载、控制外部设备并无线通信，而无需众多独立的IC。GF还打算提供基于MIPS、ARC和RISC-V架构的处理器IP，以加速此类产品的开发。</p>
+<p>话虽如此，FDX Fusion的主要卖点不一定是其7nm级“数字性能”和高性能处理器IP，而是其能够将相对强大的数字逻辑与RF、模拟和混合信号电路、嵌入式非易失性存储器以及存内计算能力结合在单颗芯片上。这种组合——这也是GloFo将该工艺技术称为FDX Fusion的原因——可以实现高度集成的SoC，否则这些SoC需要采用不同工艺技术制造的多颗芯片，这意味着额外的流片成本以及功耗。</p>
+<p>GlobalFoundries表示，计划在2027年初交付首批演示芯片供客户评估，随后在2027年中期推出首个工艺设计套件（PDK）。该公司已就该技术与多家客户合作，但尚未确定具体产品或承诺产量。具体而言，GF在新闻稿中提到，BMW、博世、英飞凌、NXP、西门子和特斯拉已对FDX Fusion表示兴趣，不过只有英飞凌明确确认就未来7nm级雷达和无线通信技术展开合作。</p>
+<h2>重大进展</h2>
+<p>GlobalFoundries 的这项公告对 GF 的 FD-SOI 路线图而言是一次重大进展。该公司于 2015 年推出 22FDX，并于 2016 年宣布其继任者 12FDX，承诺其性能可与 10nm FinFET 相媲美，具备全节点密度提升，功耗最多可降低 50%。12FDX 的客户首次流片原定于 2019 年，但该技术从未被用于商业产品。相反，GF 专注于对 22FDX 的增强，并最终推出了 22FDX+（大约在三星发布其 18FDS+ 前后），为射频、嵌入式存储器和低功耗应用增加了额外能力。有趣的是，直到 2022 年，12FDX 仍出现在 GF 的投资者路线图中。</p>
+<p>因此，FDX Fusion 可能代表着 GF 最初将 FD-SOI 扩展到 22nm 级别之外的雄心得以实现，尽管该公司并未说明这项新技术是否融入了其早期 12FDX 项目的研发成果。与此同时，多年来一直从事先进 FD-SOI 技术研究的 CEA-Leti 将 FDX Fusion 描述为一个个位数节点的 FD-SOI 工艺。尽管如此，GF 所称的 7nm 级“数字性能”并不一定意味着晶体管尺寸或集成密度与之相当。</p>
+<p>从行业角度来看，对于需要相当强大的数字逻辑以及射频、模拟和嵌入式存储器的应用，FDX Fusion 可以提供一种替代先进 FinFET、甚至可能是全环绕栅极工艺的方案。这种集成可以降低系统复杂度和功耗，尤其是在能效和实时响应至关重要的边缘 AI 设备中。</p>
+<p>也许更重要的是，这项技术可以让欧洲半导体开发商获得更先进的本地制造工艺，而无需依赖亚洲或美国的领先代工厂。</p>
+<h2>疑问仍存</h2>
+<p>然而，FDX Fusion 的商业成功将取决于其实际性能、密度、生产成本以及有竞争力的设计生态系统的可用性，鉴于领先的电子设计自动化（EDA）和 IP 开发商均未发表评论，后者可以说是最难的部分。</p>
+<p>当 GlobalFoundries 声称其“数字性能”达到 7nm 级技术的两倍时，它并未透露这指的是晶体管开关速度、标准单元性能、可实现的工作频率，还是其他什么。此外，该公司承诺其逻辑密度是其第一代 FDX 技术的两倍以上，但并未公布任何实际数字。因此，在晶体管密度、性能、功耗和生产成本方面，FDX Fusion 与成熟的 7nm 级 FinFET 技术相比将如何，目前尚不清楚——后者拥有成熟的缺陷密度和良率、充足的供应、成熟的设计生态系统以及可预测的定价等优势。虽然 CEA-Leti 的评论看起来很有前景，但实际数字总是更有说服力。</p>
+<p>GF 的 FDX Fusion 计划于 2028 年推出，这距离最初预期的首次 12FDX 流片大约晚了九年，这一事实本身就说明，将 FD-SOI 发展到 22nm 世代之外伴随着重大的技术和/或财务困难。因此，尽管 GlobalFoundries 的 FDX Fusion 计划看起来确实很有前景，但对这家代工厂及其客户而言，结果如何仍有待观察。</p>
+<p>就目前而言，来自汽车和工业领域的支持者阵容——BMW、博世、英飞凌、NXP、西门子和特斯拉——看起来确实很有前景。但其他应用呢？虽然英飞凌和NXP等老牌半导体公司已经拥有广泛的处理器IP组合，但规模较小的无晶圆厂开发商可以从GlobalFoundries的MIPS和ARC处理器核心、RISC-V专长以及定制芯片设计能力中受益，这可以大幅降低开发专用SoC的成本和复杂性。不过，要吸引更广泛的芯片开发商，GlobalFoundries还需要一个成熟的生态系统，包括EDA工具、标准单元库、存储器编译器、接口IP以及其他经过硅验证的构建模块。而这些正是GlobalFoundries在其新闻稿中未曾提及的内容。</p>
+<p><em>关注</em><a href="https://news.google.com/publications/CAAqLAgKIiZDQklTRmdnTWFoSUtFSFJ2YlhOb1lYSmtkMkZ5WlM1amIyMG9BQVAB"><em> Tom's Hardware 在 Google News 上的账号</em></a><em>，或</em><a href="https://google.com/preferences/source?q="><em>将我们添加为首选来源</em></a><em>，即可在您的信息流中获取我们的最新新闻、分析和评测。</em></p>
+<p><a href="https://www.tomshardware.com/tech-industry/semiconductors/globalfoundries-unveils-7nm-class-fdx-fusion-node-fd-soi-node-doubles-22fdx-transistor-density-comes-7-years-after-firm-abandoned-finfet">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

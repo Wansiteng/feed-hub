@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI 学会「寄生繁殖」了，Anthropic 用 15 台破电视盒子养活大模型</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">AI 学会「寄生繁殖」了，Anthropic 用 15 台破电视盒子养活大模型</h1>
+<p><small>爱范儿 · 评分 7/10：Anthropic 大模型训练新方法，有实质技术信息<br/>原标题：AI学会「寄生繁殖」了，Anthropic 用 15台破电视盒子养活大模型</small></p>
+<hr/>
+<p><img alt="" height="818" src="https://s3.ifanr.com/wp-content/uploads/2026/10/cover20261013.jpg" width="1923"></p>
+<p>15 台杂牌安卓电视盒子，单价约 55 美元，每台只有 4GB 内存。</p>
+<p>就是这样一堆平时用来看视频的廉价设备，Anthropic 的研究人员把它们联网，成功跑起了一个 260 亿参数的大模型。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881265561-1.gif"></p>
+<p>速度只有每秒 0.39 个 token，慢到几乎没法正常聊天。</p>
+<p>但 Anthropic 想验证的，是如果有一天，一个 AI 不再需要大型服务器，而是能够寄生在全世界的智能电视、冰箱、扫地机器人等联网设备里，自行寻找新的宿主、部署模型，再不断复制自己。</p>
+<p>这个 AI 模型像计算机病毒一样，在互联网上长期存在。听起来像末日电影，实际的研究也已经在不同实验中展示了支撑这一场景的几项关键能力。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881278325-2.jpg"></p>
+<p>研究员把 AI 的自主复制拆解为四个阶段：<strong>扫描网络发现目标 → 入侵取得控制权 → 在陌生硬件上搭建推理环境 → 以新宿主为跳板继续传播</strong>。</p>
+<p>其中最被低估的，以及最考验模型「智能」的是第三步。给一台从未见过的设备装推理框架，需要连续做出一长串软硬件相关的决策：选对软件栈、对齐依赖版本、排查这台机器特有的报错。</p>
+<p>这个环节上任何一步卡住，就满盘皆输。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881283572-3.png"></p>
+<p>测试结果喜忧参半，其中一个 9B 的小模型，成功在 9 种差异巨大的硬件（从 Jetson Nano 到 Mac 再到 RTX 4090）中的 8 种上架起了推理服务。</p>
+<p>但当研究者要求模型把完整链条端到端跑通时，<strong>只有更强的 GLM-5.2 能稳定做到在 5 次试验中 4 次感染全部 8 个节点。</strong></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881294405-4.png"></p>
+<p>整个研究可以被概括为两条线的赛跑：</p>
+<ul>
+<li>尺寸上限：模型必须足够小，才能塞进 4GB 内存的电视盒子里（大约 30B 参数以下，分布式部署）；</li>
+</ul>
+<ul>
+<li>能力下限：模型必须足够聪明，才能独立完成入侵、部署、排错这一整套复杂操作。</li>
+</ul>
+<p>目前，能端到端完成复制的模型太大，放不进设备；能放进设备的模型还不够聪明，两条线还没真正的相交。</p>
+<p>但如果按照小模型能力每年提升 13.7 个 ECI 指数的历史速度拟合，研究者预测它们将在 2026 年底相交。换句话说，<strong>一个「能装进 IoT 设备、又能自我复制」的模型，可能就在一两年之内</strong>。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881304987-5.png"></p>
+<div>图｜ECI（Epoch Capabilities Index，Epoch 能力指数）是独立研究机构 Epoch AI 推出的一个 AI 综合能力评分</div>
+<h2>一份模型，拆给 15 台盒子</h2>
+<p>大模型要运行，先得找地方放下模型文件。一般的电视盒子，或者说能够被入侵的盒子，其内存都很小，想要让一台盒子独自装下整个模型，首先就会卡在这里。</p>
+<p>分布式推理提供了一个办法，通过把模型的不同层分给不同机器，计算结果依次在机器之间传递，让前一台算完自己负责的部分，再交给后一台继续处理，最后得到下一步输出。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881314240-6.png"></p>
+<p>这类思路在之前就已经有研究实践过，有论文就尝试把模型层分散部署，让多台消费级设备协作运行大模型。机器之间只需要另外再进行传输数据、管理运行状态，并处理某个节点掉线后的接替问题，就一样能实现大模型部署。</p>
+<p>这 15 台盒子也是合力跑起一个模型， 每台盒子只保存和计算它负责的部分。</p>
+<p>这种做法缓解了单台设备的内存压力，也要付出代价。根据 Anthropic 的实验结果，<strong>Gemma4-26B-A4B，</strong>一个 260 亿参数的模型切成小块分发给 15 台盒子，最后的速度是 0.39 tokens/秒。</p>
+<p>不过，对一段可能长期在后台运行的程序来说，速度慢并不会自动让它停止工作。</p>
+<h2>小模型的自我复制</h2>
+<p>模型可以在这类家居设备上运行之后，如何复制就成了新的问题。</p>
+<p>传统计算机病毒（蠕虫）是一段会自我复制的程序：它入侵一台电脑，把自己拷贝过去，再从新电脑继续入侵下一台，全程不需要人操作。</p>
+<p>「小型模型的自主复制传播」就是把这段程序换成一个 AI 模型，<strong>模型本身就是「病毒本体」</strong>，它靠自己的智能完成整个循环，而不是靠写死的攻击脚本。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881325275-7.png"></p>
+<div>图｜在包含 17 个节点的 Redroid 集群上进行复制</div>
+<p>根据 Anthropic 描述的复制四阶段，我们可以用<strong>一个感染了某台智能设备的 AI 为例</strong>，它会自主地发现目标，通过扫描网络，找到其他联网设备，比如邻居家的电视盒子，或者同一网络下的其他智能家居设备。</p>
+<p>很快，这个小模型会利用设备的漏洞或默认密码拿到执行权限。在入侵取得控制权后，进一步新设备上安家。具体的方式是把自己的权重文件，几个 GB 的模型本体拷贝过去，并在这台完全陌生的硬件上把推理服务跑起来。</p>
+<p>最后从新设备继续复制，然后重复上述过程，一传十、十传百。如此循环，AI 就像病毒一样在设备间扩散，形成一个由它自己控制的僵尸网络。</p>
+<p>与传统蠕虫最大的不同在于，AI 蠕虫可以把「经验」传给后代。研究中还有一项和「适应」有关的测试：让新的 Qwen3.5-9B 实例继承前一个实例留下的代码、环境和简短笔记，再尝试部署。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881331978-8.png"></p>
+<p>六代传承之后，这些传下去的已经试过什么、哪些办法失败了这样的工作记录，让推理搭建的成功率从第一代的 45% 爬升到了 61%\~84%。</p>
+<p>不过研究者也发现了一个略显幽默的细节：让小模型向更强的前沿模型「打电话求助」，并没有什么用。小模型往往连该问什么问题都不知道。</p>
+<h2>距离真实的传播还有多久</h2>
+<p>正如前文提到，要让小型 AI 在普通设备上持续复制，至少要同时满足两个条件：<strong>模型能装得下，也有能力把新的运行环境搭起来。</strong></p>
+<p>尽管 Anthropic 目前仅分别展示了这两方面的进展，仍没有在真实电视盒子上展示从部署到继续传播的完整闭环。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881337212-9.jpg"></p>
+<p>以及这种 AI 病毒的传播速度不会很快，在电视盒子的算力约束下，他们把真实盒子的推理速度与部署任务的计算消耗结合起来，估算 Qwen3.5-9B 完成一次推理部署需要约 28 至 51 小时。</p>
+<blockquote><p>它不是燎原的烈火，而是一滩黏菌、一群果蝇，以天为单位缓慢倍增。</p></blockquote>
+<p><strong>但如果许多设备各自或组成小组运行模型副本，到时候封禁某一家 AI 服务的账号，也未必能终止所有实例。</strong></p>
+<p>参照 Kimwolf 僵尸网络峰值时超过 200 万台设备的规模估算，如果每 15 台电视盒子供养一个模型副本，整个虫群将拥有约 13.3 万个「个体」，总算力约合 40 块 H100。</p>
+<p>这个数字在算力军备竞赛里不值一提，但它的可怕之处在于另一个属性：<strong>没有中心节点，就没有开关</strong>。 我们无法像关停一家公司那样关停它，只能一台设备一台设备地清剿。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881339335-10.png"></p>
+<p>电视盒子、摄像头这样的联网设备，过去就曾成为大规模僵尸网络的目标。USENIX Security 2017 的一篇研究记录了低成本设备如何被集中利用，也说明这些小机器的安全问题可以累积成很大的网络问题。</p>
+<blockquote><p>我们还没有看到一个完整的失控复制体，但我们正在看到生命迹象，就像 2024 年初的编程智能体一样。</p></blockquote>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881348991-11.png"></p>
+<div>图｜根据产品数据粗略估计，边缘加速器中存在 9000 到 35000 个 H100 等效计算能力</div>
+<p>文章的蓝队部分给出了防御框架：和防疫一样，目标不是杀死每一个病原体，而是把基本传染数 R₀ 压到 1 以下，让蠕虫自行消亡，具体提到的有利因素包括：</p>
+<ul>
+<li>复制要传输数 GB 的模型权重，分布式推理还会产生持续的设备间通信，对互联网供应商 ISP 的流量监控来说，这是明显的异常信号。</li>
+</ul>
+<ul>
+<li>有处置研究表明，ISP 把受感染用户关进「围墙花园」并通知清理，14 天内可清除 92% 的感染，如果不通知只有 74%。</li>
+</ul>
+<ul>
+<li>从源头减少存量，英国等地已立法禁止 IoT 设备使用默认密码。提高出厂安全基线，同时防御 AI 蠕虫和传统蠕虫。</li>
+</ul>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881354837-12.png"></p>
+<div>图｜两个网络各有 8 台主机，通过一个可访问两个子网的节点连接。每个网络之间完全连通。蠕虫代理程序从 A 段的单个零号病人节点开始；枢纽节点增加了一点额外的挑战，蠕虫就需要访问枢纽节点并从那里重新扫描。</div>
+<p>Anthropic 在研究博客的最后说，我们既要加固系统，让这类复制体难以传播；也要做好准备，去适应一个它们已经存在、且将长期存在的世界。</p>
+<p>眼下我们现在使用的大模型，无论能力有多强，都需要有人为它提供服务器、支付算力成本。即使是能够连续工作几十个小时的 Agent，也依然依赖这些基础设施。</p>
+<p>但如果 AI 能够自己寻找联网设备、搭建推理环境，再把自己复制到下一台机器，这种依赖关系就有可能发生变化。</p>
+<p><strong>AI 也会从依赖人类提供运行环境，发展到能够自行获取运行所需的算力。</strong></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1791881359781-13.jpg"></p>
+<div>
+<p>如果你也想查一下家里没有品牌的安卓电视盒子，会不会成为那个能被 AI 蠕虫直接接管的设备，可以在电脑上让 Codex 协助你操作终端，扫描局域网，找出开着调试端口的设备。</p>
+<p>根据 Anthropic 这次实验的说明，这次端到端复制实验通过没有身份认证的 ADB 接口访问目标设备。ADB 是 Android Debug Bridge，也就是安卓调试桥，可以用于安装应用、调试程序和执行命令。</p>
+<p>传统的 ADB 网络连接常用 TCP 5555 端口。如果设备开放了 ADB 网络访问，又没有启用身份认证，连接者就可能取得执行命令的权限。新版 Android 的无线调试则通常需要配对，并使用动态端口。</p>
+<p>如果扫描结果出现 5555/tcp open，先确认这个 IP 对应的是不是电视盒子。不需要调试功能的话，可以进入盒子的「开发者选项」，关闭 USB 调试及网络、无线调试。</p>
+</div>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><a href="https://www.ifanr.com/1683992?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

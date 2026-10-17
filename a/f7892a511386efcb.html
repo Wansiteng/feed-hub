@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>跨越阈值：OpenAI 与 Anthropic 如何在金融 agent 中处理自主性与安全</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">跨越阈值：OpenAI 与 Anthropic 如何在金融 agent 中处理自主性与安全</h1>
+<p><small>Latent Space · 评分 8/10：前沿实验室 agent 自主性与安全架构深度分析<br/>原标题：Crossing the Threshold: How OpenAI and Anthropic Approach Autonomy and Safety in Financial Agents</small></p>
+<p><strong>要点</strong></p><ul><li>OpenAI 的 Joseph Kim 提出「有用性阈值」概念，认为模型能力提升将让金融分析师把更多工作交给 agent</li><li>Kim 预测 2027 年金融业将减少依赖 Excel 和 PowerPoint，agent 能完成投资想法生成和交易</li><li>Two Sigma 用可组合控制措施避免「审批疲劳」，用自动分类器只把重要请求交给人</li></ul>
+<hr/>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!rtS2!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4aa91ce4-8821-4844-aa0f-56d4bd3c8d7e_1280x720.jpeg"><div><img alt="" height="720" src="https://substackcdn.com/image/fetch/$s_!rtS2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4aa91ce4-8821-4844-aa0f-56d4bd3c8d7e_1280x720.jpeg" width="1280"></div></a><figcaption>OpenAI 的 Joseph Kim 今天在 AIE NY 上谈到了阈值现象。</figcaption></figure>
+<p>本周 <a href="https://ai.engineer/nyc/2026">AI Engineer New York 大会</a> 的一个关键主题是<strong>如何平衡 agent 自主性与安全性和保障</strong>。本周，前沿实验室和金融公司都在演讲中聚焦这一问题。</p>
+<p>主要教训是：安全的自主性取决于<strong>你把控制权和人类判断放在哪里</strong>，而不是你施加了多少限制。</p>
+<hr>
+<p><strong><span>赞助商：用 shop.dev 将购物功能构建到你的 agent 中</span></strong></p>
+<p>为 agent 添加商务功能通常意味着从头重建搜索和结账流程。<a href="https://shop.dev/?utm_source=Paid&amp;utm_medium=Newsletter&amp;utm_campaign=Shop-Launch&amp;utm_content=Latent-Space">shop.dev</a> 为你提供一个单一 API，可在任何 agent 或应用中实现购物。一次连接即可访问超过十亿种产品及其当前价格和库存情况，通过 Shop 即时登录，并在对话中一键完成 Shop Pay 结账。它面向所有开发者开放，试用无需账户或密钥。<strong>→ <a href="https://shop.dev/?utm_source=Paid&amp;utm_medium=Newsletter&amp;utm_campaign=Shop-Launch&amp;utm_content=Latent-Space">立即试用 shop.dev</a></strong></p>
+<hr>
+<p><strong>Joseph Kim</strong>，OpenAI 金融服务 ChatGPT 负责人，今天在 AIE New York 发表了主题演讲。（我们还与 Kim 录制了一期特别播客，即将发布。）他谈到了可靠性以及<strong>“有用性阈值”</strong>，他说这是“<strong>模型变得足够强大和可靠，从而为你节省时间的那一刻。</strong>”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!Rpep!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F79fb3961-5b70-48a9-9d0e-4d7c4d315c5e_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!Rpep!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F79fb3961-5b70-48a9-9d0e-4d7c4d315c5e_2048x1280.png" title="" width="1456"></div></a></figure>
+<p>Kim 认为，<strong>不断增强的模型能力</strong>很快将让金融分析师跨过这一阈值，使他们能够将更多工作委托给 agent。</p>
+<p>他对 2027 年 AI 在金融领域的作用做出了一些具体预测。他声称，明年金融行业不仅将减少对 Excel 和 PowerPoint 的依赖，而且<strong>agent 将足够出色，能够完成“投资想法生成和交易”。</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!nINe!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb3b1cadc-5f07-494e-9fec-569ee9186cf1_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!nINe!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb3b1cadc-5f07-494e-9fec-569ee9186cf1_2048x1280.png" title="" width="1456"></div></a></figure>
+<p>模型能力的“水涨船高”也带来了更好的<strong>可追溯性</strong>。</p>
+<p>“在金融领域，你需要能够检查一个数字的来源，并理解其背景，”Kim 说。“我们希望这种审查成为 [ChatGPT for Financial Services] 体验的自然组成部分。这些产品细节<strong>有助于将模型的能力转化为人们可以使用的工作成果。</strong>”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!MccV!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F02b6f26a-7116-4d0f-9856-f64b6b180d46_1280x720.jpeg"><div><img alt="" height="720" src="https://substackcdn.com/image/fetch/$s_!MccV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F02b6f26a-7116-4d0f-9856-f64b6b180d46_1280x720.jpeg" title="" width="1280"></div></a><figcaption>Joseph Kim 在 AIE NY；照片由 Richard MacManus 拍摄</figcaption></figure>
+<p>至于何时需要人类参与，Kim 将其视为产品设计决策。</p>
+<p>“界面会如何变化？用户仍然需要控制、审查或批准什么？这些是你可以现在就开始着手的产品设计问题。”</p>
+<h2>在对冲基金中平衡 AI 安全与创新</h2>
+<p><strong>John Feminella</strong>，对冲基金 <strong>Two Sigma</strong> 的架构高级副总裁，正在处理 Kim 提到的那些产品设计问题。在一次主题演讲中，他谈到了他们实施的五项控制措施，以在不限制模型能力的情况下约束 agent。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!97el!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8a67a872-af73-45e8-8b48-9cfee32b9c34_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!97el!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8a67a872-af73-45e8-8b48-9cfee32b9c34_2048x1280.png" width="1456"></div></a></figure>
+<p>Feminella 认为，安全和创新不应被视为一个光谱的两端。他尤其批评了<strong>“审批疲劳”</strong>，即一个人批准所有事情可能会阻碍创新——而且如果他们未能完全关注所有需要做出的决定，还会引入风险。</p>
+<p>在 Two Sigma，他们实施了一套<strong>控制措施</strong>，他将其定义为<strong>“护栏和共享能力</strong>，让团队能够以不妨碍他们目标的方式行动。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!nwmY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc6b9449-8880-4a58-80f7-f7ae653126eb_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!nwmY!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc6b9449-8880-4a58-80f7-f7ae653126eb_2048x1280.png" width="1456"></div></a></figure>
+<p>这些控制措施是可组合的，意味着“每一项各司其职，合在一起就能<strong>让我们以适当的安全级别运行具有真正自主性的agent。”</strong></p>
+<p>其中一项控制措施是使用<strong>自动模式分类器</strong>，Feminella表示，这“能对常规调用做出决策，然后只把最重要的、最有可能产生影响的请求发送给人工处理。”</p>
+<p>分类器可用于模糊情况，而确定性规则更适合明确情况。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!pJdQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4cfed70-6f95-4935-b333-3d9e89ff8f32_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!pJdQ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4cfed70-6f95-4935-b333-3d9e89ff8f32_2048x1280.png" width="1456"></div></a></figure>
+<h2>Anthropic：给agent提供上下文，然后界定信任的边界</h2>
+<p>Anthropic的演讲概述了一个类似的框架，其目标是<strong>在金融agent工作流中构建“信任”。</strong></p>
+<p>上个月，Anthropic发布了<strong><a href="https://claude.com/resources/articles/claude-for-financial-advisors">Claude for Financial Advisors</a></strong>，让财务顾问可以将自己的系统连接到Claude以及一套工作流技能。</p>
+<p>在本周的AIE上，Anthropic金融服务董事总经理<strong>Belinda Neal</strong>解释了Anthropic为何与金融机构合作开发这款新产品。</p>
+<p><strong>“每隔一段时间，就会有一个模型跨过一道门槛。</strong>而一旦跨过，就会掀起一波工作方式的变革。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!_QMF!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcdbc9897-7f6d-4d92-b243-ad628053954b_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!_QMF!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcdbc9897-7f6d-4d92-b243-ad628053954b_2048x1280.png" width="1456"></div></a></figure>
+<p>Neal的同事、在Anthropic从事应用AI工作的<strong>Keon Shahab</strong>随后谈到了“为agent构建信任层”。他说这涉及三个步骤：</p>
+<p>“agent以什么身份行事，需要<strong>身份和权限层</strong>。我们如何<strong>对agent进行沙箱隔离并确定审批层</strong>，以便在其行动前有人签字确认。最后，<strong>我们如何知道agent在随着时间调整任何变量后仍能正常工作</strong>。”</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!drbl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F09e8e7b3-3a40-4258-a950-bc35cb247472_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!drbl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F09e8e7b3-3a40-4258-a950-bc35cb247472_2048x1280.png" width="1456"></div></a></figure>
+<p>Shahab用一个交易中断调查agent说明了<strong>提议与行动之间的边界</strong>，该agent会建议修改订单，供人工审批。</p>
+<p>“我们希望它[agent]只是对我们的订单数据提出新的修改建议，而不是真正去执行这些修改，”他说。</p>
+<p>“通过一次性构建<strong>一个你信任的基础层</strong>，你就可以快速大规模部署许多agent，”Shahab总结道。</p>
+<h2>Bloomberg：在模型之外强制执行安全</h2>
+<p>作为Bloomberg CTO办公室架构与新兴技术负责人，<strong>Andrey Rybka</strong>肩负着在公司内部平衡自主性与规模的责任。</p>
+<p>在今天AIE的演讲中，Rybka谈到了一系列agent造成破坏的真实事件——以及<strong>有助于防止此类事件的防御措施</strong>。这些措施包括限定范围的身份和凭证、对工具调用的控制、出站流量限制、审计追踪、预算和终止开关。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!YQJQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff41105e4-743f-44cd-9573-8af0543ffce3_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!YQJQ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff41105e4-743f-44cd-9573-8af0543ffce3_2048x1280.png" width="1456"></div></a></figure>
+<p>在一个例子中，一个agent把市场评论中嵌入的指令当成了补货指令。Rybka建议对高价值操作采取<strong>输入验证、提示注入防御、来源追踪和人工审批</strong>。</p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!KzTn!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0ad8f265-d571-4410-ad9e-2d6173775797_2048x1280.png"><div><img alt="" height="910" src="https://substackcdn.com/image/fetch/$s_!KzTn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0ad8f265-d571-4410-ad9e-2d6173775797_2048x1280.png" width="1456"></div></a></figure>
+<p>“我们希望在<strong>模型之外有确定性的控制措施</strong>，”Rybka说。“检查每一次调用，记录下来，并保留一个终止开关。”</p>
+<h2>快速前进，安全停下</h2>
+<p>尽管像OpenAI和Anthropic这样的前沿实验室正在为金融agent构建“信任框架”，但最终<strong>还是要由金融机构来为自己的agent设置控制措施</strong>。Two Sigma的John Feminella一语中的：实施能够促成自主性的控制措施，但<strong>不要设置路障。</strong></p>
+<p>或者正如他在结论中所说：“汽车为什么要有刹车？不只是为了能停下来，而是为了能快速前进并安全停下。”</p>
+<p><a href="https://www.latent.space/p/crossing-the-threshold">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

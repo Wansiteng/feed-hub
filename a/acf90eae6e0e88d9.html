@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>OpenHands v1.27.0 发布</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">OpenHands v1.27.0 发布</h1>
+<p><small>OpenHands Releases · 评分 6/10：编码 agent 版本更新，新增 ACP agent 等实质功能<br/>原标题：v1.27.0</small></p>
+<p><strong>要点</strong></p><ul><li>OpenHands 发布 v1.27.0，新增 ACP 内置 agent OpenCode 和 Pi</li><li>新增自动化设置分栏、草稿管理与 agent 辅助表单更新</li><li>Agent Canvas 接入 DigitalOcean Managed Agents，支持桌面和网页端</li></ul>
+<hr/>
+<h2>1.27.0 (2026-10-12)</h2>
+<h2>变更内容</h2>
+<h3>新功能</h3>
+<ul>
+<li>feat(verify-openhands)：在 DeepSeek 上驱动 mock-LLM 端到端行为并梳理差距，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18191">#18191</a></li>
+<li>feat(verify-openhands)：通过 <code>browser record</code> 录制浏览器视频，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18211">#18211</a></li>
+<li>feat(acp)：在本地后端新增 OpenCode 和 Pi 作为内置 ACP agent，由 <a href="https://github.com/Placidoe">@Placidoe</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17758">#17758</a></li>
+<li>feat：新增启动页模式开关，由 <a href="https://github.com/malhotra5">@malhotra5</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17199">#17199</a></li>
+<li>feat：新增自动化设置分栏面板，由 <a href="https://github.com/malhotra5">@malhotra5</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17200">#17200</a></li>
+<li>feat：新增 agent 辅助的自动化表单更新，由 <a href="https://github.com/malhotra5">@malhotra5</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17201">#17201</a></li>
+<li>feat：新增持久化自动化草稿管理界面，由 <a href="https://github.com/malhotra5">@malhotra5</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17242">#17242</a></li>
+<li>feat：完成自动化设置草稿流程，由 <a href="https://github.com/malhotra5">@malhotra5</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17688">#17688</a></li>
+<li>feat：在平板上新增紧凑型分区导航，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18200">#18200</a></li>
+<li>feat(verify-openhands)：通过 <code>browser key down|up|release-all</code> 按住按键，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18292">#18292</a></li>
+<li>feat(acp)：从 agent 获取 ACP 模型列表，不再硬编码，由 <a href="https://github.com/simonrosenberg">@simonrosenberg</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18131">#18131</a></li>
+<li>feat(mars)：将 Agent Canvas 连接到 DigitalOcean Managed Agents（桌面端和网页端），由 <a href="https://github.com/amandhaw">@amandhaw</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17838">#17838</a></li>
+</ul>
+<h3>Bug 修复</h3>
+<ul>
+<li>fix(e2e)：保留 mock 验证轨迹，由 <a href="https://github.com/kr1shna-exe">@kr1shna-exe</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17876">#17876</a></li>
+<li>fix(hooks)：在可用 Hooks 对话框中显示 prompt 和 agent hook 文本，由 <a href="https://github.com/fengyue-xve">@fengyue-xve</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18107">#18107</a></li>
+<li>fix(a11y)：按 Escape 关闭编辑器的“更多输入操作”菜单，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18174">#18174</a></li>
+<li>fix(verify-openhands)：将默认 agent 配置指向预设的模型，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18209">#18209</a></li>
+<li>fix(plugins)：将重复安装提示指向更新或卸载，由 <a href="https://github.com/fengyue-xve">@fengyue-xve</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18110">#18110</a></li>
+<li>fix(hooks)：在可用 hooks 对话框中使用专用的 hooks 获取错误信息，由 <a href="https://github.com/lx3133584">@lx3133584</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18177">#18177</a></li>
+<li>fix：表单验证使用主题颜色，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18199">#18199</a></li>
+<li>fix(backends)：在云端网页应用返回的组织下打开，由 <a href="https://github.com/hieptl">@hieptl</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18228">#18228</a></li>
+<li>fix: 让 Edit 后端对话框适配小视口，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18219">#18219</a></li>
+<li>fix(onboarding): 从所在行启动设置步骤的引导，并移除模板停靠点的页脚，由 <a href="https://github.com/hieptl">@hieptl</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18243">#18243</a></li>
+<li>fix(automations): 让长时间运行的 Logs 对话框保持在面板内，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18175">#18175</a></li>
+<li>fix(mcp): MCP 服务器变更失败时只显示一个错误 toast，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18182">#18182</a></li>
+<li>fix(docker): 当内核不支持 IPv6 时将前端绑定到 0.0.0.0，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18180">#18180</a></li>
+<li>fix(settings): 为设置界面指定明确高度，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18256">#18256</a></li>
+<li>fix(mcp): 保存前连接测试失败时只显示一个 toast，由 <a href="https://github.com/smolpaws">@smolpaws</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18267">#18267</a></li>
+<li>fix(hooks): 按 hook 类型选择 Available Hooks 文本，由 <a href="https://github.com/fengyue-xve">@fengyue-xve</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18215">#18215</a></li>
+<li>fix(conversation-panel): 在确认弹窗中向 BrandButton 传递 testId，由 <a href="https://github.com/lx3133584">@lx3133584</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18151">#18151</a></li>
+<li>fix(settings): 在 LLM 和 agent 配置编辑器中标记已被占用的名称，由 <a href="https://github.com/awss1i">@awss1i</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18144">#18144</a></li>
+<li>fix(a11y): 让 agent 配置行菜单支持键盘操作，由 <a href="https://github.com/fengyue-xve">@fengyue-xve</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18112">#18112</a></li>
+<li>fix(automations): agent 配置字段为空时显示 Default，由 <a href="https://github.com/fengyue-xve">@fengyue-xve</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18111">#18111</a></li>
+<li>fix(onboarding): 让设置引导避开其他对话框，并从库开始 MCP 引导，由 <a href="https://github.com/hieptl">@hieptl</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18261">#18261</a></li>
+<li>fix(onboarding): 在内置集成选项上显示“Use”，并重命名自动化步骤，由 <a href="https://github.com/hieptl">@hieptl</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18262">#18262</a></li>
+<li>fix: 按 Escape 时先关闭 skill 标签弹出层再关闭模态框，由 <a href="https://github.com/pei711">@pei711</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17967">#17967</a></li>
+<li>fix: 显示针对 header 的 MCP 校验错误，由 <a href="https://github.com/pei711">@pei711</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17966">#17966</a></li>
+<li>fix(chat): 导航前先刷新会话草稿，由 <a href="https://github.com/GoldArowana">@GoldArowana</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17968">#17968</a></li>
+<li>fix: 在非 macOS 上接受 Ctrl 作为确认快捷键，由 <a href="https://github.com/errmakov">@errmakov</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18127">#18127</a></li>
+<li>fix(settings): 按后端区分本地设置缓存，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/16958">#16958</a></li>
+<li>fix(telemetry): 重试自动化同意同步，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/16959">#16959</a></li>
+<li>fix(mcp): 使用随主题变化的密钥选择样式，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18278">#18278</a></li>
+<li>fix: 修复事件组中被拒绝和出错的 action，由 <a href="https://github.com/errmakov">@errmakov</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17995">#17995</a></li>
+<li>fix(i18n): 订阅模型未加载消息改用翻译 key，由 <a href="https://github.com/lx3133584">@lx3133584</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18308">#18308</a></li>
+</ul>
+<h3>文档</h3>
+<ul>
+<li>docs(verify-openhands): 同步 <a href="https://github.com/OpenHands/OpenHands/pull/18107">#18107</a> 中 Available Hooks 文案修复，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18207">#18207</a></li>
+<li>docs(verify-openhands): 同步 2026-10-08 维护内容，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18183">#18183</a></li>
+<li>docs(verify-openhands): 同步 2026-10-09 维护内容，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18237">#18237</a></li>
+<li>docs(verify-openhands): 同步 2026-10-10 维护内容，由 <a href="https://github.com/smolpaws">@smolpaws</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18264">#18264</a></li>
+<li>docs(verify-openhands): 同步 2026-10-11 维护内容，由 <a href="https://github.com/smolpaws">@smolpaws</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18281">#18281</a></li>
+<li>docs(verify-openhands): 从已关闭的 2026-10-09 扫描中恢复映射修正，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18295">#18295</a></li>
+<li>docs(verify-openhands): 在功能映射中记录所有已知 bug，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18304">#18304</a></li>
+</ul>
+<h3>维护</h3>
+<ul>
+<li>chore: 将 agent-server 升级至 1.54.0，由 <a href="https://github.com/all-hands-bot">@all-hands-bot</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18253">#18253</a></li>
+<li>chore(lint): 保护分隔线和开关外观契约，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18194">#18194</a></li>
+<li>refactor(theme): 将基础颜色与 text-base 排版分离，由 <a href="https://github.com/smolpaws">@smolpaws</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17646">#17646</a></li>
+<li>refactor(theme): 使用可读的 MCP 反馈文本 token，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18270">#18270</a></li>
+<li>chore(lint): 分阶段启用内联样式警告，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18275">#18275</a></li>
+<li>chore(lint): 保护插入符外观和状态旋转，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18274">#18274</a></li>
+<li>chore: 移除已合并 PR 的产物，由 <a href="https://github.com/all-hands-bot">@all-hands-bot</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17718">#17718</a></li>
+<li>test(onboarding): 保留完整的模型配置，由 <a href="https://github.com/kr1shna-exe">@kr1shna-exe</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/17889">#17889</a></li>
+<li>refactor(onboarding): 编辑当前激活的 LLM 配置而非原始 LLM 设置，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18218">#18218</a></li>
+<li>chore(lint): 将 shadcn lint 更新至 0.2.1，由 <a href="https://github.com/enyst">@enyst</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18315">#18315</a></li>
+<li>chore: 将 @openhands/extensions 升级至 0.30.0，由 <a href="https://github.com/hieptl">@hieptl</a> 提交于 <a href="https://github.com/OpenHands/OpenHands/pull/18336">#18336</a></li>
+</ul>
+<h2>新贡献者</h2>
+<ul>
+<li><a href="https://github.com/fengyue-xve">@fengyue-xve</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/18107">#18107</a> 中完成了首次贡献</li>
+<li><a href="https://github.com/lx3133584">@lx3133584</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/18177">#18177</a> 中完成了首次贡献</li>
+<li><a href="https://github.com/Placidoe">@Placidoe</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/17758">#17758</a> 中完成了首次贡献</li>
+<li><a href="https://github.com/pei711">@pei711</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/17967">#17967</a> 中完成了首次贡献</li>
+<li><a href="https://github.com/GoldArowana">@GoldArowana</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/17968">#17968</a> 中完成了首次贡献</li>
+<li><a href="https://github.com/amandhaw">@amandhaw</a> 在 <a href="https://github.com/OpenHands/OpenHands/pull/17838">#17838</a> 中完成了首次贡献</li>
+</ul>
+<p><strong>完整变更日志</strong>：<a href="https://github.com/OpenHands/OpenHands/compare/v1.26.0...v1.27.0"><tt>v1.26.0...v1.27.0</tt></a></p>
+<hr>
+<p>此 PR 由 <a href="https://github.com/googleapis/release-please">Release Please</a> 生成。请参阅<a href="https://github.com/googleapis/release-please#release-please">文档</a>。</p>
+<p><a href="https://github.com/OpenHands/OpenHands/releases/tag/v1.27.0">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

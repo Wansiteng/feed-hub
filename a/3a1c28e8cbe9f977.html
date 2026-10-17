@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>我们在微软 Surface Laptop Ultra 上测试了 RTX Spark 超级芯片</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">我们在微软 Surface Laptop Ultra 上测试了 RTX Spark 超级芯片</h1>
+<p><small>Tom&#x27;s Hardware · 评分 7/10：英伟达 PC 芯片实测，面向 agentic AI 时代，与读者硬件兴趣相关<br/>原标题：We tested the RTX Spark Superchip in Microsoft&#x27;s Surface Laptop Ultra</small></p>
+<p><strong>要点</strong></p><ul><li>RTX Spark 平台搭载 GB10 Superchip，最高 20 核 CPU 与 6144 CUDA 核心</li><li>在 AgentPerf-local 测试中，Surface Laptop Ultra 跑 Qwen 3.8 27B 比 M5 Max MacBook Pro 快</li><li>Ryzen AI Max+ 395 完成同一测试需约 40 分钟，约为 RTX Spark 和 MacBook Pro 的两倍</li></ul>
+<hr/>
+<p>Nvidia CEO 黄仁勋早在 <a href="https://www.tomshardware.com/tag/computex">Computex</a> 2026 上就发布了 RTX Spark 平台，并雄心勃勃地宣称要“重新发明 PC”。通过将 GB10 Superchip 与一个专为本地 AI agent 安全、隔离运行而定制的 Windows on Arm 版本相结合，Nvidia 及其合作伙伴 <a href="https://www.tomshardware.com/tag/microsoft">Microsoft</a>、<a href="https://www.tomshardware.com/tag/dell">Dell</a>、HP、MSI、Lenovo 和 Asus 都希望为这样一个未来铺平道路：PC 成为工作和创作中主动、自主的伙伴。</p>
+<p>这一未来愿景的硬件基础如今已经就位。上周，我们飞往旧金山，获取了 RTX Spark 平台的全部细节，并带着顶配版的 Microsoft Surface Laptop Ultra 回到家中进行全面测试。</p>
+<p>这台系统搭载了完整的 RTX Spark Superchip，拥有 20 个 CPU 核心和 6144 个 CUDA 核心，以及 128GB LPDDR5X-9400 内存，过去一周我一直在对它进行各种测试，看看它究竟能做什么。</p>
+<p>RTX Spark 发布的禁运安排有些特殊。今天，我们将分享我们对 Spark 平台的整体体验，以及竞品性能评估，但不会公布任何针对具体系统的结果，比如续航、做工或屏幕质量，以及其他此类细节。Tom's Hardware 实验室里还有其他 RTX Spark 笔记本，这些系统的详细评测很快就会发布。</p>
+<p>不，这种做法不太说得通，因为移动平台的体验与芯片在特定笔记本设计中的具体实现紧密相连、密不可分。而且我们知道，续航是许多关注该平台的人首要关心的问题。但同样，所有这些信息很快就会公布。</p>
+<p>在这第一轮测试中，我们将搭载 RTX Spark 的 Microsoft Surface Laptop Ultra 与两台系统进行了对比。<a href="https://www.tomshardware.com/laptops/macbooks/apple-macbook-pro-14-inch-m5-max-2026-review">第一台是 14 英寸 MacBook Pro</a>，内置 Apple 最高端的 M5 Max SoC。那台 Mac 拥有 40 核 GPU 和 18 核 CPU，以及 128 GB LPDDR5X 内存。我们实验室目前没有移动版 Ryzen AI Max+ 395 系统，但我们有 <a href="https://www.tomshardware.com/pc-components/gpus/embargo-mon-july-6-8am-pt-1100-edt-amd-ryzen-ai-halo-review">AMD 的紧凑型 Ryzen AI Halo</a>，可以借助最新的 ROCm 堆栈和 llama.cpp 构建提供新鲜数据。</p>
+<h3><span>本地 AI 性能</span></h3>
+<p>评判本地 AI 性能是一个不断变化的目标，本次评测也不例外。我们过去的测试分别考察了 AI 推理的 prompt 处理阶段和 token 生成阶段，因为我们明白，在这两个阶段都快的系统才能提供最佳体验。</p>
+<p>但在 agentic 工作流中，这种 <a href="https://www.tomshardware.com/tag/benchmark">benchmark</a> 方法无法反映完成一项任务、达到某个目标所需的所有推理轮次加起来的总时间。为了捕捉完整的端到端时间，Artificial Analysis 的团队开发了一个新的 benchmark——<a href="https://github.com/ArtificialAnalysis/aa-agentperf-local">AgentPerf-local</a>，它能在多个 agentic AI 任务中精确重放推理轨迹。这种方法的价值应该不言自明：AI agent 完成任务越快，系统的生产力就越高。</p>
+<p>因此，我们不再像过去那样呈现原始的 time-to-first-token 和 tokens-per-second 数据，而是像对待更传统的 CPU 和内容创作 benchmark 那样，分享 time-to-completion 数值。</p>
+<p>再次强调，本地 AI benchmark 是一项持续进行中的工作，所以请告诉我们你对这种方法的看法，我们会在继续完善测试方法时考虑这些反馈。</p>
+<p>我们用两个兼容的模型运行了 AgentPerf-local：一个是稠密的 Qwen 3.8-27B，它作为同尺寸下最智能的本地模型之一而广受欢迎；另一个是 Qwen 3.6 35B A3B 混合专家模型，它的智能程度较低，但更容易在各类系统上快速运行。我们使用最新构建的 llama.cpp 作为推理后端，并在每个测试系统上从源码编译，以便按需利用 CUDA、Metal 或 ROCm 加速。</p>
+<p>我们先来看看 Qwen 3.8 27B 的表现。我们使用了 Unsloth 的 Q4_K_M 量化版本。在 RTX Spark 和 MacBook Pro 上，我们启用了 DFlash2 投机解码；在 Ryzen AI Halo 上，则使用 Qwen 3.8 27B 内置的 MTP 以获得最佳性能。</p>
+<figure><figcaption><span>（图片来源：Future）</span></figcaption></figure>
+<p>正如我们在对搭载 M4 Max SoC 的 Apple Mac Studio 进行基准测试时发现的那样，内存带宽只是本地 AI 性能的制约因素之一。尽管 M5 Max MacBook Pro 在纸面上拥有内存带宽优势，但在使用 Qwen 3.8 27B 运行 AgentPerf 基准测试时，它完成测试所需的时间仍比搭载 RTX Spark 的 Surface Laptop Ultra 多出约 25%。</p>
+<p>部分原因可能在于软件成熟度，但也值得记住的是，我们的 Surface Laptop Ultra 是一台 15 英寸系统，配备功率大得多的 140W 电源适配器，而 14 英寸 MacBook Pro 使用的是 96W 充电器。</p>
+<p>16 英寸的 M5 Max MacBook Pro 也配备了 140W 适配器，我们很好奇该系统更大的机身所带来的额外功率和更高散热余量是否有助于缩小这一差距。但无论如何，RTX Spark 平台目前在这项任务上总体是最快的。</p>
+<p>与此同时，AMD 已推出近两年的 Ryzen AI Max+ 395 在这项高要求的测试中就是跟不上这两款较新的系统。使用 Qwen 3.8 27B 完成我们的 agentic 测试，它所需的时间大约是 RTX Spark 或 MacBook Pro 的两倍，高达 40 分钟。</p>
+<p>Ryzen AI Halo 是迷你台式机形态而非笔记本，这一事实对这些结果影响不大，因为这种设计可能带来的任何功率和散热余量都不可能弥补这里的性能差距。</p>
+<p>接下来是更轻量的 Qwen 3.6 35B A3B。我们运行了 Unsloth 的该模型 Q4_K_M 量化版本，并启用了 MTP。</p>
+<figure><figcaption><span>（图片来源：Future）</span></figcaption></figure>
+<p>Surface Laptop Ultra 最终仅用八分钟就完成了这项测试，比 14 英寸 MacBook Pro 的 10 分钟快了约 25%。这项测试对 Ryzen AI Halo 也友好得多，它以更合理的 13 分钟完成了基准测试。但这恰恰强调了一点：要想让 Strix Halo 达到合理的性能水平，你就得牺牲模型的智能程度。</p>
+<p>AMD 最近发起了一轮宣传攻势，强调 Strix Halo 系统的入门成本相对 DGX Spark 台式机和如今的 RTX Spark 笔记本更低。但如果时间就是金钱，而更快地从本地 AI 系统中获得更智能的 token 意味着能完成更多可能带来盈利的 agentic 工作，那么前期更昂贵的系统将能完成更多此类工作，并有可能随时间推移产生更多价值。</p>
+<h3><span>游戏性能：初步印象</span></h3>
+<p>尽管带有 RTX 品牌标识，且 Nvidia 大力强调其 6144 个 CUDA 核心的 GPU（或 48 个 SM），RTX Spark 平台在游戏方面仍面临一些严峻挑战。当今大多数游戏不会为其 Arm CPU 原生编译，即便有游戏可能做到，该平台提供的最高 300 GB/s 共享内存带宽也远低于 RTX 5060 Mobile 为 26 个 SM 提供的 384 GB/s 专用带宽。</p>
+<p>整个 GB10 SoC 都在争夺相对有限的内存带宽，而由于图形处理通常是受内存带宽制约的工作负载，这对于在游戏中喂饱所有这些 SM 来说并不是一个好的开端。</p>
+<p>我从《战争机器：E-Day》开始了我的游戏探索。在这款对 CPU 要求极高的游戏中，Grace CPU 核心的基线性能以及 Prism x86 模拟器带来的额外开销，显然对这款作品毫无帮助。</p>
+<p>在接近 1080p（1908x1272）的渲染分辨率下，使用 High 预设和 2X 帧生成，GPU 利用率平均仅达到 85%，而且我们在地图切换时至少遇到了一次严重卡死，随着游戏进程的深入，这让人对沉浸式体验缺乏信心。</p>
+<p><strong>《战争机器：E-Day》（1908x1272，High 预设，Mega Geometry 开启，MFG 2X）</strong></p><ul><li><span>第 0 行 - 单元格 0 </span> · <strong>平均 FPS</strong> · <strong>1% Low FPS</strong> · <strong>平均 PC 延迟（毫秒）</strong></li><li><strong>搭载 RTX Spark 的 Microsoft Surface Laptop Ultra</strong> · 77.7 · 39.9 · 83.5</li></ul>
+<p>由于对 CPU 的依赖，《战争机器》对这个平台来说大概是最糟糕的情况，但事实仍然是体验并不好，而调低设置或降低超分输入分辨率只会加剧这款作品的 CPU 瓶颈。如果有哪款游戏需要原生 Arm 版本，那就是这一款。</p>
+<p><em>《控制：共振》</em>对 CPU 的依赖明显更低，但这只是意味着 RTX Spark 超级芯片在游戏方面的其他潜在短板似乎开始显现。</p>
+<p>在 Surface Laptop Ultra 原生的 3270x2180 输出分辨率下，即便开启 DLSS 超分，我也费了一番功夫才获得稳定的帧率和输入延迟，后来我发现以 2560x1440 窗口模式运行游戏，开启 DLSS Performance 超分、High 预设和 MFG 3X，将帧率保持在 Surface Laptop Ultra 的 120Hz 刷新率附近，效果更好。（该系统 3:2 的高纵横比意味着 16:9 全屏游戏无法干净地放大。）</p>
+<p><strong>《控制：共振》（2560x1440，High 预设，RT 关闭，MFG 3X）</strong></p><ul><li><span>第 0 行 - 单元格 0 </span> · <strong>平均 FPS</strong> · <strong>1% Low FPS</strong> · <strong>平均 PC 延迟（毫秒）</strong></li><li><strong>搭载 RTX Spark 的 Microsoft Surface Laptop Ultra</strong> · 109.2 · 51.6 · 78.3</li></ul>
+<p>但即便如此，输入延迟也高于我在标准 GPU 测试平台上认为可接受的水平，而只要开启光线追踪，帧率就会下降，输入延迟也会进一步飙升，所以我不得不坚持仅使用光栅化渲染以获得最佳效果。</p>
+<p>总的来说，我对 RTX Spark 游戏的早期结论是：你可以玩，也能玩得还不错，但这并不是该平台的主要关注点。RTX Spark 超级芯片相对有限的内存带宽、系统的 CPU 性能以及 Prism 模拟的开销，意味着你需要寻找一个狭窄的设置区间，让基线帧率、超分、画质和帧生成的流畅度提升仍能带来可接受的输入延迟。</p>
+<p>当我最初接触这个平台的游戏时，我以为 DLSS 超分会是体验中必不可少的一部分，但实际上，你确实还需要依赖 DLSS 帧生成，无论是为了增加流畅度（如《战争机器》），还是为了流畅度以及由于开发者幕后选择而带来的 Nvidia Reflex 优势（如《控制：共振》）。</p>
+<p>不过，即便有 Reflex，Grace CPU 提供的输入延迟通常也明显高于我在 Ryzen 7 9800X3D 测试平台上的习惯水平，而且在这些 3A 大作中，通过调整设置也很难将其进一步降低。</p>
+<p>如果你追求最低的输入延迟和最新游戏中的最高性能，尤其是如果你打算开启 RT，那么一台配备独立 RTX 50 系列 GPU 的独立游戏笔记本仍会提供更出色的体验。而如果你根本不在乎本地 AI，这个建议就更加适用了。</p>
+<h3><span>总结</span></h3>
+<p>Nvidia 的 RTX Spark 是一个雄心勃勃的新 PC 平台，既面向当今的传统工作负载，也着眼于未来可能出现的 agentic AI 工作。我们多久才能看到一家全新的玩家试图挤进拥挤而竞争激烈的 PC 领域，尤其是它还怀揣着对未来数年 PC 使用方式的宏大愿景？这绝非一次渐进式的动作。</p>
+<p>我们的通用性能测试和新的 agentic AI 测试表明，尽管在纸面上它只提供了尚可的 CPU 性能和相对较低的统一内存架构带宽，但 GB10 上搭载的 Blackwell GPU 在实际中拥有足够的 AI 算力，足以让 RTX Spark 平台超越 Apple 最新的高端 M5 Max 以及 AMD 的 Ryzen AI Max+ 395（即 Strix Halo）SoC。</p>
+<p>无论你选择高度智能的稠密 Qwen 3.8 27B 模型、以原始速度换取智能，还是做出相反的取舍、选用更轻更快的 Qwen 3.6 35B A3B，RTX Spark 都名列前茅。这对于在该平台上将 Hermes 等流行 agent 与智能本地模型搭配使用来说是个好兆头。</p>
+<p>但 Nvidia 重塑 PC 的使命在这一初代产品中并非全垒打。</p>
+<p>首先，这个平台不会取代专用的游戏笔记本。即便对于那些只是偶尔玩游戏、对帧率和输入延迟标准更宽容的人来说，RTX Spark 的游戏性能也可能达不到预期。</p>
+<p>当你把 Prism x86 模拟的开销叠加在 Grace CPU 仅算够用的性能之上时，很明显 Spark 平台要想在大量没有 Arm 移植版的游戏中跟上节奏，必须付出艰苦努力。</p>
+<p>CPU 负载较重的《战争机器：E-Day》对 Prism-on-Grace 这套组合尤为不友好，但即便是像《控制：共振》这样对 CPU 依赖没那么重的作品，GB10 SoC 有限且共享的内存带宽仍然构成障碍，尽管其理论算力相当可观，却难以把画质设置拉到最高。</p>
+<p>我们仍在等待 Windows 完全跟上 Nvidia 对安全、可管理的本地 agent 的雄心。我和我们的笔记本专家 Andrew Freedman 无法在 <a href="https://www.tomshardware.com/tag/windows-11">Windows 11</a> 中测试 Microsoft 所承诺的安全 agentic AI，因为 Microsoft 和 Nvidia 为此承诺的配套功能尚未就绪。</p>
+<p>不过，作为一个初代移动平台，它把来自多个设计团队的复杂芯片 IP 整合到一颗芯片上，并依靠多家 OEM 合作伙伴将其落地为高度集成的笔记本形态，RTX Spark 平台的成熟度已是一项令人印象深刻的成就。（这话出自一个曾从内部见证过几次坎坷产品发布的人。）</p>
+<p>过去一周，我一直像使用任何其他 Windows 笔记本一样使用搭载 RTX Spark 的 Surface Laptop Ultra，除了一些小磕碰外，我基本上就像用任何其他电脑一样完成了工作。随着本地 agentic AI 的未来逐渐成形，这是一个很棒—— albeit 非常非常昂贵——的处境。</p>
+<p>或许 RTX Spark 平台最大的挑战在于，首发这批系统令人咋舌的价格，仍然能买到 OpenAI 和 Anthropic 的<em>大量</em>云端 token。重点在于<em>大量</em>。我们测试的 Surface Laptop Ultra 标价 5899 美元，却只有 1TB 存储，而且该系统的交付周期已经排到 12 月下旬。</p>
+<p>如果你不那么在意把敏感数据挡在这些实验室的云端之外，或者你不认为自己会触犯可接受使用政策，那么你能以比 RTX Spark 这样的本地 token 工厂快得多的速度获得智能得多的 token，而且你可以在手头任何一台性能尚可的传统 PC 上获得它们。</p>
+<p>但如果你出于隐私、离线模型可用性、自由折腾的意愿，或者纯粹觉得这样很酷，而在本地硬件上追赶 AI 浪潮，那么 RTX Spark 平台将你所需的显存容量、计算性能和软件资源，与 Windows 的熟悉感和广泛兼容性融为一体。Nvidia、Microsoft 及其合作伙伴在首次出手时就交出了如此强大、兼容且打磨完善的平台，这应当让 PC 行业的其他厂商警醒。</p>
+<p>Nvidia 重塑个人计算的努力，在短期内将面临 DRAM 和 NAND 价格暴涨带来的强劲逆风，而该公司自家的 Vera Rubin 铺货正是这轮涨价的部分原因。或许等到两三年后尘埃落定，围绕下一代 RTX Spark Superchips 打造的产品问世时，我们才能更有把握地评估该公司是否实现了其目标。</p>
+<p>就目前而言，RTX Spark 给人的感觉是面向这样一群人：他们坚信开放 AI 模型将在相对较小的显存占用下持续变得更智能，并且认为这些未来可能的提升值得现在就花一大笔钱提前准备。在一个算力日益稀缺的世界里，这或许是个明智的赌注。但除非你是愿意烧钱的真信徒，否则我们的初步印象是：你应当等到 Microsoft 和 Nvidia 完全打好这个平台兑现承诺所需的软件基础之后再做决定。</p>
+<p><a href="https://www.tomshardware.com/laptops/we-test-the-rtx-spark-superchip-in-microsofts-surface-laptop-ultra-nvidias-windows-on-arm-platform-impresses-in-local-ai-but-gaming-isnt-its-strong-suit">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

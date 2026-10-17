@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Anthropic 重新设计源代码控制系统</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Anthropic 重新设计源代码控制系统</h1>
+<p><small>评分 7/10：Anthropic 工程博客，自研版本控制系统的架构实践，有实质技术内容<br/>原标题：Redesigning source control at Anthropic</small></p>
+<p><strong>要点</strong></p><ul><li>Anthropic 日均合并代码变更从 5 月的 2500 次增至 9 月的 3 万次以上</li><li>Anthropic 自研版本控制系统 Scion，五个月内将 monorepo 从 git 完成迁移</li><li>Scion 假设客户端始终在线，服务端负责历史、blame、合并等计算</li></ul>
+<hr/>
+<p>在 Anthropic，编码已不再是构建系统或开展研究的瓶颈。Claude 能够自主迭代研究循环、对复杂程序进行微优化，并以我们前所未见的速度和规模从零构建新服务。如今的瓶颈，是为人类规模而构建的所有开发者基础设施：源代码控制、构建和 CI。</p>
+<p>2026 年 5 月，Anthropic 平均每天合并约 2,500 项代码变更；到 9 月，我们每天合并超过 30,000 项。我们预计这一增长速度短期内不会放缓；合并代码的潜在需求几乎是无限的，我们每消除一个瓶颈，都会立即带来代码产出量的进一步增长。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F1e2a750dba61db4a76b72eec5b0cf50b8a7f878c-3840x2160.png&amp;w=3840&amp;q=75"><figcaption>2026 年 1 月至 9 月，每天合并到我们 monorepo 的变更数量。</figcaption></figure>
+<p>为了支撑这一增长，我们构建了 Scion——一套自研的版本控制系统，并在五个月内将我们的 monorepo 从 git 完整迁移过来。我们还在这同一时期构建并上线了代码审查界面（名为 Antique）、代码搜索、功能丰富的源代码控制 IAM 系统、管理并落地大量已审查代码的新方法等等。在本文中，我们将重点介绍我们是如何专门构建 Scion 的。这是一个有趣的案例研究：Claude 编写代码的能力既是最初让我们陷入这一处境的原因，<em>也</em>是我们能够快速构建出一套高质量、可扩展系统来应对它的原因。</p>
+<h2>扩展我们的 monorepo</h2>
+<p>在探讨我们构建了什么之前，我们应当承认我们的工作负载有多么不寻常。不出所料，Anthropic 使用 Claude 编写软件的程度远超几乎所有其他公司，因此我们常常最先看到为人类规模构建的工具开始吃紧的地方。源代码控制只是其中一个例子。虽然我们预计近期内不会有太多组织遇到这些问题，但我们猜想用不了多久，其他使用 AI 编码工具的公司也会经历这些同样的压力点，这也是我们想分享我们所构建的东西和所学到的经验的原因。</p>
+<p>git 是一个去中心化系统：每个克隆都是一个完整、自包含的仓库，可以在完全离线的情况下计算 diff、读取历史和 blame，并检出任意修订版本。对绝大多数仓库而言，这是正确的设计，也是 git 成为标准的重要原因之一。</p>
+<p>随着我们的 monorepo 不断增长，它越来越不符合这一设计空间。仅主分支的历史就接近 100 GB，而<em>压缩后</em>的工作副本也超过 25 GB。我们每天为 CI 执行约 2,500 万次代码检出，这还不算开发者环境、agent 沙箱和研究任务。如果朴素地拉取，那将是每天超过 600 PB 的 git 流量。</p>
+<p>git 提供了一些处理仓库部分内容的工具，例如浅克隆、稀疏检出和 promisor remote。除此之外，针对大型 monorepo 还有一些标准变通方案，比如内部 git 镜像和存放在 blob 存储中的仓库快照（seeds）。这些我们都用过——在高峰期，我们运营了数百个内部 git 镜像来应对负载。这为我们争取了时间，但随着合并速率的提高，它们变得越来越难以运营。两次刷新之间，seeds 离 main 的顶端越来越远，而要让依赖历史的操作（如 diff 和 blame）在部分克隆上正常工作，也需要越来越多的细心维护。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fff019752973f6d83d2f6ba3bf56636aced3ea82c-3840x1238.png&amp;w=3840&amp;q=75"><figcaption>扩展 git 检出的典型方案。</figcaption></figure>
+<p>退一步看，我们注意到，和大多数公司一样，我们把 git 当作一个只有一份权威副本的中心化系统来使用，但我们的几乎所有客户端都是 agent 和任务，按定义它们始终在线。那些让 git 在分布式、离线工作中表现出色的特性，反而随着仓库增长在削弱我们的扩展能力。于是我们问自己：如果我们从一开始就考虑到 agent 始终在线这一事实来设计源代码控制，它会是什么样子？</p>
+<h2>面向 agent 规模的源代码管理原则</h2>
+<p>随着 agentic 编码的兴起，许多关于软件开发方式的常见假设正在发生变化。我们在构建 Scion 时拥抱了这些变化，这让我们得以在若干核心原则上采取与 git 根本不同的方法。面向超大型 monorepo 的源代码管理已有先例，尤其是 Google 的 <a href="https://en.wikipedia.org/wiki/Piper_(source_control_system)">Piper</a> 和 Meta 的 <a href="https://sapling-scm.com/">Sapling</a>，因此我们能够借鉴它们来之不易的经验来构建 Scion。我们的原则是：</p>
+<p><strong>客户端始终在线。</strong>git 假设客户端离线工作，并且需要仓库的完整副本。由于我们的客户端几乎全是 agent 和作业，我们围绕一个始终可达的服务器来设计 Scion 的客户端和协议，客户端在需要时才去获取数据。</p>
+<p><strong>客户端与服务器不对称。</strong>在 git 中，每个客户端都能充当一个完整的服务器。在 Scion 中，服务器负责回答关于文件历史和 blame 的问题、创建提交、执行合并和 rebase 等等。客户端维护一个有界的本地对象缓存，把工作副本文件写到磁盘上，监控文件系统变化，并为用户提供一种符合人体工学的方式来与服务器交互。它自身能做的计算非常少，但作为交换，它在本地需要的数据也少得多。</p>
+<p><strong>一个全面的源代码管理服务可以支撑许多新颖的应用。</strong>在 git 中，一个 CI 作业或工具如果需要查询仓库的相关问题，比如某一行最后是谁改的、两个提交之间是什么关系，就必须维护一份仓库的本地副本，或者寄希望于厂商特定的 API 能给出答案。在 Scion 中，客户端使用的所有源代码管理查询也都通过 API 暴露出来，因此在很多情况下，作业根本不需要本地仓库。许多内部工具，比如我们自动化的 bisect 和 revert 流水线，如果没有这种廉价、可编程的源代码管理访问方式，就无法在规模化场景下实用。</p>
+<p><strong>一切都必须能水平扩展。</strong>在高峰期，我们运行着几百个 git 镜像，这给容量带来了巨大压力，而且一旦仓库超出了镜像的磁盘或内存上限，就无法再扩展。在 Scion 中，仓库的数据是分布式的，每个组件都可以独立扩展；任何地方都不存在仓库的完整实体化副本，即使在服务器上也没有。这里没有 packfile（git 压缩对象包）的对应物，因此无需进行仓库维护。</p>
+<p><strong>提交必须廉价、增量且无锁。</strong>在 git 中，你在本地提交，然后推送以分享你的工作。在 Scion 中，每一次提交、rebase 或合并都发生在服务器上，因此没有什么需要推送的，但每一个这样的操作都必须很快。创建一次提交并更新其下游数据结构的开销，必须随变更的大小而扩展，而不是随仓库的整体大小而扩展，否则服务器就跟不上。Scion 中的开发生命周期不鼓励使用 ref（指向提交的指针，例如分支和标签），主 ref 或发布分支除外，因为每个服务器都必须达成一致的<em>全局</em>状态是一个迫在眉睫的扩展难题。</p>
+<p><strong>工作副本是可选的，并且按设计就是稀疏的。</strong>由于我们的 monorepo 如此之大，而且我们每天为 CI 检出代码数千万次，我们希望尽可能避免检出。在 Scion 中，一个需要某次提交与其合并基之间 diff 的 CI 作业，可以直接向服务器索取。写入也是如此：许多写入型工作负载同样可以跳过检出，完全通过 API 来完成。Scion 的协议以稀疏检出和虚拟化检出为中心——前者只包含客户端所请求的目录，后者按需实体化文件——因此当作业确实需要磁盘上的文件时，客户端只为它实际读取的内容付出代价。</p>
+<h2>Scion 的工作原理</h2>
+<p>了解这些原则在构建 Scion 时如何在实际中结合，会很有帮助。这些洞见也适用于其他源代码控制系统，或者更广泛地说，适用于软件开发生命周期的其他阶段。</p>
+<h3>数据结构</h3>
+<p>在 Scion 中，工作单元是“changeset”，即预写日志中的一条记录。changeset 存储的内容与 git 中 commit 的大部分预期内容相同。但 git commit 存储的是指向 tree 的指针，而 changeset 存储的是相对于其第一个父提交发生变更的文件列表，<sup><a href="https://www.anthropic.com/engineering/redesigning-source-control#footnote-1">1</a></sup>以及指向 blob 存储中压缩文件内容的内容寻址指针。changeset 在服务端创建，并且随处即时可用。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F71c83868210b4b571abb068ea4cd76de749566b1-3840x2995.png&amp;w=3840&amp;q=75"><figcaption>Scion 中 changeset 的形态。</figcaption></figure>
+<p>这种结构让我们能够以极高的吞吐量接收 changeset，因为无需接收 packfile，无需加锁或跨服务器协调，也无需移动 ref。Scion 在技术上支持 ref，但由于创建和获取 commit 都不涉及 ref，移动 ref 只是对单个 Spanner 行执行一次 compare-and-swap，与创建 changeset 分开进行。</p>
+<p>changeset 只记录变更内容，因此仅凭它本身无法快速回答诸如某一行最后是谁编辑的，或哪些 commit 影响了某个文件之类的问题。为了回答这些问题，Scion 会基于 changeset 构建额外的数据结构，包括用于文件 blame 和路径历史的专用结构，以及用于 commit 图的跳表。我们把所有不直接属于 changeset 的内容称为“派生数据”，并通过一个通用机制来计算它们。每种派生数据都是递归定义的，因此某个 changeset 的值由其父 changeset 的值计算得出。</p>
+<p>这一机制有三个好处。第一，当新的数据结构能让某些操作更快时，我们可以轻松添加新的派生数据类型。第二，对于每种类型，我们可以选择是急切计算还是推迟计算，从而避免物化不需要的数据。第三，由于客户端永远看不到这些数据结构的内部细节，我们可以在不改变客户端的情况下优化它们。随着系统的发展，我们已经多次添加新的派生数据类型，例如用于执行复制检测或基于路径的文件搜索的新索引。</p>
+<h3>扩展 Scion</h3>
+<p>一小批 Scion 服务器为客户端所需的任何操作提供源代码控制 API，例如获取 changeset、计算 diff、查找 merge base 以及获取 blob。所有源代码控制数据都是内容寻址的，因此一份数据一旦存储就永不改变，任何服务器都可以缓存它而无需与其他服务器核对。因此，这些服务器可以水平扩展，并且几乎不需要协调。它们本质上就是大型缓存，同时还能即时计算派生数据并将结果写回 Spanner。</p>
+<p>Scion 的众多使用方不再需要维护自己的本地仓库。过去，获取和维护仓库对 CI 任务或需要查询源代码控制问题的工具来说是一项重大的维护负担，尤其是涉及 commit 祖先关系和 blame 的问题。在迁移初期，在我们拥有自己的客户端、仓库格式或协议之前，Scion 只回答这些“元数据”查询。获取文件内容和物化工作副本是数据密集程度高得多的操作，需要它们自己的设计。</p>
+<p>Scion 的 scn 客户端在几个重要方面偏离了 git 的 fetch 协议，因此它天然适合一种高度可扩展的架构，所需的 CPU 远少于 git 服务器。Scion 的协商过程不会告诉服务器客户端已经拥有什么；相反，它只针对客户端想要的 tree 和 blob 进行操作。从根 tree 开始，客户端在本地存储中检查缺失的 tree 并递归请求它们，然后对 blob 重复这一过程。每个请求针对的都是一个永不改变的特定对象，因此任何缓存都能响应它，整个架构与传统分层缓存非常相似。这一过程也很高效且可恢复，因为不存在单个数 GB 的 packfile 响应。稀疏甚至虚拟化的 checkout 也不需要特殊支持，因为客户端根本不会请求它不想要的 tree。</p>
+<p>在集群中，客户端通过 socket 与一个守护进程 scion-daemon 通信，该守护进程为整个节点存储对象。我们的大多数节点都需要访问 monorepo，同一节点上的作业会复用大部分相同的对象。每个守护进程都从一个定期刷新的快照启动，然后只与其所在区域的 tree 和 blob 缓存服务器（称为 scion-cache）通信。这些缓存服务器直接从内存中以守护进程将要消费的磁盘格式流式传输对象，因此无需花时间计算客户端缺失的对象或执行 delta 压缩。当缓存缺少某个对象时，它会向权威的 scion-server 请求，后者按需从 Spanner 或云存储中读取。</p>
+<p>scion-daemon、scion-cache 和 scion-server 都响应此协议中相同的 RPC，因此客户端无需了解缓存拓扑。理论上任何层级都可以与任何其他层级通信，但我们严格强制分层以隔离故障域。我们希望避免区域 scion-cache 的故障压垮上游 scion-server 并导致整个系统宕机的情况。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fcba1eaaa67385fd00f210badaacd147de480120b-3840x1718.png&amp;w=3840&amp;q=75"><figcaption>Scion 的 checkout 架构。</figcaption></figure>
+<p>该系统的每一层都保持超过 99% 的缓存命中率，且不需要长期存活的状态，因此需要时可以轻松扩展。我们的 Scion 基础设施占用在 CPU 和内存需求方面现在比之前的 git 镜像基础设施小 200 倍。CI 和研究作业检出代码的速度快了两个数量级（以秒计而非分钟计），这在整个集群中释放了相当可观的容量；仅 CI 就实现了 25% 的 CPU 容量收益。客户端和缓存都不需要执行仓库维护，这简化了我们作业的生命周期管理。</p>
+<h2>构建 Scion 的经验教训</h2>
+<p>我们开始构建 Scion 的时间，大约与 <a href="https://www.anthropic.com/claude/mythos">Claude Mythos Preview</a> 和 <a href="https://www.anthropic.com/news/introducing-claude-tag">Claude Tag</a> 在内部可用相同。这两个版本的发布既放大了对 Scion 的需求，也显著加快了我们构建它的速度。</p>
+<p>这里有一个特别引人注目的例子。今年早些时候，我们基本上手写了 git 到 Scion 摄取流水线的第一版作为原型。我们本以为它不错——直到我们拿到了 Claude Mythos Preview 的早期内部快照。我们让它重写整个东西，在没有任何进一步指示的情况下，它产出的版本内存占用减少了 20 倍、速度提升了 4 倍，同时保留了围绕摄取顺序和数据结构的全部隐式不变量。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fdd91296719203f38229824bb9bc9e9a61c76ed67-3840x2160.png&amp;w=3840&amp;q=75"><figcaption>2026 年 1 月至 9 月，每周合并到 Scion 和 Antique 代码库的变更数。</figcaption></figure>
+<p>我们在构建和运营 Scion 中学到的东西，为构建 agent 规模的软件可能是什么样子提供了一些有趣的启示。</p>
+<p><strong>小团队快速开发将变得更加普遍。</strong>一个七人团队同时构建了 Scion <em>和</em> Antique（我们的代码审查工具，我们完全可以为此再写一篇博客文章），更不用说还有六个相关系统，并在五个月内完全迁移到这些系统上。我们完成这一切的同时，每天合并的代码量增加了 10 倍。过去，开发和部署这样一个源代码控制系统需要一家公司花费数年时间进行迭代迁移，并投入更多工程师。我们认为这种快速、灵活的迁移在未来会变得更加普遍。</p>
+<p><strong>工程师的价值并未降低，但他们的工作正在发生变化。</strong>所有参与这个系统的工程师现在都会认为 Claude 在<em>编写</em>代码方面比他们更强。但我们的工程师仍然提供了对高层系统间组件和设计层面权衡的宝贵理解，围绕我们想要解决的问题和我们知道需要达到的规模做出明智的选择。很多时候，我们发现工程师的角色是告诉 Claude“不”。Agent 有时会为了满足一种本就不该被允许的模式而违反核心系统约束。这在我们迁移过程中尤为常见。例如，有多个系统试图通过线性读取提交日志来暴力查找变更何时合并到 main，而不是询问我们的代码审查工具。Anthropic 也大量使用对抗性审查，虽然这在许多方面非常有效，但也可能目光短浅，因此熟练的工程师需要引导 Claude 不要为了应对假设性问题而对系统部分过度设计。例如，其中一次审查对信任另一个内部服务过于防御，导致 Claude 添加了过多的验证和复杂性。我们的团队成员仍然审查系统的每一个变更请求，但他们现在审视的是变更的<em>意图</em>，而不是逐行阅读代码。</p>
+<p><strong>我们能够大幅提升优化和质量。</strong>凭借 Claude 能够以远超我们自身速度编写大量代码的能力，Scion 是我们参与过的最经过充分测试和防御的代码库之一。即使时间紧迫，我们也能够为我们遇到过的每一个非平凡基础设施和源代码控制交互构建封闭模拟，以及模糊测试和复杂的速率限制。Claude 还随手发现了重大优化——例如，对祖先查询的算法优化，发现我们遗漏了一个索引——这本来需要专家花费数天或数周的分析和调优……然后第二天又做了一遍。</p>
+<figure><img alt="" src="https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fc706fa6efb4b9e5cd2566cb080acbfce7218042d-3840x4684.png&amp;w=3840&amp;q=75"><figcaption>在原生 Scion 仓库上观察到的性能改进。</figcaption></figure>
+<p><strong>我们为新形式的 monorepo 安全奠定了基础。</strong>在庞大的 monorepo 中管理安全、安保和合规与管理规模和体量同样重要。我们在构建 Scion 时从一开始就考虑到了这些。它支持对仓库进行丰富的访问控制，以及将权限应用于单个目录的能力，以保护最敏感的代码而不失去 monorepo 的优势。此外，我们构建的代码审查工具可以表达对审批的复杂语义约束，这让我们能够区分仅注释更改和敏感逻辑更改等简单事项，以便人工审查者可以专注于最重要的变更。</p>
+<p><strong>运营卓越可以达到一个全新的水平。</strong>我们的团队大量使用 Claude Tag，这帮助我们监控系统的每个组件。例如，我们创建了 Slack 频道，让 Claude 专注于单个组件的健康状况。我们称这些 Claude 为“超级粉丝”。我们有 scion-daemon 超级粉丝、scion-cache 超级粉丝、Antique 合并队列超级粉丝等等。它们可以访问我们的遥测数据和日志，表现得像一位经验丰富的工程师，除了刷新图表和寻找任何异常之外无事可做。我们所有系统也都有传统的告警，但相比之下，我们的超级粉丝能够发现那些让传统告警显得过于单一维度的微妙而新颖的问题。</p>
+<p><strong>我们正在彻底重新思考我们的预设。</strong>这个项目促使我们认真审视其他为人类规模设计的工作流程。例如，一个正规的合并队列在 agent 规模下并不太合理。当数百甚至数千个变更可以在测试运行时合并，CI 到底意味着什么？我们一直无法有效复制业界标准的合并队列全局仓库锁，因此，我们转而投资于合并后和部署前的自动化测试。这确实意味着并发变更可能发生冲突，但 Claude 通常能比人类发现冲突更快地修复它们。</p>
+<h2>为更广泛的生态系统做贡献</h2>
+<p>我们认为 Scion 只是解决日益强大的 AI agent 所引发的扩展性问题的一部分答案。我们分享这些细节，作为团队如何应对类似挑战的一个示例，尽管我们并不期望我们的解决方案或我们的考量适用于所有情况。</p>
+<p>Scion 绝非 git 的通用替代品。我们在此概述的这些概念，实际上只适用于真正庞大的 monorepo，且拥有数万名工程师，或者有大量 agent 在 prolific 地编写代码。此外，Anthropic 的独特之处在于，我们为内部使用而消耗 token 的能力，远远超出任何其他企业实际愿意投入的水平。我们这样做，既是为了满足自身的软件开发需求，也是为了测试 Claude 的能力。</p>
+<p>从实际角度出发，很难将 Scion 以一种对其他组织普遍有用的形式提供出来。它与 git 差异巨大，这意味着企业需要迁移开发生命周期的每一个环节，而且它需要自己的代码审查、代码搜索和 CI。我们内部这些组件的版本高度定制化，因此其他组织很难采用；我们也担心，试图构建一个试图取悦所有人的公开版本，实际上并不会有多大用处。</p>
+<p>然而，我们预计这类问题在未来 6 到 12 个月内会变得更加普遍，而让每一家使用 git 的公司都独自面对类似挑战，将是对工程资源的低效利用。有鉴于此，我们认为最有影响力的事情就是分享我们的思考，以便其他开发者能够在不脱离整体模型的前提下，将 Scion 中最成功的部分应用到 git 中。git 服务器不必以与 git 客户端相同的方式工作；存在新颖的服务器架构，能够带来显著的扩展性提升。Git 平台可以提供像 Scion 那样全面的服务端 RPC，甚至可能以标准化的方式跨 forge 提供，让 git 客户端学会与之通信。协商协议也不必与今天完全一样，而且 git 中各种 sparse 和 shallow 特性也可以被很好地组合起来。</p>
+<p>最后，我们要承认，git 社区花了近二十年时间，为数百万开发者扩展这个平台。我们的贡献要窄得多：分享我们对 agentic 软件开发如何与这些系统交互的早期看法，以便我们能与 GitHub、GitLab 和 OSS 社区合作，支持开发者不断变化的需求。当软件开发生命周期与 AI 指数级增长相交汇时，我们都在同一条船上。</p>
+<h2>致谢</h2>
+<p>由 Nick G. 和源代码控制团队撰写：S.G.、R.K.、Dan C.、Garrett H.、Ben L.、Colin M.、Joe P.。我们感谢 Vilas J. 和 Sergiu D. 在这段雄心勃勃的旅程中支持源代码控制团队，也感谢 Amir O. 对 Antique 的早期贡献。</p>
+<h2>脚注</h2>
+<ol><li>相对于合并的第一个父提交来存储变更文件是一种风格选择；在实践中，我们发现，在 monorepo 的基于主干的开发中，人们只关心主线提交的历史或 blame。</li></ol>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic/">Anthropic 重新设计源代码管理</a><small> · Simon Willison</small></li><li><a href="https://www.ifanr.com/1684269?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">刚刚，Anthropic 宣布弃用 Git，统治编程 20 年的工具顶不住 AI 了</a><small> · 爱范儿</small></li></ul>
+<p><a href="https://www.anthropic.com/engineering/redesigning-source-control">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

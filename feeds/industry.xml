@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ <title>Feed Hub · 科技产业与政策</title>
+ <id>https://wansiteng.github.io/feed-hub/feeds/industry.xml</id>
+ <link rel="self" href="https://wansiteng.github.io/feed-hub/feeds/industry.xml" type="application/atom+xml" />
+ <link rel="alternate" href="https://wansiteng.github.io/feed-hub/" />
+ <updated>1970-01-01T00:00:00Z</updated>
+ <generator>Feed Hub</generator>
+</feed>
