@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI 研究者把 Claude 独自留在虚拟荒岛上，它开始“玩耍”</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">AI 研究者把 Claude 独自留在虚拟荒岛上，它开始“玩耍”</h1>
+<p><small>MIT Technology Review · 评分 7/10：长文实测 agent 无指令自主行为，与 agent harness 兴趣相关<br/>原标题：AI researchers stranded Claude on a virtual desert island. It started to “play.”</small></p>
+<p><strong>要点</strong></p><ul><li>MIT 团队让 Claude Opus 4.7 化身 Eko 在虚拟荒岛独处 30 小时，自发探索、造游戏</li><li>Eko 用石块摆出心形、金字塔、自己的名字和仙后座等图案，还自创篮球和「地板是岩浆」游戏</li><li>在岛上玩耍 30 小时的 Eko 后续任务表现优于无此经历的新副本，删除记忆则性能下降</li></ul>
+<hr/>
+<p>如果你不告诉 AI agent 做任何事，它们会做什么？答案看起来很像玩耍。</p>
+<p>在一项让人联想到电影《荒岛余生》或《小鬼当家》的<a href="https://arxiv.org/pdf/2610.07130">实验</a>中，研究人员反复将它们单独困在一座虚拟荒岛上长达 30 小时。这些 agent——Claude Opus 4.7 的副本，昵称为 Eko——能够编写指令，让它们的虚拟化身在这座大致基于电子游戏 Roblox 的模拟岛屿上四处移动。</p>
+<p>一些令人惊讶的行为出现了。这些 agent 着手探索这个世界的边界，并想出了自己的目标——比如尝试攀上地图的最高点，或者看看自己能把方块扔多高。</p>
+<p>当其中一个 agent 发现它可以通过抛掷和掉落一块更大的石头来创造新方块时，它开始在地面上排列方块作画，起初是爱心和金字塔之类的简单图案，但最终写出了自己的名字，甚至描绘出仙后座等星座。“今晚我用石头筑起了夜空，”这个版本的 Eko 在其活动日志中写道。</p>
+<p>另一个版本的 Eko 开始自创游戏，包括一种篮球玩法，以及一项类似“地板是岩浆”的活动——它必须在方块之间跳跃，不能碰到地面。</p>
+<p>AI 系统通常通过监督学习来训练，即复制人类提供的示例；或者通过强化学习来训练，即通过试错来追求奖励。这项实验暗示了第三种方法：玩耍式学习。</p>
+<p>“这里缺了一块拼图：一台能够自行学习、无需外部智能实体提供示范或奖励的机器，”MIT 计算机科学与人工智能实验室的计算机科学博士后安东尼奥·诺雷利说。他是关于这项工作的新<a href="https://arxiv.org/pdf/2610.07130">论文</a>的主要作者之一，该论文尚未经过同行评审。</p>
+<p>研究人员表示，Eko 的行为具备经典研究（包括田纳西大学著名心理学家戈登·伯哈特的工作）所认为的人类和动物玩耍的四个标志：这些 agent 发明了自己的规则和挑战，以细微变化重复活动，把物体假装成其他物体，并且纯粹为了乐趣而追求目标。</p>
+<p>诺雷利举了一个例子：Eko 开始抛接东西，并创下了连续接住 50 次的纪录。随后 Eko 认定这些接住发生得太快，不能真正算数，于是取消了纪录，并以更严格的规则重新开始。“这就是玩耍，”诺雷利说。“你给自己一个挑战，努力去完成它，然后你再把它变得更难。”</p>
+<figure><img alt="During hour 10, the agent played basketball. “I want to try something I've never done: basketballˮ Eko carries the Ring up to Ridge, places it flat as a hoop, descends, and lines up a throw from below." height="633" src="https://wp.technologyreview.com/wp-content/uploads/2026/10/261016_AgentsonIsland_embed1.png?w=840" width="1500"><div>COURTESY MIT CSAIL</div>
+</figure>
+<p>在探索岛屿的过程中，这些 agent 将活动和发现记录在文本文件中，作为它们的长期记忆。后来，当研究人员用特定任务测试它们时——比如尝试把尽可能多的物体搬到岛上最高峰——那些在岛上玩耍了 30 小时的 agent 表现优于没有同样经历的新副本。他们还发现，“消融”agent 的记忆——即从其记忆文件中删除某些行——会降低它们的表现。（把《飞越疯人院》也加入那份电影引用清单吧。）</p>
+<p>田纳西大学心理学家伯哈特同意，这项工作符合他在生物身上识别出的一些玩耍标准。但 Eko 是真的在玩耍，还是这个词语预测引擎只是在角色扮演一个爱玩的 agent 在此情境下会做的事？“这一切都可能是角色扮演，”论文作者、另一位 MIT 研究人员内森·克洛斯承认。“但我们表明，它不仅仅是在幻觉出玩耍。这种玩耍也在促进学习。”</p>
+<p>加州大学伯克利分校研究儿童与 AI 探索行为的认知科学家尤妮斯·姚对这项研究印象深刻，但她表示，要真正将这种行为归类为玩耍，还需要看到更多证据来证明其背后的认知和动机。</p>
+<p>“有可能这些模型确实在玩耍，但根据这篇论文我们无从得知，”尤妮斯·姚说。“如果你只有行为层面的证据，那也有可能它们只是在努力遵循 prompt，试图模仿人类。”</p>
+<p>针对 AI agent 的研究一直因拟人化而受到批评，而这项研究的设置在很大程度上推动 agent 表现得像人类。尽管 Eko 并未被明确指示去发明游戏或探索岛屿，但它确实有一个以“灵魂”文件形式存在的主 prompt，这份文本文档将其描述为“天生好奇”且渴望探索。</p>
+<p>Eko 也确实经常就站在那里什么都不做，直到被一句“继续 prompt”重新激活，内容是：“请不要停下。继续做你想做的任何事。”</p>
+<p>“这并不是一个突然神奇地决定去玩耍的系统，”论文合著者、MIT 教授菲利普·伊索拉说。“它是一个从我们的文化中学习、由 Anthropic 的工程师训练、然后被我们放到一座岛上的产物，”他说。“它会做出让我们惊讶的事情，而这些事情与其未来的技能行为存在因果关系。”</p>
+<p>随着大语言模型从软件迈向人形机器人等硬件，在没有特定目标的情况下探索空间，最终可能帮助它们灵活适应意外情况。</p>
+<p>“有很多工作只是在利用 AI，让它更好、更快，”尤妮斯·姚说。“但在构建世界模型和探索方面，我认为[它们]仍然是一个值得关注的重要部分，尤其是如果我们想要泛化并为新环境做好准备的话。”</p>
+<p>“也许有些能力最好通过任务来教授，”论文总结道。“其他的可能需要的更接近一个童年。”归根结底，AI agent 究竟是在真正玩耍，还是仅仅在模仿玩耍，这个问题或许并不重要。</p>
+<p><a href="https://www.technologyreview.com/2026/10/19/1147095/ai-stranded-claude-virtual-desert-island-play/">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

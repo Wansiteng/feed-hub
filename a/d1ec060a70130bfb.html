@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ASML 正在打造混合键合设备！</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">ASML 正在打造混合键合设备！</h1>
+<p><small>SemiAnalysis · 评分 7/10：半导体先进封装重大动向，SemiAnalysis 深度分析<br/>原标题：ASML Is Building a Hybrid Bonding Tool!</small></p>
+<p><strong>要点</strong></p><ul><li>ASML 已提交 27 个键合专利族，多数为 D2W 混合键合，但尚未官宣</li><li>ASML 的 D2W 混合键合设备采用轨道式设计，每颗芯片由独立载具传送经过各工艺站</li><li>ASML 有望在对准精度和颗粒控制上取得优势，这两项决定键合良率</li></ul>
+<hr/>
+<p>ASML 尚未宣布任何消息，但其专利申请、一篇<a href="https://www.thelec.net/news/articleView.html?idxno=5864">新闻报道</a>以及其自身的路线图都表明了这一方向。我们认为它将从晶粒到晶圆（D2W）混合键合（HB）设备入手。这比晶圆到晶圆更难制造，但正是 ASML 可能获得优势的领域。我们将此举视为 ASML 垂直整合的自然延伸，并且应该会加强其客户关系。</p>
+<p>在本文中，我们从专利申请入手，端到端地解析该设备的设计。其独特之处在于它<strong>运行在轨道上</strong>。这改变了设备和晶粒的移动方式：每个晶粒乘坐自己的载具经过各个工艺站点，而设备在每个站点都会更靠近以处理晶粒。轨道的独立穿梭车还提高了站点利用率，节省了重复的工装，并实现了异质集成。</p>
+<p>我们认为 ASML 可能在混合键合的<strong>对准精度和颗粒控制方面获得优势</strong>。这两个因素决定了键合良率。而 ASML 在光刻领域解决同样问题方面拥有专业知识。</p>
+<p>尽管有这些优势，ASML <strong>仍需解决挑战</strong>，涉及前馈量测、晶粒到晶圆接触、对非键合设备的改造以便在轨道上处理晶粒，以及保持整个回路清洁。</p>
+<p>我们预计先进逻辑芯片——D2W 已在此领域量产——将率先采用 ASML 的 D2W HB 设备。这对 <strong>Besi 来说是个坏消息</strong>。逻辑芯片占 Besi 当前 HB 业务的大部分，集中在台积电和英特尔。ASML 与这两家合作已超过二十年，并于 9 月刚刚宣布了一项联合光掩模计划。如果后端工艺出现类似举动，我们不会感到意外。Besi 的 HBM 前景也在减弱。韩国挑战者正在迎头赶上，此外我们<a href="https://semianalysis.com/institutional/de-specced-out-of-a-job-d2w-hbm-hybrid-bonding-goes-from-when-to-if/">预计</a> HBM 的采用将推迟到 2029 年或更晚。</p>
+<h2><strong>ASML 正在打造混合键合设备</strong></h2>
+<p>我们在 2024 年对<a href="https://newsletter.semianalysis.com/p/hybrid-bonding-process-flow-advanced">混合键合</a>进行了深入研究，我们仍然认为它是自 EUV 以来半导体制造领域最具变革性的创新。晶圆到晶圆（W2W）混合键合（HB）已在图像传感器和 3D NAND 中量产，DRAM 制造商将是下一个。<strong>晶粒到晶圆（D2W）HB 进展较慢</strong>，因为业界仍缺乏兼具令人满意的对准精度和吞吐量的成熟设备（我们的核查表明，当前应用的上限仅为每小时一片晶圆），这导致每颗晶粒的成本居高不下。如今 D2W 仅在逻辑芯片中量产：AMD 自 2022 年起已出货混合键合的 V-Cache，台积电的 SoIC 目前键合间距约为 6 微米，目标是在 2029 年左右达到 4.5 微米。市场曾预计 HBM 将从 2028 年起成为 D2W 量产的主要驱动力。然而，我们的观点不同：我们认为<a href="https://semianalysis.com/institutional/de-specced-out-of-a-job-d2w-hbm-hybrid-bonding-goes-from-when-to-if/">HBM 在 2029 年之前不会采用 D2W HB</a>，甚至可能永远不会。</p>
+<p>Besi 一直引领 D2W，并且是唯一拥有量产设备的供应商。其他所有厂商仍在努力让首台设备通过验证。但我们认为<strong>情况即将改变，因为 ASML 正在打造一款 D2W 混合键合设备。</strong>管理层尚未宣布任何消息。但该公司在 2022 年 12 月至 2024 年 11 月期间提交了 27 个键合专利族，其中大多数是 D2W，而真实数量可能更高，因为 2024 年 11 月之后的申请尚未公开。<a href="https://www.thelec.net/news/articleView.html?idxno=5864">The Elec</a> 也在 3 月报道称，ASML 已与 Prodrive Technologies 和 VDL ETG 启动了混合键合设备的架构设计。</p>
+<p>在基础申请（<a href="https://patents.google.com/patent/WO2025201788A1/en">WO2025201788A1</a>）中，ASML 描绘了其键合流程的工作原理。有趣的是，该系统看起来完全不像传统的 D2W 键合机（关于传统键合机的工作原理，请参见<a href="https://newsletter.semianalysis.com/p/hybrid-bonding-process-flow-advanced">先进封装第 5 部分</a>）。ASML 不是用键合头从切割后的晶圆上拾取每个裸片并放置，而是<strong>在轨道上通过独立载具移动单个裸片</strong>（图 1）。每个裸片在到达键合站之前，会经过检测、清洗、等离子活化和量测（形貌、调平和对准）等工位，在键合站卡盘将底部晶圆抬起与裸片贴合。我们将在以下章节中详细解析该设计。</p>
+<p><strong>图 1：ASML 基于轨道的 D2W 键合机，SA 标注并简化</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!DMy3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd065d224-aa2f-4e22-be62-f11210f775a7_2046x1308.png"><div><img alt="" height="931" src="https://substackcdn.com/image/fetch/$s_!DMy3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd065d224-aa2f-4e22-be62-f11210f775a7_2046x1308.png" width="1456"></div></a><figcaption>来源：ASML；<a href="https://semianalysis.com/wafer-fab-model/">SemiAnalysis 晶圆制造设备模型</a></figcaption></figure>
+<p><strong>ASML 可能也在构建 W2W 混合键合工具。</strong>根据<a href="https://www.thelec.net/news/articleView.html?idxno=10055">仁荷大学的专利分析</a>，ASML 很可能在其 TWINSCAN 平台上构建 W2W 混合键合设备，依托其晶圆套刻精度。我们在本报告中重点关注 D2W 机器，因为它更难制造，也是 ASML 可能获得真正优势的领域。</p>
+<h2><strong>……作为其垂直整合计划的一部分</strong></h2>
+<p><strong>我们认为这是 ASML 垂直整合和加强客户关系努力的延续。</strong>ASML 于 2013 年收购 Cymer 以获得光源，2016 年收购 HMI 以进行电子束检测，2020 年收购 Berliner Glas 以获取光学模块。该公司于 2025 年第三季度<a href="https://www.sec.gov/Archives/edgar/data/937966/000162828025045043/pressreleasequarterlyresul.htm">出货</a>了其首款后道产品 XT:260 i-line 封装光刻机。最近，ASML 宣布与<a href="https://www.asml.com/en/news/press-releases/2026/tsmc-and-asml-announce-industry-transition-to-large-format-photomasks-for-high-na-euv">台积电</a>、<a href="https://www.asml.com/en/news/press-releases/2026/intel-foundry-and-asml-collaborate-to-accelerate-industry-readiness-for-high-na-euv">英特尔代工</a>和<a href="https://www.asml.com/en/news/press-releases/2026/samsung-electronics-and-asml-expand-collaboration-on-next-generation-semiconductor-manufacturing">三星</a>开展联合计划，推动行业从 6 英寸光罩转向 12 英寸光罩，用于 High NA EUV。</p>
+<p><strong>构建键合机将是自然的下一步。</strong>事实上，ASML 自己的路线图已经将键合纳入前道流程。其 2024 年投资者日列出了针对 NAND、DRAM 和逻辑芯片的 W2W 和 D2W 混合键合（图 2）。而<a href="https://patents.google.com/patent/TW202607495A/en">2024 年 7 月的一份申请</a>展示了键合机和光刻机如何通过共享裸片位置数据协同工作。如今，在键合晶圆上打印的光刻机必须先对每个裸片进行预对准和粗对准，然后才能曝光。在 ASML 的设计中，键合机已经知道每个裸片的位置，并将该映射（申请中的“坐标系”）交给光刻机，光刻机检查几个标记后即可曝光。客户在键合晶圆上获得更快的光刻速度，而 ASML 则可以将键合机和光刻机作为一对销售。</p>
+<p><strong>图 2：ASML 的前道 3D 集成路线图</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!88il!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd9161a19-850b-4e34-abab-d4de4d766fd5_1536x864.png"><div><img alt="" height="819" src="https://substackcdn.com/image/fetch/$s_!88il!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd9161a19-850b-4e34-abab-d4de4d766fd5_1536x864.png" width="1456"></div></a><figcaption>来源：ASML 投资者日，2024 年 11 月 14 日</figcaption></figure>
+<p><strong>我们预计先进逻辑芯片将是首个采用者。</strong>逻辑芯片正是 D2W HB 已实现量产的领域，也是对准要求持续收紧的领域。台积电称 overlay 是 SoIC 的“始终最大的挑战”。随着其 HB pitch 到 2029 年从 6um 缩小到 4.5um，放置精度要求将进一步收紧。ASML 在对准方面实力强劲，我们将在下文详述，因此这一优势应有助于它率先赢得逻辑芯片客户。先进逻辑芯片也是最昂贵的芯片之一，因此逻辑芯片客户有能力承担高价设备。我们预计 ASML 将把其设备定价高于同行。</p>
+<p>在接下来的三个部分中，我们将讨论：(1) 该设备的轨道系统——这是它与市场上现有产品相比最不寻常之处；(2) ASML 在对准、颗粒控制和运动方面的优势如何使其 HB 设备更胜一筹；以及 (3) ASML 或其供应链合作伙伴在打造一台可工作的设备之前仍需解决的挑战。让我们深入探讨。</p>
+<h2><strong>该设备的独特之处</strong></h2>
+<p>该设备最有趣的一点是它<strong>运行在轨道上</strong>。ASML 在其<a href="https://patents.google.com/patent/WO2025201788A1/en">专利申请</a>中以 SuperTrak CONVEYANCE（图 3）为例，因此我们假设它使用该轨道，并基于该轨道已公开的设计进行分析。</p>
+<p>与传统键合机的根本区别在于芯片所在的位置。在 Besi 型设备中，芯片在其他地方准备，键合头仅在最终放置时将其拾取。<strong>在 ASML 的设计中，每颗芯片从离开载具的那一刻起就坐在自己的载具上，直到键合步骤</strong>。工艺站点围绕轨道构建：芯片停在一个站点前，站点就地对其进行清洁、激活或测量，然后芯片继续前进。</p>
+<p><strong>图 3：SuperTrak CONVEYANCE 轨道（HORIZON10 平台）</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!dRG5!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3cfbe97-fa51-4614-bfd6-e603d64f8bf8_1342x523.png"><div><img alt="" height="523" src="https://substackcdn.com/image/fetch/$s_!dRG5!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3cfbe97-fa51-4614-bfd6-e603d64f8bf8_1342x523.png" width="1342"></div></a><figcaption>来源：公司网站</figcaption></figure>
+<p><strong>现在让我们逐步梳理工艺流程</strong>。为便于说明，我们采用专利附图并在图 4 中标注了每个站点。夹爪将芯片从载具上取下，放到一个空的基板载具（206）上，后者沿轨道（202）携带它前进。芯片依次停在检测、清洁、等离子激活、形貌检测、调平、粗对准、位置调整和精对准站点（210 至 226）。在每个停靠点，芯片都留在其载具上，由站点完成工作。请注意这里的反转：在专利中，是站点的传感器或头部移动过来接触芯片，而不是像当今流程那样由芯片被送入设备。完成这些步骤后，芯片到达键合站点（228）。</p>
+<p><strong>这个键合站点值得仔细研究</strong>。首先要注意的是，最终放置由载具（206）和卡盘（234）完成，而非轨道：SuperTrak 的规格表显示穿梭车的重复精度约为 10um，远达不到键合所需的 50nm 放置精度。接下来，放大图 4 右侧部分看键合工作。卡盘将底部晶圆提升到距芯片数十微米以内，载具的致动器调整芯片位置，芯片被压到晶圆上形成键合，然后载具释放它。空载具随后开始下一轮循环。</p>
+<p><strong>图 4：专利 WO2025201788A1 图 2（左）和图 6 侧视图（右），已标注 SA</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!DnIe!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F494b8fba-1313-4368-99e8-6543930f76e0_2045x755.png"><div><img alt="" height="538" src="https://substackcdn.com/image/fetch/$s_!DnIe!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F494b8fba-1313-4368-99e8-6543930f76e0_2045x755.png" width="1456"></div></a><figcaption>来源：ASML；<a href="https://semianalysis.com/wafer-fab-model/">SemiAnalysis 晶圆制造设备模型</a></figcaption></figure>
+<p>这种设计有三大优势：</p>
+<p>首先，<strong>独立的穿梭车提升了每个站点的利用率</strong>。每个步骤的站点数量可根据该步骤的周期时间设定：三秒的清洁步骤配三个站点，1.2 秒的键合步骤配一个站点，这样每个站点都保持忙碌。专利正是要求这一点，即“同时占用所有工艺站点”。</p>
+<p>其次，只要设备腔室还有空间，增加产能只需增加一个工位，而不是第二台设备。这样<strong>省去了重复的工装和预算</strong>。</p>
+<p>最后但同样重要的是，该设计适合<strong>异质集成</strong>：一种新的裸片类型就是一套新的软件配方，因此混合小芯片可以共享一条产线。</p>
+<p>话虽如此，这条轨道在非键合工位和整个回路的洁净度方面也带来了自身的挑战。我们稍后再讨论这些。</p>
+<h2><strong>ASML 可能如何获得优势</strong></h2>
+<p>在此之前，让我们看看 ASML 如何将其现有优势带到混合键合设备中。</p>
+<p>首先，提醒一下为什么<strong>对准精度和洁净度在混合键合中如此重要。</strong>正如我们<a href="https://newsletter.semianalysis.com/p/hybrid-bonding-process-flow-advanced">之前</a>所详述的，<a href="https://iopscience.iop.org/article/10.1149/2162-8777/ac7662">两个全厚度晶圆之间的单个 1 微米颗粒就能使周围约 10 毫米的区域无法键合</a>，导致键合缺陷（图 5）。因此，颗粒控制对混合键合极为重要。对准之所以重要有两个原因：<strong>放置精度</strong>直接决定键合良率，而<strong>对准时间</strong>对 D2W 吞吐量的影响远大于对 W2W 的影响，因为它会随芯片数量成倍增加。这两个障碍正是混合键合几乎成为前道工艺的原因。</p>
+<p><strong>图 5：一个小颗粒在混合键合中打开一个空洞和一个开路接触</strong></p>
+<figure><div><div><img alt="" height="232" src="https://substackcdn.com/image/fetch/$s_!_TqG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3511d6d-3406-48a5-b818-80aca90d0a7c_902x232.png" width="902"></div></div><figcaption>来源：SemiAnalysis</figcaption></figure>
+<p>我们相信 ASML 能够凭借数十年在光刻领域解决同样两个问题的经验来应对这两点。</p>
+<p><strong>对于对准，我们相信 ASML 可以复用其晶圆对准传感器技术。</strong>根据其<a href="https://patents.google.com/patent/TW202616420A/en">专利申请</a>，键合系统在每个裸片上放置一个微小的衍射光栅，并通过光栅散射的光来读取裸片的位置。其原理与<a href="https://www.asml.com/en/company/stories/2021/fellow-simon-mathijssen-aligning-lithography-nanometer">ORION</a> 相同，后者是自 2017 年以来每台新 TWINSCAN 上的晶圆对准传感器。ORION 旨在读取被 CMP 和刻蚀倾斜或变形的标记（图 6），而键合裸片上的标记会经历与其旁边铜焊盘相同的 CMP 和等离子体激活，因此具有相同的不对称性。我们相信同一传感器系列可以服务于 D2W 键合机。</p>
+<p><strong>图 6：对称和倾斜的对准标记。工艺步骤会移动表观中心；ORION 的多色读出正是为了看穿这一点而构建的</strong></p>
+<figure><div><div><img alt="" height="159" src="https://substackcdn.com/image/fetch/$s_!NR0y!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff401c807-b2b1-4291-82e2-ba55679929dd_564x159.png" width="564"></div></div><figcaption>来源：ASML，《将光刻对准到纳米级》，2021 年 12 月</figcaption></figure>
+<p><strong>其传感和运动能力也为其在总对准误差预算中提供了更多空间。</strong>其 <a href="https://www.asml.com/en/products/duv-lithography-systems/twinscan-nxt2100i">NXT:2100i</a> 在单台机器上保持 0.9 纳米套刻精度。而且 ASML 已经能够测量 W2W 键合晶圆的畸变，并在下一光刻层中进行校正，将键合后套刻精度从 40-60 纳米降至 4 纳米以下（图 7）。这些是光刻数据，不是键合结果。但它们意味着 ASML 的传感器和工件台误差比键合机所需的 50 纳米低一个数量级以上。更高的工件台精度为键合机的误差预算中的其他因素留出了更多空间：夹具上的裸片偏移、热漂移以及接触过程中的移动。</p>
+<p><strong>图 7：ASML 量测加扫描仪校正将键合后套刻精度提升至 2.5-3.9 纳米</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!kznq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffb6bca63-32fe-4237-9030-273f28a2d894_1536x825.png"><div><img alt="" height="782" src="https://substackcdn.com/image/fetch/$s_!kznq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffb6bca63-32fe-4237-9030-273f28a2d894_1536x825.png" width="1456"></div></a><figcaption>来源：ASML 投资者日，2024 年 11 月 14 日</figcaption></figure>
+<p>Prodrive Technologies 和 VDL ETG 是<a href="https://www.thelec.net/news/articleView.html?idxno=5864">可能</a>帮助 ASML 键合机在运动方面快速推进的组件供应商。Prodrive 为 ASML 的 EUV 磁悬浮工件台制造直线电机和驱动器，并且还建造了 Hanwha Semitech 的 SHB2 Nano 键合机。VDL ETG 制造 ASML 的框架和模块（图 8）。</p>
+<p><strong>图 8：Prodrive 的直线电机（左）和 VDL ETG 的晶圆传输模块（右）</strong></p>
+<figure><a href="https://substackcdn.com/image/fetch/$s_!tObq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe914a2f5-f1c4-4aa3-ac7e-af959781a38b_1212x495.png"><div><img alt="" height="495" src="https://substackcdn.com/image/fetch/$s_!tObq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe914a2f5-f1c4-4aa3-ac7e-af959781a38b_1212x495.png" width="1212"></div></a><figcaption>来源：公司网站</figcaption></figure>
+<p><strong>在洁净度方面，ASML 的 EUV 系统要求比键合机更为严格。</strong>很少有设备厂商像 ASML 那样长期与纳米级颗粒作斗争。EUV 光刻机在真空中传输掩模版和晶圆，并将掩模版颗粒增加量控制在“<a href="https://doi.org/10.1117/12.2514874">与亚 10nm 节点光刻的 HVM 要求兼容</a>”的水平。我们认为 ASML 也考虑过键合表面：其<a href="https://patents.google.com/patent/WO2026098870A1/en">键合装置</a>专利申请增加了一个清洁基板支撑件的工具，以及一个监测其平整度、颗粒负载和形变的传感器。</p>
+<p>话虽如此，键合机中的污染物与光刻机中的不同。大多数是芯片边缘的切割碎屑，以及落在刚激活的亲水表面上的颗粒。我们期待在未来的专利申请中看到更多关于 ASML 如何处理这些键合机特有污染物的细节。</p>
+<p>在付费墙之后，我们将讨论 ASML 要打造一台可用的设备需要解决的挑战，以及其设备将如何影响 Besi 的业务前景。</p>
+<h2>ASML 需要解决的未解问题</h2>
+<p>
+          <a href="https://newsletter.semianalysis.com/p/asml-is-building-a-hybrid-bonding">
+              阅读更多
+          </a>
+      </p>
+<p><a href="https://newsletter.semianalysis.com/p/asml-is-building-a-hybrid-bonding">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Arm 称其 AGI CPU 在最新 agentic AI CPU 测试中每机架性能接近 AMD EPYC 9755 的两倍</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Arm 称其 AGI CPU 在最新 agentic AI CPU 测试中每机架性能接近 AMD EPYC 9755 的两倍</h1>
+<p><small>Tom&#x27;s Hardware · 评分 6/10：agentic AI 负载评测方法学与芯片性能，相关但属厂商宣称<br/>原标题：Arm says its AGI CPU delivers nearly 2X the performance per rack of AMD EPYC 9755 in new agentic AI CPU tests</small></p>
+<p><strong>要点</strong></p><ul><li>Arm 称其 AGI CPU 每机架性能接近 AMD EPYC 9755 的两倍</li><li>该结论基于 Arm 自研评测方法，由 Signal65 受委托独立分析验证</li><li>芯片级测试中 Arm 在 7 项负载里 5 项领先，平均快 20%</li></ul>
+<hr/>
+<p><a href="https://www.arm.com/">Arm</a>上周宣布，其面向agentic AI工作负载的数据中心CPU——<a href="https://www.tomshardware.com/tech-industry/semiconductors/arm-launches-its-first-data-center-cpu">AGI CPU</a>，每机架性能是<a href="https://www.tomshardware.com/pc-components/cpus/amd-128-core-zen-5-based-epyc-9755-turin-tested-2x-faster-than-128-core-predecessor">AMD EPYC 9755</a>的两倍。该数据基于七项工作负载测得的芯片性能和服务器功耗假设计算得出。这一说法源自与Arm新CPU评估方法学一致的测试所建立的机架级建模结果，该方法学在富士通、Meta和OpenAI的支持下开发。</p>
+<p>这些结果由<a href="https://signal65.com/research/ai/arm-agi-cpu-performance-rack-scale/"><em>Signal65</em></a>受Arm委托进行的独立分析验证，但并不能确立AGI CPU是agentic AI领域的整体领先者，因为结果仅适用于所选处理器、工作负载和配置。它们还采用了Arm开发的特定评估方法学，Arm称该方法学应成为评估性能的新标准。然而，AMD和Intel等其他芯片厂商基于不同的<a href="https://www.tomshardware.com/tag/benchmark">benchmark</a>提出性能主张。那么，Agentic AI正在如何改变CPU性能benchmark，Arm提议测量什么，不同方法又如何比较？</p>
+<h2>Arm的新CPU评估方法学</h2>
+<p>Agentic AI正在改变CPU在现代AI数据中心中的角色，要求它们处理复杂的多步骤工作流。除了由加速器处理的推理之外，AI agent还会执行工具、检索数据，并在隔离环境中维护状态，表现得像虚拟用户。CPU负责这些关键的周边工作负载，从运行这些工具、处理数据库或API请求，到为加速器准备数据和协调工作。</p>
+<p>随着这些工作负载随agentic能力快速扩展，衡量CPU性能不仅看能同时运行多少agent，还要看完成了多少有效工作，这一点变得越来越重要。Arm认为，CPU性能越来越取决于系统在保持响应性的同时能持续完成多少有效工作。如果agent的执行受到限制，或者加速器不得不空闲等待CPU，那么同时支持更多agent带来的好处有限。功耗、散热和物理空间也限制了运营商可部署的硬件数量，从而将性能问题延伸到机架层面。</p>
+<p>Arm提出的CPU性能评估方法学在富士通、Meta和OpenAI的支持下开发，核心是代表性agent工作负载、可重复的CPU测量，以及针对端到端任务结果的验证。在实际操作中，该方法学识别agent使用的工具和服务，在受控条件下测量其CPU性能，并检查改进是否有助于agent完成任务。例如，数据库测试可以确定系统处理事务的速度。端到端评估随后会考察更快的数据库访问是否真正改善了依赖它的工作流。</p>
+<p>执行方法学的第二个方面——使这些比较可重复——带来了另一个挑战，因为agent每次运行时可能会选择不同的命令或采取不同的任务路径。模型推理和远程服务也会引入延迟。Arm提议回放录制的agent操作，将CPU性能与这种可变性分离，使不同系统能够执行一致的工作序列。其白皮书提出了选择和解读这些测量的框架，将制定公认的benchmark套件和评分方法的任务留给业界。</p>
+<p>为了评估其框架中描述的 CPU 工作负载，Arm 在其 AGI CPU 和 AMD 的 EPYC 9755 上运行了七项工作负载——涵盖工具链、agentic 工作流以及推理/规划，外加用于衡量 agent 执行时沙箱创建开销的 Sandbench。这些测试将成熟的服务器应用与聚焦 agent 工作流的 benchmark 相结合。</p>
+<p><strong>工作负载与细分</strong></p><ul><li><strong>工作负载</strong> · <strong>代表什么</strong> · <strong>指标</strong></li><li>MySQL · agent 工具背后的事务型数据库 · 每秒事务数</li><li>NGINX · Web 和 API 请求处理 · 每秒请求数</li><li>Milvus · 用于检索的向量搜索 · 每秒查询数</li><li>Terminal-Bench 2 · 沙箱容器中的 72 种 agent 任务类型，同时运行 128 个副本 · 任务完成时间</li><li>SWE-bench 回放 · 软件工程 agent 工作流，259 个任务 · 每分钟任务数</li><li>fastText · CPU 词表示训练 · 每秒词数</li><li>vLLM CPU 开销 · 绕过模型计算时的 CPU 服务开销 · 每秒请求数</li></ul>
+<p>vLLM 的结果衡量的是模型执行周边的 CPU 工作，而非 GPU 推理吞吐量。同样，报告中的“推理/规划”类别归集的是配套 CPU 工作负载，并不评估模型的推理智能程度。</p>
+<h2>ARM AGI CPU 对比 AMD EPYC 9755</h2>
+<p>由于硬件可用性限制，Arm 在测试中使用了两种 AGI CPU 配置：128 核、2.8 GHz、DDR5-7200 的芯片用于 Terminal-Bench 2 和 SWE-bench 回放，136 核、3.2 GHz、DDR5-8000 的芯片用于其余五项工作负载。AMD 对比平台使用单路 128 核 EPYC 9755 搭配 DDR5-6400。两个平台运行相同的 benchmark 脚本，但软件环境不同。Arm 使用定制的 Linux 7.1.3 构建，大多数测试使用 Ubuntu 24.04，SWE-bench 使用 Ubuntu 26.04；而 AMD 主要记录的配置使用 Ubuntu 24.04 和 Linux 6.8，各项测试的设置有所不同。</p>
+<p>在芯片层面，Arm 的 AGI CPU 在七项测试中的五项里胜过 AMD 竞品。以 EPYC 9755 为基线，Arm 在 Terminal-Bench 上领先 9%，在 SWE-bench 上领先 13%，在 fastText 上领先 97%，但在 MySQL 和 Milvus 吞吐量上分别落后 12% 和 5%。按七项归一化性能比计算，AGI CPU 平均每芯片领先 20%（1.20 倍）。</p>
+<p><strong>结果</strong></p><ul><li><strong>工作负载</strong> · <strong>相对 EPYC 9755 的单芯片实测性能</strong> · <strong>相对 EPYC 9755 的单机架建模性能</strong></li><li>MySQL · 0.88x · 1.43x</li><li>NGINX · 1.20x · 1.95x</li><li>Terminal-Bench 2 · 1.09x · 1.93x</li><li>SWE-bench 回放 · 1.13x · 2.00x</li><li>Milvus · 0.95x · 1.54x</li><li>vLLM CPU 开销 · 1.16x · 1.88x</li><li>fastText · 1.97x · 3.19x</li><li><strong>算术平均值</strong> · 1.20x · 1.99x</li></ul>
+<p>在机架层面，Arm 的建模性能平均为 AMD 的 1.99 倍，在全部七项工作负载中均领先。该模型采用额定服务器功耗估算：128 核 Arm 配置为 950 W，136 核版本为 1,050 W，AMD 为 1,700 W，包含内存及其他系统组件。在 24 kW 机架功率预算中预留约 8% 用于网络和配电后，可容纳 23 台或 21 台 Arm 服务器，而 AMD 服务器为 13 台。</p>
+<p>对于 SWE-bench，2.00 倍的单机架结果由约 1.13 倍的单芯片结果乘以 23/13 得出。更大的增益来自在相同功率预算内装入更多服务器。此外，这些预测使用的是建模的整机功耗，而非来自两个满配机架的吞吐量实测数据。</p>
+<p>Arm 的模型还为 AMD 服务器分配了大约两倍的 RAM：约 2 TB，而 Arm 为 1 TB。它按每个硬件线程分配 4 GB，每个 AMD 核心支持两个线程，而每个 Arm 核心支持一个线程。这使得 AMD 的内存功耗配额为 336 W，Arm 为 192 W。Signal65 还计算了按物理核心分配内存时的情况。在这种设置下，AMD 的内存和功耗配额下降，Arm 的平均建模机架优势从 1.99 倍降至约 1.81 倍。AMD 2 TB 配置的实用性取决于工作负载实际需要多少内存，因为 SMT 本身并不需要两倍的内存。</p>
+<p>为验证这些发现，<em>Signal65 </em>远程观察了 Arm 的测试运行，并检查了原始日志、结果文件、脚本和配置记录。一个独立的审查团队用自己的代码重建了计算，并在 0.5% 的误差内复现了全部七项结果。然而，<em>Signal65 </em>并未在自己的实验室中进行独立的硬件重跑。此外，<em>Signal65 </em>只能独立确认 EPYC 9965 系统的 BIOS 和内存设置。这些设置在 Arm 和 EPYC 9755 系统上无法进行独立验证。再加上软件差异，这些缺口略微影响了将结果归因于处理器本身的确定性。</p>
+<h2>Arm 的方法与 AMD 和 Nvidia 的对比</h2>
+<p>尽管 Arm 认为其方法论应成为标准，但它并不垄断业界评估 agentic CPU 性能的方式。例如，AMD 推崇每瓦、每美元和每机架的 agent 数量。其 EPYC 9006 页面的脚注将可用 CPU 线程确定为 agent 容量的代理指标，实际吞吐量取决于工作负载和系统。其单独的工作负载分析建模了一个 100 kW 机架，并声称 EPYC 9965 相比 <a href="https://www.tomshardware.com/pc-components/cpus/hot-chips-2026-nvidia-breaks-down-88-core-vera-cpu-spatial-multithreading-benchmarked-1-2-tb-s-socamm2-memory-agentic-workloads-detailed-and-more">Nvidia 的 Vera</a> 有 2.37 倍的性能，使用的是六种基础设施工作负载的几何平均值。</p>
+<p>另一方面，Nvidia 强调 Vera 的单线程性能和内存带宽，并表示一个 256 CPU 的机架支持超过 22,500 个并发 CPU 环境。这些数字描述的是不同的事物，并不直接意味着任何特定优势。各制造商的方法论因工作负载、功耗假设和聚合方法而异，使得直接的 CPU 比较变得复杂。当前的比较是针对 AMD 第五代“Turin”处理器，拥有 128 个核心。该公司今年推出了最新的<a href="https://www.tomshardware.com/pc-components/cpus/amd-shares-first-official-benchmarks-for-epyc-venice-cpus-targets-nvidia-company-claims-256-core-chip-is-more-than-twice-as-fast-as-nvidia-vera-96-core-model-20-percent-faster-per-core">第六代 EPYC 9006“Venice”系列</a>，专为 agentic AI 打造。</p>
+<p><a href="https://www.tomshardware.com/pc-components/cpus/arm-claims-agi-cpu-delivers-double-the-performance-per-rack-of-amd-epyc-9755-in-independent-analysis-new-cpu-evaluation-methodology-developed-by-arm-evaluates-agentic-ai-performance-across-seven-workloads">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

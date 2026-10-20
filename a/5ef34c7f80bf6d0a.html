@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Surface Laptop Ultra 首发体验：是最强 Windows 笔记本，也是 AI 时代的全能本</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">Surface Laptop Ultra 首发体验：是最强 Windows 笔记本，也是 AI 时代的全能本</h1>
+<p><small>爱范儿 · 评分 6/10：Windows on Arm 新硬件实测，与芯片和 Mac 生态相关</small></p>
+<p><strong>要点</strong></p><ul><li>微软与英伟达发布 RTX Spark 平台，Surface Laptop Ultra 同步开启预售</li><li>RTX Spark N1X 最高配 20 核 CPU、128GB 统一内存，AI 算力达 1 PFLOPS</li><li>本地实测 Qwen3.5 35B 生成速度达 59.65 Token 每秒</li></ul>
+<hr/>
+<p><img src="https://s3.ifanr.com/wp-content/uploads/2026/10/cover-3-scaled.jpg">从 5 月首秀，到 10 月预售，等了小半年，英伟达给 Windows 准备的「最强外援」RTX Spark 终于来了。</p>
+<p>10 月 7 日，微软在旧金山举行 Windows 与 Surface 发布会。黄仁勋与纳德拉同台对谈，搭载 RTX Spark N1X 的 Surface Laptop Ultra 和第一批 RTX Spark OEM 机型开启预售，将于 10 月 16 日正式上市。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056612624-1.jpg"></p>
+<div>图｜黄仁勋与纳德拉在 Windows 与 Surface 发布会现场（来源 Microsoft）</div>
+<p>爱范儿也第一时间拿到了这台 Surface Laptop Ultra，并上手了现场多款 RTX Spark 电脑。从让 WorkBuddy 在本地干活，到直接拉开复杂的虚幻 5 工程，再到用 DLSS 5 玩游戏，这批 Windows AI PC 的实际表现，确实比预想中更扎实。</p>
+<p>英伟达把 20 核 CPU、Blackwell 显卡和 128GB 内存打包塞进了这颗芯片，但落到实际的产品体验上，这台由微软操刀的 Surface Laptop Ultra，用起来究竟怎么样？</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056614861-2.jpg"></p>
+<div>图｜Surface Laptop Ultra 与 Surface RTX Spark Dev Box（来源 Microsoft）</div>
+<h2>Surface 的硬件，老黄的芯片</h2>
+<p>Surface Laptop Ultra 上手的第一印象，是系列一如既往的踏实感。</p>
+<p>全金属机身、利落平直的线条，依然是熟悉的 Surface 味道。正面这块 15 英寸 3:2 触控屏用上了 Mini LED 发光材料，HDR 峰值亮度达到了 2000 尼特，不管是审片调色还是跑虚幻 5 的光影演示，色彩和细节都让人印象深刻。</p>
+<p>整机厚度做到了大约 18mm，重量刚好压在 2.0kg。虽然放进双肩包的电脑仓不算吃力，但只要你把它单手拿在手里，沉甸甸的扎实分量会立刻提醒你：它就是一台冲着性能来的随身「AI 超算」。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056616774-3.jpg"></p>
+<p>为了保证 RTX Spark 的性能极致释放，微软还给 Surface Laptop Ultra 上足了散热冗余，机身的厚度和分量显然为此做了让步。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056620824-4.jpg"></p>
+<div>图｜Surface Laptop Ultra 官方散热结构演示画面（来源 Microsoft）</div>
+<p>右侧的磁吸 USB-C 接口，是一个让我爱不释手的小设计。</p>
+<p>微软把它叫做 Magnetic Connect。插上官方磁吸线，它能像 MagSafe 一样防绊防扯；拔掉磁吸头，它依然是个能传数据、能接显示器的满血 Type-C。既兼顾了磁吸的顺手，又没有浪费宝贵的高速接口，这种细节对经常带着电脑四处跑的人非常友好。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056626075-5.gif"></p>
+<div>图｜Magnetic Connect 磁吸 USB-C 充电接口（来源 Microsoft）</div>
+<p>右侧除了磁吸口，还留出了 USB-A 3.1、HDMI 2.1、全尺寸 SD 卡槽和 3.5mm 耳机孔；机身左侧则排布有两个满血 USB-C。作为一台移动工作站，它的接口表现确实很合格，出门在外处理工作，也不需要局促地挂着拓展坞。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056635915-6.jpg"></p>
+<div>图｜Microsoft</div>
+<p>不过，真正让这台 Surface 产生质变的，还是藏在精致外壳内部的那颗 RTX Spark 芯片。</p>
+<p>RTX Spark N1X 平台最高提供 20 核 Grace CPU、6144 个 CUDA 核心的 Blackwell RTX GPU，以及最大 128GB 的统一内存。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056636718-7.jpg"></p>
+<div>图｜NVIDIA</div>
+<p>官方标称它在 FP4 精度与稀疏计算下，最高 AI 算力能达到惊人的 1 PFLOPS，相当于每秒整整一千万亿次浮点运算。</p>
+<p>很多人可能对这串天文数字没有直观概念——这个数字是目前主流轻薄 AI PC（40–50 TOPS 级别）的整整二十多倍，以往这种规模的算力，通常只能在机房里的数据中心或者大型工作站上才能见到。</p>
+<p>但更重要的，还是最高支持 128GB 的统一内存，这才是整台机器的杀手锏。</p>
+<p>在传统 PC 上折腾过本地 AI 的人都知道，卡脖子的从来不是显卡算力，而是显存。哪怕买到顶配如 5080 显卡，也就 16GB 显存。</p>
+<p><strong>想跑参数稍大一点的模型？对不起，连权重文件都加载不进去，直接就报错闪退了。</strong></p>
+<p>而在统一内存架构下，显卡能直接调用整块 128GB 内存池，哪怕扣除掉操作系统和日常软件的开销，剩下留给模型的空间，也足够在本地跑起以往只能放在服务器上的超大模型了。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056639619-8.jpg"></p>
+<div>图｜RTX Spark 芯片官方示意（来源 Microsoft）</div>
+<p>英伟达的 CUDA 生态，这次 RTX Spark 也能原生支持。开发者能把原本在台式机或服务器上跑得顺手的整套工具链，无缝地搬到这台随身笔记本上，省去了重新折腾适配环境的麻烦。</p>
+<p>无论是模型推理还是 3D 渲染，有成熟的 CUDA 生态兜底，硬件的性能都能无损转化为随时可用的生产力。</p>
+<p>在英伟达和微软的号召下，Windows 阵营的 OEM 制造商们也推出了自家的 RTX Spark 机型，让这次新平台的首发阵容格外强悍。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056641833-9.jpg"></p>
+<p>譬如华硕，就在一台仅重 1.48kg、14 英寸的 ProArt P14 上，硬生生塞进了最高 128GB 的统一内存；联想和微星，则推出了能翻折、能手写的二合一 PC；还有戴尔 XPS 16、惠普 OmniBook 等也都推出了 RTX Spark 版本。</p>
+<p><strong>显然，这</strong><strong>就是有史以来最强的</strong> Windows on Arm <strong>阵容——微软是铁了心要把这个系统扶起来。</strong></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056644780-10.jpg"></p>
+<div>图｜RTX Spark 合作厂商机型（来源 NVIDIA）</div>
+<h2>智能、超能、全能</h2>
+<p>在拿到 Surface Laptop Ultra 的这段时间，爱范儿也体验了多个使用场景，其中让人印象最深刻的应用，是 WorkBuddy。</p>
+<p>不同于市面上云端的 WorkBuddy，Surface Laptop Ultra 上的最新版本，已经可以下载本地模型，直接调用这台电脑的端侧算力执行 Agent 任务。</p>
+<p>实际体验下来，响应和吐字速度都很跟手，部分任务在断网离线状态下也能直接跑完。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056645966-11.jpg"></p>
+<p>WorkBuddy 让人眼前一亮的地方，在于它直接把本地大模型做成了能落地的日常生产力。你不需要懂什么复杂的推理环境配置，它就能直接接管系统权限，调动各种本地工具替你处理文件、跑任务流程。</p>
+<p><strong>这就让 AI Agent 类产品，同时拥有了</strong><strong>端侧和云端</strong>算力<strong>。</strong></p>
+<p>遇到复杂的逻辑推理或者要查最新信息，就可以调用云端的大模型去深度思考；如果是整理本地文档、批量格式转换这种琐碎活，用笔记本自己的算力，就能在本地哐哐开干。</p>
+<p>费脑子的重活让云端算，涉及本地文件的跑腿活就在电脑里解决，既能出色地完成任务，又能帮你剩下不少 Token。</p>
+<p>尽管目前，WorkBuddy 还不支持「端云混合」的模式，自动切换云端或本地模型，但 RTX Spark 的出现，无疑为这样的场景提供了丰富的想象力。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056650342-12.jpg"></p>
+<div>图｜Windows 混合智能示意（来源 Microsoft）</div>
+<p>统一内存带来的底气，最直观的体现就是本地大模型。像 Qwen 3.5、Qwen 3.8 这些开源模型，现在都能在端侧实现真正的「Token 自由」。</p>
+<p>我们在本地通过 Ollama + Open WebUI 跑了实测：Qwen3.5 35B-A3B（Q4 量化）跑出了接近 60 Token 每秒（59.65 Token 每秒）的持续生成速度，两千多字一口气输出，体验行云流水；换到参数更密集的 Qwen3.8 27B，预热后也能达到 20.98 Token 每秒。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056652018-13.jpg"></p>
+<div>图｜通过 Ollama + Open WebUI 运行 Qwen3.5 35B 本地实测，生成速度达 59.65 Token 每秒</div>
+<p>这对于需要跑长链条代码循环的工程，或者需要反复调试提示词的任务来说，在本地随便折腾都不用担心云端按次扣费的账单。而且就算在高铁飞机上断了网，手头的工作也完全不会停摆，商业机密和未公开代码更不需要上传到第三方服务器。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056653936-14.jpg"></p>
+<div>图｜GitHub Copilot 本地模型运行与 GPU 使用情况（来源 Microsoft）</div>
+<p>还有一种玩法，是让算力延伸到物理世界产生互动。</p>
+<p>在活动现场，爱范儿也体验到了用来演示的 Mirobot 机械臂和各种小机器人，能够直接连着这台电脑做本地调试。</p>
+<p>由于没有云端往返的网络延迟，改完一段控制逻辑，桌上的机械臂就能立刻给出物理动作反馈。这种边调边试、所见即所得的体验，对搞具身智能和硬件开发的人来说，应该很有吸引力。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056657282-15.jpg"></p>
+<div>图｜The Verge</div>
+<p>Hugging Face 旗下的 Microduck 小鸭机器人，目前已经开放了训练流程。<strong>而</strong><strong><em>通过 Home Assistant，</em></strong>笔记本电脑上的<strong><em>本地模型</em></strong>，<strong><em>甚至能帮你接管家里的智能家居</em></strong>，成为算力不间断的家庭智能中枢。</p>
+<p>生产力部分，熟悉的「曼哈顿」也来了。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056659670-16.jpg"></p>
+<p>这是虚幻 5 引擎中的一个城市演示场景，有着极高密度的建筑，并且每一个平面都支持用 RTX 光追效果进行渲染。</p>
+<p>即便如此，整个工程文件依然可以流畅运行，这对于需要带着项目见客户、到现场调试方案的工程师来说，能随身打开演示项目，本身就是一种生产力。</p>
+<p>除了跑 AI 跑工程，这台 Surface Laptop Ultra 跑游戏也很有一手。</p>
+<p>按照英伟达的说法，它的图形性能大致对标移动版 RTX 5070。我们在现场上手了《NBA 2K27》《毁灭战士：黑暗时代》等游戏，帧率表现相当流畅。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056662858-17.jpg"></p>
+<p>而 DLSS 5 的加入，则让游戏的画面更上一个台阶。它利用游戏画面和运动向量进行三维引导的神经渲染，直接参与画面的塑造、改善光照与材质表现。在《NBA 2K27》里，皮肤的光感、毛发透光与接触阴影，都让人物更有真实感。</p>
+<p>光看官方展台的演示还不够，爱范儿也跑了几款主流的 3A 游戏，看看它在日常使用里到底能跑到什么水平。</p>
+<p>先看重负载 3A 代表《赛博朋克 2077》（1080p、DLSS 自动、关帧生成）：在关闭光追时，平均帧率能达到 67.17 FPS，最低帧也有 51.50 FPS；</p>
+<p>在「光线追踪：超级」预设下，平均帧率也有 39.49 FPS，在光影全开的顶格画面里沉浸过剧情，视觉享受依然赏心悦目。</p>
+<div>
+<div><img alt="" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056664887-18.jpg"></div>
+<div><img alt="" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056667155-19.jpg"></div>
+</div>
+
+<div>图｜关闭光追（左），开启「光追：超级」（右）</div>
+<p>偏电竞的《CS 2》中，Surface Laptop Ultra 在 1080P 非常高画质的 Dust2 基准测试里拿下了 109.7 FPS 的平均帧，稍微降低一些画质，达到「电竞级」的表现没有问题。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056668779-20.jpg"></p>
+<p>真正带来惊喜的是《漫威争锋》。我们这次提前体验到了原生适配 Arm 的版本。</p>
+<p>在 1080P 全极高画质（Lumen 全局光照与反射）、DLSS 原生档并开启自动帧生成的设定下，游戏内置测试跑出了平均 171 帧的成绩，激烈团战场景下的 1% Low 也有 138 帧，画面丝滑。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056670389-21.jpg"></p>
+<div>图｜《漫威争锋》1080p 极高画质开启 DLSS 帧生成实测，平均 171 FPS</div>
+<p>从 3A 单机到竞技网游，这几项实测清晰地划出了一条基准线：它确实拥有了正经游戏本的图形底盘。不过，要想让玩家真正放心地把它当主力机打游戏，还要翻过另一座大山。</p>
+<p>过去提起 Windows on Arm 玩游戏，大部分玩家的第一反应都是怀疑：转译掉帧不说，再加上反作弊驱动这个老大难问题，很多网游连大厅都进不去。</p>
+<p>不过，这次微软和老黄显然下定决心要把这块最大的短板补齐——底层有 Prism 负责转译兜底，像 Steam、XBOX 等平台上的游戏，大部分都能装上也都能流畅跑。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056673508-22.jpg"></p>
+<p>更难啃的反作弊大山（从 Easy Anti-Cheat 到腾讯 ACE、Vanguard），微软、英伟达也在和开发商陆续打通。</p>
+<p>微软甚至直接砸出了一张王牌：全球最热门的 FPS 游戏《使命召唤》，将于 2027 年正式登陆 RTX Spark 平台。</p>
+<p>虽然生态的彻底补齐依然需要时间，但 Windows on Arm 玩游戏，这次似乎真有希望了。</p>
+<p>跑得动本地重度大模型，带得出门做三维工程渲染，回到家还能痛痛快快打 3A 游戏。RTX Spark 想做的「AI 时代全能本」，开始有了具象模样。</p>
+<h2>AI 时代，Windows 终于等来救星</h2>
+<p>作为 RTX Spark 平台的首秀产品，Surface Laptop Ultra 的体验确实挑不出什么毛病——唯一让人望而却步的，其实就是价格。</p>
+<p>Surface Laptop Ultra 的起步价就要 21988 元，而且这个入门款只给了 24GB 内存和 512GB 存储；真正能把 70B 大模型跑爽的 128GB 顶配版，<strong>价格更是飙到了 48388 元。</strong></p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056675685-23.jpg"></p>
+<p>其他 OEM 机型同样不便宜，联想 Yoga Pro 15 RTX Spark 的 64GB 版本售价 29999 元，128GB 顶配版也来到了 42999 元。</p>
+<p>但考虑到 5060 游戏本的价格也已经涨到一万块出头，这个价格并非难以理解。</p>
+<p>作为一个崭新的、面向未来的 AI PC 平台，RTX Spark 无疑还有很长的路要走。相较于已经在专业生产力领域打出名堂的其他竞品而言，微软和英伟达还要开拓更多的场景、连接更多的应用并且拿出更大的诚意，来让用户接受 RTX Spark。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056677878-24.jpg"></p>
+<p>某种程度上讲，当下购入一台 RTX Spark 笔记本电脑，无疑是个「战未来」的选择。</p>
+<p>工欲善其事，必先利其器——在 PC 时代，往往会有创业者为了提供更顺畅的服务，砸重金包下一条网络专线；而在 AI PC 时代，拿下的算力越多、成本越低，能创造的机会也就越多。</p>
+<p>对于需要在客户驻场部署模型、随时调试硬件机器人，或者 AI 行业的创业者而言，RTX Spark 的吸引力无可替代——最主流的开发生态、足够强劲的算力和一个双肩包就能背走的轻便。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056680377-25.jpg"></p>
+<p>但如果你不是这样的用户，只是想买一个不错的游戏本或办公本，在 RTX Spark 之外依然有丰富的选择。</p>
+<p>目前的 RTX Spark，更像是一款专门为极致硬核用户量身定制的重型装备，<strong>它的象征意义和标杆价值，远大过</strong><strong><em>普罗大众</em></strong>的消费热情。</p>
+<p>它确实为 Windows 生态开辟了一块至关重要的试验田。软件厂商终于可以放开手脚，围绕大容量统一内存和本地算力去开发真家伙，而不是整天围着聊天框打转，为捉襟见肘的算力发愁。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056683670-26.jpg"></p>
+<p>看着微软和英伟达在台上站在一起，很难不让人联想起当年的 Wintel 黄金时代。</p>
+<p>那时候，英特尔负责把处理器性能推到极致，微软负责把 Windows 铺满千家万户，软硬件紧紧咬合在一起滚雪球：软件越多，买电脑的人越多；用户越多，开发者就越愿意为新硬件写程序。</p>
+<p>如今，老黄和纳德拉重聚在 Arm 架构下，想要复制的，显然就是这种能让整个生态重新跑起来的正向循环。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056687291-27.jpg"></p>
+<p>只是这一次，横亘在面前的，不再是某个具体的硬件公司，而是无处不在、吞噬一切的云端大模型们。</p>
+<p>而用户的设备，无论是什么配置，只要能连上网，就能调用全世界最聪明的大模型。</p>
+<p><strong>AI 越来越厉害，并不天然构成大家掏出真金白银换电脑的理由。</strong></p>
+<p>这也正是 WorkBuddy 这类应用的价值所在。它把本地算力接进了现有的工作流，让用户能在一次次调用中感受到本地算力的便利。</p>
+<p>只有当本地算力真正嵌入日常操作、在无需网络的极端场景下也能解决实际问题， RTX Spark 和 Surface Laptop Ultra 才不会沦为展台上的炫技，而是成为桌面上离不开的生产工具。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056689328-28.jpg"></p>
+<div>图｜Microsoft</div>
+<p>英伟达需要继续降低模型在本地部署和调优的门槛，联合更多愿意押注端侧模型的合作伙伴；而微软，则必须证明自家系统管理 Agent 的安全性和稳定性。归根结底，大家在本地部署省下来的时间，不能转头就被糟糕的系统体验浪费掉。</p>
+<p>从这个角度来看，Windows 甚至比英伟达更急迫地需要打赢这一仗。如果未来的 AI 统统留在云端，英伟达在数据中心照样日进斗金；但 Windows 却很可能被架空，沦为一个仅仅用来点开浏览器的无聊外壳。</p>
+<p>微软必须向所有人证明：当 Agent 真正开始替人类打理日常工作时，个人电脑依然是掌控一切的绝对中枢。</p>
+<p><img alt="Image" src="https://s3.ifanr.com/wp-content/uploads/2026/10/lark2pad-1792056691269-29.jpg"></p>
+<p>实际体验过 Surface Laptop Ultra 之后，爱范儿确信我们已经看到了 AI 时代全能本的轮廓。它有随身工作站的能力，也保留了创作和游戏的乐趣。</p>
+<p>Windows 的救星确实已经赶到了，接下来，就要看微软如何兑现承诺，让大家觉得这笔昂贵的算力投入，真正物有所值了。</p>
+<p>#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。</p>
+<p><strong>同一件事的其他来源</strong></p><ul><li><a href="https://www.theverge.com/tech/1012628/microsoft-surface-laptop-ultra-review">Surface Laptop Ultra 评测：另一种 MacBook Pro</a><small> · The Verge</small></li><li><a href="https://arstechnica.com/reviews/2026/10/the-surface-laptop-ultra-delivers-on-most-of-microsofts-promises/">Surface Laptop Ultra 兑现了微软的大部分承诺</a><small> · Ars Technica</small></li></ul>
+<p><a href="https://www.ifanr.com/1684442?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

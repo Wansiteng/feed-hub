@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NVIDIA 与半导体领军企业推进 AI 芯片设计与制造，打造 AI 定义晶圆厂</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">NVIDIA 与半导体领军企业推进 AI 芯片设计与制造，打造 AI 定义晶圆厂</h1>
+<p><small>评分 6/10：英伟达发布 CUDA-X 新库，芯片制造 AI 化有实质信息<br/>原标题：NVIDIA and Semiconductor Leaders Advance AI Across Chip Design and Manufacturing for AI-Defined Fabs</small></p>
+<p><strong>要点</strong></p><ul><li>NVIDIA 推出 CUDA-X 新库 cuPotential，早期测试中让已 GPU 优化的流程再快 2-3 倍</li><li>Lam Research 借助 NanoVDB 实现 30 倍更快的芯片制造仿真</li><li>Synopsys 用 cuEST 在 QuantumATK 上取得 30 倍加速，用 cuDSS 在 S-Device 上取得 12 倍加速</li></ul>
+<hr/>
+<p><strong>新闻摘要：</strong></p>
+<ul type="disc">
+	<li>NVIDIA 推出 cuPotential，这是一款全新的 NVIDIA CUDA-X 库，开发者可用其构建模拟原子和分子相互作用的 AI agent，在早期访问测试中，将已针对 GPU 优化的工作流进一步加速 2-3 倍。</li>
+	<li>NanoVDB 是一个用于处理 3D 数据的开源库，可加速 AI 定义晶圆厂的芯片制造仿真，帮助 Lam Research 实现仿真速度提升 30 倍。</li>
+	<li>NVIDIA NPP 是一个用于在 GPU 上处理图像的库，可加速 AI 定义晶圆厂的芯片制造检测，帮助 KLA 加速检测流程。</li>
+	<li>Applied Materials、Cadence、KLA、Lam Research、Siemens、Synopsys 等半导体领军企业正在芯片设计、制造和测试环节采用 NVIDIA 的加速计算与 AI 技术栈，助力加快开发速度、提升良率并扩大产能。</li>
+</ul>
+<p>NVIDIA 今日宣布，多家半导体领军企业正在采用 <a href="https://www.nvidia.com/en-us/technologies/cuda-x/" title=""><u>NVIDIA CUDA-X</u></a>™ 系列库——包括全新的 NVIDIA cuPotential 库，开发者可用其构建模拟原子和分子相互作用的 AI agent——以推进 AI 定义晶圆厂的发展。</p>
+<p>AI 定义晶圆厂是指借助 AI 帮助工程师优化工艺、解决生产问题并提升生产效率的半导体工厂。随着先进芯片需求不断增长，此类晶圆厂必须在扩大生产的同时，应对日益复杂的制造流程。工程师需要新的方法来建模材料、分析检测数据，并在数字孪生中测试工艺变更，然后再将其应用于实际生产。</p>
+<p>扩展后的 CUDA-X 产品组合为 AI agent 和工程应用提供了用于半导体仿真、3D 数据处理和图像分析的加速工具，帮助在芯片设计与制造环节实现更多工程工作的自动化，使晶圆厂能够预测工艺行为并提升良率。</p>
+<p>“半导体行业让 AI 革命成为可能。如今，AI 正在改变芯片的制造方式，”NVIDIA 工业与计算工程副总裁兼总经理 Tim Costa 表示。“在晶圆厂竞相满足先进芯片需求之际，NVIDIA CUDA-X 和 Omniverse 库为 AI agent 提供了加速仿真与检测工具，帮助工程师应对复杂性、提升良率并推进 AI 定义晶圆厂的发展。”</p>
+<p><strong>NVIDIA cuPotential 加速研究人员对原子相互作用的建模</strong><br>
+理解原子和分子如何相互作用，对于半导体材料和制造工艺的建模至关重要，但即便是在已针对 GPU 优化的软件中，这些计算也可能耗费大量时间。</p>
+<p>NVIDIA cuPotential 通过开发者可添加到现有软件中的专用 GPU 加速函数，加速原子级仿真。它帮助研究人员对大量原子间的电场力及其他相互作用进行建模，从而更快地测试和优化仿真。Synopsys 是早期采用者之一，正使用 cuPotential 加速材料仿真。</p>
+<p>通过将这些建模能力提供给 AI agent，cuPotential 帮助 agent 运行、评估并迭代高级分子仿真。在早期访问测试中，该库将已针对 GPU 优化的工作流进一步加速了 2-3 倍。</p>
+<p><strong>半导体领军企业借助 NVIDIA CUDA-X 推进 AI 定义晶圆厂</strong><br>
+AI 定义晶圆厂需要更快的方法，在变更投入生产之前对芯片设计、材料行为和制造工艺进行建模。NVIDIA CUDA-X 库——包括用于模拟原子相互作用的 NVIDIA cuPotential、用于建模电子行为的 NVIDIA cuEST，以及用于求解复杂工程仿真的 NVIDIA cuDSS——可加速这些工作负载，助力晶圆厂实现更高程度的自主化。</p>
+<p>Synopsys 正在使用 cuPotential、cuEST 和 cuDSS 加速半导体仿真，早期 QuantumATK 结果显示，使用 cuEST 有望实现 30 倍加速，而 S-Device 基准测试显示，使用 cuDSS 可实现 12 倍加速。该公司的 AgentEngineer 解决方案可与 <a href="https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/" title=""><u>NVIDIA Nemotron</u></a>™ 开放模型和 <a href="https://www.nvidia.com/en-us/ai-data-science/products/nemo/" title=""><u>NVIDIA NeMo</u></a>™ 互操作，以支持用于芯片设计和验证的 AI agent。</p>
+<p>Cadence 正在利用 NVIDIA 加速计算、NVIDIA Nemotron 开放模型和 CUDA-X 库，将 agentic AI 引入机电系统的设计与仿真——从半导体到先进封装和印刷电路板。示例包括 Cadence AuraStack AI Super Agent 使用 cuDSS 与 Cadence Celsius 将先进封装的热和应力优化速度提升 8 倍，以及 Nemotron 与 ChipStack AI Super Agent 用于半导体设计和验证。</p>
+<p>COMSOL 正在利用 NVIDIA cuDSS 加速半导体多物理场仿真，提供高达 10 倍的仿真速度提升，帮助工程师优化设备和工艺。其即将推出的 COMSOL MCP Server 将使用 NVIDIA Nemotron Ultra 开放模型，以实现 AI 辅助建模和设计探索。</p>
+<p>Voltai 通过 Voltaire 加速先进芯片封装，这是其用于 3D-IC 设计和仿真的 agentic 多物理场平台。Voltaire 将 AI agent 与由 NVIDIA cuDSS 和 CUDA-X 库驱动的 GPU 加速求解器相结合，将复杂的电-热-机械仿真工作流程从数月压缩到一天。</p>
+<p>ChipAgents 利用 NVIDIA AI 基础设施和 NVIDIA 模型训练与优化软件，开发用于芯片设计的专用 AI 模型。该公司还在与 NVIDIA 合作开发 <a href="https://chipagents.ai/newsroom/chipagents-nvidia-build-a-chip-bench" title=""><u>Build-A-Chip Bench</u></a>，这是一个新的 AI 基准测试，用于评估 agent 在从规格到图形数据系统的端到端工作流程中的表现。该基准测试为行业提供了一个全面的衡量标准，以衡量在实现完全自主半导体工程方面的进展。</p>
+<p><strong>NVIDIA 开放库帮助准备和优化制造工作流程</strong><br>
+晶圆厂依赖于数千个工艺步骤，这些步骤必须在生产前进行建模、优化和验证。<a href="https://developer.nvidia.com/culitho" title=""><u>NVIDIA cuLitho</u></a> 库加速了芯片图案印刷的计算；NanoVDB——一个用于处理 3D 数据的开源库——加速了芯片制造仿真；而开放的 <a href="https://developer.nvidia.com/physicsnemo" title=""><u>NVIDIA PhysicsNeMo</u></a>™ 框架有助于训练物理 AI 模型，以预测物理系统的行为。</p>
+<p><a href="https://news.siemens.com/en-us/siemens-nvidia-culitho/" title=""><u>Siemens</u></a> 正在使用 cuLitho 加速 Calibre 软件，用于芯片图案优化和掩膜准备。其 Solido 团队还在利用 Nemotron 开放模型和 <a href="https://www.nvidia.com/en-us/ai-data-science/products/nemo/" title=""><u>NVIDIA NeMo</u></a> 开放库开发 agent 驱动的表征工作流程。</p>
+<p>Lam Research 打算将 NanoVDB 集成到其先进的半导体工艺建模平台 <a href="https://www.lamresearch.com/product/semulator3d/" title=""><u>SEMulator3D</u></a> 中，该平台是该公司 <a href="https://www.lamresearch.com/semiverse-solutions/" title=""><u>Semiverse Solutions</u></a> 虚拟产品系列的一部分。NanoVDB 的加入预计将把选定的晶圆刻蚀建模速度提升高达 30 倍，同时使用 NVIDIA PhysicsNeMo 已被证明有助于将等离子体预测仿真时间从数天缩短至仅几毫秒。</p>
+<p>Luminary 正在将 NVIDIA PhysicsNeMo 应用于半导体封装设计，训练物理 AI 模型来预测各种封装配置下的温度、压降和热应力——使工程师能够在相同的时间安排内探索多出 100 倍的设计方案，而无需为每个选项运行新的仿真。</p>
+<p><strong>AI 定义的晶圆厂利用 NVIDIA CUDA-X 库检测和测试芯片</strong><br>
+AI 定义的晶圆厂需要足够快地分析检测图像和测试数据，以发现缺陷、维护设备并提高良率。NVIDIA NPP 是一款在 GPU 上处理图像的库，NVIDIA RAPIDS cuDF 是一款在 GPU 上处理大型数据集的库，它们有助于加速测试和质量控制工作流程。</p>
+<p>利用 NVIDIA AI 和加速计算，imec 正在去除用于亚纳米芯片测量的扫描电子显微镜图像中的噪声，并使用 NVIDIA cuLitho 实现计算密集型工艺窗口光学邻近效应校正——使光刻工艺窗口提升了 30%。</p>
+<p>KLA 将其高度优化的生产内核中的洞见应用于新的 NPP NCC 内核，实现了比早期 CPU 版本快 50 倍的性能水平，可与 KLA 手工调优的实现相媲美。</p>
+<p>Teradyne 正在使用 NVIDIA NPP 和加速计算来加速图像传感器测试，并使用 RAPIDS cuDF 和 CuPy 进行 GPU 计算，以提供约 85 倍更快的探针维护推理，帮助在劣化探针影响良率之前识别它们。</p>
+<p>Advantest 已将 NVIDIA Nemotron 和 <a href="https://huggingface.co/nvidia/Kumo-Anomaly" title=""><u>NVIDIA Kumo-Anomaly</u></a> 集成到 ACS RTDI 中，以实现 AI 驱动的半导体生产分析。在 <a href="https://www.nvidia.com/en-us/data-center/technologies/blackwell-architecture/" title=""><u>NVIDIA Grace Blackwell </u></a>系统的支持下，ACS 提供实时诊断和推理，为测试单元推荐纠正措施。Advantest 还使用 <a href="https://www.nvidia.com/en-us/ai-data-science/products/nemo/" title=""><u>NVIDIA NeMo</u></a> Switchyard AI agent 来自动化模型选择，简化半导体测试工作流程，并将响应时间从数小时缩短到数分钟。</p>
+<p><strong>NVIDIA 技术推进晶圆厂运营和自动化</strong><br>
+在 AI 定义的晶圆厂中，设备数据必须足够快地从仪器传输到 AI 系统，以支持运营决策。</p>
+<p>Applied Materials 正在材料发现、工艺开发和晶圆厂优化中采用 NVIDIA Omniverse™ 和 NVIDIA CUDA-X 库（包括 cuDSS、cuEST 和 PhysicsNeMo）——实现高达 35 倍的腔室仿真加速，以及有助于优化布局和物料流的晶圆厂数字孪生。</p>
+<p>Analog Devices Inc. 正在将 Synopsys 物理仿真与 NVIDIA Isaac Sim™ 框架和 Omniverse 库相结合，开发高保真传感仿真和机器人基准测试，帮助工程师评估传感器在完整机器人系统中的行为。</p>
+<p>FANUC 和 Foxconn 正在将其机器人模型连接到 Mega NVIDIA Omniverse Blueprint，使制造商能够在实际部署之前在工厂数字孪生中仿真和验证机器人操作。</p>
+<p>OMRON 正在其检测设备中使用 NVIDIA Cosmos™ 开放世界模型和 NVIDIA Metropolis Blueprint 进行视频搜索和摘要，以开发结合视觉数据、设备文档和制造知识的 agent。这些 agent 帮助工程师分析印刷电路板结果、调查潜在缺陷原因，并支持故障排除和质量控制。</p>
+<p><strong>可用性</strong><br>
+NVIDIA cuPotential 现已开放早期访问。NanoVDB 作为开源项目在 OpenVDB 中提供，NPP 可通过 <a href="https://developer.nvidia.com/cuda/toolkit" title=""><u>NVIDIA CUDA Toolkit</u></a> 获取。Lam Research 基于 NanoVDB 加速的 SEMulator3D 功能计划于今年年底发布。</p>
+<p><em>欢迎参加 </em><a href="https://www.nvidia.com/en-us/events/semicon-west/" title=""><em><u>NVIDIA 在 SEMICON West 的活动</u></em></a><em>，了解更多信息。</em></p>
+<p><a href="https://nvidianews.nvidia.com/news/nvidia-and-semiconductor-leaders-advance-ai-across-chip-design-and-manufacturing-for-ai-defined-labs">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>

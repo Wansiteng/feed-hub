@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-o4XhxXNGdoyooiCPZLv4QRTBDZQbsK8+Cexg/lRtsJE='; style-src 'self'; font-src 'self'; img-src 'self' https: http: data:; media-src 'self' https: http:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<script id="theme-init">(function(){var p;try{p=localStorage.getItem("feedhub.theme")}catch(e){}if(p!=="light"&&p!=="dark")p="system";var d=p==="dark"||(p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.setAttribute("data-theme",d?"dark":"light");r.setAttribute("data-theme-pref",p)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>用 LFM2.5-24B-A2B 在设备端运行快速、私密的 agent</title>
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts/fonts.css"><link rel="stylesheet" href="../assets/tokens.css"><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/reading.css">
+</head>
+<body>
+<main class="reading-page">
+<article class="prose">
+<h1 class="reading-title">用 LFM2.5-24B-A2B 在设备端运行快速、私密的 agent</h1>
+<p><small>评分 8/10：本地端侧 agent 模型，契合本地推理与 agent 兴趣<br/>原标题：Run fast, private agents on-device with LFM2.5-24B-A2B</small></p>
+<p><strong>要点</strong></p><ul><li>LFM2.5-24B-A2B 是 24B 参数、仅 2B 激活参数的端侧推理模型，支持工具调用与多步任务</li><li>在 LiveClaw 上得分 48.09，超过 Qwen3.6-35B-A3B 的 38.19</li><li>在 Apple M5 Max 上解码速度 184 tok/s，单张 NVIDIA B300 GPU 高并发下输出超 21K tok/s</li></ul>
+<hr/>
+<p><a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B"><strong>LFM2.5-24B-A2B</strong></a> 是一个 240 亿参数的推理模型，仅有 20 亿活跃参数，专为在设备上运行快速、私密的 agent 而打造。它先思考再作答，能调用工具，并可在主流 agent harness 中完成多步任务。由于每个 token 仅激活 20 亿参数，每个推理 token 的成本都很低，因此你可以在自己的硬件上持续运行 agent。
+</p>
+<ul>
+<li><strong>同类最佳 agent：</strong>在 agentic 和工具使用任务上与 Qwen3.6-35B-A3B 不相上下，而后者总参数和活跃参数均多出约 50%，在 LiveClaw 上得分为 48.09，后者为 38.19。</li>
+<li><strong>以 MoE 速度推理：</strong>始终先思考再作答。每个 token 仅激活 20 亿参数，每个推理 token 的成本都很低。</li>
+<li><strong>高效推理：</strong>在 Apple M5 Max 上达到 184 tok/s，在单块 NVIDIA B300 GPU 上输出最高可达 21K tok/s。</li>
+</ul>
+<p><a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-benchmark.png"><img src="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-benchmark.png" alt="LFM2.5-24B-A2B-benchmark"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		我们如何用 20 亿活跃参数构建一个推理 agent
+	</span>
+</h2>
+<p>LFM2.5-24B-A2B 基于 <a href="https://huggingface.co/LiquidAI/LFM2-24B-A2B">LFM2-24B-A2B</a> 构建，并沿用了其架构：40 层、每个 MoE 块 64 个专家、top-4 路由，以及门控短卷积与 GQA 的相同混合结构。上下文窗口从 32K 扩展到 131K token，并通过<a href="https://www.liquid.ai/blog/tokenizer-expansion">原地 tokenizer 扩展</a>将词表从 65K 翻倍至 128K token，以改善非拉丁语系的 tokenization。与前代不同，它是一个纯推理模型，在给出最终答案前会生成显式的思维链。</p>
+<p>预训练规模从约 17T token 扩大到约 33T token。随后中期训练在 32K 上下文下加入 2T token，侧重推理、数学、代码、指令遵循和多语言文本，并在 131K 上下文下加入 300B token，侧重长上下文数据。工具调用和多轮轨迹贯穿这两个阶段。后训练通过五个阶段将基础模型转变为 agent：</p>
+<ol>
+<li><strong>监督微调（SFT）</strong></li>
+<li><strong>教师专业化</strong></li>
+<li><strong>多领域同策略蒸馏（MOPD），非 agentic：</strong>在非 agentic 任务上蒸馏专业化教师模型。</li>
+<li><strong>MOPD，agentic：</strong>第二个蒸馏阶段，聚焦 agentic 任务。</li>
+<li><strong>Agentic 强化学习（Agentic RL）：</strong>在 agent harness 中训练模型，例如 <a href="https://openclaw.ai">OpenClaw</a>、<a href="https://hermes-agent.nousresearch.com">Hermes Agent</a>、<a href="https://pi.dev">Pi</a> 和 <a href="https://opencode.ai">OpenCode</a>。</li>
+</ol>
+<p><a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-Training-Recipe.png"><img src="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-Training-Recipe.png" alt="LFM2.5-24B-A2B-Training-Recipe"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		基准测试结果
+	</span>
+</h2>
+<p>我们在 16 项基准测试上对 LFM2.5-24B-A2B 与 Qwen3.6-35B-A3B、Gemma-4-26B-A4B-it 和 Nemotron-3.5-Lightning 进行了评估，涵盖工具使用与 agentic 工作流、知识、指令遵循、数学和编程。它是这组中规模最小的模型，却能与总参数和活跃参数多出约 50% 的 MoE 模型相抗衡。</p>
+<ul><li><strong>AutomationBench</strong><br>LFM2.5-24B-A2B：<strong>27.69</strong> · Qwen3.6-35B-A3B：8.72 · Gemma-4-26B-A4B-it：5.46 · Nemotron-3.5-Lightning (30B-A3B)：2.61</li><li><strong>BFCLv4</strong><br>LFM2.5-24B-A2B：<strong>65.01</strong> · Qwen3.6-35B-A3B：65.00 · Gemma-4-26B-A4B-it：57.09 · Nemotron-3.5-Lightning (30B-A3B)：53.78</li><li><strong>ToolSandbox</strong><br>LFM2.5-24B-A2B：<strong>80.71</strong> · Qwen3.6-35B-A3B：75.02 · Gemma-4-26B-A4B-it：72.09 · Nemotron-3.5-Lightning (30B-A3B)：75.13</li><li><strong>LiveClaw</strong><br>LFM2.5-24B-A2B：<strong>48.09</strong> · Qwen3.6-35B-A3B：38.19 · Gemma-4-26B-A4B-it：41.25 · Nemotron-3.5-Lightning (30B-A3B)：37.72</li><li><strong>PinchBench</strong><br>LFM2.5-24B-A2B：83.18 · Qwen3.6-35B-A3B：<strong>89.93</strong> · Gemma-4-26B-A4B-it：77.12 · Nemotron-3.5-Lightning (30B-A3B)：84.20</li><li><strong>τ³-Bench Banking</strong><br>LFM2.5-24B-A2B：<strong>8.04</strong> · Qwen3.6-35B-A3B：7.63 · Gemma-4-26B-A4B-it：4.54 · Nemotron-3.5-Lightning (30B-A3B)：7.01</li><li><strong>WebArena Verified</strong><br>LFM2.5-24B-A2B：26.75 · Qwen3.6-35B-A3B：<strong>37.62</strong> · Gemma-4-26B-A4B-it：25.62 · Nemotron-3.5-Lightning (30B-A3B)：28.69</li><li><strong>GPQA Diamond</strong><br>LFM2.5-24B-A2B：74.42 · Qwen3.6-35B-A3B：<strong>83.69</strong> · Gemma-4-26B-A4B-it：74.90 · Nemotron-3.5-Lightning (30B-A3B)：72.42</li><li><strong>AA-Omniscience</strong><br>LFM2.5-24B-A2B：-24.90 · Qwen3.6-35B-A3B：-24.35 · Gemma-4-26B-A4B-it：-59.39 · Nemotron-3.5-Lightning (30B-A3B)：<strong>-3.58</strong></li><li><strong>HLE</strong><br>LFM2.5-24B-A2B：7.40 · Qwen3.6-35B-A3B：7.69 · Gemma-4-26B-A4B-it：<strong>8.57</strong> · Nemotron-3.5-Lightning (30B-A3B)：5.65</li><li><strong>IFEval</strong><br>LFM2.5-24B-A2B：<strong>96.75</strong> · Qwen3.6-35B-A3B：93.06 · Gemma-4-26B-A4B-it：92.00 · Nemotron-3.5-Lightning (30B-A3B)：94.19</li><li><strong>IFBench</strong><br>LFM2.5-24B-A2B：<strong>74.69</strong> · Qwen3.6-35B-A3B：64.21 · Gemma-4-26B-A4B-it：47.44 · Nemotron-3.5-Lightning (30B-A3B)：71.67</li><li><strong>Multi-IF</strong><br>LFM2.5-24B-A2B：<strong>84.38</strong> · Qwen3.6-35B-A3B：81.53 · Gemma-4-26B-A4B-it：82.19 · Nemotron-3.5-Lightning (30B-A3B)：82.34</li><li><strong>MATH-500</strong><br>LFM2.5-24B-A2B：96.04 · Qwen3.6-35B-A3B：<strong>96.73</strong> · Gemma-4-26B-A4B-it：95.66 · Nemotron-3.5-Lightning (30B-A3B)：96.40</li><li><strong>SWE-Bench Verified (OpenCode)</strong><br>LFM2.5-24B-A2B：51.00 · Qwen3.6-35B-A3B：<strong>66.20</strong> · Gemma-4-26B-A4B-it：25.80 · Nemotron-3.5-Lightning (30B-A3B)：53.40</li><li><strong>SciCode</strong><br>LFM2.5-24B-A2B：32.71 · Qwen3.6-35B-A3B：<strong>37.35</strong> · Gemma-4-26B-A4B-it：35.42 · Nemotron-3.5-Lightning (30B-A3B)：27.78</li></ul>
+<p>*所有模型均使用 vLLM 进行评估，并采用各基准测试推荐的生成参数。</p>
+<p>对于你的应用而言，其优势在于工具使用和指令遵循。LFM2.5-24B-A2B 在八项工具使用和 agentic 基准测试中的五项（AutomationBench、BFCLv4、ToolSandbox、LiveClaw 和 τ³-Bench Banking）上领先或与竞争对手持平，并且在 AutomationBench 上的得分是第二名模型的三倍多。它还在全部三项指令遵循基准测试中领先。更大的模型在 GPQA Diamond、HLE 和 AA-Omniscience 等知识密集型基准测试，以及 SWE-Bench Verified (OpenCode) 和 SciCode 等编程基准测试上仍占优势，因此对于知识密集型工作负载，请将 LFM2.5-24B-A2B 与检索或网络搜索搭配使用。</p>
+<p>这些结果使 LFM2.5-24B-A2B 成为需要推理、调用工具并在你的设备上稳定运行的 agent 的坚实基础。</p>
+<h2>
+	
+		
+	
+	<span>
+		CPU 和 GPU 上的推理速度
+	</span>
+</h2>
+<p>LFM2.5-24B-A2B 从发布首日即获得整个推理生态的支持，包括 llama.cpp、MLX、vLLM、SGLang 和 ONNX。</p>
+<p><strong>边缘推理。</strong>LFM2.5-24B-A2B 是所对比的 MoE 中最快的，在 M5 Max 上解码速度达 184 tokens/s，在 Ryzen AI Max+ 395 上达 114 tokens/s。这比第二好的模型快至多 1.7 倍，同时占用内存最少。</p>
+<p><a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-edge-inference.png"><img src="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-edge-inference.png" alt="LFM2.5-24B-A2B-edge-inference"></a></p>
+<p><strong>GPU 推理。</strong>LFM2.5-24B-A2B 是同尺寸级别中最快的模型，在单块 B300 上高并发时输出速度超过每秒 21K tokens。</p>
+<p><a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-gpu-inference.png"><img src="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B/resolve/main/figures/LFM2.5-24B-A2B-gpu-inference.png" alt="LFM2.5-24B-A2B-gpu-inference"></a></p>
+<h2>
+	
+		
+	
+	<span>
+		如何使用 LFM2.5-24B-A2B
+	</span>
+</h2>
+<p>当你需要能在你的设备上推理、调用工具并稳定运行的 agent 时，就选 LFM2.5-24B-A2B。</p>
+<p>安装最新版本的 <code>transformers</code>（兼容 <code>transformers&gt;=5.0.0</code>）：</p>
+<pre><code>pip install -U transformers
+</code></pre>
+<p>然后加载并运行模型：</p>
+<pre><code><span>from</span> transformers <span>import</span> AutoModelForCausalLM, AutoTokenizer, TextStreamer
+
+model_id = <span>"LiquidAI/LFM2.5-24B-A2B"</span>
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    device_map=<span>"auto"</span>,
+    dtype=<span>"bfloat16"</span>,
+<span>#   attn_implementation="flash_attention_2" &lt;- uncomment on compatible GPU</span>
+)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+streamer = TextStreamer(tokenizer, skip_prompt=<span>True</span>, skip_special_tokens=<span>True</span>)
+
+prompt = <span>"What is C. elegans?"</span>
+
+input_ids = tokenizer.apply_chat_template(
+    [{<span>"role"</span>: <span>"user"</span>, <span>"content"</span>: prompt}],
+    add_generation_prompt=<span>True</span>,
+    return_tensors=<span>"pt"</span>,
+    tokenize=<span>True</span>,
+)[<span>"input_ids"</span>].to(model.device)
+
+output = model.generate(
+    input_ids,
+    do_sample=<span>True</span>,
+    temperature=<span>0.1</span>,
+    top_k=<span>50</span>,
+    repetition_penalty=<span>1.05</span>,
+    max_new_tokens=<span>512</span>,
+    streamer=streamer,
+)
+</code></pre>
+<h3>
+	
+		
+	
+	<span>
+		在你的 agent harness 中使用
+	</span>
+</h3>
+<p>在本地以任意 OpenAI 兼容后端部署 LFM2.5-24B-A2B，然后将你的 agent harness 指向它。例如，使用 Hermes Agent：</p>
+<pre><code>hermes config <span>set</span> model.provider custom
+hermes config <span>set</span> model.base_url http://localhost:8080/v1
+hermes config <span>set</span> model.default LFM2.5-24B-A2B
+hermes config <span>set</span> model.context_length 131072
+hermes config <span>set</span> model.api_mode chat_completions
+hermes config <span>set</span> agent.tool_use_enforcement <span>true</span>
+</code></pre>
+<p>端口取决于你的服务后端：llama.cpp 和 MLX 使用 <code>8080</code>，vLLM 使用 <code>8000</code>，SGLang 使用 <code>30000</code>，LM Studio 使用 <code>1234</code>。OpenClaw 和 Pi 的配置请参见<a href="https://huggingface.co/LiquidAI/LFM2.5-24B-A2B">模型卡</a>，完整设置请参见<a href="https://docs.liquid.ai/examples/agent-harnesses">我们的指南</a>。视频示例请查看我们的<a href="https://www.liquid.ai/blog/lfm2-5-24b-a2b">发布博客</a>。</p>
+<h2>
+	
+		
+	
+	<span>
+		开始使用 LFM2.5-24B-A2B
+	</span>
+</h2>
+<p>LFM2.5-24B-A2B 和 LFM2.5-24B-A2B-Base 均为开放权重，现已在 Hugging Face 上提供：</p>
+<p>我们迫不及待想看到你的作品。</p>
+<h2>
+	
+		
+	
+	<span>
+		引用
+	</span>
+</h2>
+<p>如果你使用了这项工作，请引用发布博客：</p>
+<pre><code>@article{liquidAI202624BA2B,
+  author  = {Liquid AI},
+  title   = {LFM2.5-24B-A2B: Built for Fast On-Device Agents},
+  journal = {Liquid AI Blog},
+  year    = {2026},
+  note    = {www.liquid.ai/blog/lfm2-5-24b-a2b},
+}
+</code></pre>
+<p><a href="https://huggingface.co/blog/LiquidAI/lfm25-24b-a2b">阅读原文 →</a></p>
+</article>
+</main>
+</body>
+</html>
